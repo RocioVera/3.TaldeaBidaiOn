@@ -6,7 +6,7 @@ import kontrolatzailea.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public class Leiho5Ticket extends JFrame {
+public class Leiho6Ticket extends JFrame {
 	private static final long serialVersionUID = 1L;
 	// panelan ikusten diren bariableak
 	private JLabel lblEskerrikAskoMezua1, lblEskerrikAskoMezua2;
@@ -26,7 +26,7 @@ public class Leiho5Ticket extends JFrame {
 	 * @param dataJoan
 	 * @param dataEtorri
 	 */
-	public Leiho5Ticket(String hartutakoLinea, Autobusak autobusa, int ibilbideZbk, int hasierakoGeltokiaKod,
+	public Leiho6Ticket(String hartutakoLinea, Autobusak autobusa, int ibilbideZbk, int hasierakoGeltokiaKod,
 			int amaierakoGeltokiaKod, Txartelak txartela, ArrayList<String> geltIzenak, String dataJoan,
 			String dataEtorri) {
 		// panelaren propietateak

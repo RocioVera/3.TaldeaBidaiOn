@@ -8,7 +8,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Leiho4Ordaindu extends JFrame {
+public class Leiho5Ordaindu extends JFrame {
 	private static final long serialVersionUID = 1L;
 	// panelan ikusten diren bariableak
 	private JTextField txtPrezioTot = new JTextField(), txtDiruFalta = new JTextField(), txtBueltak = new JTextField();
@@ -26,6 +26,7 @@ public class Leiho4Ordaindu extends JFrame {
 	private String txanponTot, diruFaltaString, ibilbideData;
 	private double diruFalta, sartutakoa;
 	private ArrayList<String> geltIzenak = new ArrayList<>();
+	private JCheckBox chckbxKodePromozionala;
 
 	/**
 	 * Ordaintzen duen panela sortu
@@ -40,7 +41,7 @@ public class Leiho4Ordaindu extends JFrame {
 	 * @param dataEtorri 
 	 * @param dataJoan 
 	 */
-	public Leiho4Ordaindu(String hartutakoLinea, Autobusak autobusa, int ibilbideZbk, int hasierakoGeltokiaKod,
+	public Leiho5Ordaindu(String hartutakoLinea, Autobusak autobusa, int ibilbideZbk, int hasierakoGeltokiaKod,
 			int amaierakoGeltokiaKod, float guztiraPrez, String nan, double altuera1, double luzera1, double altuera2,
 			double luzera2, ArrayList<Geltokiak> arrayGeltokia, String dataJoan, String dataEtorri) {
 		// panelaren propietateak
@@ -312,7 +313,7 @@ public class Leiho4Ordaindu extends JFrame {
 		txtDiruFalta.setForeground(Color.RED);
 		txtDiruFalta.setEditable(false);
 		txtDiruFalta.setColumns(10);
-		txtDiruFalta.setBounds(166, 393, 64, 20);
+		txtDiruFalta.setBounds(168, 388, 64, 20);
 		txtDiruFalta.setText(guztiraPrez + " €");
 		getContentPane().add(txtDiruFalta);
 
@@ -321,7 +322,7 @@ public class Leiho4Ordaindu extends JFrame {
 		txtBueltak.setForeground(Color.BLUE);
 		txtBueltak.setEditable(false);
 		txtBueltak.setColumns(10);
-		txtBueltak.setBounds(166, 439, 64, 20);
+		txtBueltak.setBounds(168, 434, 64, 20);
 		txtBueltak.setText("00.00€");
 		getContentPane().add(txtBueltak);
 
@@ -378,21 +379,21 @@ public class Leiho4Ordaindu extends JFrame {
 		btnErosi.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnErosi.setBackground(Color.WHITE);
 		btnErosi.setForeground(new Color(0, 0, 0));
-		btnErosi.setBounds(115, 321, 90, 38);
+		btnErosi.setBounds(109, 332, 90, 38);
 		getContentPane().add(btnErosi);
 
 		// Diru falta
 		lblDiruFalta = new JLabel("Diru falta:");
 		lblDiruFalta.setForeground(Color.RED);
 		lblDiruFalta.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblDiruFalta.setBounds(56, 393, 95, 20);
+		lblDiruFalta.setBounds(58, 388, 95, 20);
 		getContentPane().add(lblDiruFalta);
 
 		// Zenbat bueltak eman behar
 		lblBueltak = new JLabel("Bueltak:");
 		lblBueltak.setForeground(Color.BLUE);
 		lblBueltak.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblBueltak.setBounds(56, 439, 86, 20);
+		lblBueltak.setBounds(58, 434, 86, 20);
 		getContentPane().add(lblBueltak);
 
 		// Bueltak zerrenda
@@ -400,6 +401,10 @@ public class Leiho4Ordaindu extends JFrame {
 		txtrTxtareatxanponbueltak.setText("Emaiozu botoiari");
 		txtrTxtareatxanponbueltak.setBounds(332, 224, 174, 271);
 		getContentPane().add(txtrTxtareatxanponbueltak);
+		
+		chckbxKodePromozionala = new JCheckBox("Kode promozionala");
+		chckbxKodePromozionala.setBounds(38, 285, 160, 23);
+		getContentPane().add(chckbxKodePromozionala);
 
 	}
 }
