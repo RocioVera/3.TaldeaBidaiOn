@@ -33,7 +33,7 @@ public class Leiho1OngiEtorria extends JFrame {
 		getContentPane().add(aurreraBtn);
 		aurreraBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Metodoak.bigarrenLeihoa();
+				Metodoak.bigarrenLeihoa();
 				dispose();
 			}
 		});

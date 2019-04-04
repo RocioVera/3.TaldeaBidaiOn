@@ -3,6 +3,9 @@ package Ikuspegia;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.time.LocalDate;
 
@@ -12,12 +15,16 @@ import javax.swing.border.EmptyBorder;
 
 import com.toedter.calendar.JDateChooser;
 
+import Kontrolatzailea.Metodoak;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.SwingConstants;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JTextField;
 import java.awt.Button;
+import java.awt.Color;
+
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
@@ -46,11 +53,33 @@ public class Leiho2AukeratuOstatu extends JFrame {
 	private JDateChooser dchEtorri = new JDateChooser();
 	private JButton btnNewButton = new JButton("Bilatu");
 	private JList list = new JList();
+	private JButton btn_next = new JButton("Hurrengoa"), restart = new JButton("\u2302");
+
 
 	public Leiho2AukeratuOstatu() {
-
+		contentPane=(JPanel) this.getContentPane();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
+
+		btn_next.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Metodoak.hirugarrenLeihoa();
+
+			}
+		});
+		btn_next.setBounds(131, 488, 89, 23);
+		
+		contentPane.add(btn_next);
+		
+		restart.setBounds(289, 488, 89, 23);
+		btn_next.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Metodoak.lehenengoLeihoa();
+
+			}
+		});
+		contentPane.add(restart);
+				
 
 		setJMenuBar(menuBar);
 		menuBar.add(mnIzarKopurua);
@@ -96,5 +125,14 @@ public class Leiho2AukeratuOstatu extends JFrame {
 
 		list.setBounds(24, 121, 534, 334);
 		contentPane.add(list);
+		
+		JButton button = new JButton("Bilatu");
+		button.setBounds(82, 483, 89, 23);
+		contentPane.add(button);
+		
+		JButton button_1 = new JButton("Bilatu");
+		button_1.setBounds(382, 483, 89, 23);
+		contentPane.add(button_1);
+
 	}
 }

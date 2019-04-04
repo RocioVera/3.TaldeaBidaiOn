@@ -1,15 +1,23 @@
 package Ikuspegia;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Kontrolatzailea.Metodoak;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 
 public class Leiho4OstatuDatuak extends JFrame {
@@ -39,6 +47,8 @@ public class Leiho4OstatuDatuak extends JFrame {
 	private JCheckBox chckbxJatetxea = new JCheckBox("Jatetxea");
 	private JCheckBox chckbxTaberna = new JCheckBox("Taberna");
 	private JCheckBox chckbxGimnasioa = new JCheckBox("Gimnasioa");
+	private JButton btn_next = new JButton("Hurrengoa"), btn_prev = new JButton("Atzera"),
+			restart = new JButton("\u2302");
 
 	public Leiho4OstatuDatuak() {
 
@@ -48,6 +58,51 @@ public class Leiho4OstatuDatuak extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 
+		// botoiak
+				btn_next.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+				
+						Metodoak.fitxIdatzi(); // billetea fitxategian sartzen duen metodoari deitu
+					/*	Metodoak.seigarrenLeihoa(hartutakoLinea, autobusa, ibilbideZbk, hasierakoGeltokiaKod,
+								amaierakoGeltokiaKod, txartela,geltIzenak, dataJoan, dataEtorri);*/
+						dispose();
+					}
+				});
+				btn_next.setBounds(423, 508, 122, 32);
+				btn_next.setFont(new Font("Tahoma", Font.ITALIC, 16));
+				btn_next.setBackground(Color.LIGHT_GRAY);
+				btn_next.setForeground(Color.RED);
+				btn_next.setVisible(false);
+				getContentPane().add(btn_next);
+
+				btn_prev.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						Metodoak.laugarrenLeihoa();
+
+						dispose();
+					}
+				});
+				btn_prev.setBounds(38, 508, 99, 32);
+				btn_prev.setFont(new Font("Tahoma", Font.ITALIC, 16));
+				btn_prev.setForeground(Color.RED);
+				btn_prev.setBackground(Color.LIGHT_GRAY);
+				getContentPane().add(btn_prev);
+
+				restart.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						Metodoak.lehenengoLeihoa();
+						dispose();
+					}
+				});
+				restart.setBounds(245, 508, 72, 32);
+				restart.setForeground(Color.RED);
+				restart.setBackground(Color.LIGHT_GRAY);
+				getContentPane().add(restart);
+		
+		
 		getContentPane().setLayout(null);
 		contentPane.setLayout(null);
 		contentPane.setLayout(null);

@@ -23,10 +23,8 @@ public class Metodoak {
 		 * Leiho2 sortu.
 		 * @author talde1
 		 */
-		/*public static void bigarrenLeihoa() {
-			ArrayList<Lineak> lineak = new ArrayList<Lineak>();
-			lineak = Kontsultak.lineakDatuak();
-			Leiho2 Leiho2 = new Leiho2(lineak);
+		public static void bigarrenLeihoa() {
+			Leiho2AukeratuAldaketa Leiho2 = new Leiho2AukeratuAldaketa();
 			Leiho2.setVisible(true);
 		}
 

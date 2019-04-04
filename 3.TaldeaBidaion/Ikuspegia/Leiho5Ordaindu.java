@@ -2,7 +2,8 @@ package Ikuspegia;
 
 import java.awt.*;
 import javax.swing.*;
-import kontrolatzailea.*;
+
+import Kontrolatzailea.*;
 import java.awt.event.*;
 import java.sql.*;
 import java.time.LocalDate;
@@ -19,7 +20,6 @@ public class Leiho5Ordaindu extends JFrame {
 	private JLabel lblPrezioTotala, lblZenbatDiru, lblEuro, lblZentimo, lblDiruFalta, lblBueltak;
 
 	// bariableak
-	private Txartelak txartela;
 	private Date gaurkoData = Date.valueOf(LocalDate.now());
 	private Timestamp ordua = new Timestamp(System.currentTimeMillis());
 	private int kont = 0;
@@ -40,9 +40,7 @@ public class Leiho5Ordaindu extends JFrame {
 	 * @param dataEtorri 
 	 * @param dataJoan 
 	 */
-	public Leiho5Ordaindu(String hartutakoLinea, Autobusak autobusa, int ibilbideZbk, int hasierakoGeltokiaKod,
-			int amaierakoGeltokiaKod, float guztiraPrez, String nan, double altuera1, double luzera1, double altuera2,
-			double luzera2, ArrayList<Geltokiak> arrayGeltokia, String dataJoan, String dataEtorri) {
+	public Leiho5Ordaindu() {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png")); 
 		getContentPane().setLayout(null);
@@ -55,24 +53,10 @@ public class Leiho5Ordaindu extends JFrame {
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				txartela = new Txartelak(hartutakoLinea, autobusa.getKodBus(), hasierakoGeltokiaKod,
-						amaierakoGeltokiaKod, gaurkoData, ordua, nan, guztiraPrez, ibilbideZbk, ibilbideData);
-
-				geltIzenak=Metodoak.geltokienIzenakLortu(txartela);
-
-				if (txartela.getzIbilbidea()==1) {
-					ibilbideData=dataJoan;
-					Metodoak.sortuBilletea(txartela, ibilbideData,ibilbideZbk, (float)(guztiraPrez+0.005),hasierakoGeltokiaKod, amaierakoGeltokiaKod ); // billetea datu basera igotzen duen metodoari deitu
-				}
-				else if (txartela.getzIbilbidea()==2) {
-					ibilbideData=dataJoan;
-					Metodoak.sortuBilletea(txartela, ibilbideData,ibilbideZbk-1,(float)( guztiraPrez/2-0.005),hasierakoGeltokiaKod, amaierakoGeltokiaKod ); // billetea datu basera igotzen duen metodoari deitu
-					ibilbideData=dataEtorri;
-					Metodoak.sortuBilletea(txartela,ibilbideData,ibilbideZbk, (float)(guztiraPrez/2+0.005),amaierakoGeltokiaKod, hasierakoGeltokiaKod); // billetea datu basera igotzen duen metodoari deitu
-				}
-				Metodoak.fitxIdatzi(txartela, geltIzenak, dataJoan, dataEtorri); // billetea fitxategian sartzen duen metodoari deitu
-				Metodoak.seigarrenLeihoa(hartutakoLinea, autobusa, ibilbideZbk, hasierakoGeltokiaKod,
-						amaierakoGeltokiaKod, txartela,geltIzenak, dataJoan, dataEtorri);
+		
+				Metodoak.fitxIdatzi(); // billetea fitxategian sartzen duen metodoari deitu
+			/*	Metodoak.seigarrenLeihoa(hartutakoLinea, autobusa, ibilbideZbk, hasierakoGeltokiaKod,
+						amaierakoGeltokiaKod, txartela,geltIzenak, dataJoan, dataEtorri);*/
 				dispose();
 			}
 		});
@@ -86,8 +70,7 @@ public class Leiho5Ordaindu extends JFrame {
 		btn_prev.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Metodoak.laugarrenLeihoa(hartutakoLinea, autobusa, ibilbideZbk, hasierakoGeltokiaKod,
-						amaierakoGeltokiaKod, altuera1, luzera1, altuera2, luzera2, arrayGeltokia,dataJoan, dataEtorri);
+				Metodoak.laugarrenLeihoa();
 
 				dispose();
 			}
@@ -119,7 +102,7 @@ public class Leiho5Ordaindu extends JFrame {
 		txtPrezioTot.setEditable(false);
 		txtPrezioTot.setColumns(10);
 		txtPrezioTot.setBounds(300, 29, 86, 20);
-		txtPrezioTot.setText(guztiraPrez + " €");
+	//	txtPrezioTot.setText(guztiraPrez + " €");
 		getContentPane().add(txtPrezioTot);
 
 		/* ZenbatDiru sartu nahi */
@@ -313,7 +296,7 @@ public class Leiho5Ordaindu extends JFrame {
 		txtDiruFalta.setEditable(false);
 		txtDiruFalta.setColumns(10);
 		txtDiruFalta.setBounds(166, 393, 64, 20);
-		txtDiruFalta.setText(guztiraPrez + " €");
+	//	txtDiruFalta.setText(guztiraPrez + " €");
 		getContentPane().add(txtDiruFalta);
 
 		txtBueltak = new JTextField();
@@ -329,7 +312,7 @@ public class Leiho5Ordaindu extends JFrame {
 		btnErosi = new JButton("Erosi");
 		btnErosi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				diruFalta = Metodoak.diruFaltaBueltakMetodoa(diruFalta, guztiraPrez, sartutakoa);
+			//	diruFalta = Metodoak.diruFaltaBueltakMetodoa(diruFalta, guztiraPrez, sartutakoa);
 				diruFaltaString = String.valueOf(diruFalta);
 
 				if (diruFalta > 0) {

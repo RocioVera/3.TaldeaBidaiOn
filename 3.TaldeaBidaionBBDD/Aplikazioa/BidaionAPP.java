@@ -10,7 +10,7 @@ public class BidaionAPP {
 		Konexioa konex = new Konexioa(basedatos);
 		konex.getConexion();
 		
-	//Metodoak.lehenengoLeihoa();
+	Metodoak.lehenengoLeihoa();
 
 	}
 
