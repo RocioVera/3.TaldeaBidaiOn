@@ -28,7 +28,7 @@ public class Konexioa {
 		System.out.println(datuBasea+ " konektatuta" );
 	}
 
-	public Connection getConexion() {
+	public static Connection getConexion() {
 		return conexion;
 	}
 

@@ -1,138 +1,151 @@
 package Ikuspegia;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
+import javax.swing.*;
 import com.toedter.calendar.JDateChooser;
 
+import Kontrolatzailea.Hotela;
 import Kontrolatzailea.Metodoak;
 
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.SwingConstants;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JTextField;
-import java.awt.Button;
-import java.awt.Color;
-
-import javax.swing.JButton;
-import javax.swing.JList;
-import javax.swing.JMenuItem;
-import java.awt.Component;
-
 public class Leiho2AukeratuOstatu extends JFrame {
+	private static final long serialVersionUID = 1L;
 
-	private JPanel contentPane;
-	private JTextField textField = new JTextField();
+	private JTextField txtSartuHerria = new JTextField();
 	private JMenuBar menuBar = new JMenuBar();
-	private JMenu mnIzarKopurua = new JMenu("Izar kopurua");
-	private JCheckBoxMenuItem chckbxmntmIzar = new JCheckBoxMenuItem("5 Izar");
-	private JCheckBoxMenuItem chckbxmntmIzar_1 = new JCheckBoxMenuItem("4 Izar");
-	private JCheckBoxMenuItem chckbxmntmIzar_2 = new JCheckBoxMenuItem("3 Izar");
-	private JCheckBoxMenuItem chckbxmntmIzar_3 = new JCheckBoxMenuItem("2 Izar");
-	private JCheckBoxMenuItem chckbxmntmIzar_4 = new JCheckBoxMenuItem("1 Izar");
-	private JMenu mnOstatuMota = new JMenu("Ostatu mota");
-	private JCheckBoxMenuItem chckbxmntmHotela = new JCheckBoxMenuItem("Hotela");
-	private JCheckBoxMenuItem chckbxmntmApartamentua = new JCheckBoxMenuItem("Apartamentua");
-	private JCheckBoxMenuItem chckbxmntmEtxea = new JCheckBoxMenuItem("Etxea");
-	private JMenu mnOrdenatu = new JMenu("Ordenatu");
-	private JCheckBoxMenuItem chckbxmntmPrezioa = new JCheckBoxMenuItem("Prezioa");
-	private JCheckBoxMenuItem chckbxmntmAlfabetoa = new JCheckBoxMenuItem("Alfabetoa");
-	private JCheckBoxMenuItem chckbxmntmErreserbaKopurua = new JCheckBoxMenuItem("Erreserba kopurua");
-	private JDateChooser dchJoan = new JDateChooser();
-	private JDateChooser dchEtorri = new JDateChooser();
-	private JButton btnNewButton = new JButton("Bilatu");
-	private JList list = new JList();
-	private JButton btn_next = new JButton("Hurrengoa"), restart = new JButton("\u2302");
+	// izarkopuru
+	private JMenu mnIzarKopurua = new JMenu("       Izar kopurua      ");
+	private JCheckBoxMenuItem chckbxmntmIzar_5 = new JCheckBoxMenuItem("5 Izar"),
+			chckbxmntmIzar_1 = new JCheckBoxMenuItem("4 Izar"), chckbxmntmIzar_2 = new JCheckBoxMenuItem("3 Izar"),
+			chckbxmntmIzar_3 = new JCheckBoxMenuItem("2 Izar"), chckbxmntmIzar_4 = new JCheckBoxMenuItem("1 Izar");
+	// ostatu mota
+	private JMenu mnOstatuMota = new JMenu("       Ostatu mota      ");
+	private JCheckBoxMenuItem chckbxmntmHotela = new JCheckBoxMenuItem("Hotela"),
+			chckbxmntmApartamentua = new JCheckBoxMenuItem("Apartamentua"),
+			chckbxmntmEtxea = new JCheckBoxMenuItem("Etxea");
+	// ordenatu
+	private JMenu mnOrdenatu = new JMenu("        Ordenatu       ");
+	private JCheckBoxMenuItem chckbxmntmPrezioa = new JCheckBoxMenuItem("Prezioa"),
+			chckbxmntmAlfabetoa = new JCheckBoxMenuItem("Alfabetoa"),
+			chckbxmntmErreserbaKopurua = new JCheckBoxMenuItem("Erreserba kopurua");
 
+	private JDateChooser dchJoan = new JDateChooser(), dchEtorri = new JDateChooser();
+	private JButton btn_next = new JButton("Hurrengoa"), restart = new JButton("\u2302"),
+			btnBilatu = new JButton("Bilatu");
+	private JList list = new JList();
 
 	public Leiho2AukeratuOstatu() {
-		contentPane=(JPanel) this.getContentPane();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-
-		btn_next.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Metodoak.hirugarrenLeihoa();
-
-			}
-		});
-		btn_next.setBounds(131, 488, 89, 23);
-		
-		contentPane.add(btn_next);
-		
-		restart.setBounds(289, 488, 89, 23);
-		btn_next.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Metodoak.lehenengoLeihoa();
-
-			}
-		});
-		contentPane.add(restart);
-				
-
-		setJMenuBar(menuBar);
-		menuBar.add(mnIzarKopurua);
-		mnIzarKopurua.add(chckbxmntmIzar);
-		mnIzarKopurua.add(chckbxmntmIzar_1);
-		mnIzarKopurua.add(chckbxmntmIzar_2);
-		mnIzarKopurua.add(chckbxmntmIzar_3);
-		mnIzarKopurua.add(chckbxmntmIzar_4);
-		menuBar.add(mnOstatuMota);
-		mnOstatuMota.add(chckbxmntmHotela);
-		mnOstatuMota.add(chckbxmntmApartamentua);
-		mnOstatuMota.add(chckbxmntmEtxea);
-		menuBar.add(mnOrdenatu);
-		mnOrdenatu.add(chckbxmntmPrezioa);
-		mnOrdenatu.add(chckbxmntmAlfabetoa);
-		mnOrdenatu.add(chckbxmntmErreserbaKopurua);
-
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-
-		getContentPane().setLayout(null);
-		contentPane.setLayout(null);
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
+		this.getContentPane().setLayout(null);
 		this.setBounds(350, 50, 600, 600);
 		this.setResizable(false); // neurketak ez aldatzeko
 		this.setSize(new Dimension(600, 600));
-		this.setTitle("Ostatu zerrenda");
+		this.setTitle("3.taldearen ostatu zerbitzuen bilatzailea");
 
+		// botoiak
+		btn_next.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Metodoak.hirugarrenLeihoa();
+				dispose();
+			}
+		});
+		btn_next.setBounds(392, 477, 122, 32);
+		btn_next.setFont(new Font("Tahoma", Font.ITALIC, 16));
+		btn_next.setForeground(Color.RED);
+		btn_next.setBackground(Color.LIGHT_GRAY);
+		getContentPane().add(btn_next);
+
+		restart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Metodoak.lehenengoLeihoa();
+				dispose();
+			}
+		});
+		restart.setBounds(61, 483, 89, 23);
+		restart.setForeground(Color.RED);
+		restart.setBackground(Color.LIGHT_GRAY);
+		getContentPane().add(restart);
+
+		// Jmenua izar kopurua
+		this.setJMenuBar(menuBar);
+		mnIzarKopurua.setFont(new Font("Verdana", Font.PLAIN, 16));
+		menuBar.add(mnIzarKopurua);
+
+		// 1
+		mnIzarKopurua.add(chckbxmntmIzar_1);
+		chckbxmntmIzar_1.setFont(new Font("Verdana", Font.PLAIN, 16));
+		// 2
+		mnIzarKopurua.add(chckbxmntmIzar_2);
+		chckbxmntmIzar_2.setFont(new Font("Verdana", Font.PLAIN, 16));
+		// 3
+		mnIzarKopurua.add(chckbxmntmIzar_3);
+		chckbxmntmIzar_3.setFont(new Font("Verdana", Font.PLAIN, 16));
+		// 4
+		mnIzarKopurua.add(chckbxmntmIzar_4);
+		chckbxmntmIzar_4.setFont(new Font("Verdana", Font.PLAIN, 16));
+		// 5
+		mnIzarKopurua.add(chckbxmntmIzar_5);
+		chckbxmntmIzar_5.setFont(new Font("Verdana", Font.PLAIN, 16));
+
+		// ostatu mota
+		mnOstatuMota.setFont(new Font("Verdana", Font.PLAIN, 16));
+
+		menuBar.add(mnOstatuMota);
+		mnOstatuMota.add(chckbxmntmHotela);
+		chckbxmntmHotela.setFont(new Font("Verdana", Font.PLAIN, 16));
+		mnOstatuMota.add(chckbxmntmApartamentua);
+		chckbxmntmApartamentua.setFont(new Font("Verdana", Font.PLAIN, 16));
+		mnOstatuMota.add(chckbxmntmEtxea);
+		chckbxmntmEtxea.setFont(new Font("Verdana", Font.PLAIN, 16));
+
+		// ordenatzeko modua
+		mnOrdenatu.setFont(new Font("Verdana", Font.PLAIN, 16));
+		menuBar.add(mnOrdenatu);
+		mnOrdenatu.add(chckbxmntmPrezioa);
+		chckbxmntmPrezioa.setFont(new Font("Verdana", Font.PLAIN, 16));
+		mnOrdenatu.add(chckbxmntmAlfabetoa);
+		chckbxmntmAlfabetoa.setFont(new Font("Verdana", Font.PLAIN, 16));
+		mnOrdenatu.add(chckbxmntmErreserbaKopurua);
+		chckbxmntmErreserbaKopurua.setFont(new Font("Verdana", Font.PLAIN, 16));
+
+		// joan data
 		dchJoan.setBounds(230, 30, 113, 20);
-		contentPane.add(dchJoan);
+		getContentPane().add(dchJoan);
 		dchJoan.setDate(Date.valueOf(LocalDate.now()));
 
+		// etorri data
 		dchEtorri.setBounds(353, 30, 118, 20);
-		contentPane.add(dchEtorri);
+		getContentPane().add(dchEtorri);
 		dchEtorri.setDate(Date.valueOf(LocalDate.now()));
 
-		btnNewButton.setBounds(481, 30, 89, 23);
-		contentPane.add(btnNewButton);
+		// herria sartzeko lekua
+		txtSartuHerria.setText("");
+		txtSartuHerria.setBounds(24, 30, 180, 20);
+		txtSartuHerria.setColumns(10);
+		getContentPane().add(txtSartuHerria);
+		
+		btnBilatu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ArrayList<Hotela> arrayHotelak = new ArrayList<Hotela>();
+				//imprimir hoteles pero no sale la informacion
+				arrayHotelak = Metodoak.hotelakAtera(txtSartuHerria.getText());
+				for (int i = 0; i < arrayHotelak.size(); i++) {
+					System.out.println(arrayHotelak.get(0).getHotelKod());
+				}
+			}
+		});
 
-		textField.setBounds(24, 30, 180, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		// herria bilatzeko botoia
+		btnBilatu.setBounds(485, 25, 97, 25);
+		getContentPane().add(btnBilatu);
 
 		list.setBounds(24, 121, 534, 334);
-		contentPane.add(list);
-		
-		JButton button = new JButton("Bilatu");
-		button.setBounds(82, 483, 89, 23);
-		contentPane.add(button);
-		
-		JButton button_1 = new JButton("Bilatu");
-		button_1.setBounds(382, 483, 89, 23);
-		contentPane.add(button_1);
+		getContentPane().add(list);
 
 	}
 }

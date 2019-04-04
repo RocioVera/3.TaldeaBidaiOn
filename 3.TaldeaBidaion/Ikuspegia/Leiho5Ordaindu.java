@@ -27,20 +27,7 @@ public class Leiho5Ordaindu extends JFrame {
 	private double diruFalta, sartutakoa;
 	private ArrayList<String> geltIzenak = new ArrayList<>();
 
-	/**
-	 * Ordaintzen duen panela sortu
-	 * @param ibilbideZbk
-	 * @param nan
-	 * @param luzera2
-	 * @param altuera2
-	 * @param luzera1
-	 * @param altuera1
-	 * @author talde1
-	 * @param arrayGeltokia 
-	 * @param dataEtorri 
-	 * @param dataJoan 
-	 */
-	public Leiho5Ordaindu() {
+	public Leiho5Ordaindu(double guztiraPrez) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png")); 
 		getContentPane().setLayout(null);
@@ -53,10 +40,8 @@ public class Leiho5Ordaindu extends JFrame {
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-		
 				Metodoak.fitxIdatzi(); // billetea fitxategian sartzen duen metodoari deitu
-			/*	Metodoak.seigarrenLeihoa(hartutakoLinea, autobusa, ibilbideZbk, hasierakoGeltokiaKod,
-						amaierakoGeltokiaKod, txartela,geltIzenak, dataJoan, dataEtorri);*/
+				Metodoak.seigarrenLeihoa();
 				dispose();
 			}
 		});
@@ -102,7 +87,7 @@ public class Leiho5Ordaindu extends JFrame {
 		txtPrezioTot.setEditable(false);
 		txtPrezioTot.setColumns(10);
 		txtPrezioTot.setBounds(300, 29, 86, 20);
-	//	txtPrezioTot.setText(guztiraPrez + " €");
+		txtPrezioTot.setText(guztiraPrez + " €");
 		getContentPane().add(txtPrezioTot);
 
 		/* ZenbatDiru sartu nahi */
@@ -296,7 +281,7 @@ public class Leiho5Ordaindu extends JFrame {
 		txtDiruFalta.setEditable(false);
 		txtDiruFalta.setColumns(10);
 		txtDiruFalta.setBounds(166, 393, 64, 20);
-	//	txtDiruFalta.setText(guztiraPrez + " €");
+		txtDiruFalta.setText(guztiraPrez + " €");
 		getContentPane().add(txtDiruFalta);
 
 		txtBueltak = new JTextField();
@@ -312,7 +297,7 @@ public class Leiho5Ordaindu extends JFrame {
 		btnErosi = new JButton("Erosi");
 		btnErosi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			//	diruFalta = Metodoak.diruFaltaBueltakMetodoa(diruFalta, guztiraPrez, sartutakoa);
+				diruFalta = Metodoak.diruFaltaBueltakMetodoa(diruFalta, guztiraPrez, sartutakoa);
 				diruFaltaString = String.valueOf(diruFalta);
 
 				if (diruFalta > 0) {

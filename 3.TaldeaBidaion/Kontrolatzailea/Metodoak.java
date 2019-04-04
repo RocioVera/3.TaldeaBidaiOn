@@ -13,7 +13,7 @@ public class Metodoak {
 	public static void lehenengoLeihoa() {
 		Leiho1OngiEtorria Leiho1 = new Leiho1OngiEtorria();
 		Leiho1.setVisible(true);
-		
+
 	}
 
 	public static void bigarrenLeihoa() {
@@ -32,318 +32,30 @@ public class Metodoak {
 		Leiho4.setVisible(true);
 	}
 
-	/**
-	 * Leiho5 sortu.
-	 * 
-	 * @author talde1
-	 * 
-	 * @param luzera2
-	 * 
-	 * @param altuera2
-	 * 
-	 * @param luzera1
-	 * 
-	 * @param altuera1
-	 * 
-	 * @param arrayGeltokia
-	 * 
-	 * @param dataEtorri
-	 * 
-	 * @param dataJoan
-	 */
-
 	public static void bostgarrenLeihoa() {
-		Leiho5Ordaindu Leiho5 = new Leiho5Ordaindu();
+		double guztiraPrez = 10.99;
+		Leiho5Ordaindu Leiho5 = new Leiho5Ordaindu(guztiraPrez);
 		Leiho5.setVisible(true);
 	}
 
-	/*
-	 * Leiho6 sortu.
-	 * 
-	 * @author talde1
-	 * 
-	 * @param hartutakoLinea
-	 * 
-	 * @param autobusa
-	 * 
-	 * @param ibilbideZbk
-	 * 
-	 * @param hasierakoGeltokiaKod
-	 * 
-	 * @param amaierakoGeltokiaKod
-	 * 
-	 * @param txartela
-	 * 
-	 * @param geltIzenak
-	 * 
-	 * @param dataJoan
-	 * 
-	 * @param dataEtorri
-	 */
-	/*
-	 * public static void seigarrenLeihoa(String hartutakoLinea, Autobusak autobusa,
-	 * int ibilbideZbk, int hasierakoGeltokiaKod, int amaierakoGeltokiaKod,
-	 * Txartelak txartela, ArrayList<String> geltIzenak, String dataJoan, String
-	 * dataEtorri) { Leiho6 Leiho6 = new Leiho6(hartutakoLinea, autobusa,
-	 * ibilbideZbk, hasierakoGeltokiaKod, amaierakoGeltokiaKod, txartela,
-	 * geltIzenak, dataJoan, dataEtorri); Leiho6.setVisible(true); }
-	 * 
-	 * // Leiho2-ko metodoak /** Hartzen duen lineatik gehien kontsumitzen duen
-	 * autobusa bueltatzen du.
-	 * 
-	 * @author talde1
-	 * 
-	 * @param linea
-	 * 
-	 * @return autobusKotsMaxArray
-	 */
-	/*
-	 * public static Autobusak autobusKotsMaxMetodoa(String linea) { return
-	 * Kontsultak.autobusKotsMax(linea); }
-	 * 
-	 * // Leiho3-ko metodoak /** Sartutako linearen geltoki guztiak bueltatzen du.
-	 * 
-	 * @author talde1
-	 * 
-	 * @param hartutakoLinea
-	 * 
-	 * @return arrayGeltokia
-	 */
-	/*
-	 * public static ArrayList<Geltokiak> geltokiakAteraMetodoa(String
-	 * hartutakoLinea) { ArrayList<Geltokiak> arrayGeltokia =
-	 * Kontsultak.geltokiakAtera(hartutakoLinea); return arrayGeltokia; }
-	 * 
-	 * /** Bi geltokien harteko distantzia kalkulatu.
-	 * 
-	 * @author talde1
-	 * 
-	 * @param altuera1
-	 * 
-	 * @param luzera1
-	 * 
-	 * @param altuera2
-	 * 
-	 * @param luzera2
-	 * 
-	 * @return distantzia
-	 */
-	/*
-	 * public static double kalkulatuDistantzia(double altuera1, double luzera1,
-	 * double altuera2, double luzera2) { double lurrarenErradioa = 6371; double
-	 * dLat = Math.toRadians(altuera2 - altuera1); double dLng =
-	 * Math.toRadians(luzera2 - luzera1); double sindLat = Math.sin(dLat / 2);
-	 * double sindLng = Math.sin(dLng / 2); double va1 = Math.pow(sindLat, 2) +
-	 * Math.pow(sindLng, 2) * Math.cos(Math.toRadians(altuera1)) *
-	 * Math.cos(Math.toRadians(altuera2)); double va2 = 2 *
-	 * Math.atan2(Math.sqrt(va1), Math.sqrt(1 - va1)); double distantzia =
-	 * lurrarenErradioa * va2; return distantzia; }
-	 * 
-	 * /** Frogatzeko ea autobusa beteta dagoen ala ez.
-	 * 
-	 * @author talde1
-	 * 
-	 * @param ibilbideData
-	 * 
-	 * @param autobusa
-	 * 
-	 * @return txartelaZPlazaBal
-	 */
-	/*
-	 * public static boolean txartelaZPlazaFroga(String ibilbideData, Autobusak
-	 * autobusa) { boolean txartelaZPlazaBal = false; int txartelaZPlazaKont =
-	 * Kontsultak.txartelaZPlaza(ibilbideData, autobusa); if (txartelaZPlazaKont <=
-	 * autobusa.getzPlaza()-1) { txartelaZPlazaBal = true; } return
-	 * txartelaZPlazaBal; }
-	 * 
-	 * // Leiho4-ko metodoak /** Bi geltokien harteko distantzia kalkulatu.
-	 * 
-	 * @author talde1
-	 * 
-	 * @param kontsumoa
-	 * 
-	 * @param eserKop
-	 * 
-	 * @param altuera1
-	 * 
-	 * @param luzera1
-	 * 
-	 * @param altuera2
-	 * 
-	 * @param luzera2
-	 * 
-	 * @param ibilbideZbk
-	 * 
-	 * @return totPertsonaBilletea
-	 */
-	/*
-	 * public static float kalkPrezioa(float kontsumoa, int eserKop, double
-	 * altuera1, double luzera1, double altuera2, double luzera2, int ibilbideZbk) {
-	 * float zenbatIrabazi, totBidaia, totPertsonaBilletea; final double onurak =
-	 * 0.20, erregaia = 0.80; double distantzia = kalkulatuDistantzia(altuera1,
-	 * luzera1, altuera2, luzera2);
-	 * 
-	 * zenbatIrabazi = (float) (erregaia * kontsumoa * distantzia); totBidaia =
-	 * (float) (zenbatIrabazi * onurak + zenbatIrabazi); totPertsonaBilletea =
-	 * (totBidaia / eserKop) * ibilbideZbk; // ibilbideZBK=1(joan) edo 2
-	 * (joan/etorria) totPertsonaBilletea = (float) (Math.round(totPertsonaBilletea
-	 * * 100.0) / 100.0); return totPertsonaBilletea; }
-	 * 
-	 * /** Frogatu dni-a erregistratuta ez dagoela.
-	 * 
-	 * @author talde1
-	 * 
-	 * @param nan
-	 * 
-	 * @return balNan
-	 */
-	/*
-	 * public static boolean nanGordetaEgon(String nan) { ArrayList<Bezeroak>
-	 * bezeroak = new ArrayList<>(); boolean balNan = false; bezeroak =
-	 * Kontsultak.bezeroDatuak(); for (Bezeroak bezeroak2 : bezeroak) { if
-	 * (bezeroak2.getNAN().equals(nan)) { balNan = true; } } return balNan; }
-	 * 
-	 * /** Sartutako pasahitza (zifratuta) ea datu basean dagoen ala ez.
-	 * 
-	 * @author talde1
-	 * 
-	 * @param pasahitza
-	 * 
-	 * @return bal
-	 */
-	/*
-	 * public static boolean frogatuPasahitza(String pasahitza) { boolean bal =
-	 * false; String pasaEnkr = ""; pasaEnkr = zifratuPasahitza(pasahitza);
-	 * ArrayList<Bezeroak> bezeroak = new ArrayList<>(); bezeroak =
-	 * Kontsultak.bezeroDatuak(); for (Bezeroak bezeroak2 : bezeroak) { if
-	 * (pasaEnkr.equals(bezeroak2.getPasahitza())) bal = true; } return bal; }
-	 * 
-	 * /** Sartutako nan-a ea datu baaean dagoen ala ez.
-	 * 
-	 * @author talde1
-	 * 
-	 * @param nan
-	 * 
-	 * @return bal
-	 */
-	/*
-	 * public static boolean frogatuNAN(String nan) { boolean bal = false;
-	 * ArrayList<Bezeroak> bezeroak = new ArrayList<>(); bezeroak =
-	 * Kontsultak.bezeroDatuak(); for (Bezeroak bezeroak2 : bezeroak) { if
-	 * (nan.equals(bezeroak2.getNAN())) bal = true; } return bal; }
-	 * 
-	 * /** Frogatu dni-a erregistratuta ez dagoela. Ez balegoke eta datuak hutzik
-	 * ere ez, bezeroen erregistroa egin datu basean.
-	 * 
-	 * @author talde1
-	 * 
-	 * @param pasahitza
-	 * 
-	 * @param nan
-	 * 
-	 * @param izena
-	 * 
-	 * @param abizenak
-	 * 
-	 * @param sexua
-	 * 
-	 * @param jaioDataString
-	 * 
-	 * @return bal
-	 */
-	/*
-	 * public static boolean erregistratuBezeroak(String pasahitza, String nan,
-	 * String izena, String abizenak, String sexua, String jaioDataString) { boolean
-	 * bal = true; String pasaEnkr = ""; pasaEnkr = zifratuPasahitza(pasahitza);
-	 * ArrayList<Bezeroak> bezeroak = new ArrayList<>();
-	 * 
-	 * // fitxeroari bidali if (pasahitza.length() == 0 || nan.length() < 8 ||
-	 * izena.isEmpty() || abizenak.isEmpty() || sexua.isEmpty() || nan.length() < 8
-	 * || jaioDataString == null || nanGordetaEgon(nan)) bal = false;
-	 * 
-	 * if (bal && !nanGordetaEgon(nan)) { sexua=sexua.toUpperCase(); bezeroak =
-	 * Kontsultak.erregistratuBezeroak(pasaEnkr, nan, izena, abizenak, sexua,
-	 * jaioDataString); } return bal; }
-	 * 
-	 * /** Sartutako pasahitza zifratu.
-	 * 
-	 * @author talde1
-	 * 
-	 * @param pasahitza
-	 * 
-	 * @return hashtext
-	 */
-	/*
-	 * public static String zifratuPasahitza(String pasahitza) { try { MessageDigest
-	 * md = MessageDigest.getInstance("MD5"); byte[] messageDigest =
-	 * md.digest(pasahitza.getBytes()); BigInteger number = new BigInteger(1,
-	 * messageDigest); String hashtext = number.toString(16);
-	 * 
-	 * while (hashtext.length() < 32) { hashtext = "0" + hashtext; } return
-	 * hashtext; } catch (NoSuchAlgorithmException e) { throw new
-	 * RuntimeException(e); } }
-	 * 
-	 * /** Balidatu nan-a (lehenengo 8 zbk eta 9.a letra)
-	 * 
-	 * @author talde1
-	 * 
-	 * @param nan
-	 * 
-	 * @return nanBalidazioa
-	 */
-	/*
-	 * public static boolean nanBalidazioa(String nan) { String nanLetra =
-	 * nan.substring(8), nanLarria = nanLetra.toUpperCase(); boolean nanBalidazioa =
-	 * false; if (nan.length() != 9 || Character.isLetter(nan.charAt(8)) == false)
-	 * nanBalidazioa = false;
-	 * 
-	 * if (nanZenbakiak(nan) == true && nanLetra(nan).equals(nanLarria))
-	 * nanBalidazioa = true; return nanBalidazioa; }
-	 * 
-	 * /** Lehenengo 8 karaktereak zenbakiak direla balidatzen du. 8 zenbaki ez
-	 * badaude NAN-a ez dago ondo.
-	 * 
-	 * @author talde1
-	 * 
-	 * @param nan
-	 * 
-	 * @return balNan
-	 */
-	/*
-	 * public static boolean nanZenbakiak(String nan) { String zbk, nanOna = "";
-	 * boolean balNan = false; String[] zbkArray = { "0", "1", "2", "3", "4", "5",
-	 * "6", "7", "8", "9" }; for (int i = 0; i < nan.length() - 1; i++) { //
-	 * sartutako nan-a zbk = nan.substring(i, i + 1); for (int j = 0; j <
-	 * nan.length(); j++) { // zenbakien arraya if (zbk.equals(zbkArray[j])) nanOna
-	 * += zbkArray[j]; } } if (nanOna.length() != 9) balNan = true; else balNan =
-	 * false; return balNan; }
-	 * 
-	 * /** nan-aren zenbaki guztiak gehitzen ditu eta zati 23 egiten hondarra
-	 * lortzen du. Hondarra horrekin sartutako nan-aren letra bueltatzen du.
-	 * 
-	 * @author talde1
-	 * 
-	 * @param nan
-	 * 
-	 * @return nanLarria
-	 */
-	/*
-	 * public static String nanLetra(String nan) { int nanGehiketa =
-	 * Integer.parseInt(nan.substring(0, 8)), hondarra; String nanLarria = null;
-	 * String[] zbkArray = { "T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X",
-	 * "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E" }; hondarra =
-	 * nanGehiketa % 23; nanLarria = zbkArray[hondarra]; return nanLarria; }
-	 * 
-	 * // Leiho5-ko metodoak /** Zenbat diru sartzen duen jakiteko egiteko.
-	 * 
-	 * @author talde1
-	 * 
-	 * @param kont
-	 * 
-	 * @param sartutakoa
-	 * 
-	 * @return sartutakoa
-	 */
+	public static void seigarrenLeihoa() {
+		Leiho6Ticket Leiho6 = new Leiho6Ticket();
+		Leiho6.setVisible(true);
+	}
+
+	// Leiho2-ko metodoak
+	public static ArrayList<Hotela> hotelakAtera(String herria) {
+		ArrayList<Hotela> arrayHotelak = new ArrayList<Hotela>();
+		arrayHotelak=Kontsultak.hotelakBilatu(herria);
+		return arrayHotelak;
+	}
+	
+	
+	// Leiho3-ko metodoak
+
+	// Leiho4-ko metodoak
+
+	// Leiho5-ko metodoak
 
 	public static double diruaSartu(int kont, double sartutakoa) {
 		switch (kont) {
@@ -411,29 +123,12 @@ public class Metodoak {
 		return sartutakoa;
 	}
 
-	/**
-	 * Jakiteko zenbat diru sartu duen gero bueltak emateko ala ez.
-	 * 
-	 * @author talde1
-	 * @param diruFalta
-	 * @param guztiraPrez
-	 * @param sartutakoa
-	 * @return diruFalta
-	 */
 	public static double diruFaltaBueltakMetodoa(double diruFalta, double guztiraPrez, double sartutakoa) {
 		diruFalta = guztiraPrez - sartutakoa;
 		diruFalta = Math.round(diruFalta * 100.0) / 100.0;
 		return diruFalta;
 	}
 
-	/**
-	 * Arrayan sartzeko zenbat kantitate txanpon bakoitza eta bueltatu txanpona /
-	 * billete.
-	 * 
-	 * @author talde1
-	 * @param diruFalta
-	 * @return bueltakString
-	 */
 	public static String diruBueltakZerrenda(double diruFalta) {
 		String bueltakString = "";
 		double bueltak = 0;
@@ -515,62 +210,12 @@ public class Metodoak {
 		return bueltakString;
 	}
 
-	/**
-	 * Hasierako eta amaierako geltokien izenak lortu.
-	 * 
-	 * @author talde1
-	 * @param txartela
-	 * @return geltIzenak
-	 */
-	/*
-	 * public static ArrayList<String> geltokienIzenakLortu(Txartelak txartela) {
-	 * ArrayList<String> geltIzenak = new ArrayList<>(); String geltHasiIzena =
-	 * Kontsultak.geltokiarenIzena(txartela.getkodGeltokiHasiera());
-	 * geltIzenak.add(geltHasiIzena); String geltAmaIzena =
-	 * Kontsultak.geltokiarenIzena(txartela.getkodGeltokiAmaiera());
-	 * geltIzenak.add(geltAmaIzena); return geltIzenak; }
-	 * 
-	 * /** Billetea sortu.
-	 * 
-	 * @author talde1
-	 * 
-	 * @param txartela
-	 * 
-	 * @param ibilbideData
-	 * 
-	 * @param ibilbideZbk
-	 * 
-	 * @param guztiraPrez
-	 * 
-	 * @param hasierakoGeltokiaKod
-	 * 
-	 * @param amaierakoGeltokiaKod
-	 */
-	/*
-	 * public static void sortuBilletea(Txartelak txartela, String ibilbideData, int
-	 * ibilbideZbk, float guztiraPrez, int hasierakoGeltokiaKod, int
-	 * amaierakoGeltokiaKod) { Kontsultak.billeteaKontsulta(txartela, ibilbideData,
-	 * ibilbideZbk, guztiraPrez, hasierakoGeltokiaKod, amaierakoGeltokiaKod); }
-	 * 
-	 * /** Tiket-a fitxategian idatzi.
-	 * 
-	 * @author talde1
-	 * 
-	 * @param txartela
-	 * 
-	 * @param geltIzenak
-	 * 
-	 * @param dataJoan
-	 * 
-	 * @param dataEtorri
-	 */
-
 	public static void fitxIdatzi() {
 		FileWriter fitx = null;
 		PrintWriter pw = null;
 
 		try {
-			fitx = new FileWriter("src\\eredua\\Billetea", true);
+			fitx = new FileWriter("eredua\\ErreserbaFitx", true);
 			pw = new PrintWriter(fitx);
 
 			pw.println("kaixo");
@@ -590,11 +235,7 @@ public class Metodoak {
 		}
 	}
 
-	// Leiho6-ko metodoak /** Amaieran tiketa imprimatzen dagoen bitartean
-	// txaron behar den denbora.
-
-	// @author talde1
-
+	// Leiho6-ko metodoak
 	public static void Leiho_segunduak() {
 		for (int i = 1; i <= 5; i++) {
 			try {

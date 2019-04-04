@@ -1,15 +1,15 @@
-package Eredua;
+package Kontrolatzailea;
 
 public class Hotela extends Ostatua {
 
 	private int izarKop;
-	private int hotelKop;
+	private int hotelKod;
 
 	public Hotela(String izena, String herria, String helbidea, int postKod, String ostatuMota, int gelaKop,
-			int erreserbaKop, int izarKop, int hotelKop) {
+			int erreserbaKop, int izarKop, int hotelKod) {
 		super(izena, herria, helbidea, postKod, ostatuMota, gelaKop, erreserbaKop);
 		this.izarKop = izarKop;
-		this.hotelKop = hotelKop;
+		this.hotelKod = hotelKod;
 	}
 
 	public int getIzarKop() {
@@ -20,17 +20,17 @@ public class Hotela extends Ostatua {
 		this.izarKop = izarKop;
 	}
 
-	public int getHotelKop() {
-		return hotelKop;
+	public int getHotelKod() {
+		return hotelKod;
 	}
 
-	public void setHotelKop(int hotelKop) {
-		this.hotelKop = hotelKop;
+	public void setHotelKod(int hotelKop) {
+		this.hotelKod = hotelKop;
 	}
 
 	@Override
 	public String toString() {
-		return super.toString() + "Hotela [izarKop=" + izarKop + ", hotelKop=" + hotelKop + "]";
+		return super.toString() + "Hotela [izarKop=" + izarKop + ", hotelKod=" + hotelKod + "]";
 	}
 
 }

@@ -9,7 +9,6 @@ public class Frame extends JFrame {
 	GridBagConstraints config = new GridBagConstraints();
 
 	public Frame() {
-		
 		this.setTitle("3.taldearen ostatu zerbitzuen bilatzailea");
 		this.setSize(new Dimension(600, 600));
 		this.setResizable(false); // neurketak ez aldatzeko

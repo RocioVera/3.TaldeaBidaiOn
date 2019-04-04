@@ -27,6 +27,7 @@ public class Leiho1OngiEtorria extends JFrame {
 		this.setTitle("1.taldearen txartel salmenta");
 		this.setResizable(false); // neurketak ez aldatzeko
 		this.setSize(new Dimension(600, 600));
+
 		aurreraBtn = new JButton("");
 		aurreraBtn.setIcon(new ImageIcon(".\\Argazkiak\\ongiEtorri.png"));
 		aurreraBtn.setBounds(0, -30, 600, 630);

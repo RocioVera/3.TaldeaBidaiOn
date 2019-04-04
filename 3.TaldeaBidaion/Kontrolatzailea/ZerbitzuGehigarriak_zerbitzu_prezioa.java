@@ -1,4 +1,4 @@
-package Eredua;
+package Kontrolatzailea;
 
 public class ZerbitzuGehigarriak_zerbitzu_prezioa {
 

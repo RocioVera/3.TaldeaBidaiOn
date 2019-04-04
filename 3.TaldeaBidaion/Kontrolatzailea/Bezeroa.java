@@ -1,4 +1,4 @@
-package Eredua;
+package Kontrolatzailea;
 
 import java.sql.Date;
 

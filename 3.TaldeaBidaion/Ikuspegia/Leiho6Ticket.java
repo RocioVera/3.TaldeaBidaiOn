@@ -4,7 +4,6 @@ import java.awt.*;
 import javax.swing.*;
 import Kontrolatzailea.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 
 public class Leiho6Ticket extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -13,22 +12,8 @@ public class Leiho6Ticket extends JFrame {
 	private JButton btnTiketaImprimatu;
 	private JTextArea txtTiket;
 
-	/**
-	 * Tiketa imprimatzen duen panela sortu
-	 * @author talde1
-	 * @param hartutakoLinea
-	 * @param autobusa
-	 * @param ibilbideZbk
-	 * @param hasierakoGeltokiaKod
-	 * @param amaierakoGeltokiaKod
-	 * @param txartela
-	 * @param geltIzenak
-	 * @param dataJoan
-	 * @param dataEtorri
-	 */
-	public Leiho6Ticket(String hartutakoLinea, Autobusak autobusa, int ibilbideZbk, int hasierakoGeltokiaKod,
-			int amaierakoGeltokiaKod, Txartelak txartela, ArrayList<String> geltIzenak, String dataJoan,
-			String dataEtorri) {
+	
+	public Leiho6Ticket() {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png")); 
 		getContentPane().setLayout(null);
@@ -53,16 +38,8 @@ public class Leiho6Ticket extends JFrame {
 
 		txtTiket = new JTextArea();
 		txtTiket.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
-		if (txartela.getzIbilbidea() == 1)
-			txtTiket.setText("\n Ibilbidearen datuak:  \n" + "\t-Hartutako linea:  " + txartela.getkodLinea()
-					+ "\n\t-Zure autobusaren kodigoa:  " + txartela.getkodBus() + "\n\t-Hasierako geltokia:  "
-					+ geltIzenak.get(0) + "\n\t-Amaierako geltokia:  " + geltIzenak.get(1)
-					+ "\n\t-Hartutako eguna eta ordua: " + dataJoan + " " + "\n     \n\n Bezeroaren datuak: \n\t-NAN: "
-					+ txartela.getNan() + "\n\n Erosketaren datuak: \n\t-Bidaiaren prezioa:  " + txartela.getPrezioa()
-					+ "€");
-
-		else if (txartela.getzIbilbidea() == 2)
-			txtTiket.setText(" Ibilbidearen datuak:  \n" + "      -Hartutako linea:  " + txartela.getkodLinea()
+		
+/*			txtTiket.setText(" Ibilbidearen datuak:  \n" + "      -Hartutako linea:  " + txartela.getkodLinea()
 					+ "      -Zure autobusaren kodigoa:  " + txartela.getkodBus()
 					+ "\n\n      *Lehenengo bidaia\n\t-Hasierako geltokia:  " + geltIzenak.get(0)
 					+ "\n\t-Amaierako geltokia:  " + geltIzenak.get(1) + "\n\t-Hartutako eguna eta ordua: " + dataJoan
@@ -70,13 +47,13 @@ public class Leiho6Ticket extends JFrame {
 					+ "\n\t-Amaierako geltokia:  " + geltIzenak.get(0) + "\n\t-Hartutako eguna eta ordua: " + dataEtorri
 					+ "\n\n Bezeroaren datuak: \n" + "      -NAN: " + txartela.getNan() + "\n\n Erosketaren datuak: \n"
 					+ "      -Bidaiaren prezioa:  " + txartela.getPrezioa() + "€");
-
+*/
 		txtTiket.setEditable(false);
 		txtTiket.setBackground(Color.LIGHT_GRAY);
 		txtTiket.setBounds(37, 146, 545, 391);
 		getContentPane().add(txtTiket);
 
-		btnTiketaImprimatu = new JButton("Tiketa imprimatu eta bukatu erosketa");
+		btnTiketaImprimatu = new JButton("Erreserba imprimatu eta bukatu erosketa");
 		btnTiketaImprimatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Metodoak.Leiho_segunduak();
