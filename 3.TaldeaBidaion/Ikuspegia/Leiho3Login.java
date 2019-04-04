@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import com.toedter.calendar.*;
 
-public class Leiho4Login extends JFrame {
+public class Leiho3Login extends JFrame {
 	private static final long serialVersionUID = 1L;
 	// panelan ikusten diren bariableak
 	private JTextField txtPrezioTot = new JTextField(), txtNan = new JTextField(), txtIzena = new JTextField(),
@@ -51,7 +51,7 @@ public class Leiho4Login extends JFrame {
 	 * @param dataEtorri
 	 * @param dataJoan
 	 */
-	public Leiho4Login(String hartutakoLinea, Autobusak autobusa, int ibilbideZbk, int hasierakoGeltokiaKod,
+	public Leiho3Login(String hartutakoLinea, Autobusak autobusa, int ibilbideZbk, int hasierakoGeltokiaKod,
 			int amaierakoGeltokiaKod, double altuera1, double luzera1, double altuera2, double luzera2,
 			ArrayList<Geltokiak> arrayGeltokia, String dataJoan, String dataEtorri) {
 		// panelaren propietateak

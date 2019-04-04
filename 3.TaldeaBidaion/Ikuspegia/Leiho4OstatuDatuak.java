@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
 
-public class Leiho3OstatuDatuak extends JFrame {
+public class Leiho4OstatuDatuak extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField_1;
@@ -40,7 +40,7 @@ public class Leiho3OstatuDatuak extends JFrame {
 	private JCheckBox chckbxTaberna = new JCheckBox("Taberna");
 	private JCheckBox chckbxGimnasioa = new JCheckBox("Gimnasioa");
 
-	public Leiho3OstatuDatuak() {
+	public Leiho4OstatuDatuak() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

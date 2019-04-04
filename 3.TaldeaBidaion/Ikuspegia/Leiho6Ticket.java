@@ -2,7 +2,7 @@ package Ikuspegia;
 
 import java.awt.*;
 import javax.swing.*;
-import kontrolatzailea.*;
+import Kontrolatzailea.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
