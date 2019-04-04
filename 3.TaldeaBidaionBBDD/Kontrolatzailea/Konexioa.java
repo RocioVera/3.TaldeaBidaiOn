@@ -1,36 +1,17 @@
 package Kontrolatzailea;
 
-import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Konexioa {
 	private static Connection conexion = null;
-	private String makina, bezeroa, pasahitza, portuaStr, zerbitzaria;
-	private int portua;
+	private String makina="localhost", bezeroa="root", pasahitza="";
+	
 	// Datu basearen izena hartu
 	public Konexioa(String datuBasea) {
 
-		String fitx = "src\\eredua\\DBkonexioa";
-		try {
-			FileReader fr = new FileReader(fitx);
-			BufferedReader br = new BufferedReader(fr);
-
-			Object[] arraya = br.lines().toArray();
-			this.makina = String.valueOf(arraya[0]);
-			this.bezeroa = String.valueOf(arraya[1]);
-			this.pasahitza = String.valueOf(arraya[2]);
-			this.portuaStr =String.valueOf(arraya[3]);
-			this.portua = Integer.parseInt(portuaStr);
-			this.zerbitzaria = String.valueOf(arraya[4]);
-
-			fr.close();
-		} catch (Exception e) {
-			System.out.println("Fitxeroa (" + fitx + ") irakurtzerakoan salbuezpena: " + e);
-		}
-
-		this.zerbitzaria = "jdbc:mysql://" + this.makina + ":" + this.portua + "/" + datuBasea;
+		
 
 		// Driverra erregistratu
 		try {
@@ -50,7 +31,7 @@ public class Konexioa {
 		System.out.println(datuBasea+ " konektatuta" );
 	}
 
-	public static Connection getConexion() {
+	public Connection getConexion() {
 		return conexion;
 	}
 
