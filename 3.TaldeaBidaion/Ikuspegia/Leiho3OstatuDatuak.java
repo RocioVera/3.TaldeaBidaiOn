@@ -17,7 +17,7 @@ public class Leiho3OstatuDatuak extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField_1;
 	private JTextField textField_2;
-	private JLabel lblIzena = new JLabel("Izena:");
+	private JLabel lblIzena = new JLabel("Izena");
 	private JLabel lblLogelak = new JLabel("Logelak:");
 	private JLabel lblPrezioa = new JLabel("Prezioa:");
 	private JLabel lblOheak = new JLabel("Oheak:");
@@ -52,80 +52,82 @@ public class Leiho3OstatuDatuak extends JFrame {
 		contentPane.setLayout(null);
 		contentPane.setLayout(null);
 
-		lblIzena.setBounds(48, 58, 158, 14);
+		lblIzena.setBounds(62, 58, 158, 14);
 		contentPane.add(lblIzena);
 
-		lblLogelak.setBounds(329, 131, 46, 14);
+		lblLogelak.setBounds(329, 100, 46, 14);
 		contentPane.add(lblLogelak);
 
 		lblPrezioa.setBounds(329, 58, 46, 14);
 		contentPane.add(lblPrezioa);
 
-		lblOheak.setBounds(48, 111, 46, 14);
+		lblOheak.setBounds(62, 111, 46, 14);
 		contentPane.add(lblOheak);
 
-		lblSinpleak.setBounds(58, 139, 71, 14);
+		lblSinpleak.setBounds(72, 139, 71, 14);
 		contentPane.add(lblSinpleak);
 
-		cboxOheSinpleak.setBounds(153, 136, 53, 20);
+		cboxOheSinpleak.setBounds(174, 136, 46, 20);
 		contentPane.add(cboxOheSinpleak);
 
-		lblBikoitzak.setBounds(58, 177, 85, 14);
+		lblBikoitzak.setBounds(72, 177, 85, 14);
 		contentPane.add(lblBikoitzak);
 
-		cboxOheBikoitzak.setBounds(153, 174, 53, 20);
+		cboxOheBikoitzak.setBounds(174, 174, 46, 20);
 		contentPane.add(cboxOheBikoitzak);
 
-		lblUmeentzat.setBounds(58, 217, 85, 14);
+		lblUmeentzat.setBounds(72, 217, 85, 14);
 		contentPane.add(lblUmeentzat);
 
-		cboxOheUmeentzat.setBounds(153, 214, 53, 20);
+		cboxOheUmeentzat.setBounds(174, 214, 46, 20);
 		contentPane.add(cboxOheUmeentzat);
 
 		textField_1 = new JTextField();
+		textField_1.setEditable(false);
 		textField_1.setBounds(404, 55, 86, 20);
 		contentPane.add(textField_1);
 		textField_1.setColumns(10);
 
 		textField_2 = new JTextField();
-		textField_2.setBounds(404, 128, 86, 20);
+		textField_2.setEditable(false);
+		textField_2.setBounds(404, 97, 86, 20);
 		contentPane.add(textField_2);
 		textField_2.setColumns(10);
 
-		lblPentsioa.setBounds(329, 202, 46, 14);
+		lblPentsioa.setBounds(329, 150, 46, 14);
 		contentPane.add(lblPentsioa);
 
-		cboxPentsioa.setBounds(404, 199, 86, 20);
+		cboxPentsioa.setBounds(404, 147, 86, 20);
 		contentPane.add(cboxPentsioa);
 
-		chckbxGozaria.setBounds(328, 247, 97, 23);
+		chckbxGozaria.setBounds(329, 195, 97, 23);
 		contentPane.add(chckbxGozaria);
 
-		lblZerbitzuak.setBounds(48, 327, 61, 14);
+		lblZerbitzuak.setBounds(62, 280, 61, 14);
 		contentPane.add(lblZerbitzuak);
 
-		chckbxWifi.setBounds(345, 375, 97, 23);
+		chckbxWifi.setBounds(359, 328, 97, 23);
 		contentPane.add(chckbxWifi);
 
-		chckbxIgerilekua.setBounds(196, 423, 97, 23);
+		chckbxIgerilekua.setBounds(210, 376, 97, 23);
 		contentPane.add(chckbxIgerilekua);
 
-		chckbxSpa.setBounds(48, 375, 97, 23);
+		chckbxSpa.setBounds(62, 328, 97, 23);
 		contentPane.add(chckbxSpa);
 
-		chckbxParking.setBounds(48, 423, 97, 23);
+		chckbxParking.setBounds(62, 376, 97, 23);
 		contentPane.add(chckbxParking);
 
-		chckbxAireGirotua.setBounds(48, 471, 97, 23);
+		chckbxAireGirotua.setBounds(62, 424, 97, 23);
 		contentPane.add(chckbxAireGirotua);
 
-		chckbxJatetxea.setBounds(196, 375, 97, 23);
+		chckbxJatetxea.setBounds(210, 328, 97, 23);
 		contentPane.add(chckbxJatetxea);
 
-		chckbxTaberna.setBounds(196, 471, 97, 23);
+		chckbxTaberna.setBounds(210, 424, 97, 23);
 		contentPane.add(chckbxTaberna);
 
-		chckbxGimnasioa.setBounds(345, 423, 97, 23);
+		chckbxGimnasioa.setBounds(359, 376, 97, 23);
 		contentPane.add(chckbxGimnasioa);
 		this.setBounds(350, 50, 600, 600);
 		this.setResizable(false); // neurketak ez aldatzeko
