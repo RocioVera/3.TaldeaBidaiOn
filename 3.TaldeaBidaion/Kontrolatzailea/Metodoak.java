@@ -50,6 +50,12 @@ public class Metodoak {
 		return arrayHotelak;
 	}
 	
+	public static double hotelarenPrezioaAtera(String hotela) {
+		double prezioa=0;
+		prezioa=Kontsultak.hotelarenPrezioaBilatu(hotela);
+		return prezioa;
+	}
+	
 	
 	// Leiho3-ko metodoak
 

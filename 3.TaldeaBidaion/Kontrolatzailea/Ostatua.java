@@ -1,6 +1,6 @@
 package Kontrolatzailea;
 
-public class Ostatua {
+public abstract class Ostatua {
 
 	protected String izena;
 	protected String herria;
@@ -79,7 +79,7 @@ public class Ostatua {
 
 	@Override
 	public String toString() {
-		return "Ostatua [izena=" + izena + ", herria=" + herria + ", helbidea=" + helbidea + ", postKod=" + postKod
+		return "Ostatua izena=" + izena + ", herria=" + herria + ", helbidea=" + helbidea + ", postKod=" + postKod
 				+ ", ostatuMota=" + ostatuMota + ", gelaKop=" + gelaKop + ", erreserbaKop=" + erreserbaKop + "]";
 	}
 

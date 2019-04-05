@@ -37,6 +37,9 @@ public class Leiho2AukeratuOstatu extends JFrame {
 	private JButton btn_next = new JButton("Hurrengoa"), restart = new JButton("\u2302"),
 			btnBilatu = new JButton("Bilatu");
 	private JList list = new JList();
+	private ArrayList<Hotela> arrayHotelak;
+	private DefaultListModel<Object> modelo;
+	private String hotelString;
 
 	public Leiho2AukeratuOstatu() {
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
@@ -131,13 +134,20 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		
 		btnBilatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Hotela> arrayHotelak = new ArrayList<Hotela>();
+				arrayHotelak = new ArrayList<Hotela>();
+				list.setFont(new Font ("Verdana", Font.PLAIN, 10));
+
 				//imprimir hoteles pero no sale la informacion
 				arrayHotelak = Metodoak.hotelakAtera(txtSartuHerria.getText());
-				System.out.println();
-				for (int i = 0; i < arrayHotelak.size(); i++) {
-					System.out.println(arrayHotelak.get(0).getIzena());
+				modelo = new DefaultListModel<Object>();
+				for (Hotela hotela2 : arrayHotelak) {
+					//izena+prezioa
+					hotelString =hotela2.getIzena()+"         "+Metodoak.hotelarenPrezioaAtera(hotela2.getIzena())+ "€";
+					//prezioa
+					modelo.addElement(hotelString);
+
 				}
+				list.setModel(modelo);
 			}
 		});
 
