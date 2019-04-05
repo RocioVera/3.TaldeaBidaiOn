@@ -22,6 +22,7 @@ public class Hotela extends Ostatua {
 
 	public int getHotelKod() {
 		return hotelKod;
+		
 	}
 
 	public void setHotelKod(int hotelKop) {

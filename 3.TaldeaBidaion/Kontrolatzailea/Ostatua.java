@@ -21,59 +21,59 @@ public class Ostatua {
 		this.erreserbaKop = erreserbaKop;
 	}
 
-	protected String getIzena() {
+	public String getIzena() {
 		return izena;
 	}
 
-	protected void setIzena(String izena) {
+	public void setIzena(String izena) {
 		this.izena = izena;
 	}
 
-	protected String getHerria() {
+	public String getHerria() {
 		return herria;
 	}
 
-	protected void setHerria(String herria) {
+	public void setHerria(String herria) {
 		this.herria = herria;
 	}
 
-	protected String getHelbidea() {
+	public String getHelbidea() {
 		return helbidea;
 	}
 
-	protected void setHelbidea(String helbidea) {
+	public void setHelbidea(String helbidea) {
 		this.helbidea = helbidea;
 	}
 
-	protected int getPostKod() {
+	public int getPostKod() {
 		return postKod;
 	}
 
-	protected void setPostKod(int postKod) {
+	public void setPostKod(int postKod) {
 		this.postKod = postKod;
 	}
 
-	protected String getOstatuMota() {
+	public String getOstatuMota() {
 		return ostatuMota;
 	}
 
-	protected void setOstatuMota(String ostatuMota) {
+	public void setOstatuMota(String ostatuMota) {
 		this.ostatuMota = ostatuMota;
 	}
 
-	protected int getGelaKop() {
+	public int getGelaKop() {
 		return gelaKop;
 	}
 
-	protected void setGelaKop(int gelaKop) {
+	public void setGelaKop(int gelaKop) {
 		this.gelaKop = gelaKop;
 	}
 
-	protected int getErreserbaKop() {
+	public int getErreserbaKop() {
 		return erreserbaKop;
 	}
 
-	protected void setErreserbaKop(int erreserbaKop) {
+	public void setErreserbaKop(int erreserbaKop) {
 		this.erreserbaKop = erreserbaKop;
 	}
 

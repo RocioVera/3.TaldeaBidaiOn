@@ -134,8 +134,9 @@ public class Leiho2AukeratuOstatu extends JFrame {
 				ArrayList<Hotela> arrayHotelak = new ArrayList<Hotela>();
 				//imprimir hoteles pero no sale la informacion
 				arrayHotelak = Metodoak.hotelakAtera(txtSartuHerria.getText());
+				System.out.println();
 				for (int i = 0; i < arrayHotelak.size(); i++) {
-					System.out.println(arrayHotelak.get(0).getHotelKod());
+					System.out.println(arrayHotelak.get(0).getIzena());
 				}
 			}
 		});
