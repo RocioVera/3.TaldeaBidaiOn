@@ -2,9 +2,7 @@ package Kontrolatzailea;
 
 public class Apartamentua extends Ostatua {
 
-	private int solairua;
-	private int apartamentuKod;
-	private int etxeKod;
+	private int solairua, apartamentuKod, etxeKod;
 
 	public Apartamentua(String izena, String herria, String helbidea, int postKod, String ostatuMota, int gelaKop,
 			int erreserbaKop, int solairua, int apartamentuKod, int etxeKod) {

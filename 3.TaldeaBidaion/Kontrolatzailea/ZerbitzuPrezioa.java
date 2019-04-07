@@ -2,8 +2,7 @@ package Kontrolatzailea;
 
 public class ZerbitzuPrezioa {
 
-	private int prezioKod;
-	private int prezioa;
+	private int prezioKod, prezioa;
 
 	public ZerbitzuPrezioa(int prezioKod, int prezioa) {
 		this.prezioKod = prezioKod;

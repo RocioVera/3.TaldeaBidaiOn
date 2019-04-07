@@ -2,13 +2,8 @@ package Kontrolatzailea;
 
 public abstract class Ostatua {
 
-	protected String izena;
-	protected String herria;
-	protected String helbidea;
-	protected int postKod;
-	protected String ostatuMota;
-	protected int gelaKop;
-	protected int erreserbaKop;
+	protected String izena, herria, helbidea, ostatuMota;
+	protected int postKod, gelaKop, erreserbaKop;
 
 	protected Ostatua(String izena, String herria, String helbidea, int postKod, String ostatuMota, int gelaKop,
 			int erreserbaKop) {

@@ -2,8 +2,7 @@ package Kontrolatzailea;
 
 public class ZerbitzuGehigarriak_zerbitzu_prezioa {
 
-	private int kodZerbitzua;
-	private int kodPrezioa;
+	private int kodZerbitzua,kodPrezioa;
 
 	public ZerbitzuGehigarriak_zerbitzu_prezioa(int kodZerbitzua, int kodPrezioa) {
 		this.kodZerbitzua = kodZerbitzua;

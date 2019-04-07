@@ -21,25 +21,24 @@ public class Metodoak {
 		Leiho2.setVisible(true);
 	}
 
-	public static void hirugarrenLeihoa() {
-		Leiho3Login Leiho3 = new Leiho3Login();
+	public static void hirugarrenLeihoa(String hartutakoHotela, double prezioTot, String sartzeData, String irtetzeData) {
+		Leiho3OstatuDatuak Leiho3 = new Leiho3OstatuDatuak(hartutakoHotela, prezioTot, sartzeData, irtetzeData);
 		Leiho3.setVisible(true);
 
 	}
 
-	public static void laugarrenLeihoa() {
-		Leiho4OstatuDatuak Leiho4 = new Leiho4OstatuDatuak();
+	public static void laugarrenLeihoa(String hartutakoHotela, double prezioTot, String sartzeData, String irtetzeData) {
+		Leiho4Login Leiho4 = new Leiho4Login(hartutakoHotela, prezioTot, sartzeData, irtetzeData);
 		Leiho4.setVisible(true);
 	}
 
-	public static void bostgarrenLeihoa() {
-		double guztiraPrez = 10.99;
-		Leiho5Ordaindu Leiho5 = new Leiho5Ordaindu(guztiraPrez);
+	public static void bostgarrenLeihoa(String hartutakoHotela, double prezioTot, String sartzeData, String irtetzeData) {
+		Leiho5Ordaindu Leiho5 = new Leiho5Ordaindu(prezioTot, hartutakoHotela, sartzeData, irtetzeData);
 		Leiho5.setVisible(true);
 	}
 
-	public static void seigarrenLeihoa() {
-		Leiho6Ticket Leiho6 = new Leiho6Ticket();
+	public static void seigarrenLeihoa(String hartutakoHotela, String sartzeData, String irtetzeData) {
+		Leiho6Ticket Leiho6 = new Leiho6Ticket(hartutakoHotela, sartzeData, irtetzeData);
 		Leiho6.setVisible(true);
 	}
 
@@ -58,7 +57,173 @@ public class Metodoak {
 	
 	
 	// Leiho3-ko metodoak
+	/**
+	 * Frogatu dni-a erregistratuta ez dagoela.
+	 * @author talde1
+	 * @param nan
+	 * @return balNan
+	 */
+	public static boolean nanGordetaEgon(String nan) {
+		ArrayList<Bezeroa> bezeroak = new ArrayList<>();
+		boolean balNan = false;
+		bezeroak = Kontsultak.bezeroDatuak();
+		for (Bezeroa bezeroak2 : bezeroak) {
+			if (bezeroak2.getNan().equals(nan)) {
+				balNan = true;
+			}
+		}
+		return balNan;
+	}
 
+	
+	/**
+	 * Sartutako pasahitza (zifratuta) ea datu basean dagoen ala ez.
+	 * @author talde1
+	 * @param pasahitza
+	 * @return bal
+	 */
+	public static boolean frogatuPasahitza(String pasahitza) {
+		boolean bal = false;
+		String pasaEnkr = "";
+		pasaEnkr = zifratuPasahitza(pasahitza);
+		ArrayList<Bezeroa> bezeroak = new ArrayList<Bezeroa>();
+		bezeroak = Kontsultak.bezeroDatuak();
+		for (Bezeroa bezeroak2 : bezeroak) {
+			if (pasaEnkr.equals(bezeroak2.getPasahitza()))
+				bal = true;
+		}
+		return bal;
+	}
+	
+	/**
+	 * Sartutako nan-a ea datu baaean dagoen ala ez.
+	 * @author talde1
+	 * @param nan
+	 * @return bal
+	 */
+	public static boolean frogatuNAN(String nan) {
+		boolean bal = false;
+		ArrayList<Bezeroa> bezeroak = new ArrayList<>();
+		bezeroak = Kontsultak.bezeroDatuak();
+		for (Bezeroa bezeroak2 : bezeroak) {
+			if (nan.equals(bezeroak2.getNan()))
+				bal = true;
+		}
+		return bal;
+	}
+
+	/**
+	 * Frogatu dni-a erregistratuta ez dagoela. Ez balegoke eta datuak hutzik ere ez, 
+	 * bezeroen erregistroa egin datu basean.
+	 * @author talde1
+	 * @param pasahitza
+	 * @param nan
+	 * @param izena
+	 * @param abizenak
+	 * @param sexua
+	 * @param jaioDataString
+	 * @return bal
+	 */
+	public static boolean erregistratuBezeroak(String pasahitza, String nan, String izena, String abizenak,
+			String jaioDataString) {
+		boolean bal = true;
+		String pasaEnkr = "";
+		pasaEnkr = zifratuPasahitza(pasahitza);
+		ArrayList<Bezeroa> bezeroak = new ArrayList<>();
+
+		// fitxeroari bidali
+		if (pasahitza.length() == 0 || nan.length() < 8 || izena.isEmpty() || abizenak.isEmpty()
+				|| nan.length() < 8 || jaioDataString == null || nanGordetaEgon(nan))
+			bal = false;
+
+		if (bal && !nanGordetaEgon(nan)) {
+			bezeroak = Kontsultak.erregistratuBezeroak(pasaEnkr, nan, izena, abizenak, jaioDataString);
+		}
+		return bal;
+	}
+
+	/**	
+
+	/**
+	 * Sartutako pasahitza zifratu.
+	 * @author talde1
+	 * @param pasahitza
+	 * @return hashtext
+	 */
+	public static String zifratuPasahitza(String pasahitza) {
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			byte[] messageDigest = md.digest(pasahitza.getBytes());
+			BigInteger number = new BigInteger(1, messageDigest);
+			String hashtext = number.toString(16);
+
+			while (hashtext.length() < 32) {
+				hashtext = "0" + hashtext;
+			}
+			return hashtext;
+		} catch (NoSuchAlgorithmException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * Balidatu nan-a (lehenengo 8 zbk eta 9.a letra)
+	 * @author talde1
+	 * @param nan
+	 * @return nanBalidazioa
+	 */
+	public static boolean nanBalidazioa(String nan) {
+		String nanLetra = nan.substring(8), nanLarria = nanLetra.toUpperCase();
+		boolean nanBalidazioa = false;
+		if (nan.length() != 9 || Character.isLetter(nan.charAt(8)) == false)
+			nanBalidazioa = false;
+
+		if (nanZenbakiak(nan) == true && nanLetra(nan).equals(nanLarria))
+			nanBalidazioa = true;
+		return nanBalidazioa;
+	}
+
+	/**
+	 * Lehenengo 8 karaktereak zenbakiak direla balidatzen du. 8 zenbaki ez badaude
+	 * NAN-a ez dago ondo.
+	 * @author talde1
+	 * @param nan
+	 * @return balNan
+	 */
+	public static boolean nanZenbakiak(String nan) {
+		String zbk, nanOna = "";
+		boolean balNan = false;
+		String[] zbkArray = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+		for (int i = 0; i < nan.length() - 1; i++) { // sartutako nan-a
+			zbk = nan.substring(i, i + 1);
+			for (int j = 0; j < nan.length(); j++) { // zenbakien arraya
+				if (zbk.equals(zbkArray[j]))
+					nanOna += zbkArray[j];
+			}
+		}
+		if (nanOna.length() != 9)
+			balNan = true;
+		else
+			balNan = false;
+		return balNan;
+	}
+
+	/**
+	 * nan-aren zenbaki guztiak gehitzen ditu eta zati 23 egiten hondarra lortzen
+	 * du. Hondarra horrekin sartutako nan-aren letra bueltatzen du.
+	 * @author talde1
+	 * @param nan
+	 * @return nanLarria
+	 */
+	public static String nanLetra(String nan) {
+		int nanGehiketa = Integer.parseInt(nan.substring(0, 8)), hondarra;
+		String nanLarria = null;
+		String[] zbkArray = { "T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V",
+				"H", "L", "C", "K", "E" };
+		hondarra = nanGehiketa % 23;
+		nanLarria = zbkArray[hondarra];
+		return nanLarria;
+	}
 	// Leiho4-ko metodoak
 
 	// Leiho5-ko metodoak
@@ -216,7 +381,7 @@ public class Metodoak {
 		return bueltakString;
 	}
 
-	public static void fitxIdatzi() {
+	public static void fitxIdatzi(String hartutakoHotela, String sartzeData, String irtetzeData) {
 		FileWriter fitx = null;
 		PrintWriter pw = null;
 
@@ -224,7 +389,7 @@ public class Metodoak {
 			fitx = new FileWriter("eredua\\ErreserbaFitx", true);
 			pw = new PrintWriter(fitx);
 
-			pw.println("kaixo");
+			pw.println("Izena:" +hartutakoHotela +"\n Sartze data: "+ sartzeData+ " Irtetze data: "+ irtetzeData);
 
 			pw.println(
 					"******************************************************************************************************************************************");

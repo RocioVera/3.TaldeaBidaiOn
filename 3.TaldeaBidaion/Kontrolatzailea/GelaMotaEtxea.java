@@ -2,9 +2,7 @@ package Kontrolatzailea;
 
 public class GelaMotaEtxea {
 
-	private int etxeKod;
-	private int gelaMota;
-	private int kantitatea;
+	private int etxeKod, gelaMota, kantitatea;
 
 	public GelaMotaEtxea(int etxeKod, int gelaMota, int kantitatea) {
 		this.etxeKod = etxeKod;

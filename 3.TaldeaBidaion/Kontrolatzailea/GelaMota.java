@@ -2,11 +2,9 @@ package Kontrolatzailea;
 
 public class GelaMota {
 
-	private String mota;
-	private double m2Gela;
-	private String oheMota;
+	private String mota, oheMota;
+	private double m2Gela, prezioa;
 	private int altzariKopuru;
-	private double prezioa;
 
 	public GelaMota(String mota, double m2Gela, String oheMota, int altzariKopuru, double prezioa) {
 		this.mota = mota;

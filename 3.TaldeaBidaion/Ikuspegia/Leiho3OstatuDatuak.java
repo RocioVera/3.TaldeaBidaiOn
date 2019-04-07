@@ -1,30 +1,15 @@
 package Ikuspegia;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import Kontrolatzailea.*;
+import javax.swing.*;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
-import Kontrolatzailea.Metodoak;
-
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-
-public class Leiho4OstatuDatuak extends JFrame {
-
-	private JPanel contentPane;
-	private JTextField textField_1, textField_2;
-	private JLabel lblIzena = new JLabel("Izena:"), lblLogelak = new JLabel("Logelak:");
+public class Leiho3OstatuDatuak extends JFrame {
+	private JTextField txtPrezioa, txtLogelak;
+	private JLabel lblIzena = new JLabel(""), lblLogelak = new JLabel("Logelak:");
 	private JLabel lblPrezioa = new JLabel("Prezioa:"), lblOheak = new JLabel("Oheak:");
 	private JLabel lblSinpleak = new JLabel("Sinpleak(num):"), lblBikoitzak = new JLabel("Bikoitzak(num):"),
 			lblUmeentzat = new JLabel("Umeentzat(num):"), lblPentsioa = new JLabel("Pentsioa:"),
@@ -39,19 +24,20 @@ public class Leiho4OstatuDatuak extends JFrame {
 	private JButton btn_next = new JButton("Hurrengoa"), btn_prev = new JButton("Atzera"),
 			restart = new JButton("\u2302");
 
-	public Leiho4OstatuDatuak() {
-
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public Leiho3OstatuDatuak(String hartutakoHotela, double prezioTot, String sartzeData, String irtetzeData) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
+		getContentPane().setLayout(null);
 		this.setBounds(350, 50, 600, 600);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		this.setResizable(false); // neurketak ez aldatzeko
+		this.setSize(new Dimension(600, 600));
+		this.setTitle("3.taldearen ostatu zerbitzuen bilatzailea");
+
 
 		// botoiak
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Metodoak.bostgarrenLeihoa();
+				Metodoak.laugarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData);
 				dispose();
 			}
 		});
@@ -64,8 +50,7 @@ public class Leiho4OstatuDatuak extends JFrame {
 		btn_prev.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Metodoak.hirugarrenLeihoa();
-
+				Metodoak.bigarrenLeihoa();
 				dispose();
 			}
 		});
@@ -86,91 +71,89 @@ public class Leiho4OstatuDatuak extends JFrame {
 		restart.setForeground(Color.RED);
 		restart.setBackground(Color.LIGHT_GRAY);
 		getContentPane().add(restart);
+		
+		lblIzena.setText(hartutakoHotela);
+		lblIzena.setHorizontalAlignment(SwingConstants.CENTER);
+		lblIzena.setFont(new Font("Verdana", Font.BOLD | Font.ITALIC, 20));
+		lblIzena.setBounds(0, 24, 594, 32);
+		getContentPane().add(lblIzena);
 
-		getContentPane().setLayout(null);
-		contentPane.setLayout(null);
-		contentPane.setLayout(null);
+		lblLogelak.setBounds(329, 134, 72, 25);
+		getContentPane().add(lblLogelak);
 
-		lblIzena.setBounds(62, 58, 158, 14);
-		contentPane.add(lblIzena);
+		lblPrezioa.setBounds(210, 72, 63, 14);
+		getContentPane().add(lblPrezioa);
+		lblOheak.setFont(new Font("Verdana", Font.BOLD, 13));
 
-		lblLogelak.setBounds(329, 95, 72, 25);
-		contentPane.add(lblLogelak);
-
-		lblPrezioa.setBounds(329, 58, 63, 14);
-		contentPane.add(lblPrezioa);
-
-		lblOheak.setBounds(62, 111, 46, 14);
-		contentPane.add(lblOheak);
+		lblOheak.setBounds(62, 97, 75, 28);
+		getContentPane().add(lblOheak);
 
 		lblSinpleak.setBounds(72, 139, 103, 14);
-		contentPane.add(lblSinpleak);
+		getContentPane().add(lblSinpleak);
 
 		cboxOheSinpleak.setBounds(174, 136, 46, 20);
-		contentPane.add(cboxOheSinpleak);
+		getContentPane().add(cboxOheSinpleak);
 
 		lblBikoitzak.setBounds(72, 177, 103, 14);
-		contentPane.add(lblBikoitzak);
+		getContentPane().add(lblBikoitzak);
 
 		cboxOheBikoitzak.setBounds(174, 174, 46, 20);
-		contentPane.add(cboxOheBikoitzak);
+		getContentPane().add(cboxOheBikoitzak);
 
 		lblUmeentzat.setBounds(72, 217, 103, 14);
-		contentPane.add(lblUmeentzat);
+		getContentPane().add(lblUmeentzat);
 
 		cboxOheUmeentzat.setBounds(174, 214, 46, 20);
-		contentPane.add(cboxOheUmeentzat);
+		getContentPane().add(cboxOheUmeentzat);
 
-		textField_1 = new JTextField();
-		textField_1.setEditable(false);
-		textField_1.setBounds(404, 55, 86, 20);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		txtPrezioa = new JTextField();
+		txtPrezioa.setText(prezioTot+" €");
+		txtPrezioa.setEditable(false);
+		txtPrezioa.setBounds(268, 69, 86, 20);
+		txtPrezioa.setColumns(10);
+		getContentPane().add(txtPrezioa);
 
-		textField_2 = new JTextField();
-		textField_2.setEditable(false);
-		textField_2.setBounds(404, 97, 86, 20);
-		contentPane.add(textField_2);
-		textField_2.setColumns(10);
+		txtLogelak = new JTextField();
+		txtLogelak.setEditable(false);
+		txtLogelak.setBounds(404, 136, 86, 20);
+		getContentPane().add(txtLogelak);
+		txtLogelak.setColumns(10);
 
-		lblPentsioa.setBounds(329, 150, 72, 14);
-		contentPane.add(lblPentsioa);
+		lblPentsioa.setBounds(329, 190, 72, 14);
+		getContentPane().add(lblPentsioa);
 
-		cboxPentsioa.setBounds(404, 147, 86, 20);
-		contentPane.add(cboxPentsioa);
+		cboxPentsioa.setBounds(404, 187, 86, 20);
+		getContentPane().add(cboxPentsioa);
 
-		chckbxGozaria.setBounds(329, 195, 97, 23);
-		contentPane.add(chckbxGozaria);
+		chckbxGozaria.setBounds(373, 213, 97, 23);
+		getContentPane().add(chckbxGozaria);
+		lblZerbitzuak.setFont(new Font("Verdana", Font.BOLD, 13));
 
-		lblZerbitzuak.setBounds(62, 280, 97, 14);
-		contentPane.add(lblZerbitzuak);
+		lblZerbitzuak.setBounds(62, 280, 97, 25);
+		getContentPane().add(lblZerbitzuak);
 
 		chckbxWifi.setBounds(359, 328, 97, 23);
-		contentPane.add(chckbxWifi);
+		getContentPane().add(chckbxWifi);
 
 		chckbxIgerilekua.setBounds(210, 376, 97, 23);
-		contentPane.add(chckbxIgerilekua);
+		getContentPane().add(chckbxIgerilekua);
 
 		chckbxSpa.setBounds(62, 328, 97, 23);
-		contentPane.add(chckbxSpa);
+		getContentPane().add(chckbxSpa);
 
 		chckbxParking.setBounds(62, 376, 97, 23);
-		contentPane.add(chckbxParking);
+		getContentPane().add(chckbxParking);
 
 		chckbxAireGirotua.setBounds(62, 424, 97, 23);
-		contentPane.add(chckbxAireGirotua);
+		getContentPane().add(chckbxAireGirotua);
 
 		chckbxJatetxea.setBounds(210, 328, 97, 23);
-		contentPane.add(chckbxJatetxea);
+		getContentPane().add(chckbxJatetxea);
 
 		chckbxTaberna.setBounds(210, 424, 97, 23);
-		contentPane.add(chckbxTaberna);
+		getContentPane().add(chckbxTaberna);
 
 		chckbxGimnasioa.setBounds(359, 376, 97, 23);
-		contentPane.add(chckbxGimnasioa);
-		this.setBounds(350, 50, 600, 600);
-		this.setResizable(false); // neurketak ez aldatzeko
-		this.setSize(new Dimension(600, 600));
-		this.setTitle("Ostatu datuak");
+		getContentPane().add(chckbxGimnasioa);
 	}
 }

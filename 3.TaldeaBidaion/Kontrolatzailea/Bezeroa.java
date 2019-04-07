@@ -4,18 +4,15 @@ import java.sql.Date;
 
 public class Bezeroa {
 
-	private String nan;
-	private String izena;
-	private String abizena;
+	private String nan, izena, abizenak, pasahitza;
 	private Date jaiotzeData;
-	private String promozioKod;
 
-	public Bezeroa(String nan, String izena, String abizena, Date jaiotzeData, String promozioKod) {
+	public Bezeroa(String nan, String izena, String abizenak, Date jaiotzeData, String pasahitza) {
 		this.nan = nan;
 		this.izena = izena;
-		this.abizena = abizena;
+		this.abizenak = abizenak;
 		this.jaiotzeData = jaiotzeData;
-		this.promozioKod = promozioKod;
+		this.pasahitza = pasahitza;
 	}
 
 	public String getNan() {
@@ -34,12 +31,12 @@ public class Bezeroa {
 		this.izena = izena;
 	}
 
-	public String getAbizena() {
-		return abizena;
+	public String getAbizenak() {
+		return abizenak;
 	}
 
-	public void setAbizena(String abizena) {
-		this.abizena = abizena;
+	public void setAbizena(String abizenak) {
+		this.abizenak = abizenak;
 	}
 
 	public Date getJaiotzeData() {
@@ -50,18 +47,18 @@ public class Bezeroa {
 		this.jaiotzeData = jaiotzeData;
 	}
 
-	public String getPromozioKod() {
-		return promozioKod;
+	public String getPasahitza() {
+		return pasahitza;
 	}
 
-	public void setPromozioKod(String promozioKod) {
-		this.promozioKod = promozioKod;
+	public void setPasahitza(String pasahitza) {
+		this.pasahitza = pasahitza;
 	}
 
 	@Override
 	public String toString() {
-		return "Bezeroa [nan=" + nan + ", izena=" + izena + ", abizena=" + abizena + ", jaiotzeData=" + jaiotzeData
-				+ ", promozioKod=" + promozioKod + "]";
+		return "Bezeroa [nan=" + nan + ", izena=" + izena + ", abizena=" + abizenak + ", jaiotzeData=" + jaiotzeData
+				+ ", promozioKod=" + pasahitza + "]";
 	}
 
 }

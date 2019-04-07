@@ -2,9 +2,7 @@ package Kontrolatzailea;
 
 public class GelaMotaApartamentua {
 
-	private int gelaMotaKod;
-	private int apartamentuKod;
-	private int kantitatea;
+	private int gelaMotaKod, apartamentuKod, kantitatea;
 
 	public GelaMotaApartamentua(int gelaMotaKod, int apartamentuKod, int kantitatea) {
 		this.gelaMotaKod = gelaMotaKod;

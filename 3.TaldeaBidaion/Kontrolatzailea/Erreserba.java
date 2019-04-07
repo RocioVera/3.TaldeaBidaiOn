@@ -2,21 +2,12 @@ package Kontrolatzailea;
 
 import java.sql.Date;
 
-import com.mysql.fabric.xmlrpc.base.Data;
-
 public class Erreserba {
 
-	private int ostatuId;
-	private String bezeroNan;
-	private Date sartzeData;
-	private Date irtetzeData;
-	private int pertsonaKopuru;
+	private Date sartzeData, irtetzeData;
+	private int ostatuId, pertsonaKopuru, erreserbaGelaKop;
 	private double prezioTotala;
-	private int erreserbaGelaKop;
-	private String pentsioMota;
-	private String oheMota;
-	private int oheKop;
-	private String tarifaDenboraldia;
+	private String bezeroNan, pentsioMota;
 
 	public Erreserba(int ostatuId, String bezeroNan, Date sartzeData, Date irtetzeData, int pertsonaKopuru,
 			double prezioTotala, int erreserbaGelaKop, String pentsioMota, String oheMota, int oheKop,
@@ -29,9 +20,6 @@ public class Erreserba {
 		this.prezioTotala = prezioTotala;
 		this.erreserbaGelaKop = erreserbaGelaKop;
 		this.pentsioMota = pentsioMota;
-		this.oheMota = oheMota;
-		this.oheKop = oheKop;
-		this.tarifaDenboraldia = tarifaDenboraldia;
 	}
 
 	public int getOstatuId() {
@@ -98,36 +86,12 @@ public class Erreserba {
 		this.pentsioMota = pentsioMota;
 	}
 
-	public String getOheMota() {
-		return oheMota;
-	}
-
-	public void setOheMota(String oheMota) {
-		this.oheMota = oheMota;
-	}
-
-	public int getOheKop() {
-		return oheKop;
-	}
-
-	public void setOheKop(int oheKop) {
-		this.oheKop = oheKop;
-	}
-
-	public String getTarifaDenboraldia() {
-		return tarifaDenboraldia;
-	}
-
-	public void setTarifaDenboraldia(String tarifaDenboraldia) {
-		this.tarifaDenboraldia = tarifaDenboraldia;
-	}
 
 	@Override
 	public String toString() {
 		return "Erreserba [ostatuId=" + ostatuId + ", bezeroNan=" + bezeroNan + ", sartzeData=" + sartzeData
 				+ ", irtetzeData=" + irtetzeData + ", pertsonaKopuru=" + pertsonaKopuru + ", prezioTotala="
-				+ prezioTotala + ", erreserbaGelaKop=" + erreserbaGelaKop + ", pentsioMota=" + pentsioMota
-				+ ", oheMota=" + oheMota + ", oheKop=" + oheKop + ", tarifaDenboraldia=" + tarifaDenboraldia + "]";
+				+ prezioTotala + ", erreserbaGelaKop=" + erreserbaGelaKop + ", pentsioMota=" + pentsioMota;
 	}
 
 }

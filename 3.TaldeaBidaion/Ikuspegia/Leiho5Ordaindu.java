@@ -27,21 +27,21 @@ public class Leiho5Ordaindu extends JFrame {
 	private double diruFalta, sartutakoa;
 	private ArrayList<String> geltIzenak = new ArrayList<>();
 
-	public Leiho5Ordaindu(double guztiraPrez) {
+	public Leiho5Ordaindu(double prezioTot, String hartutakoHotela, String sartzeData, String irtetzeData) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png")); 
 		getContentPane().setLayout(null);
 		this.setBounds(350, 50, 600, 600);
 		this.setResizable(false); //neurketak ez aldatzeko
 		this.setSize(new Dimension(600, 600));
-		this.setTitle("1.taldearen txartel salmenta");
+		this.setTitle("3.taldearen ostatu zerbitzuen bilatzailea");
 
 		// botoiak
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Metodoak.fitxIdatzi(); // billetea fitxategian sartzen duen metodoari deitu
-				Metodoak.seigarrenLeihoa();
+				Metodoak.fitxIdatzi(hartutakoHotela, sartzeData, irtetzeData); // billetea fitxategian sartzen duen metodoari deitu
+				Metodoak.seigarrenLeihoa(hartutakoHotela, sartzeData, irtetzeData);
 				dispose();
 			}
 		});
@@ -55,7 +55,7 @@ public class Leiho5Ordaindu extends JFrame {
 		btn_prev.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Metodoak.laugarrenLeihoa();
+				Metodoak.laugarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData);
 
 				dispose();
 			}
@@ -87,7 +87,7 @@ public class Leiho5Ordaindu extends JFrame {
 		txtPrezioTot.setEditable(false);
 		txtPrezioTot.setColumns(10);
 		txtPrezioTot.setBounds(300, 29, 86, 20);
-		txtPrezioTot.setText(guztiraPrez + " €");
+		txtPrezioTot.setText(prezioTot + " €");
 		getContentPane().add(txtPrezioTot);
 
 		/* ZenbatDiru sartu nahi */
@@ -281,7 +281,7 @@ public class Leiho5Ordaindu extends JFrame {
 		txtDiruFalta.setEditable(false);
 		txtDiruFalta.setColumns(10);
 		txtDiruFalta.setBounds(166, 393, 64, 20);
-		txtDiruFalta.setText(guztiraPrez + " €");
+		txtDiruFalta.setText(prezioTot + " €");
 		getContentPane().add(txtDiruFalta);
 
 		txtBueltak = new JTextField();
@@ -297,7 +297,7 @@ public class Leiho5Ordaindu extends JFrame {
 		btnErosi = new JButton("Erosi");
 		btnErosi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				diruFalta = Metodoak.diruFaltaBueltakMetodoa(diruFalta, guztiraPrez, sartutakoa);
+				diruFalta = Metodoak.diruFaltaBueltakMetodoa(diruFalta, prezioTot, sartutakoa);
 				diruFaltaString = String.valueOf(diruFalta);
 
 				if (diruFalta > 0) {

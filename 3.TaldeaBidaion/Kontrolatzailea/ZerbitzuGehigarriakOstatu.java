@@ -2,8 +2,7 @@ package Kontrolatzailea;
 
 public class ZerbitzuGehigarriakOstatu {
 
-	private int kodZerbitzuak;
-	private int ostatuId;
+	private int kodZerbitzuak, ostatuId;
 
 	public ZerbitzuGehigarriakOstatu(int kodZerbitzuak, int ostatuId) {
 		super();
