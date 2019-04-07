@@ -2,7 +2,7 @@ package Aplikazioa;
 
 import Kontrolatzailea.*;
  
-public class BidaionAPP {
+public class BidaionBBDDAPP {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
