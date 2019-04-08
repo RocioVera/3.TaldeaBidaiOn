@@ -44,7 +44,7 @@ public class Leiho4Login extends JFrame {
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Metodoak.bostgarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData);
+				Metodoak.bostgarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData, nan);
 				dispose();
 			}
 		});
@@ -176,6 +176,9 @@ public class Leiho4Login extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// bbdd-ra konektatu pasahitza frogatzeko
 				nan = txtNan.getText();
+				nanLarria = nan.substring(8).toUpperCase();
+				nan = nan.substring(0, 8) + nanLarria;
+				
 				pasahitza = String.valueOf(passwordField.getPassword());
 				balPasa = Metodoak.frogatuPasahitza(pasahitza);
 				balNan = Metodoak.frogatuNAN(nan);

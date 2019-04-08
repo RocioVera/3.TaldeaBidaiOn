@@ -6,16 +6,21 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 import com.toedter.calendar.*;
 
 import Kontrolatzailea.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class Leiho2AukeratuOstatu extends JFrame {
 	private static final long serialVersionUID = 1L;
 
-	private JTextField txtSartuHerria = new JTextField();
 	private JMenuBar menuBar = new JMenuBar();
 	// izarkopuru
 	private JMenu mnIzarKopurua = new JMenu("       Izar kopurua      ");
@@ -33,19 +38,23 @@ public class Leiho2AukeratuOstatu extends JFrame {
 			chckbxmntmAlfabetoa = new JCheckBoxMenuItem("Alfabetoa"),
 			chckbxmntmErreserbaKopurua = new JCheckBoxMenuItem("Erreserba kopurua");
 
-	private JDateChooser dchJoan = new JDateChooser(), dchEtorri = new JDateChooser();
+	private JDateChooser dchSartzeData = new JDateChooser(), dchIrtetzeData = new JDateChooser();
 	private JTextFieldDateEditor dataEzEditatu; // kentzeko eskuz sartu ahal izana
 	private JLabel lblSartzeData = new JLabel("Sartze data"), lblIrtetzeData = new JLabel("Irtetze data");
+	private JLabel lblIzena = new JLabel("Izena:"), lblOstalMota = new JLabel("Ostal mota:"),
+			lblPrezioa = new JLabel("Prezioa:");
 	private java.util.Date dataIrtetze, dataSartze;
 	private JButton btn_next = new JButton("Hurrengoa"), restart = new JButton("\u2302"),
 			btnBilatu = new JButton("Bilatu");
-	private JList list = new JList();
+	// private JList list = new JList();
 	private ArrayList<Hotela> arrayHotelak;
-	private DefaultListModel<Object> modelo;
-	private String hotelString, dataSartzeString, dataIrtetzeString, hartutakoHotela;
-	private double prezioTot = 10.99;
+	private DefaultTableModel modelo = new DefaultTableModel();
+	private String hotelString, dataSartzeString, dataIrtetzeString, hartutakoHotela, hotelIzen, ostatuMota, prezioa;
+	private double prezioTot = 0;
 	private SimpleDateFormat dataFormato = new SimpleDateFormat("yyyy-MM-dd");
-
+	private JComboBox cbHerria;
+	private JTable table;
+	private String[] hotelaBerria = new String[3];
 
 	public Leiho2AukeratuOstatu() {
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
@@ -59,17 +68,16 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				dataSartze = dchJoan.getDate();
+				dataSartze = dchSartzeData.getDate();
 				dataSartzeString = dataFormato.format(dataSartze) + " ";
-				dataIrtetze =dchEtorri.getDate();
+				dataIrtetze = dchIrtetzeData.getDate();
 				dataIrtetzeString = dataFormato.format(dataIrtetze) + " ";
+				hartutakoHotela = (String) table.getValueAt(table.getSelectedRow(), 0);
+				prezioTot = Metodoak.hotelarenPrezioaAtera(hartutakoHotela);
 				
-				hartutakoHotela = (String) list.getSelectedValue();
-				hartutakoHotela = hartutakoHotela.substring(0,hartutakoHotela.indexOf("         "));
-				
-				prezioTot=Metodoak.hotelarenPrezioaAtera(hartutakoHotela);
-				Metodoak.hirugarrenLeihoa(hartutakoHotela, prezioTot,  dataSartzeString, dataIrtetzeString);
-				System.out.println(dataIrtetzeString);
+				prezioTot = Metodoak.prezioTotalaGauekin(dataSartze,dataIrtetze, prezioTot);
+
+				Metodoak.hirugarrenLeihoa(hartutakoHotela, prezioTot, dataSartzeString, dataIrtetzeString);
 				dispose();
 			}
 		});
@@ -77,6 +85,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		btn_next.setFont(new Font("Tahoma", Font.ITALIC, 16));
 		btn_next.setForeground(Color.RED);
 		btn_next.setBackground(Color.LIGHT_GRAY);
+		btn_next.setVisible(false);
 		getContentPane().add(btn_next);
 
 		restart.addActionListener(new ActionListener() {
@@ -113,7 +122,6 @@ public class Leiho2AukeratuOstatu extends JFrame {
 
 		// ostatu mota
 		mnOstatuMota.setFont(new Font("Verdana", Font.PLAIN, 16));
-
 		menuBar.add(mnOstatuMota);
 		mnOstatuMota.add(chckbxmntmHotela);
 		chckbxmntmHotela.setFont(new Font("Verdana", Font.PLAIN, 16));
@@ -132,85 +140,158 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		mnOrdenatu.add(chckbxmntmErreserbaKopurua);
 		chckbxmntmErreserbaKopurua.setFont(new Font("Verdana", Font.PLAIN, 16));
 
-		// joan data
+		// Sartze data
 		lblSartzeData.setFont(new Font("Verdana", Font.PLAIN, 13));
-		lblSartzeData.setBounds(228, 13, 113, 30);
-		getContentPane().add(lblSartzeData);	
-		
-		//jcalendar joan
-		dchJoan.setDateFormatString("dd-MM-yyyy");
-		dchJoan.setBounds(216, 48, 113, 20);
-		dataEzEditatu = (JTextFieldDateEditor) dchJoan.getDateEditor();
+		lblSartzeData.setBounds(228, 26, 113, 30);
+		getContentPane().add(lblSartzeData);
+
+		// jcalendar sartze data
+		dchSartzeData.setDateFormatString("dd-MM-yyyy");
+		dchSartzeData.setBounds(216, 61, 113, 20);
+		dataEzEditatu = (JTextFieldDateEditor) dchSartzeData.getDateEditor();
 		dataEzEditatu.setEditable(false);
-		dchJoan.setDate(Date.valueOf(LocalDate.now()));
-		dchJoan.getCalendarButton().addActionListener(new ActionListener() {
+		dchSartzeData.setDate(Date.valueOf(LocalDate.now()));
+		dchSartzeData.getCalendarButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dchEtorri.setVisible(true);
+				dchIrtetzeData.setVisible(true);
+				dchIrtetzeData.setDate(null);
+				btnBilatu.setVisible(false);
+				table.setVisible(false);
+				lblIzena.setVisible(false);
+				lblOstalMota.setVisible(false);
+				lblPrezioa.setVisible(false);
+				btn_next.setVisible(false);
+				
 			}
 		});
-		dchJoan.getJCalendar().setMinSelectableDate(Date.valueOf(LocalDate.now()));
-		getContentPane().add(dchJoan);
+		dchSartzeData.getJCalendar().setMinSelectableDate(Date.valueOf(LocalDate.now()));
+		getContentPane().add(dchSartzeData);
 
-		// etorri data
+		// irtetza data
 		lblIrtetzeData.setFont(new Font("Verdana", Font.PLAIN, 13));
-		lblIrtetzeData.setBounds(353, 13, 113, 30);
+		lblIrtetzeData.setBounds(353, 26, 113, 30);
 		getContentPane().add(lblIrtetzeData);
-		
-		//jcalendar etorri
-		dchEtorri.getCalendarButton().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dataSartze = dchJoan.getDate();
-				dchEtorri.setDate(dchJoan.getDate());
 
-				dchEtorri.getJCalendar().setMinSelectableDate(dataSartze);
-				dchEtorri.getJCalendar().setMaxSelectableDate(null);
+		// jcalendar irtetze
+		dchIrtetzeData.getCalendarButton().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dataSartze = dchSartzeData.getDate();
+				dchIrtetzeData.setDate(dchSartzeData.getDate());
+
+				dchIrtetzeData.getJCalendar().setMinSelectableDate(dataSartze);
+				dchIrtetzeData.getJCalendar().setMaxSelectableDate(null);
 				btnBilatu.setVisible(true);
+				table.setVisible(false);
+				lblIzena.setVisible(false);
+				lblOstalMota.setVisible(false);
+				lblPrezioa.setVisible(false);
+				btn_next.setVisible(false);
 			}
 		});
-		dchEtorri.setDateFormatString("dd-MM-yyyy");
-		dchEtorri.setBounds(341, 48, 118, 20);
-		dchEtorri.setVisible(false);
+		dchIrtetzeData.setDateFormatString("dd-MM-yyyy");
+		dchIrtetzeData.setBounds(341, 61, 118, 20);
+		dchIrtetzeData.setVisible(false);
 
-		dataEzEditatu = (JTextFieldDateEditor) dchEtorri.getDateEditor();
+		dataEzEditatu = (JTextFieldDateEditor) dchIrtetzeData.getDateEditor();
 		dataEzEditatu.setEditable(false);
-		getContentPane().add(dchEtorri);
+		getContentPane().add(dchIrtetzeData);
 
-		dchEtorri.getDateEditor().setSelectableDateRange(dataSartze, null);
+		dchIrtetzeData.getDateEditor().setSelectableDateRange(dataSartze, null);
 
-		// herria sartzeko lekua
-		txtSartuHerria.setText("");
-		txtSartuHerria.setBounds(24, 48, 180, 20);
-		txtSartuHerria.setColumns(10);
-		getContentPane().add(txtSartuHerria);
+		// heriak atera
+		cbHerria = new JComboBox<String>();
+		cbHerria.setBounds(24, 61, 165, 20);
+		for (String herria : Metodoak.hotelHerria())
+			cbHerria.addItem(herria);
+		getContentPane().add(cbHerria);
+		
+		cbHerria.addActionListener (new ActionListener () {
+		    public void actionPerformed(ActionEvent e) {
+				btnBilatu.setVisible(true);
+				table.setVisible(false);
+				lblIzena.setVisible(false);
+				lblOstalMota.setVisible(false);
+				lblPrezioa.setVisible(false);
+				btn_next.setVisible(false);
+				dchIrtetzeData.setVisible(false);
+				btnBilatu.setVisible(false);
+
+
+		    }
+		});
+	
+
+		modelo.addColumn("Izena");
+		modelo.addColumn("Ostatu mota");
+		modelo.addColumn("Prezio €/gau");
+
+		table = new JTable(modelo);
+		table.setFont(new Font("Verdana", Font.PLAIN, 14));
+		table.setVisible(false);
+
+		lblIzena.setHorizontalAlignment(SwingConstants.CENTER);
+		lblIzena.setFont(new Font("Verdana", Font.BOLD, 13));
+		lblIzena.setBounds(24, 119, 216, 30);
+		lblIzena.setVisible(false);
+		getContentPane().add(lblIzena);
+
+		lblOstalMota.setHorizontalAlignment(SwingConstants.CENTER);
+		lblOstalMota.setFont(new Font("Verdana", Font.BOLD, 13));
+		lblOstalMota.setBounds(322, 119, 122, 30);
+		lblOstalMota.setVisible(false);
+		getContentPane().add(lblOstalMota);
+
+		lblPrezioa.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPrezioa.setFont(new Font("Verdana", Font.BOLD, 13));
+		lblPrezioa.setBounds(458, 119, 105, 30);
+		lblPrezioa.setVisible(false);
+		getContentPane().add(lblPrezioa);
+
+		// tabla datuak
+		table.getColumnModel().getColumn(0).setPreferredWidth(250);
+		table.setRowHeight(32);
+		table.setBackground(Color.WHITE);
+		table.setBounds(24, 152, 544, 262);
+		getContentPane().add(table);
+		
+		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			@Override 
+		    public void valueChanged(ListSelectionEvent e) { 
+				if ( table.getSelectedRowCount()==1)
+					btn_next.setVisible(true);
+			} 
+
+		});
 
 		btnBilatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				list.setVisible(true);
-				arrayHotelak = new ArrayList<Hotela>();
-				arrayHotelak = Metodoak.hotelakAtera(txtSartuHerria.getText());
-				modelo = new DefaultListModel<Object>();
-				for (Hotela hotela2 : arrayHotelak) {
-					// izena+prezioa
-					hotelString = hotela2.getIzena() + "         " + Metodoak.hotelarenPrezioaAtera(hotela2.getIzena())
-							+ " € / egun";
-					// prezioa
-					modelo.addElement(hotelString);
+				table.setVisible(true);
+				lblIzena.setVisible(true);
+				lblOstalMota.setVisible(true);
+				lblPrezioa.setVisible(true);
+				//ematerakoan 0 tik hasteko
+				for (int i = modelo.getRowCount() -1; i >= 0; i--)
+					modelo.removeRow(i);
+			      
+				arrayHotelak = Metodoak.hotelakAtera((String) cbHerria.getSelectedItem());
+				for (Ostatua h : arrayHotelak) {
+					hotelIzen = h.getIzena();
+					ostatuMota = "Hotela";
+					prezioa = Metodoak.hotelarenPrezioaAtera(hotelIzen) + " €/gau";
+					hotelaBerria[0] = hotelIzen;
+					hotelaBerria[1] = ostatuMota;
+					hotelaBerria[2] = prezioa;
+					modelo.addRow(hotelaBerria);
 				}
-				list.setModel(modelo);
-
+				table.setModel(modelo);
+				btnBilatu.setVisible(false);
 			}
 		});
 
 		// herria bilatzeko botoia
-		btnBilatu.setBounds(471, 43, 97, 25);
+		btnBilatu.setBounds(471, 56, 97, 25);
 		btnBilatu.setVisible(false);
 		getContentPane().add(btnBilatu);
-
-		list.setBounds(24, 121, 534, 334);
-		list.setFont(new Font("Verdana", Font.PLAIN, 10));
-		list.setVisible(false);
-		getContentPane().add(list);
-		
 
 	}
 }

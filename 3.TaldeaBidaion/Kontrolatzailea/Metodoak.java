@@ -21,44 +21,62 @@ public class Metodoak {
 		Leiho2.setVisible(true);
 	}
 
-	public static void hirugarrenLeihoa(String hartutakoHotela, double prezioTot, String sartzeData, String irtetzeData) {
+	public static void hirugarrenLeihoa(String hartutakoHotela, double prezioTot, String sartzeData,
+			String irtetzeData) {
+		
 		Leiho3OstatuDatuak Leiho3 = new Leiho3OstatuDatuak(hartutakoHotela, prezioTot, sartzeData, irtetzeData);
 		Leiho3.setVisible(true);
 
 	}
 
-	public static void laugarrenLeihoa(String hartutakoHotela, double prezioTot, String sartzeData, String irtetzeData) {
+	public static void laugarrenLeihoa(String hartutakoHotela, double prezioTot, String sartzeData,
+			String irtetzeData) {
 		Leiho4Login Leiho4 = new Leiho4Login(hartutakoHotela, prezioTot, sartzeData, irtetzeData);
 		Leiho4.setVisible(true);
 	}
 
-	public static void bostgarrenLeihoa(String hartutakoHotela, double prezioTot, String sartzeData, String irtetzeData) {
-		Leiho5Ordaindu Leiho5 = new Leiho5Ordaindu(prezioTot, hartutakoHotela, sartzeData, irtetzeData);
+	public static void bostgarrenLeihoa(String hartutakoHotela, double prezioTot, String sartzeData, String irtetzeData,
+			String nan) {
+		Leiho5Ordaindu Leiho5 = new Leiho5Ordaindu(prezioTot, hartutakoHotela, sartzeData, irtetzeData, nan);
 		Leiho5.setVisible(true);
 	}
 
-	public static void seigarrenLeihoa(String hartutakoHotela, String sartzeData, String irtetzeData) {
-		Leiho6Ticket Leiho6 = new Leiho6Ticket(hartutakoHotela, sartzeData, irtetzeData);
+	public static void seigarrenLeihoa(String hartutakoHotela, String sartzeData, String irtetzeData, double prezioTot,
+			String nan) {
+		Leiho6Ticket Leiho6 = new Leiho6Ticket(hartutakoHotela, sartzeData, irtetzeData, prezioTot, nan);
 		Leiho6.setVisible(true);
 	}
 
 	// Leiho2-ko metodoak
+	public static ArrayList<String> hotelHerria() {
+		ArrayList<String> arrayHerria = new ArrayList<>();
+		arrayHerria = Kontsultak.hotelHerriak();
+		return arrayHerria;
+	}
+
 	public static ArrayList<Hotela> hotelakAtera(String herria) {
 		ArrayList<Hotela> arrayHotelak = new ArrayList<Hotela>();
-		arrayHotelak=Kontsultak.hotelakBilatu(herria);
+		arrayHotelak = Kontsultak.hotelakBilatu(herria);
 		return arrayHotelak;
 	}
-	
+
 	public static double hotelarenPrezioaAtera(String hotela) {
-		double prezioa=0;
-		prezioa=Kontsultak.hotelarenPrezioaBilatu(hotela);
+		double prezioa = 0;
+		prezioa = Kontsultak.hotelarenPrezioaBilatu(hotela);
 		return prezioa;
 	}
-	
+
+	public static double prezioTotalaGauekin(Date dataSartze, Date dataIrtetze, double prezioTot) {
+		int gauak=(int) ((dataIrtetze.getTime()-dataSartze.getTime())/86400000);
+		//gauaren prezioa biderkatu gau bakoitzagatik
+		prezioTot=prezioTot*gauak;
+		return prezioTot;
+	}
 	
 	// Leiho3-ko metodoak
 	/**
 	 * Frogatu dni-a erregistratuta ez dagoela.
+	 * 
 	 * @author talde1
 	 * @param nan
 	 * @return balNan
@@ -66,6 +84,7 @@ public class Metodoak {
 	public static boolean nanGordetaEgon(String nan) {
 		ArrayList<Bezeroa> bezeroak = new ArrayList<>();
 		boolean balNan = false;
+		System.out.println(nan);
 		bezeroak = Kontsultak.bezeroDatuak();
 		for (Bezeroa bezeroak2 : bezeroak) {
 			if (bezeroak2.getNan().equals(nan)) {
@@ -75,9 +94,9 @@ public class Metodoak {
 		return balNan;
 	}
 
-	
 	/**
 	 * Sartutako pasahitza (zifratuta) ea datu basean dagoen ala ez.
+	 * 
 	 * @author talde1
 	 * @param pasahitza
 	 * @return bal
@@ -94,9 +113,10 @@ public class Metodoak {
 		}
 		return bal;
 	}
-	
+
 	/**
 	 * Sartutako nan-a ea datu baaean dagoen ala ez.
+	 * 
 	 * @author talde1
 	 * @param nan
 	 * @return bal
@@ -113,8 +133,9 @@ public class Metodoak {
 	}
 
 	/**
-	 * Frogatu dni-a erregistratuta ez dagoela. Ez balegoke eta datuak hutzik ere ez, 
-	 * bezeroen erregistroa egin datu basean.
+	 * Frogatu dni-a erregistratuta ez dagoela. Ez balegoke eta datuak hutzik ere
+	 * ez, bezeroen erregistroa egin datu basean.
+	 * 
 	 * @author talde1
 	 * @param pasahitza
 	 * @param nan
@@ -132,8 +153,8 @@ public class Metodoak {
 		ArrayList<Bezeroa> bezeroak = new ArrayList<>();
 
 		// fitxeroari bidali
-		if (pasahitza.length() == 0 || nan.length() < 8 || izena.isEmpty() || abizenak.isEmpty()
-				|| nan.length() < 8 || jaioDataString == null || nanGordetaEgon(nan))
+		if (pasahitza.length() == 0 || nan.length() < 8 || izena.isEmpty() || abizenak.isEmpty() || nan.length() < 8
+				|| jaioDataString == null || nanGordetaEgon(nan))
 			bal = false;
 
 		if (bal && !nanGordetaEgon(nan)) {
@@ -142,10 +163,10 @@ public class Metodoak {
 		return bal;
 	}
 
-	/**	
-
 	/**
-	 * Sartutako pasahitza zifratu.
+	 * 
+	 * /** Sartutako pasahitza zifratu.
+	 * 
 	 * @author talde1
 	 * @param pasahitza
 	 * @return hashtext
@@ -168,6 +189,7 @@ public class Metodoak {
 
 	/**
 	 * Balidatu nan-a (lehenengo 8 zbk eta 9.a letra)
+	 * 
 	 * @author talde1
 	 * @param nan
 	 * @return nanBalidazioa
@@ -186,6 +208,7 @@ public class Metodoak {
 	/**
 	 * Lehenengo 8 karaktereak zenbakiak direla balidatzen du. 8 zenbaki ez badaude
 	 * NAN-a ez dago ondo.
+	 * 
 	 * @author talde1
 	 * @param nan
 	 * @return balNan
@@ -211,6 +234,7 @@ public class Metodoak {
 	/**
 	 * nan-aren zenbaki guztiak gehitzen ditu eta zati 23 egiten hondarra lortzen
 	 * du. Hondarra horrekin sartutako nan-aren letra bueltatzen du.
+	 * 
 	 * @author talde1
 	 * @param nan
 	 * @return nanLarria
@@ -381,7 +405,8 @@ public class Metodoak {
 		return bueltakString;
 	}
 
-	public static void fitxIdatzi(String hartutakoHotela, String sartzeData, String irtetzeData) {
+	public static void fitxIdatzi(String hartutakoHotela, String sartzeData, String irtetzeData, double prezioTot,
+			String nan) {
 		FileWriter fitx = null;
 		PrintWriter pw = null;
 
@@ -389,8 +414,9 @@ public class Metodoak {
 			fitx = new FileWriter("eredua\\ErreserbaFitx", true);
 			pw = new PrintWriter(fitx);
 
-			pw.println("Izena:" +hartutakoHotela +"\n Sartze data: "+ sartzeData+ " Irtetze data: "+ irtetzeData);
-
+			pw.println("Prezioa: " + prezioTot + " €" + "\nBezeroaren datuak:");
+			pw.println("     Nan: " + nan + "\nIzena: \n     Hartutako hotela: " + hartutakoHotela + "\t");
+			pw.println("     Sartze data: " + sartzeData + "\t Irtetze data: " + irtetzeData);
 			pw.println(
 					"******************************************************************************************************************************************");
 			pw.println("");

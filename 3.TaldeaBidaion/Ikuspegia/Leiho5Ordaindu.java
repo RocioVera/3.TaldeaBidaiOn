@@ -27,7 +27,7 @@ public class Leiho5Ordaindu extends JFrame {
 	private double diruFalta, sartutakoa;
 	private ArrayList<String> geltIzenak = new ArrayList<>();
 
-	public Leiho5Ordaindu(double prezioTot, String hartutakoHotela, String sartzeData, String irtetzeData) {
+	public Leiho5Ordaindu(double prezioTot, String hartutakoHotela, String sartzeData, String irtetzeData, String nan) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png")); 
 		getContentPane().setLayout(null);
@@ -40,8 +40,8 @@ public class Leiho5Ordaindu extends JFrame {
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Metodoak.fitxIdatzi(hartutakoHotela, sartzeData, irtetzeData); // billetea fitxategian sartzen duen metodoari deitu
-				Metodoak.seigarrenLeihoa(hartutakoHotela, sartzeData, irtetzeData);
+				Metodoak.fitxIdatzi(hartutakoHotela, sartzeData, irtetzeData, prezioTot, nan); // billetea fitxategian sartzen duen metodoari deitu
+				Metodoak.seigarrenLeihoa(hartutakoHotela, sartzeData, irtetzeData, prezioTot, nan);
 				dispose();
 			}
 		});

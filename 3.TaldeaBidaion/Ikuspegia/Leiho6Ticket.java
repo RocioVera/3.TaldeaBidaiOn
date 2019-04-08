@@ -12,10 +12,9 @@ public class Leiho6Ticket extends JFrame {
 	private JButton btnTiketaImprimatu;
 	private JTextArea txtTiket;
 
-	
-	public Leiho6Ticket(String hartutakoHotela, String sartzeData, String irtetzeData) {
+	public Leiho6Ticket(String hartutakoHotela, String sartzeData, String irtetzeData, double prezioTot, String nan) {
 		// panelaren propietateak
-		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png")); 
+		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
 		this.setBounds(350, 50, 600, 600);
 		this.setResizable(false); // neurketak ez aldatzeko
@@ -38,7 +37,9 @@ public class Leiho6Ticket extends JFrame {
 
 		txtTiket = new JTextArea();
 		txtTiket.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
-		txtTiket.setText("Hartutako hotela: " + hartutakoHotela  + "\n     Sartze data: "+sartzeData+"\t Irtetze data: "+irtetzeData);
+		txtTiket.setText("Prezioa: " + prezioTot + " €" + "\nBezeroaren datuak: \n     Nan: "
+				+ nan + "\nHotelaren datuak: \n     Izena: " + hartutakoHotela + "\t"
+				+ "\n     Sartze data: " + sartzeData + "\t Irtetze data: " + irtetzeData);
 		txtTiket.setEditable(false);
 		txtTiket.setBackground(Color.LIGHT_GRAY);
 		txtTiket.setBounds(37, 146, 545, 391);

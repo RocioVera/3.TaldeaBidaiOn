@@ -7,6 +7,25 @@ import Kontrolatzailea.*;
 public class Kontsultak {
 
 	//Leiho2-ko kontsultak
+	public static ArrayList<String> hotelHerriak() {
+		ArrayList<String> arrayHerria = new ArrayList<>();
+		Statement st = null;
+		Connection konexioa = Konexioa.getConexion();
+		String herria;
+		ResultSet rs = null;
+		try {
+			st = konexioa.createStatement();
+			rs = st.executeQuery("SELECT DISTINCT(herria) FROM `ostatu`");
+			while (rs.next()) {
+				herria = (rs.getString("herria"));
+				arrayHerria.add(herria);
+			}
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		return arrayHerria;
+	}
+	
 	public static ArrayList<Hotela> hotelakBilatu(String herria) {
 		ArrayList<Hotela> arrayHotelak = new ArrayList<Hotela>();
 		Statement st = null;
