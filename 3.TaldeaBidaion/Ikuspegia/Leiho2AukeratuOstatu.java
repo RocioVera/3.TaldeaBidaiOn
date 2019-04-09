@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 
 import javax.swing.*;
@@ -14,9 +15,9 @@ import javax.swing.table.DefaultTableModel;
 import com.toedter.calendar.*;
 
 import Kontrolatzailea.*;
-import javax.swing.border.BevelBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.border.*;
+import javax.swing.event.*;
+
 
 public class Leiho2AukeratuOstatu extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -55,6 +56,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 	private JComboBox cbHerria;
 	private JTable table;
 	private String[] hotelaBerria = new String[3];
+	private Calendar gehiEgunBat;
 
 	public Leiho2AukeratuOstatu() {
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
@@ -156,12 +158,9 @@ public class Leiho2AukeratuOstatu extends JFrame {
 				dchIrtetzeData.setVisible(true);
 				dchIrtetzeData.setDate(null);
 				btnBilatu.setVisible(false);
-				table.setVisible(false);
-				lblIzena.setVisible(false);
-				lblOstalMota.setVisible(false);
-				lblPrezioa.setVisible(false);
 				btn_next.setVisible(false);
-				
+				for (int i = modelo.getRowCount() -1; i >= 0; i--)
+					modelo.removeRow(i);
 			}
 		});
 		dchSartzeData.getJCalendar().setMinSelectableDate(Date.valueOf(LocalDate.now()));
@@ -175,28 +174,27 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		// jcalendar irtetze
 		dchIrtetzeData.getCalendarButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dataSartze = dchSartzeData.getDate();
-				dchIrtetzeData.setDate(dchSartzeData.getDate());
-
-				dchIrtetzeData.getJCalendar().setMinSelectableDate(dataSartze);
+				gehiEgunBat = Calendar.getInstance();
+				gehiEgunBat.setTime(dchSartzeData.getDate());
+				gehiEgunBat.add(Calendar.DAY_OF_YEAR, 1);
+				
+				dchIrtetzeData.setDate(gehiEgunBat.getTime());
+				
+				dchIrtetzeData.getJCalendar().setMinSelectableDate(gehiEgunBat.getTime());
 				dchIrtetzeData.getJCalendar().setMaxSelectableDate(null);
 				btnBilatu.setVisible(true);
-				table.setVisible(false);
-				lblIzena.setVisible(false);
-				lblOstalMota.setVisible(false);
-				lblPrezioa.setVisible(false);
 				btn_next.setVisible(false);
+				for (int i = modelo.getRowCount() -1; i >= 0; i--)
+					modelo.removeRow(i);
 			}
 		});
 		dchIrtetzeData.setDateFormatString("dd-MM-yyyy");
 		dchIrtetzeData.setBounds(341, 61, 118, 20);
-		dchIrtetzeData.setVisible(false);
 
 		dataEzEditatu = (JTextFieldDateEditor) dchIrtetzeData.getDateEditor();
 		dataEzEditatu.setEditable(false);
 		getContentPane().add(dchIrtetzeData);
 
-		dchIrtetzeData.getDateEditor().setSelectableDateRange(dataSartze, null);
 
 		// heriak atera
 		cbHerria = new JComboBox<String>();
@@ -208,15 +206,12 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		cbHerria.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
 				btnBilatu.setVisible(true);
-				table.setVisible(false);
-				lblIzena.setVisible(false);
-				lblOstalMota.setVisible(false);
-				lblPrezioa.setVisible(false);
 				btn_next.setVisible(false);
 				dchIrtetzeData.setVisible(false);
 				btnBilatu.setVisible(false);
 
-
+				for (int i = modelo.getRowCount() -1; i >= 0; i--)
+					modelo.removeRow(i);
 		    }
 		});
 	
@@ -226,31 +221,29 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		modelo.addColumn("Prezio €/gau");
 
 		table = new JTable(modelo);
+		table.setShowVerticalLines(false);
+		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 		table.setFont(new Font("Verdana", Font.PLAIN, 14));
-		table.setVisible(false);
 
 		lblIzena.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIzena.setFont(new Font("Verdana", Font.BOLD, 13));
 		lblIzena.setBounds(24, 119, 216, 30);
-		lblIzena.setVisible(false);
 		getContentPane().add(lblIzena);
 
 		lblOstalMota.setHorizontalAlignment(SwingConstants.CENTER);
 		lblOstalMota.setFont(new Font("Verdana", Font.BOLD, 13));
-		lblOstalMota.setBounds(322, 119, 122, 30);
-		lblOstalMota.setVisible(false);
+		lblOstalMota.setBounds(289, 119, 122, 30);
 		getContentPane().add(lblOstalMota);
 
 		lblPrezioa.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPrezioa.setFont(new Font("Verdana", Font.BOLD, 13));
 		lblPrezioa.setBounds(458, 119, 105, 30);
-		lblPrezioa.setVisible(false);
 		getContentPane().add(lblPrezioa);
 
 		// tabla datuak
 		table.getColumnModel().getColumn(0).setPreferredWidth(250);
 		table.setRowHeight(32);
-		table.setBackground(Color.WHITE);
+		table.setBackground(Color.LIGHT_GRAY);
 		table.setBounds(24, 152, 544, 262);
 		getContentPane().add(table);
 		

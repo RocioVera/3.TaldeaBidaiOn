@@ -67,6 +67,7 @@ public class Metodoak {
 	}
 
 	public static double prezioTotalaGauekin(Date dataSartze, Date dataIrtetze, double prezioTot) {
+		//86400000 milisegundo/egun
 		int gauak=(int) ((dataIrtetze.getTime()-dataSartze.getTime())/86400000);
 		//gauaren prezioa biderkatu gau bakoitzagatik
 		prezioTot=prezioTot*gauak;
@@ -74,6 +75,10 @@ public class Metodoak {
 	}
 	
 	// Leiho3-ko metodoak
+	
+	
+	
+	//Leiho4-ko metodoak
 	/**
 	 * Frogatu dni-a erregistratuta ez dagoela.
 	 * 
