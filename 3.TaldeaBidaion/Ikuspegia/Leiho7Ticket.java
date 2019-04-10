@@ -5,14 +5,14 @@ import javax.swing.*;
 import Kontrolatzailea.*;
 import java.awt.event.*;
 
-public class Leiho6Ticket extends JFrame {
+public class Leiho7Ticket extends JFrame {
 	private static final long serialVersionUID = 1L;
 	// panelan ikusten diren bariableak
 	private JLabel lblEskerrikAskoMezua1, lblEskerrikAskoMezua2;
 	private JButton btnTiketaImprimatu;
 	private JTextArea txtTiket;
 
-	public Leiho6Ticket(String hartutakoHotela, String sartzeData, String irtetzeData, double prezioTot, String nan) {
+	public Leiho7Ticket(String hartutakoHotela, String sartzeData, String irtetzeData, double prezioTot, String nan) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);

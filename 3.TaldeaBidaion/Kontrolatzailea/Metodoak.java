@@ -28,22 +28,30 @@ public class Metodoak {
 		Leiho3.setVisible(true);
 
 	}
+	
 
 	public static void laugarrenLeihoa(String hartutakoHotela, double prezioTot, String sartzeData,
 			String irtetzeData) {
-		Leiho4Login Leiho4 = new Leiho4Login(hartutakoHotela, prezioTot, sartzeData, irtetzeData);
+		Leiho5Login Leiho4 = new Leiho5Login(hartutakoHotela, prezioTot, sartzeData, irtetzeData);
 		Leiho4.setVisible(true);
 	}
 
-	public static void bostgarrenLeihoa(String hartutakoHotela, double prezioTot, String sartzeData, String irtetzeData,
+
+	public static void bostgarrenLeihoa(String hartutakoHotela, double prezioTot, String sartzeData,
+			String irtetzeData) {
+		Leiho5Login Leiho4 = new Leiho5Login(hartutakoHotela, prezioTot, sartzeData, irtetzeData);
+		Leiho4.setVisible(true);
+	}
+
+	public static void seigarrenLeihoa(String hartutakoHotela, double prezioTot, String sartzeData, String irtetzeData,
 			String nan) {
-		Leiho5Ordaindu Leiho5 = new Leiho5Ordaindu(prezioTot, hartutakoHotela, sartzeData, irtetzeData, nan);
+		Leiho6Ordaindu Leiho5 = new Leiho6Ordaindu(prezioTot, hartutakoHotela, sartzeData, irtetzeData, nan);
 		Leiho5.setVisible(true);
 	}
 
-	public static void seigarrenLeihoa(String hartutakoHotela, String sartzeData, String irtetzeData, double prezioTot,
+	public static void zazpigarrenLeihoa(String hartutakoHotela, String sartzeData, String irtetzeData, double prezioTot,
 			String nan) {
-		Leiho6Ticket Leiho6 = new Leiho6Ticket(hartutakoHotela, sartzeData, irtetzeData, prezioTot, nan);
+		Leiho7Ticket Leiho6 = new Leiho7Ticket(hartutakoHotela, sartzeData, irtetzeData, prezioTot, nan);
 		Leiho6.setVisible(true);
 	}
 
@@ -331,84 +339,87 @@ public class Metodoak {
 
 	public static String diruBueltakZerrenda(double diruFalta) {
 		String bueltakString = "";
+		int kont200 = 0, kont100 = 0, kont50, kont20,kont10, kont5, kont1;
 		double bueltak = 0;
 		if (diruFalta < 0) {
 			bueltak = -diruFalta;
 			for (double i = bueltak; i > 0; i = bueltak) {
 				if (bueltak >= 200) {
-					bueltak = bueltak - 200;
+				 	bueltak = bueltak - 200;
 					bueltak = Math.round(bueltak * 100.0) / 100.0;
-					bueltakString = bueltakString + "200€-ko bilete \n";
+					kont200++;
+					bueltakString = bueltakString + "200â‚¬Â€-ko bilete \n";
 
 				} else if (bueltak >= 100) {
 					bueltak = bueltak - 100;
 					bueltak = Math.round(bueltak * 100.0) / 100.0;
-					bueltakString = bueltakString + "100€-ko bilete \n";
+					bueltakString = bueltakString + "100Â€â‚¬-ko bilete \n";
 
 				} else if (bueltak >= 50) {
 					bueltak = bueltak - 50;
 					bueltak = Math.round(bueltak * 100.0) / 100.0;
-					bueltakString = bueltakString + "50€-ko bilete \n";
+					bueltakString = bueltakString + "50Â€â‚¬-ko bilete \n";
 
 				} else if (bueltak >= 20) {
 					bueltak = bueltak - 20;
 					bueltak = Math.round(bueltak * 100.0) / 100.0;
-					bueltakString = bueltakString + "20€-ko bilete \n";
+					bueltakString = bueltakString + "20Â€â‚¬-ko bilete \n";
 
 				} else if (bueltak >= 10) {
 					bueltak = bueltak - 10;
 					bueltak = Math.round(bueltak * 100.0) / 100.0;
-					bueltakString = bueltakString + "10€-ko bilete \n";
+					bueltakString = bueltakString + "10Â€â‚¬-ko bilete \n";
 
 				} else if (bueltak >= 5) {
 					bueltak = bueltak - 5;
 					bueltak = Math.round(bueltak * 100.0) / 100.0;
-					bueltakString = bueltakString + "5€-ko bilete \n";
+					bueltakString = bueltakString + "5Â€â‚¬-ko bilete \n";
 
 				} else if (bueltak >= 2) {
 					bueltak = bueltak - 2;
 					bueltak = Math.round(bueltak * 100.0) / 100.0;
-					bueltakString = bueltakString + "2€-ko moneta \n";
+					bueltakString = bueltakString + "2â‚¬-ko moneta \n";
 
 				} else if (bueltak >= 1) {
 					bueltak = bueltak - 1;
 					bueltak = Math.round(bueltak * 100.0) / 100.0;
-					bueltakString = bueltakString + "1€-ko moneta \n";
+					bueltakString = bueltakString + "1â‚¬-ko moneta \n";
 
 				} else if (bueltak >= 0.5) {
 					bueltak = bueltak - 0.5;
 					bueltak = Math.round(bueltak * 100.0) / 100.0;
-					bueltakString = bueltakString + "0.5€-ko moneta \n";
+					bueltakString = bueltakString + "0.5â‚¬-ko moneta \n";
 
 				} else if (bueltak >= 0.2) {
 					bueltak = bueltak - 0.2;
 					bueltak = Math.round(bueltak * 100.0) / 100.0;
-					bueltakString = bueltakString + "0.2€-ko moneta \n";
+					bueltakString = bueltakString + "0.2â‚¬-ko moneta \n";
 
 				} else if (bueltak >= 0.1) {
 					bueltak = bueltak - 0.1;
 					bueltak = Math.round(bueltak * 100.0) / 100.0;
-					bueltakString = bueltakString + "0.1€-ko moneta \n";
+					bueltakString = bueltakString + "0.1â‚¬-ko moneta \n";
 
 				} else if (bueltak >= 0.05) {
 					bueltak = bueltak - 0.05;
 					bueltak = Math.round(bueltak * 100.0) / 100.0;
-					bueltakString = bueltakString + "0.05€-ko moneta \n";
+					bueltakString = bueltakString + "0.05â‚¬-ko moneta \n";
 
 				} else if (bueltak >= 0.02) {
 					bueltak = bueltak - 0.02;
 					bueltak = Math.round(bueltak * 100.0) / 100.0;
-					bueltakString = bueltakString + "0.02€-ko moneta \n";
+					bueltakString = bueltakString + "0.02â‚¬-ko moneta \n";
 
 				} else if (bueltak >= 0.01) {
 					bueltak = bueltak - 0.01;
 					bueltak = Math.round(bueltak * 100.0) / 100.0;
-					bueltakString = bueltakString + "0.01€-ko moneta \n";
+					bueltakString = bueltakString + "0.01â‚¬-ko moneta \n";
 				}
 			}
 		}
 		return bueltakString;
 	}
+	
 
 	public static void fitxIdatzi(String hartutakoHotela, String sartzeData, String irtetzeData, double prezioTot,
 			String nan) {
@@ -419,7 +430,7 @@ public class Metodoak {
 			fitx = new FileWriter("eredua\\ErreserbaFitx", true);
 			pw = new PrintWriter(fitx);
 
-			pw.println("Prezioa: " + prezioTot + " €" + "\nBezeroaren datuak:");
+			pw.println("Prezioa: " + prezioTot + " â‚¬" + "\nBezeroaren datuak:");
 			pw.println("     Nan: " + nan + "\nIzena: \n     Hartutako hotela: " + hartutakoHotela + "\t");
 			pw.println("     Sartze data: " + sartzeData + "\t Irtetze data: " + irtetzeData);
 			pw.println(

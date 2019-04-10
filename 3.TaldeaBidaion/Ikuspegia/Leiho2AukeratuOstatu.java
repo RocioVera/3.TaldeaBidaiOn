@@ -10,7 +10,9 @@ import java.util.Calendar;
 import java.util.Iterator;
 
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import com.toedter.calendar.*;
 
@@ -55,8 +57,10 @@ public class Leiho2AukeratuOstatu extends JFrame {
 	private SimpleDateFormat dataFormato = new SimpleDateFormat("yyyy-MM-dd");
 	private JComboBox cbHerria;
 	private JTable table;
+	JScrollPane scrollPane;
 	private String[] hotelaBerria = new String[3];
 	private Calendar gehiEgunBat;
+
 
 	public Leiho2AukeratuOstatu() {
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
@@ -65,7 +69,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		this.setResizable(false); // neurketak ez aldatzeko
 		this.setSize(new Dimension(600, 600));
 		this.setTitle("3.taldearen ostatu zerbitzuen bilatzailea");
-
+		
 		// botoiak
 		btn_next.addActionListener(new ActionListener() {
 			@Override
@@ -225,6 +229,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 		table.setFont(new Font("Verdana", Font.PLAIN, 14));
 
+	        
 		lblIzena.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIzena.setFont(new Font("Verdana", Font.BOLD, 13));
 		lblIzena.setBounds(24, 119, 216, 30);
@@ -244,7 +249,9 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		table.getColumnModel().getColumn(0).setPreferredWidth(250);
 		table.setRowHeight(32);
 		table.setBackground(Color.LIGHT_GRAY);
-		table.setBounds(24, 152, 544, 262);
+		table.setBounds(24, 152, 544, 42);
+		table.getTableHeader().setReorderingAllowed(false);
+
 		getContentPane().add(table);
 		
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -256,6 +263,11 @@ public class Leiho2AukeratuOstatu extends JFrame {
 
 		});
 
+		scrollPane = new JScrollPane(table);
+		scrollPane.setViewportBorder(null);
+		scrollPane.setBounds(34, 145, 539, 293);
+		getContentPane().add(scrollPane);
+		
 		btnBilatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				table.setVisible(true);
@@ -285,6 +297,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		btnBilatu.setBounds(471, 56, 97, 25);
 		btnBilatu.setVisible(false);
 		getContentPane().add(btnBilatu);
+
 
 	}
 }

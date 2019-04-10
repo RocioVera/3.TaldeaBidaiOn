@@ -9,14 +9,14 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Leiho5Ordaindu extends JFrame {
+public class Leiho6Ordaindu extends JFrame {
 	private static final long serialVersionUID = 1L;
 	// panelan ikusten diren bariableak
 	private JTextField txtPrezioTot = new JTextField(), txtDiruFalta = new JTextField(), txtBueltak = new JTextField();
 	private JTextArea txtrTxtareatxanponbueltak = new JTextArea();
 	private JButton btn_next = new JButton("Hurrengoa"), btn_prev = new JButton("Atzera"),
 			restart = new JButton("\u2302"), btn_200Euro, btn_100Euro, btn_50Euro, btn_20Euro, btn_10Euro, btn_5Euro,
-			btn_2Euro, btn_1Euro, btn_50Zent, btn_20Zent, btn_10Zent, btn_5Zent, btn_2Zent, btn_1Zent, btnErosi;
+			btn_2Euro, btn_1Euro, btn_50Zent, btn_20Zent, btn_10Zent, btn_5Zent, btn_2Zent, btn_1Zent;
 	private JLabel lblPrezioTotala, lblZenbatDiru, lblEuro, lblZentimo, lblDiruFalta, lblBueltak;
 
 	// bariableak
@@ -27,12 +27,12 @@ public class Leiho5Ordaindu extends JFrame {
 	private double diruFalta, sartutakoa;
 	private ArrayList<String> geltIzenak = new ArrayList<>();
 
-	public Leiho5Ordaindu(double prezioTot, String hartutakoHotela, String sartzeData, String irtetzeData, String nan) {
+	public Leiho6Ordaindu(double prezioTot, String hartutakoHotela, String sartzeData, String irtetzeData, String nan) {
 		// panelaren propietateak
-		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png")); 
+		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
 		this.setBounds(350, 50, 600, 600);
-		this.setResizable(false); //neurketak ez aldatzeko
+		this.setResizable(false); // neurketak ez aldatzeko
 		this.setSize(new Dimension(600, 600));
 		this.setTitle("3.taldearen ostatu zerbitzuen bilatzailea");
 
@@ -40,8 +40,10 @@ public class Leiho5Ordaindu extends JFrame {
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Metodoak.fitxIdatzi(hartutakoHotela, sartzeData, irtetzeData, prezioTot, nan); // billetea fitxategian sartzen duen metodoari deitu
-				Metodoak.seigarrenLeihoa(hartutakoHotela, sartzeData, irtetzeData, prezioTot, nan);
+				Metodoak.fitxIdatzi(hartutakoHotela, sartzeData, irtetzeData, prezioTot, nan); // billetea fitxategian
+																								// sartzen duen
+																								// metodoari deitu
+				Metodoak.zazpigarrenLeihoa(hartutakoHotela, sartzeData, irtetzeData, prezioTot, nan);
 				dispose();
 			}
 		});
@@ -55,7 +57,7 @@ public class Leiho5Ordaindu extends JFrame {
 		btn_prev.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Metodoak.laugarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData);
+				Metodoak.bostgarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData);
 
 				dispose();
 			}
@@ -81,24 +83,24 @@ public class Leiho5Ordaindu extends JFrame {
 		/* Prezio totala */
 		lblPrezioTotala = new JLabel("Prezio totala:");
 		lblPrezioTotala.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblPrezioTotala.setBounds(176, 29, 117, 20);
+		lblPrezioTotala.setBounds(180, 13, 117, 20);
 		getContentPane().add(lblPrezioTotala);
 
 		txtPrezioTot.setEditable(false);
 		txtPrezioTot.setColumns(10);
-		txtPrezioTot.setBounds(300, 29, 86, 20);
+		txtPrezioTot.setBounds(300, 15, 86, 20);
 		txtPrezioTot.setText(prezioTot + " €");
 		getContentPane().add(txtPrezioTot);
 
 		/* ZenbatDiru sartu nahi */
 		lblZenbatDiru = new JLabel("Zenbat diru sartu nahi duzu?");
-		lblZenbatDiru.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblZenbatDiru.setBounds(166, 62, 304, 20);
+		lblZenbatDiru.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 17));
+		lblZenbatDiru.setBounds(166, 46, 304, 20);
 		getContentPane().add(lblZenbatDiru);
 
 		lblEuro = new JLabel("Euroak");
 		lblEuro.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblEuro.setBounds(117, 91, 56, 20);
+		lblEuro.setBounds(117, 67, 56, 20);
 		getContentPane().add(lblEuro);
 
 		lblZentimo = new JLabel("Zentimoak");
@@ -111,11 +113,12 @@ public class Leiho5Ordaindu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				kont = 1;
 				sartutakoa = Metodoak.diruaSartu(kont, sartutakoa);
+				botoiakKendu(prezioTot);
 			}
 		});
 		btn_200Euro.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btn_200Euro.setBackground(Color.WHITE);
-		btn_200Euro.setBounds(38, 122, 89, 23);
+		btn_200Euro.setBounds(38, 98, 89, 23);
 		getContentPane().add(btn_200Euro);
 
 		btn_100Euro = new JButton("100\u20AC");
@@ -123,11 +126,13 @@ public class Leiho5Ordaindu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				kont = 2;
 				sartutakoa = Metodoak.diruaSartu(kont, sartutakoa);
+				botoiakKendu(prezioTot);
+
 			}
 		});
 		btn_100Euro.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btn_100Euro.setBackground(Color.WHITE);
-		btn_100Euro.setBounds(38, 156, 89, 23);
+		btn_100Euro.setBounds(38, 132, 89, 23);
 		getContentPane().add(btn_100Euro);
 
 		btn_50Euro = new JButton("50\u20AC");
@@ -135,11 +140,13 @@ public class Leiho5Ordaindu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				kont = 3;
 				sartutakoa = Metodoak.diruaSartu(kont, sartutakoa);
+				botoiakKendu(prezioTot);
+
 			}
 		});
 		btn_50Euro.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btn_50Euro.setBackground(Color.WHITE);
-		btn_50Euro.setBounds(38, 190, 89, 23);
+		btn_50Euro.setBounds(38, 166, 89, 23);
 		getContentPane().add(btn_50Euro);
 
 		btn_20Euro = new JButton("20\u20AC");
@@ -147,12 +154,14 @@ public class Leiho5Ordaindu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				kont = 4;
 				sartutakoa = Metodoak.diruaSartu(kont, sartutakoa);
+				botoiakKendu(prezioTot);
+
 			}
 		});
 		btn_20Euro.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btn_20Euro.setForeground(Color.BLACK);
 		btn_20Euro.setBackground(Color.WHITE);
-		btn_20Euro.setBounds(38, 224, 89, 23);
+		btn_20Euro.setBounds(38, 200, 89, 23);
 		getContentPane().add(btn_20Euro);
 
 		btn_10Euro = new JButton("10\u20AC");
@@ -160,11 +169,13 @@ public class Leiho5Ordaindu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				kont = 5;
 				sartutakoa = Metodoak.diruaSartu(kont, sartutakoa);
+				botoiakKendu(prezioTot);
+
 			}
 		});
 		btn_10Euro.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btn_10Euro.setBackground(Color.WHITE);
-		btn_10Euro.setBounds(166, 122, 89, 23);
+		btn_10Euro.setBounds(166, 98, 89, 23);
 		getContentPane().add(btn_10Euro);
 
 		btn_5Euro = new JButton("5\u20AC");
@@ -172,11 +183,13 @@ public class Leiho5Ordaindu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				kont = 6;
 				sartutakoa = Metodoak.diruaSartu(kont, sartutakoa);
+				botoiakKendu(prezioTot);
+
 			}
 		});
 		btn_5Euro.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btn_5Euro.setBackground(Color.WHITE);
-		btn_5Euro.setBounds(166, 156, 89, 23);
+		btn_5Euro.setBounds(166, 132, 89, 23);
 		getContentPane().add(btn_5Euro);
 
 		btn_2Euro = new JButton("2\u20AC");
@@ -184,11 +197,13 @@ public class Leiho5Ordaindu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				kont = 7;
 				sartutakoa = Metodoak.diruaSartu(kont, sartutakoa);
+				botoiakKendu(prezioTot);
+
 			}
 		});
 		btn_2Euro.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btn_2Euro.setBackground(Color.WHITE);
-		btn_2Euro.setBounds(166, 190, 89, 23);
+		btn_2Euro.setBounds(166, 166, 89, 23);
 		getContentPane().add(btn_2Euro);
 
 		btn_1Euro = new JButton("1\u20AC");
@@ -196,11 +211,13 @@ public class Leiho5Ordaindu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				kont = 8;
 				sartutakoa = Metodoak.diruaSartu(kont, sartutakoa);
+				botoiakKendu(prezioTot);
+
 			}
 		});
 		btn_1Euro.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btn_1Euro.setBackground(Color.WHITE);
-		btn_1Euro.setBounds(166, 224, 89, 23);
+		btn_1Euro.setBounds(166, 200, 89, 23);
 		getContentPane().add(btn_1Euro);
 
 		btn_50Zent = new JButton("50 zent");
@@ -280,7 +297,7 @@ public class Leiho5Ordaindu extends JFrame {
 		txtDiruFalta.setForeground(Color.RED);
 		txtDiruFalta.setEditable(false);
 		txtDiruFalta.setColumns(10);
-		txtDiruFalta.setBounds(166, 393, 64, 20);
+		txtDiruFalta.setBounds(443, 350, 64, 20);
 		txtDiruFalta.setText(prezioTot + " €");
 		getContentPane().add(txtDiruFalta);
 
@@ -289,85 +306,74 @@ public class Leiho5Ordaindu extends JFrame {
 		txtBueltak.setForeground(Color.BLUE);
 		txtBueltak.setEditable(false);
 		txtBueltak.setColumns(10);
-		txtBueltak.setBounds(166, 439, 64, 20);
+		txtBueltak.setBounds(442, 397, 64, 20);
 		txtBueltak.setText("00.00€");
 		getContentPane().add(txtBueltak);
-
-		/* Erosi */
-		btnErosi = new JButton("Erosi");
-		btnErosi.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				diruFalta = Metodoak.diruFaltaBueltakMetodoa(diruFalta, prezioTot, sartutakoa);
-				diruFaltaString = String.valueOf(diruFalta);
-
-				if (diruFalta > 0) {
-					// Diru falta
-					txtDiruFalta.setText(diruFaltaString + " €");
-					txtBueltak.setText("00.00 €");
-					
-				} else if (diruFalta < 0) {
-					diruFaltaString = String.valueOf(-diruFalta);
-					txtBueltak.setText(diruFaltaString + " €");
-					txtDiruFalta.setText("00.00 €");
-					// txanponTot
-					txanponTot = Metodoak.diruBueltakZerrenda(diruFalta);
-					txtrTxtareatxanponbueltak.setText(txanponTot);
-
-				} else {
-					txtDiruFalta.setText("00.00 €");
-					txtBueltak.setText("00.00 €");
-				}
-				if (diruFalta <= 0) {
-					btnErosi.setEnabled(false);
-					btn_next.setVisible(true);
-					btn_prev.setVisible(false);
-					restart.setVisible(false);
-
-					btn_200Euro.setEnabled(false);
-					btn_100Euro.setEnabled(false);
-					btn_50Euro.setEnabled(false);
-					btn_20Euro.setEnabled(false);
-					btn_20Euro.setEnabled(false);
-					btn_10Euro.setEnabled(false);
-					btn_5Euro.setEnabled(false);
-					btn_2Euro.setEnabled(false);
-					btn_1Euro.setEnabled(false);
-					btn_50Zent.setEnabled(false);
-					btn_20Zent.setEnabled(false);
-					btn_10Zent.setEnabled(false);
-					btn_5Zent.setEnabled(false);
-					btn_2Zent.setEnabled(false);
-					btn_2Zent.setEnabled(false);
-					btn_1Zent.setEnabled(false);
-				}
-			}
-
-		});
-		btnErosi.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnErosi.setBackground(Color.WHITE);
-		btnErosi.setForeground(new Color(0, 0, 0));
-		btnErosi.setBounds(115, 321, 90, 38);
-		getContentPane().add(btnErosi);
 
 		// Diru falta
 		lblDiruFalta = new JLabel("Diru falta:");
 		lblDiruFalta.setForeground(Color.RED);
 		lblDiruFalta.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblDiruFalta.setBounds(56, 393, 95, 20);
+		lblDiruFalta.setBounds(333, 350, 95, 20);
 		getContentPane().add(lblDiruFalta);
 
 		// Zenbat bueltak eman behar
 		lblBueltak = new JLabel("Bueltak:");
 		lblBueltak.setForeground(Color.BLUE);
 		lblBueltak.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblBueltak.setBounds(56, 439, 86, 20);
+		lblBueltak.setBounds(332, 397, 86, 20);
 		getContentPane().add(lblBueltak);
 
 		// Bueltak zerrenda
 		txtrTxtareatxanponbueltak.setBackground(Color.LIGHT_GRAY);
 		txtrTxtareatxanponbueltak.setText("Emaiozu botoiari");
-		txtrTxtareatxanponbueltak.setBounds(332, 224, 174, 271);
+		txtrTxtareatxanponbueltak.setBounds(38, 236, 202, 259);
 		getContentPane().add(txtrTxtareatxanponbueltak);
 
+	}
+
+	private void botoiakKendu(double prezioTot) {
+		diruFalta = Metodoak.diruFaltaBueltakMetodoa(diruFalta, prezioTot, sartutakoa);
+		diruFaltaString = String.valueOf(diruFalta);
+
+		if (diruFalta > 0) {
+			// Diru falta
+			txtDiruFalta.setText(diruFaltaString + " €");
+			txtBueltak.setText("00.00 €");
+
+		} else if (diruFalta < 0) {
+			diruFaltaString = String.valueOf(-diruFalta);
+			txtBueltak.setText(diruFaltaString + " €");
+			txtDiruFalta.setText("00.00 €");
+			// txanponTot
+			txanponTot = Metodoak.diruBueltakZerrenda(diruFalta);
+			txtrTxtareatxanponbueltak.setText(txanponTot);
+
+		} else {
+			txtDiruFalta.setText("00.00 €");
+			txtBueltak.setText("00.00 €");
+		}
+		if (diruFalta <= 0) {
+			btn_next.setVisible(true);
+			btn_prev.setVisible(false);
+			restart.setVisible(false);
+
+			btn_200Euro.setEnabled(false);
+			btn_100Euro.setEnabled(false);
+			btn_50Euro.setEnabled(false);
+			btn_20Euro.setEnabled(false);
+			btn_20Euro.setEnabled(false);
+			btn_10Euro.setEnabled(false);
+			btn_5Euro.setEnabled(false);
+			btn_2Euro.setEnabled(false);
+			btn_1Euro.setEnabled(false);
+			btn_50Zent.setEnabled(false);
+			btn_20Zent.setEnabled(false);
+			btn_10Zent.setEnabled(false);
+			btn_5Zent.setEnabled(false);
+			btn_2Zent.setEnabled(false);
+			btn_2Zent.setEnabled(false);
+			btn_1Zent.setEnabled(false);
+		}
 	}
 }

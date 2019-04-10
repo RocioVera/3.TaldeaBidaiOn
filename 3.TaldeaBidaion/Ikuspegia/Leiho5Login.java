@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import com.toedter.calendar.*;
 
-public class Leiho4Login extends JFrame {
+public class Leiho5Login extends JFrame {
 	private static final long serialVersionUID = 1L;
 	// panelan ikusten diren bariableak
 	private JTextField txtPrezioTot = new JTextField(), txtNan = new JTextField(), txtIzena = new JTextField(),
@@ -31,7 +31,7 @@ public class Leiho4Login extends JFrame {
 	private int nanLuzera = 8, izenLuzera = 49, abizenLuzera = 99, pasahitzLuzera = 49, sexuLuzera = 0;
 	private char letra;
 
-	public Leiho4Login(String hartutakoHotela, double prezioTot, String sartzeData, String irtetzeData) {
+	public Leiho5Login(String hartutakoHotela, double prezioTot, String sartzeData, String irtetzeData) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
@@ -44,7 +44,7 @@ public class Leiho4Login extends JFrame {
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Metodoak.bostgarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData, nan);
+				Metodoak.seigarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData, nan);
 				dispose();
 			}
 		});
@@ -56,7 +56,7 @@ public class Leiho4Login extends JFrame {
 		btn_prev.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Metodoak.hirugarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData);
+				Metodoak.laugarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData);
 				dispose();
 			}
 		});
@@ -291,7 +291,7 @@ public class Leiho4Login extends JFrame {
 					public void keyTyped(KeyEvent e) {
 						letra = e.getKeyChar();
 						// 50 baino gehiago ez sartzeko
-						if (passwordField.getText().length() > pasahitzLuzera)
+						if (passwordField.getPassword().length > pasahitzLuzera)
 							e.consume(); // ez du godetzen
 					}
 				});
