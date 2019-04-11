@@ -5,7 +5,6 @@ public class Oheak {
 	private int oheKopuru;
 	
 	public Oheak(String oheMota, int oheKopuru) {
-		super();
 		this.oheMota = oheMota;
 		this.oheKopuru = oheKopuru;
 	}

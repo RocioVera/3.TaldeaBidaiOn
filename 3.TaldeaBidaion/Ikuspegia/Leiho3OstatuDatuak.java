@@ -2,6 +2,9 @@ package Ikuspegia;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -10,17 +13,25 @@ import javax.swing.event.ListSelectionListener;
 import Kontrolatzailea.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableColumn;
 
 public class Leiho3OstatuDatuak extends JFrame {
 	private JLabel lblIzena = new JLabel("");
 	private JButton btn_next = new JButton("Hurrengoa"), btn_prev = new JButton("Atzera"),
 			restart = new JButton("\u2302");
 	private JTable table;
-	private DefaultTableModel modelo = new DefaultTableModel();
+	private DefaultTableModel modelo = new DefaultTableModel();/* {
+		public boolean isCellEditable(int row, int column) {
+			return false;
+		}
+	};*/
 	private JScrollPane scrollPane;
+	private ArrayList<gelaMota_ohe_hotela> oheGelaHotela;
+	private String ohe_kopuru, sinplea, bikoitza, umeak, prezioa;
+	private JComboBox<String> cblibreKant;
 
-	public Leiho3OstatuDatuak(String hartutakoHotela, double prezioTot, String sartzeData, String irtetzeData) {
+	public Leiho3OstatuDatuak(Hotela hartutakoHotela, double prezioTot, String sartzeData, String irtetzeData) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		this.setBounds(350, 50, 600, 600);
 		this.setResizable(false); // neurketak ez aldatzeko
@@ -28,12 +39,11 @@ public class Leiho3OstatuDatuak extends JFrame {
 		this.setTitle("3.taldearen ostatu zerbitzuen bilatzailea");
 		btn_next.setBounds(423, 508, 122, 32);
 
-
 		// botoiak
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Metodoak.laugarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData);
+				MetodoakLeihoAldaketa.laugarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData);
 				dispose();
 			}
 		});
@@ -47,7 +57,7 @@ public class Leiho3OstatuDatuak extends JFrame {
 		btn_prev.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Metodoak.bigarrenLeihoa();
+				MetodoakLeihoAldaketa.bigarrenLeihoa();
 				dispose();
 			}
 		});
@@ -60,7 +70,7 @@ public class Leiho3OstatuDatuak extends JFrame {
 		restart.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Metodoak.lehenengoLeihoa();
+				MetodoakLeihoAldaketa.lehenengoLeihoa();
 				dispose();
 			}
 		});
@@ -68,57 +78,81 @@ public class Leiho3OstatuDatuak extends JFrame {
 		restart.setBackground(Color.LIGHT_GRAY);
 		getContentPane().add(restart);
 		lblIzena.setBounds(0, 25, 594, 32);
-		
-		lblIzena.setText(hartutakoHotela);
+
+		lblIzena.setText(hartutakoHotela.getIzena());
 		lblIzena.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIzena.setFont(new Font("Verdana", Font.BOLD | Font.ITALIC, 20));
 		getContentPane().add(lblIzena);
-		
-		modelo.addColumn("Logela");
+
 		modelo.addColumn("Prezioa");
-		modelo.addColumn("Ohe Mota");
-		modelo.addColumn("Kopurua");
+		modelo.addColumn("Sinplea");
+		modelo.addColumn("Binaka");
+		modelo.addColumn("Umeeak");
+		modelo.addColumn("Logela libre kantitatea");
+
 
 		table = new JTable(modelo);
 		table.setBounds(1, 1, 537, 0);
 		table.setShowVerticalLines(false);
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 		table.setFont(new Font("Verdana", Font.PLAIN, 14));
-		
-		table.getColumnModel().getColumn(0).setPreferredWidth(250);
+		table.setAutoCreateRowSorter(true);
+
+
+		table.getColumnModel().getColumn(0).setPreferredWidth(30);
+		table.getColumnModel().getColumn(1).setPreferredWidth(25);
+		table.getColumnModel().getColumn(2).setPreferredWidth(25);
+		table.getColumnModel().getColumn(3).setPreferredWidth(25);
+		table.getColumnModel().getColumn(4).setPreferredWidth(130);
+
+		table.getTableHeader().setResizingAllowed(false);
 		table.setRowHeight(32);
 		table.setBackground(Color.LIGHT_GRAY);
+		table.getTableHeader().setFont(new Font("Verdana", Font.BOLD, 15));
 		table.getTableHeader().setReorderingAllowed(false);
 		getContentPane().add(table);
-		
+
+		oheGelaHotela = MetodoakKontsultak.oheGelaHotelaDatuakMet(hartutakoHotela.getHotelKod());
+
+		for (gelaMota_ohe_hotela h : oheGelaHotela) {
+			Object[] aux = new Object[5];
+			//lamarmet -1;
+
+			TableColumn col =table.getColumnModel().getColumn(4);
+			cblibreKant = new JComboBox<String>();
+			cblibreKant.addItem("1");
+			cblibreKant.addItem("2");
+			col.setCellEditor(new DefaultCellEditor(cblibreKant));
+			
+			getContentPane().add(cblibreKant);
+			ohe_kopuru = h.getOhe_kopuru() + "";
+			sinplea = h.getSinplea() + "";
+			bikoitza = h.getBikoitza() + "";
+			umeak = h.getUmeak() + "";
+			prezioa = h.getPrezioa() + "";
+			aux[0] = prezioa;
+			aux[1] = sinplea;
+			aux[2] = bikoitza;
+			aux[3] = umeak;
+			modelo.addRow(aux);
+
+			
+			
+		}
+		table.setModel(modelo);
+
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			@Override 
-		    public void valueChanged(ListSelectionEvent e) { 
-				if ( table.getSelectedRowCount()==1)
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if (table.getSelectedRowCount() == 1)
 					btn_next.setVisible(true);
-			} 
+			}
 
 		});
-
 		scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(34, 145, 539, 293);
+		scrollPane.setBounds(21, 68, 563, 402);
 		scrollPane.setViewportBorder(null);
 		getContentPane().add(scrollPane);
-		
-		JLabel lblLogela = new JLabel("Logela:");
-		lblLogela.setBounds(57, 120, 46, 14);
-		getContentPane().add(lblLogela);
-		
-		JLabel lblPrezioa = new JLabel("Prezioa:");
-		lblPrezioa.setBounds(189, 120, 46, 14);
-		getContentPane().add(lblPrezioa);
-		
-		JLabel lblOheMota = new JLabel("Ohe Mota:");
-		lblOheMota.setBounds(328, 120, 63, 14);
-		getContentPane().add(lblOheMota);
-		
-		JLabel lblKopurua = new JLabel("Kopurua:");
-		lblKopurua.setBounds(468, 120, 46, 14);
-		getContentPane().add(lblKopurua);
+
 	}
 }

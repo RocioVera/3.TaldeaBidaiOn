@@ -1,15 +1,11 @@
 package Ikuspegia;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 
-import Kontrolatzailea.Metodoak;
+import Kontrolatzailea.MetodoakLeihoAldaketa;
 
 public class Leiho1OngiEtorria extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -34,7 +30,7 @@ public class Leiho1OngiEtorria extends JFrame {
 		getContentPane().add(aurreraBtn);
 		aurreraBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Metodoak.bigarrenLeihoa();
+				MetodoakLeihoAldaketa.bigarrenLeihoa();
 				dispose();
 			}
 		});

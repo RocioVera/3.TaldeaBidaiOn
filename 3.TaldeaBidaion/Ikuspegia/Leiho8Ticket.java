@@ -5,14 +5,14 @@ import javax.swing.*;
 import Kontrolatzailea.*;
 import java.awt.event.*;
 
-public class Leiho7Ticket extends JFrame {
+public class Leiho8Ticket extends JFrame {
 	private static final long serialVersionUID = 1L;
 	// panelan ikusten diren bariableak
 	private JLabel lblEskerrikAskoMezua1, lblEskerrikAskoMezua2;
 	private JButton btnTiketaImprimatu;
 	private JTextArea txtTiket;
 
-	public Leiho7Ticket(String hartutakoHotela, String sartzeData, String irtetzeData, double prezioTot, String nan) {
+	public Leiho8Ticket(Hotela hartutakoHotela, String sartzeData, String irtetzeData, double prezioTot, String nan) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
@@ -48,7 +48,7 @@ public class Leiho7Ticket extends JFrame {
 		btnTiketaImprimatu = new JButton("Erreserba imprimatu eta bukatu erosketa");
 		btnTiketaImprimatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Metodoak.Leiho_segunduak();
+				MetodoakLeihoAldaketa.Leiho_segunduak();
 				dispose();
 			}
 		});

@@ -24,7 +24,7 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 	private JButton btn_next = new JButton("Hurrengoa"), btn_prev = new JButton("Atzera"),
 			restart = new JButton("\u2302");
 
-	public Leiho4ZerbitzuGehigarriak(String hartutakoHotela, double prezioTot, String sartzeData, String irtetzeData) {
+	public Leiho4ZerbitzuGehigarriak(Hotela hartutakoHotela, double prezioTot, String sartzeData, String irtetzeData) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
 		this.setBounds(350, 50, 600, 600);
@@ -37,7 +37,7 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Metodoak.laugarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData);
+				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData);
 				dispose();
 			}
 		});
@@ -50,7 +50,7 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		btn_prev.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Metodoak.bigarrenLeihoa();
+				MetodoakLeihoAldaketa.hirugarrenLeihoa(hartutakoHotela, prezioTot, irtetzeData, irtetzeData);
 				dispose();
 			}
 		});
@@ -63,7 +63,7 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		restart.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Metodoak.lehenengoLeihoa();
+				MetodoakLeihoAldaketa.lehenengoLeihoa();
 				dispose();
 			}
 		});
@@ -72,7 +72,7 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		restart.setBackground(Color.LIGHT_GRAY);
 		getContentPane().add(restart);
 		
-		lblIzena.setText(hartutakoHotela);
+		lblIzena.setText(hartutakoHotela.getIzena());
 		lblIzena.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIzena.setFont(new Font("Verdana", Font.BOLD | Font.ITALIC, 20));
 		lblIzena.setBounds(0, 24, 594, 32);

@@ -9,7 +9,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Leiho6Ordaindu extends JFrame {
+public class Leiho7Ordaindu extends JFrame {
 	private static final long serialVersionUID = 1L;
 	// panelan ikusten diren bariableak
 	private JTextField txtPrezioTot = new JTextField(), txtDiruFalta = new JTextField(), txtBueltak = new JTextField();
@@ -27,7 +27,7 @@ public class Leiho6Ordaindu extends JFrame {
 	private double diruFalta, sartutakoa;
 	private ArrayList<String> geltIzenak = new ArrayList<>();
 
-	public Leiho6Ordaindu(double prezioTot, String hartutakoHotela, String sartzeData, String irtetzeData, String nan) {
+	public Leiho7Ordaindu(double prezioTot, Hotela hartutakoHotela, String sartzeData, String irtetzeData, String nan) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
@@ -43,7 +43,7 @@ public class Leiho6Ordaindu extends JFrame {
 				Metodoak.fitxIdatzi(hartutakoHotela, sartzeData, irtetzeData, prezioTot, nan); // billetea fitxategian
 																								// sartzen duen
 																								// metodoari deitu
-				Metodoak.zazpigarrenLeihoa(hartutakoHotela, sartzeData, irtetzeData, prezioTot, nan);
+				MetodoakLeihoAldaketa.zortzigarrenLeihoa(hartutakoHotela, sartzeData, irtetzeData, prezioTot, nan);
 				dispose();
 			}
 		});
@@ -57,7 +57,7 @@ public class Leiho6Ordaindu extends JFrame {
 		btn_prev.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Metodoak.bostgarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData);
+				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData);
 
 				dispose();
 			}
@@ -71,7 +71,7 @@ public class Leiho6Ordaindu extends JFrame {
 		restart.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Metodoak.lehenengoLeihoa();
+				MetodoakLeihoAldaketa.lehenengoLeihoa();
 				dispose();
 			}
 		});
