@@ -21,15 +21,18 @@ public class Leiho3OstatuDatuak extends JFrame {
 	private JButton btn_next = new JButton("Hurrengoa"), btn_prev = new JButton("Atzera"),
 			restart = new JButton("\u2302");
 	private JTable table;
-	private DefaultTableModel modelo = new DefaultTableModel();/* {
+	private DefaultTableModel modelo = new DefaultTableModel(){
 		public boolean isCellEditable(int row, int column) {
+			if (column==4)
+				return true;
 			return false;
 		}
-	};*/
+	};
 	private JScrollPane scrollPane;
 	private ArrayList<gelaMota_ohe_hotela> oheGelaHotela;
 	private String ohe_kopuru, sinplea, bikoitza, umeak, prezioa;
 	private JComboBox<String> cblibreKant;
+	private TableColumn col;
 
 	public Leiho3OstatuDatuak(Hotela hartutakoHotela, double prezioTot, String sartzeData, String irtetzeData) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
@@ -113,12 +116,11 @@ public class Leiho3OstatuDatuak extends JFrame {
 		getContentPane().add(table);
 
 		oheGelaHotela = MetodoakKontsultak.oheGelaHotelaDatuakMet(hartutakoHotela.getHotelKod());
+		col =table.getColumnModel().getColumn(4);
 
 		for (gelaMota_ohe_hotela h : oheGelaHotela) {
 			Object[] aux = new Object[5];
 			//lamarmet -1;
-
-			TableColumn col =table.getColumnModel().getColumn(4);
 			cblibreKant = new JComboBox<String>();
 			cblibreKant.addItem("1");
 			cblibreKant.addItem("2");
@@ -135,9 +137,7 @@ public class Leiho3OstatuDatuak extends JFrame {
 			aux[2] = bikoitza;
 			aux[3] = umeak;
 			modelo.addRow(aux);
-
-			
-			
+	
 		}
 		table.setModel(modelo);
 

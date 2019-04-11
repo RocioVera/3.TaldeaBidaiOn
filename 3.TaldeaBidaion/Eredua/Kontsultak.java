@@ -130,23 +130,24 @@ public class Kontsultak {
 				st = konexioa.createStatement();
 				System.out.println(ohe_mota[i]);
 				rs = st.executeQuery(
-						"SELECT ohg.gela_kodea, ohg.prezioa, o.ohe_kopuru FROM gelamota_oheak gmo, oheak o, ostatu_hotela_gelamota ohg where ohg.ostatu_id="
-								+ ostatu_id + " AND lower(o.ohe_mota) like lower('" + ohe_mota[i]
-								+ "') AND gmo.gelaMota_oheakKod=o.ohe_id AND gmo.gelaMota_gela_kodea=ohg.gela_kodea");
+						"SELECT ohg.gela_kodea, ohg.prezioa, gmo.ohe_kopuru,o.ohe_mota FROM gelamota_oheak gmo, oheak o, ostatu_hotela_gelamota ohg WHERE ohg.gela_kodea = gmo.gelaMota_gela_kodea AND gmo.oheak_ohe_id = o.ohe_id AND ohg.ostatu_id="
+								+ ostatu_id + " AND lower(o.ohe_mota)like lower ('" + ohe_mota[i] + "')");
 				while (rs.next()) {
 					if (i == 0) {
 						gela_kodea = (rs.getInt(1));
 						prezioa = (rs.getDouble(2));
+						System.out.println(prezioa);
 						ohe_kopuru_s = (rs.getInt(3));
 					} else if (i == 1)
 						ohe_kopuru_b = (rs.getInt(3));
 					else
 						ohe_kopuru_u = (rs.getInt(3));
+					ohe_kopuru = ohe_kopuru_s + ohe_kopuru_b + ohe_kopuru_u;
+					gelaMota_ohe_hotela goh = new gelaMota_ohe_hotela(gela_kodea, ohe_kopuru, ohe_kopuru_s,
+							ohe_kopuru_b, ohe_kopuru_u, prezioa);
+					gelaOheHotelaArray.add(goh);
 				}
-				ohe_kopuru = ohe_kopuru_s + ohe_kopuru_b + ohe_kopuru_u;
-				gelaMota_ohe_hotela goh = new gelaMota_ohe_hotela(gela_kodea, ohe_kopuru, ohe_kopuru_s, ohe_kopuru_b,
-						ohe_kopuru_u, prezioa);
-				gelaOheHotelaArray.add(goh);
+
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
