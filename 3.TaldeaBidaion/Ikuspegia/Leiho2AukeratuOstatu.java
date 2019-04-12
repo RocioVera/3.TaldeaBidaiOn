@@ -51,9 +51,8 @@ public class Leiho2AukeratuOstatu extends JFrame {
 			return false;
 		}
 	};
-	private String hotelString, dataSartzeString, dataIrtetzeString, hotelIzen, ostatuMota, prezioa;
+	private String hotelString, hotelIzen, ostatuMota, prezioa;
 	private double prezioTot = 0;
-	private SimpleDateFormat dataFormato = new SimpleDateFormat("yyyy-MM-dd");
 	private JComboBox cbHerria;
 	private JTable table;
 	private JScrollPane scrollPane;
@@ -71,16 +70,9 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				dataSartze = dchSartzeData.getDate();
-				dataSartzeString = dataFormato.format(dataSartze) + " ";
-				dataIrtetze = dchIrtetzeData.getDate();
-				dataIrtetzeString = dataFormato.format(dataIrtetze) + " ";
+				
 				hartutakoHotela = arrayHotelak.get(table.getSelectedRow());
-				prezioTot = MetodoakKontsultak.hotelarenPrezioaAtera(hartutakoHotela.getIzena());
-
-				prezioTot = Metodoak.prezioTotalaGauekin(dataSartze, dataIrtetze, prezioTot);
-
-				MetodoakLeihoAldaketa.hirugarrenLeihoa(hartutakoHotela, prezioTot, dataSartzeString, dataIrtetzeString);
+				MetodoakLeihoAldaketa.hirugarrenLeihoa(hartutakoHotela, dataSartze, dataIrtetze);
 				dispose();
 			}
 		});
@@ -228,6 +220,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		table.getColumnModel().getColumn(0).setPreferredWidth(200);
 		table.getColumnModel().getColumn(1).setPreferredWidth(90);
 		table.getColumnModel().getColumn(2).setPreferredWidth(80);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.getTableHeader().setResizingAllowed(false);
 		table.setRowHeight(32);
 		table.setBackground(Color.LIGHT_GRAY);

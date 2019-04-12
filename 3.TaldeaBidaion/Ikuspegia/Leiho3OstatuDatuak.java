@@ -2,7 +2,9 @@ package Ikuspegia;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 
 import javax.swing.*;
@@ -21,9 +23,9 @@ public class Leiho3OstatuDatuak extends JFrame {
 	private JButton btn_next = new JButton("Hurrengoa"), btn_prev = new JButton("Atzera"),
 			restart = new JButton("\u2302");
 	private JTable table;
-	private DefaultTableModel modelo = new DefaultTableModel(){
+	private DefaultTableModel modelo = new DefaultTableModel() {
 		public boolean isCellEditable(int row, int column) {
-			if (column==4)
+			if (column == 4)
 				return true;
 			return false;
 		}
@@ -33,8 +35,13 @@ public class Leiho3OstatuDatuak extends JFrame {
 	private String ohe_kopuru, sinplea, bikoitza, umeak, prezioa;
 	private JComboBox<String> cblibreKant;
 	private TableColumn col;
+	private String dataSartzeString, dataIrtetzeString;
+	private SimpleDateFormat dataFormato = new SimpleDateFormat("yyyy-MM-dd");
+	private double prezioTot;
 
-	public Leiho3OstatuDatuak(Hotela hartutakoHotela, double prezioTot, String sartzeData, String irtetzeData) {
+	private gelaMota_ohe_hotela h2;
+
+	public Leiho3OstatuDatuak(Hotela hartutakoHotela, Date dataSartze, Date dataIrtetze) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		this.setBounds(350, 50, 600, 600);
 		this.setResizable(false); // neurketak ez aldatzeko
@@ -42,11 +49,19 @@ public class Leiho3OstatuDatuak extends JFrame {
 		this.setTitle("3.taldearen ostatu zerbitzuen bilatzailea");
 		btn_next.setBounds(423, 508, 122, 32);
 
+		
+		
 		// botoiak
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MetodoakLeihoAldaketa.laugarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData);
+
+				h2 = oheGelaHotela.get(table.getSelectedRow());
+
+				prezioTot = MetodoakKontsultak.hotelarenPrezioaAtera(hartutakoHotela.getIzena());
+				prezioTot = Metodoak.prezioTotalaGauekin(dataSartze, dataIrtetze, prezioTot);
+
+				MetodoakLeihoAldaketa.laugarrenLeihoa(hartutakoHotela, prezioTot, dataSartze, dataIrtetze, h2);
 				dispose();
 			}
 		});
@@ -56,6 +71,7 @@ public class Leiho3OstatuDatuak extends JFrame {
 		btn_next.setForeground(Color.RED);
 		getContentPane().add(btn_next);
 		btn_prev.setBounds(38, 508, 99, 32);
+		btn_next.setVisible(false);
 
 		btn_prev.addActionListener(new ActionListener() {
 			@Override
@@ -93,7 +109,6 @@ public class Leiho3OstatuDatuak extends JFrame {
 		modelo.addColumn("Umeeak");
 		modelo.addColumn("Logela libre kantitatea");
 
-
 		table = new JTable(modelo);
 		table.setBounds(1, 1, 537, 0);
 		table.setShowVerticalLines(false);
@@ -101,12 +116,12 @@ public class Leiho3OstatuDatuak extends JFrame {
 		table.setFont(new Font("Verdana", Font.PLAIN, 14));
 		table.setAutoCreateRowSorter(true);
 
-
 		table.getColumnModel().getColumn(0).setPreferredWidth(30);
 		table.getColumnModel().getColumn(1).setPreferredWidth(25);
 		table.getColumnModel().getColumn(2).setPreferredWidth(25);
 		table.getColumnModel().getColumn(3).setPreferredWidth(25);
 		table.getColumnModel().getColumn(4).setPreferredWidth(130);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		table.getTableHeader().setResizingAllowed(false);
 		table.setRowHeight(32);
@@ -116,16 +131,16 @@ public class Leiho3OstatuDatuak extends JFrame {
 		getContentPane().add(table);
 
 		oheGelaHotela = MetodoakKontsultak.oheGelaHotelaDatuakMet(hartutakoHotela.getHotelKod());
-		col =table.getColumnModel().getColumn(4);
+		col = table.getColumnModel().getColumn(4);
 
 		for (gelaMota_ohe_hotela h : oheGelaHotela) {
 			Object[] aux = new Object[5];
-			//lamarmet -1;
+			// lamarmet -1;
 			cblibreKant = new JComboBox<String>();
 			cblibreKant.addItem("1");
 			cblibreKant.addItem("2");
 			col.setCellEditor(new DefaultCellEditor(cblibreKant));
-			
+
 			getContentPane().add(cblibreKant);
 			ohe_kopuru = h.getOhe_kopuru() + "";
 			sinplea = h.getSinplea() + "";
@@ -137,7 +152,7 @@ public class Leiho3OstatuDatuak extends JFrame {
 			aux[2] = bikoitza;
 			aux[3] = umeak;
 			modelo.addRow(aux);
-	
+
 		}
 		table.setModel(modelo);
 

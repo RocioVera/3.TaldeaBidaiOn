@@ -121,34 +121,39 @@ public class Kontsultak {
 		ArrayList<gelaMota_ohe_hotela> gelaOheHotelaArray = new ArrayList<gelaMota_ohe_hotela>();
 		Statement st = null;
 		Connection konexioa = Konexioa.getConexion();
-		int gela_kodea = 0, ohe_kopuru_s = 0, ohe_kopuru_b = 0, ohe_kopuru_u = 0, ohe_kopuru;
-		String[] ohe_mota = { "sinplea", "binaka", "umeak" };
+		int gela_kodea = 0;
 		double prezioa = 0;
 		ResultSet rs = null;
+		gelaMota_ohe_hotela goh = null;
 		try {
-			for (int i = 0; i < ohe_mota.length; i++) {
-				st = konexioa.createStatement();
-				System.out.println(ohe_mota[i]);
-				rs = st.executeQuery(
-						"SELECT ohg.gela_kodea, ohg.prezioa, gmo.ohe_kopuru,o.ohe_mota FROM gelamota_oheak gmo, oheak o, ostatu_hotela_gelamota ohg WHERE ohg.gela_kodea = gmo.gelaMota_gela_kodea AND gmo.oheak_ohe_id = o.ohe_id AND ohg.ostatu_id="
-								+ ostatu_id + " AND lower(o.ohe_mota)like lower ('" + ohe_mota[i] + "')");
-				while (rs.next()) {
-					if (i == 0) {
-						gela_kodea = (rs.getInt(1));
-						prezioa = (rs.getDouble(2));
-						System.out.println(prezioa);
-						ohe_kopuru_s = (rs.getInt(3));
-					} else if (i == 1)
-						ohe_kopuru_b = (rs.getInt(3));
-					else
-						ohe_kopuru_u = (rs.getInt(3));
-					ohe_kopuru = ohe_kopuru_s + ohe_kopuru_b + ohe_kopuru_u;
-					gelaMota_ohe_hotela goh = new gelaMota_ohe_hotela(gela_kodea, ohe_kopuru, ohe_kopuru_s,
-							ohe_kopuru_b, ohe_kopuru_u, prezioa);
-					gelaOheHotelaArray.add(goh);
-				}
+			st = konexioa.createStatement();
+			rs = st.executeQuery(
+					"SELECT gela_kodea, prezioa FROM `ostatu_hotela_gelamota` WHERE ostatu_id=" + ostatu_id + "");
 
-			}
+				while (rs.next()) {
+					gela_kodea = (rs.getInt(1));
+					prezioa = (rs.getDouble(2));
+					goh = new  gelaMota_ohe_hotela(gela_kodea, prezioa);
+					gelaOheHotelaArray.add(goh);
+
+				}
+				for (int i = 0; i < gelaOheHotelaArray.size(); i++) 
+					System.out.println(gelaOheHotelaArray.get(i).getGela_kodea());
+				
+				for (int i = 0; i < gelaOheHotelaArray.size(); i++) {
+					rs = st.executeQuery("SELECT o.ohe_id,ohe_kopuru, ohe_mota FROM gelamota_oheak gmo, oheak o WHERE gmo.gelaMota_gela_kodea="+gelaOheHotelaArray.get(i).getGela_kodea()+" AND gmo.oheak_ohe_id=o.ohe_id ORDER BY o.ohe_id ASC");
+				
+					while (rs.next()) {
+						
+						if (rs.getInt(1)==1)
+							gelaOheHotelaArray.get(i).setSinplea(rs.getInt(2));
+						if (rs.getInt(1)==2)
+							gelaOheHotelaArray.get(i).setBikoitza(rs.getInt(2));
+						if (rs.getInt(1)==3)
+							gelaOheHotelaArray.get(i).setUmeak(rs.getInt(2));
+					}
+				}
+				
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

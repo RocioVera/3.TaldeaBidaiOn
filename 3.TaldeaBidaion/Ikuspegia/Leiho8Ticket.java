@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 import Kontrolatzailea.*;
 import java.awt.event.*;
+import java.util.Date;
 
 public class Leiho8Ticket extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -12,7 +13,7 @@ public class Leiho8Ticket extends JFrame {
 	private JButton btnTiketaImprimatu;
 	private JTextArea txtTiket;
 
-	public Leiho8Ticket(Hotela hartutakoHotela, String sartzeData, String irtetzeData, double prezioTot, String nan) {
+	public Leiho8Ticket(Hotela hartutakoHotela, Date sartzeData, Date irtetzeData, double prezioTot, String nan, gelaMota_ohe_hotela h2) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);

@@ -3,37 +3,46 @@ package Kontrolatzailea;
 import java.io.*;
 import java.math.BigInteger;
 import java.security.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class Metodoak {
 	// Leiho2-ko metodoak
-	
-	public static Date gehiEgunBat (Date date) {
+
+	public static Date gehiEgunBat(Date date) {
 		Calendar gehiEgunBat;
 
 		gehiEgunBat = Calendar.getInstance();
 		gehiEgunBat.setTime(date);
 		gehiEgunBat.add(Calendar.DAY_OF_YEAR, 1);
 		return gehiEgunBat.getTime();
-		
 
 	}
-	
+
+	/*public static Date ParseFecha(String fecha) {
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+		Date fechaDate = null;
+		try {
+			fechaDate = formato.parse(fecha);
+		} catch (ParseException ex) {
+			System.out.println(ex);
+		}
+		return fechaDate;
+	}*/
+
 	public static double prezioTotalaGauekin(Date dataSartze, Date dataIrtetze, double prezioTot) {
-		//86400000 milisegundo/egun
-		int gauak=(int) ((dataIrtetze.getTime()-dataSartze.getTime())/86400000);
-		//gauaren prezioa biderkatu gau bakoitzagatik
-		prezioTot=prezioTot*gauak;
+		// 86400000 milisegundo/egun
+		int gauak = (int) ((dataIrtetze.getTime() - dataSartze.getTime()) / 86400000);
+		// gauaren prezioa biderkatu gau bakoitzagatik
+		prezioTot = prezioTot * gauak;
 		return prezioTot;
 	}
 
-	
 	// Leiho3-ko metodoak
-	
-	
-	
-	//Leiho4-ko metodoak
+
+	// Leiho4-ko metodoak
 	/**
 	 * 
 	 * /** Sartutako pasahitza zifratu.
@@ -57,7 +66,6 @@ public class Metodoak {
 			throw new RuntimeException(e);
 		}
 	}
-
 
 	/**
 	 * nan-aren zenbaki guztiak gehitzen ditu eta zati 23 egiten hondarra lortzen
@@ -154,13 +162,13 @@ public class Metodoak {
 
 	public static String diruBueltakZerrenda(double diruFalta) {
 		String bueltakString = "";
-		int kont200 = 0, kont100 = 0, kont50, kont20,kont10, kont5, kont1;
+		int kont200 = 0, kont100 = 0, kont50, kont20, kont10, kont5, kont1;
 		double bueltak = 0;
 		if (diruFalta < 0) {
 			bueltak = -diruFalta;
 			for (double i = bueltak; i > 0; i = bueltak) {
 				if (bueltak >= 200) {
-				 	bueltak = bueltak - 200;
+					bueltak = bueltak - 200;
 					bueltak = Math.round(bueltak * 100.0) / 100.0;
 					kont200++;
 					bueltakString = bueltakString + "200€-ko bilete \n";
@@ -234,8 +242,8 @@ public class Metodoak {
 		}
 		return bueltakString;
 	}
-	
-	public static void fitxIdatzi(Hotela hartutakoHotela, String sartzeData, String irtetzeData, double prezioTot,
+
+	public static void fitxIdatzi(Hotela hartutakoHotela, Date sartzeData, Date irtetzeData, double prezioTot,
 			String nan) {
 		FileWriter fitx = null;
 		PrintWriter pw = null;
@@ -262,6 +270,5 @@ public class Metodoak {
 			}
 		}
 	}
-
 
 }

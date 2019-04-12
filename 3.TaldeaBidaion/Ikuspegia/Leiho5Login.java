@@ -27,7 +27,7 @@ public class Leiho5Login extends JFrame {
 	private int nanLuzera = 8;
 	private char letra;
 
-	public Leiho5Login(Hotela hartutakoHotela, double prezioTot, String sartzeData, String irtetzeData) {
+	public Leiho5Login(Hotela hartutakoHotela, double prezioTot, java.util.Date sartzeData, java.util.Date irtetzeData, gelaMota_ohe_hotela h2) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
@@ -52,7 +52,7 @@ public class Leiho5Login extends JFrame {
 					balNan = MetodoakKontsultak.frogatuNAN(nan);
 					if (balPasa && balNan) {
 						MetodoakLeihoAldaketa.zazpigarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData,
-								nan);
+								nan, h2);
 						dispose();
 						lblErroreakonektatu.setBounds(145, 329, 318, 22);
 						lblErroreakonektatu.setForeground(Color.BLACK);
@@ -79,7 +79,7 @@ public class Leiho5Login extends JFrame {
 		btn_prev.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MetodoakLeihoAldaketa.laugarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData);
+				MetodoakLeihoAldaketa.laugarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData, h2);
 				dispose();
 			}
 		});
@@ -157,7 +157,7 @@ public class Leiho5Login extends JFrame {
 		// erregistratu ematerakoan agertu behar diren bariableak
 		btnErregistratuNahi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				MetodoakLeihoAldaketa.seigarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData);
+				MetodoakLeihoAldaketa.seigarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData, h2);
 				dispose();
 			}
 		});

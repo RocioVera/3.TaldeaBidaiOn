@@ -12,6 +12,13 @@ public class gelaMota_ohe_hotela {
 		this.umeak = umeak;
 		this.prezioa = prezioa;
 	}
+	
+
+	public gelaMota_ohe_hotela(int gela_kodea, double prezioa) {
+		this.gela_kodea = gela_kodea;
+		this.prezioa = prezioa;
+	}
+
 
 	public gelaMota_ohe_hotela() {
 	}

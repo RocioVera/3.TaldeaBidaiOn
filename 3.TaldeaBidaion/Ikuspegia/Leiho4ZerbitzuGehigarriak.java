@@ -2,6 +2,8 @@ package Ikuspegia;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Date;
+
 import javax.swing.*;
 import Kontrolatzailea.*;
 import javax.swing.*;
@@ -24,7 +26,7 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 	private JButton btn_next = new JButton("Hurrengoa"), btn_prev = new JButton("Atzera"),
 			restart = new JButton("\u2302");
 
-	public Leiho4ZerbitzuGehigarriak(Hotela hartutakoHotela, double prezioTot, String sartzeData, String irtetzeData) {
+	public Leiho4ZerbitzuGehigarriak(Hotela hartutakoHotela, double prezioTot, java.util.Date dataSartzeString, java.util.Date dataIrtetzeString, gelaMota_ohe_hotela h2) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
 		this.setBounds(350, 50, 600, 600);
@@ -37,7 +39,7 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData);
+				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoHotela, prezioTot, dataSartzeString, dataIrtetzeString, h2);
 				dispose();
 			}
 		});
@@ -50,7 +52,8 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		btn_prev.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MetodoakLeihoAldaketa.hirugarrenLeihoa(hartutakoHotela, prezioTot, irtetzeData, irtetzeData);
+
+				MetodoakLeihoAldaketa.hirugarrenLeihoa(hartutakoHotela, dataSartzeString, dataIrtetzeString);
 				dispose();
 			}
 		});
@@ -107,7 +110,7 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		getContentPane().add(cboxOheUmeentzat);
 
 		txtPrezioa = new JTextField();
-		txtPrezioa.setText(prezioTot+" €");
+		txtPrezioa.setText(h2.getPrezioa()+" €");
 		txtPrezioa.setEditable(false);
 		txtPrezioa.setBounds(268, 69, 86, 20);
 		txtPrezioa.setColumns(10);

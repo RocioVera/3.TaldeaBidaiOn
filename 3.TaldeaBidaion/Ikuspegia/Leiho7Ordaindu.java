@@ -27,7 +27,7 @@ public class Leiho7Ordaindu extends JFrame {
 	private double diruFalta, sartutakoa;
 	private ArrayList<String> geltIzenak = new ArrayList<>();
 
-	public Leiho7Ordaindu(double prezioTot, Hotela hartutakoHotela, String sartzeData, String irtetzeData, String nan) {
+	public Leiho7Ordaindu(double prezioTot, Hotela hartutakoHotela, java.util.Date sartzeData, java.util.Date irtetzeData, String nan, gelaMota_ohe_hotela h2) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
@@ -43,7 +43,7 @@ public class Leiho7Ordaindu extends JFrame {
 				Metodoak.fitxIdatzi(hartutakoHotela, sartzeData, irtetzeData, prezioTot, nan); // billetea fitxategian
 																								// sartzen duen
 																								// metodoari deitu
-				MetodoakLeihoAldaketa.zortzigarrenLeihoa(hartutakoHotela, sartzeData, irtetzeData, prezioTot, nan);
+				MetodoakLeihoAldaketa.zortzigarrenLeihoa(hartutakoHotela, sartzeData, irtetzeData, prezioTot, nan, h2);
 				dispose();
 			}
 		});
@@ -57,7 +57,7 @@ public class Leiho7Ordaindu extends JFrame {
 		btn_prev.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData);
+				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData,h2);
 
 				dispose();
 			}
@@ -225,6 +225,8 @@ public class Leiho7Ordaindu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				kont = 9;
 				sartutakoa = Metodoak.diruaSartu(kont, sartutakoa);
+				botoiakKendu(prezioTot);
+
 			}
 		});
 		btn_50Zent.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -237,6 +239,8 @@ public class Leiho7Ordaindu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				kont = 10;
 				sartutakoa = Metodoak.diruaSartu(kont, sartutakoa);
+				botoiakKendu(prezioTot);
+
 			}
 		});
 		btn_20Zent.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -249,6 +253,8 @@ public class Leiho7Ordaindu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				kont = 11;
 				sartutakoa = Metodoak.diruaSartu(kont, sartutakoa);
+				botoiakKendu(prezioTot);
+
 			}
 		});
 		btn_10Zent.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -261,6 +267,8 @@ public class Leiho7Ordaindu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				kont = 12;
 				sartutakoa = Metodoak.diruaSartu(kont, sartutakoa);
+				botoiakKendu(prezioTot);
+
 			}
 		});
 		btn_5Zent.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -273,6 +281,8 @@ public class Leiho7Ordaindu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				kont = 13;
 				sartutakoa = Metodoak.diruaSartu(kont, sartutakoa);
+				botoiakKendu(prezioTot);
+
 			}
 		});
 		btn_2Zent.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -285,6 +295,8 @@ public class Leiho7Ordaindu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				kont = 14;
 				sartutakoa = Metodoak.diruaSartu(kont, sartutakoa);
+				botoiakKendu(prezioTot);
+
 			}
 		});
 		btn_1Zent.setFont(new Font("Tahoma", Font.PLAIN, 13));
