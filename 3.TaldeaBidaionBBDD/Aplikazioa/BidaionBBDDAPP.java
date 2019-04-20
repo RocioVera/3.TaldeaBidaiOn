@@ -10,7 +10,7 @@ public class BidaionBBDDAPP {
 		Konexioa konex = new Konexioa(basedatos);
 		konex.getConexion();
 		
-	Metodoak.lehenengoLeihoa();
+		MetodoakLeihoAldaketaBBDD.lehenengoLeihoa();
 
 	}
 

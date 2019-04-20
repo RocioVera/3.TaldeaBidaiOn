@@ -1,21 +1,20 @@
 package Ikuspegia;
 
+import Kontrolatzailea.*;
 import java.awt.*;
 import javax.swing.*;
-import Kontrolatzailea.*;
 import java.awt.event.*;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import com.toedter.calendar.*;
 
-public class Leiho6Erregistratu extends JFrame {
+public class Leiho3Erregistratu extends JFrame {
 	private static final long serialVersionUID = 1L;
 	// panelan ikusten diren bariableak
-	private JTextField txtPrezioTot = new JTextField(), txtNan = new JTextField(), txtIzena = new JTextField(),
-			txtAbizenak = new JTextField();
+	private JTextField txtNan = new JTextField(), txtIzena = new JTextField(), txtAbizenak = new JTextField();
 	private JPasswordField passwordField = new JPasswordField();
-	private JLabel lblPrezioTotala, lblNan, lblPasahitza, lblIzena, lblAbizenak, lblJaioData, lblErroreakonektatu;
+	private JLabel lblNan, lblPasahitza, lblIzena, lblAbizenak, lblJaioData, lblErroreakonektatu;
 	private JButton btnErregistratuNahi = new JButton("Erregistratu"), btnErregistratu = new JButton("Erregistratu"),
 			btn_prev = new JButton("Hasi saioa"), restart = new JButton("\u2302");
 	private JDateChooser txtJaioData = new JDateChooser();
@@ -29,7 +28,7 @@ public class Leiho6Erregistratu extends JFrame {
 	private int nanLuzera = 8, izenLuzera = 49, abizenLuzera = 99, pasahitzLuzera = 49, sexuLuzera = 0;
 	private char letra;
 
-	public Leiho6Erregistratu(Hotela hartutakoHotela, double prezioTot, java.util.Date sartzeData, java.util.Date irtetzeData, gelaMota_ohe_hotela h2) {
+	public Leiho3Erregistratu() {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
@@ -41,7 +40,9 @@ public class Leiho6Erregistratu extends JFrame {
 		btn_prev.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData,h2);
+				// MetodoakLeihoAldaketa.bostgarrenLeihoa();
+				MetodoakLeihoAldaketaBBDD.bigarrenLeihoa();
+
 				dispose();
 			}
 		});
@@ -53,27 +54,13 @@ public class Leiho6Erregistratu extends JFrame {
 		restart.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MetodoakLeihoAldaketa.lehenengoLeihoa();
+				MetodoakLeihoAldaketaBBDD.lehenengoLeihoa();
 				dispose();
 			}
 		});
 		restart.setBounds(462, 502, 72, 32);
 		restart.setForeground(Color.RED);
 		getContentPane().add(restart);
-
-		// non, formatua eta zer jarri
-		lblPrezioTotala = new JLabel("Prezio totala:");
-		lblPrezioTotala.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblPrezioTotala.setBounds(183, 63, 117, 20);
-		getContentPane().add(lblPrezioTotala);
-
-		txtPrezioTot.setEditable(false);
-		txtPrezioTot.setColumns(10);
-		txtPrezioTot.setBounds(307, 63, 86, 20);
-
-		// guztiraPrez kalkulatzeko metodoari deitu
-		txtPrezioTot.setText(prezioTot + " €");
-		getContentPane().add(txtPrezioTot);
 		lblNan = new JLabel("NAN:");
 		lblPasahitza = new JLabel("Pasahitza:");
 
@@ -85,14 +72,12 @@ public class Leiho6Erregistratu extends JFrame {
 		lblAbizenak = new JLabel("Abizenak:");
 		lblJaioData = new JLabel("Jaio data:");
 
-		// erregistratu ematerakoan agertu behar diren bariableak
-
 		// non, formatua eta zer jarri
 		lblNan.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblNan.setBounds(212, 150, 62, 20);
+		lblNan.setBounds(207, 58, 62, 20);
 		getContentPane().add(lblNan);
 
-		txtNan.setBounds(281, 150, 86, 20);
+		txtNan.setBounds(281, 60, 86, 20);
 		getContentPane().add(txtNan);
 		txtNan.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
@@ -104,10 +89,10 @@ public class Leiho6Erregistratu extends JFrame {
 		});
 
 		lblIzena.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblIzena.setBounds(212, 203, 62, 20);
+		lblIzena.setBounds(207, 125, 62, 20);
 		getContentPane().add(lblIzena);
 
-		txtIzena.setBounds(281, 205, 86, 20);
+		txtIzena.setBounds(281, 127, 86, 20);
 		getContentPane().add(txtIzena);
 		txtIzena.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
@@ -118,10 +103,10 @@ public class Leiho6Erregistratu extends JFrame {
 		});
 
 		lblAbizenak.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblAbizenak.setBounds(181, 245, 93, 20);
+		lblAbizenak.setBounds(181, 194, 93, 20);
 		getContentPane().add(lblAbizenak);
 
-		txtAbizenak.setBounds(281, 247, 86, 20);
+		txtAbizenak.setBounds(281, 196, 86, 20);
 		getContentPane().add(txtAbizenak);
 		txtAbizenak.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
@@ -133,11 +118,11 @@ public class Leiho6Erregistratu extends JFrame {
 
 		// non, formatua eta zer jarri
 		lblPasahitza.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblPasahitza.setBounds(170, 347, 93, 20);
+		lblPasahitza.setBounds(170, 331, 93, 20);
 		getContentPane().add(lblPasahitza);
 
 		passwordField.setEchoChar('*');
-		passwordField.setBounds(281, 349, 86, 20);
+		passwordField.setBounds(281, 333, 86, 20);
 		getContentPane().add(passwordField);
 		passwordField.addKeyListener(new KeyAdapter() {
 			@SuppressWarnings("deprecation")
@@ -151,11 +136,11 @@ public class Leiho6Erregistratu extends JFrame {
 
 		// non, formatua eta zer jarri
 		lblJaioData.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblJaioData.setBounds(181, 292, 90, 20);
+		lblJaioData.setBounds(181, 266, 90, 20);
 		getContentPane().add(lblJaioData);
 
 		txtJaioData.setDateFormatString("dd-MM-yyyy");
-		txtJaioData.setBounds(281, 292, 112, 20);
+		txtJaioData.setBounds(281, 266, 112, 20);
 		dataEzEditatu = (JTextFieldDateEditor) txtJaioData.getDateEditor();
 		dataEzEditatu.setEditable(false);
 		getContentPane().add(txtJaioData);
@@ -207,36 +192,43 @@ public class Leiho6Erregistratu extends JFrame {
 						txtAbizenak.setEnabled(false);
 						txtJaioData.setEnabled(false);
 					} else {
-						MetodoakLeihoAldaketa.zazpigarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData,
-								nan, h2);
+						MetodoakLeihoAldaketaBBDD.laugarrenLeihoa();
 						dispose();
 
 					}
 				} else { // !balErregis
 					lblErroreakonektatu.setForeground(Color.RED);
-					if (nan.length() + 1 < nanLuzera)
+					if (nan.length() + 1 < nanLuzera) {
+						lblErroreakonektatu.setBounds(126, 91, 318, 22);
 						lblErroreakonektatu.setText("nan-a bete behar duzu.");
-					else if (!nan.matches("^[0-9]{8}[A-Za-z]$") || !nanBalLarria.equals(nanLarria)) {		
+					} else if (!nan.matches("^[0-9]{8}[A-Za-z]$") || !nanBalLarria.equals(nanLarria)) {
+						lblErroreakonektatu.setBounds(126, 91, 318, 22);
 						lblErroreakonektatu.setText("nan-a txarto sartu duzu.");
 					} else if (MetodoakKontsultak.nanGordetaEgon(nan)) {
+						lblErroreakonektatu.setBounds(122, 445, 318, 22);
 						lblErroreakonektatu.setText("Erregistratuta zaude, hasi saioa.");
 						passwordField.setEnabled(false);
 						txtIzena.setEnabled(false);
 						txtAbizenak.setEnabled(false);
 						txtJaioData.setEnabled(false);
-					} else if (izena.isEmpty())
+					} else if (izena.isEmpty()) {
+						lblErroreakonektatu.setBounds(123, 159, 318, 22);
 						lblErroreakonektatu.setText("izena bete behar duzu.");
-					else if (abizenak.isEmpty())
+					} else if (abizenak.isEmpty()) {
+						lblErroreakonektatu.setBounds(125, 227, 318, 22);
 						lblErroreakonektatu.setText("abizena bete behar duzu.");
-					else if (jaioData == null)
+					} else if (jaioData == null) {
+						lblErroreakonektatu.setBounds(119, 296, 318, 22);
 						lblErroreakonektatu.setText("jaioData bete behar duzu.");
-					else if (pasahitza.length() == 0)
+					} else if (pasahitza.length() == 0) {
+						lblErroreakonektatu.setBounds(120, 364, 318, 22);
 						lblErroreakonektatu.setText("pasahitza bete behar duzu.");
+					}
 				}
 			}
 
 		});
-		btnErregistratu.setBounds(245, 398, 109, 25);
+		btnErregistratu.setBounds(247, 401, 109, 25);
 		getContentPane().add(btnErregistratu);
 
 	}

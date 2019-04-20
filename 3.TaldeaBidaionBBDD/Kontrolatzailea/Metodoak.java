@@ -9,119 +9,10 @@ import Eredua.*;
 import Ikuspegia.*;
 
 public class Metodoak {
-
-	public static void lehenengoLeihoa() {
-		Leiho1OngiEtorria Leiho1 = new Leiho1OngiEtorria();
-		Leiho1.setVisible(true);
-
-	}
-
-	public static void bigarrenLeihoa() {
-		Leiho2Login Leiho2 = new Leiho2Login();
-		Leiho2.setVisible(true);
-	}
-
-	public static void hirugarrenLeihoa() {
-		Leiho3AukeratuAldaketa Leiho3 = new Leiho3AukeratuAldaketa();
-		Leiho3.setVisible(true);
-
-	}
-
-	public static void laugarrenLeihoa() {
-		Leiho2Login Leiho4 = new Leiho2Login();
-		Leiho4.setVisible(true);
-	}
-	
-	// Leiho2-ko metodoak
 	/**
-	 * Frogatu dni-a erregistratuta ez dagoela.
-	 * @author talde1
-	 * @param nan
-	 * @return balNan
-	 */
-	public static boolean nanGordetaEgon(String nan) {
-		ArrayList<Bezeroa> bezeroak = new ArrayList<>();
-		boolean balNan = false;
-		bezeroak = Kontsultak.bezeroDatuak();
-		for (Bezeroa bezeroak2 : bezeroak) {
-			if (bezeroak2.getNan().equals(nan)) {
-				balNan = true;
-			}
-		}
-		return balNan;
-	}
-
-	
-	/**
-	 * Sartutako pasahitza (zifratuta) ea datu basean dagoen ala ez.
-	 * @author talde1
-	 * @param pasahitza
-	 * @return bal
-	 */
-	public static boolean frogatuPasahitza(String pasahitza) {
-		boolean bal = false;
-		String pasaEnkr = "";
-		pasaEnkr = zifratuPasahitza(pasahitza);
-		ArrayList<Bezeroa> bezeroak = new ArrayList<Bezeroa>();
-		bezeroak = Kontsultak.bezeroDatuak();
-		for (Bezeroa bezeroak2 : bezeroak) {
-			if (pasaEnkr.equals(bezeroak2.getPasahitza()))
-				bal = true;
-		}
-		return bal;
-	}
-	
-	/**
-	 * Sartutako nan-a ea datu baaean dagoen ala ez.
-	 * @author talde1
-	 * @param nan
-	 * @return bal
-	 */
-	public static boolean frogatuNAN(String nan) {
-		boolean bal = false;
-		ArrayList<Bezeroa> bezeroak = new ArrayList<>();
-		bezeroak = Kontsultak.bezeroDatuak();
-		for (Bezeroa bezeroak2 : bezeroak) {
-			if (nan.equals(bezeroak2.getNan()))
-				bal = true;
-		}
-		return bal;
-	}
-
-	/**
-	 * Frogatu dni-a erregistratuta ez dagoela. Ez balegoke eta datuak hutzik ere ez, 
-	 * bezeroen erregistroa egin datu basean.
-	 * @author talde1
-	 * @param pasahitza
-	 * @param nan
-	 * @param izena
-	 * @param abizenak
-	 * @param sexua
-	 * @param jaioDataString
-	 * @return bal
-	 */
-	public static boolean erregistratuBezeroak(String pasahitza, String nan, String izena, String abizenak,
-			String jaioDataString) {
-		boolean bal = true;
-		String pasaEnkr = "";
-		pasaEnkr = zifratuPasahitza(pasahitza);
-		ArrayList<Bezeroa> bezeroak = new ArrayList<>();
-
-		// fitxeroari bidali
-		if (pasahitza.length() == 0 || nan.length() < 8 || izena.isEmpty() || abizenak.isEmpty()
-				|| nan.length() < 8 || jaioDataString == null || nanGordetaEgon(nan))
-			bal = false;
-
-		if (bal && !nanGordetaEgon(nan)) {
-			bezeroak = Kontsultak.erregistratuBezeroak(pasaEnkr, nan, izena, abizenak, jaioDataString);
-		}
-		return bal;
-	}
-
-	/**	
-
-	/**
-	 * Sartutako pasahitza zifratu.
+	 * 
+	 * /** Sartutako pasahitza zifratu.
+	 * 
 	 * @author talde1
 	 * @param pasahitza
 	 * @return hashtext
@@ -144,6 +35,7 @@ public class Metodoak {
 
 	/**
 	 * Balidatu nan-a (lehenengo 8 zbk eta 9.a letra)
+	 * 
 	 * @author talde1
 	 * @param nan
 	 * @return nanBalidazioa
@@ -162,6 +54,7 @@ public class Metodoak {
 	/**
 	 * Lehenengo 8 karaktereak zenbakiak direla balidatzen du. 8 zenbaki ez badaude
 	 * NAN-a ez dago ondo.
+	 * 
 	 * @author talde1
 	 * @param nan
 	 * @return balNan
@@ -187,6 +80,7 @@ public class Metodoak {
 	/**
 	 * nan-aren zenbaki guztiak gehitzen ditu eta zati 23 egiten hondarra lortzen
 	 * du. Hondarra horrekin sartutako nan-aren letra bueltatzen du.
+	 * 
 	 * @author talde1
 	 * @param nan
 	 * @return nanLarria
@@ -201,197 +95,5 @@ public class Metodoak {
 		return nanLarria;
 	}
 	// Leiho4-ko metodoak
-
-	// Leiho5-ko metodoak
-
-	public static double diruaSartu(int kont, double sartutakoa) {
-		switch (kont) {
-		case 1:
-			sartutakoa += 200;
-			sartutakoa = Math.round(sartutakoa * 100.0) / 100.0;
-			break;
-		case 2:
-			sartutakoa += 100;
-			sartutakoa = Math.round(sartutakoa * 100.0) / 100.0;
-			break;
-		case 3:
-			sartutakoa += 50;
-			sartutakoa = Math.round(sartutakoa * 100.0) / 100.0;
-			break;
-		case 4:
-			sartutakoa += 20;
-			sartutakoa = Math.round(sartutakoa * 100.0) / 100.0;
-			break;
-		case 5:
-			sartutakoa += 10;
-			sartutakoa = Math.round(sartutakoa * 100.0) / 100.0;
-			break;
-		case 6:
-			sartutakoa += 5;
-			sartutakoa = Math.round(sartutakoa * 100.0) / 100.0;
-			break;
-		case 7:
-			sartutakoa += 2;
-			sartutakoa = Math.round(sartutakoa * 100.0) / 100.0;
-			break;
-		case 8:
-			sartutakoa += 1;
-			sartutakoa = Math.round(sartutakoa * 100.0) / 100.0;
-			break;
-		case 9:
-			sartutakoa += 0.5;
-			sartutakoa = Math.round(sartutakoa * 100.0) / 100.0;
-			break;
-		case 10:
-			sartutakoa += 0.2;
-			sartutakoa = Math.round(sartutakoa * 100.0) / 100.0;
-			break;
-		case 11:
-			sartutakoa += 0.1;
-			sartutakoa = Math.round(sartutakoa * 100.0) / 100.0;
-			break;
-		case 12:
-			sartutakoa += 0.05;
-			sartutakoa = Math.round(sartutakoa * 100.0) / 100.0;
-			break;
-		case 13:
-			sartutakoa += 0.02;
-			sartutakoa = Math.round(sartutakoa * 100.0) / 100.0;
-			break;
-		case 14:
-			sartutakoa += 0.01;
-			sartutakoa = Math.round(sartutakoa * 100.0) / 100.0;
-			break;
-
-		default:
-			sartutakoa = 0;
-			break;
-		}
-		return sartutakoa;
-	}
-
-	public static double diruFaltaBueltakMetodoa(double diruFalta, double guztiraPrez, double sartutakoa) {
-		diruFalta = guztiraPrez - sartutakoa;
-		diruFalta = Math.round(diruFalta * 100.0) / 100.0;
-		return diruFalta;
-	}
-
-	public static String diruBueltakZerrenda(double diruFalta) {
-		String bueltakString = "";
-		double bueltak = 0;
-		if (diruFalta < 0) {
-			bueltak = -diruFalta;
-			for (double i = bueltak; i > 0; i = bueltak) {
-				if (bueltak >= 200) {
-					bueltak = bueltak - 200;
-					bueltak = Math.round(bueltak * 100.0) / 100.0;
-					bueltakString = bueltakString + "200€-ko bilete \n";
-
-				} else if (bueltak >= 100) {
-					bueltak = bueltak - 100;
-					bueltak = Math.round(bueltak * 100.0) / 100.0;
-					bueltakString = bueltakString + "100€-ko bilete \n";
-
-				} else if (bueltak >= 50) {
-					bueltak = bueltak - 50;
-					bueltak = Math.round(bueltak * 100.0) / 100.0;
-					bueltakString = bueltakString + "50€-ko bilete \n";
-
-				} else if (bueltak >= 20) {
-					bueltak = bueltak - 20;
-					bueltak = Math.round(bueltak * 100.0) / 100.0;
-					bueltakString = bueltakString + "20€-ko bilete \n";
-
-				} else if (bueltak >= 10) {
-					bueltak = bueltak - 10;
-					bueltak = Math.round(bueltak * 100.0) / 100.0;
-					bueltakString = bueltakString + "10€-ko bilete \n";
-
-				} else if (bueltak >= 5) {
-					bueltak = bueltak - 5;
-					bueltak = Math.round(bueltak * 100.0) / 100.0;
-					bueltakString = bueltakString + "5€-ko bilete \n";
-
-				} else if (bueltak >= 2) {
-					bueltak = bueltak - 2;
-					bueltak = Math.round(bueltak * 100.0) / 100.0;
-					bueltakString = bueltakString + "2€-ko moneta \n";
-
-				} else if (bueltak >= 1) {
-					bueltak = bueltak - 1;
-					bueltak = Math.round(bueltak * 100.0) / 100.0;
-					bueltakString = bueltakString + "1€-ko moneta \n";
-
-				} else if (bueltak >= 0.5) {
-					bueltak = bueltak - 0.5;
-					bueltak = Math.round(bueltak * 100.0) / 100.0;
-					bueltakString = bueltakString + "0.5€-ko moneta \n";
-
-				} else if (bueltak >= 0.2) {
-					bueltak = bueltak - 0.2;
-					bueltak = Math.round(bueltak * 100.0) / 100.0;
-					bueltakString = bueltakString + "0.2€-ko moneta \n";
-
-				} else if (bueltak >= 0.1) {
-					bueltak = bueltak - 0.1;
-					bueltak = Math.round(bueltak * 100.0) / 100.0;
-					bueltakString = bueltakString + "0.1€-ko moneta \n";
-
-				} else if (bueltak >= 0.05) {
-					bueltak = bueltak - 0.05;
-					bueltak = Math.round(bueltak * 100.0) / 100.0;
-					bueltakString = bueltakString + "0.05€-ko moneta \n";
-
-				} else if (bueltak >= 0.02) {
-					bueltak = bueltak - 0.02;
-					bueltak = Math.round(bueltak * 100.0) / 100.0;
-					bueltakString = bueltakString + "0.02€-ko moneta \n";
-
-				} else if (bueltak >= 0.01) {
-					bueltak = bueltak - 0.01;
-					bueltak = Math.round(bueltak * 100.0) / 100.0;
-					bueltakString = bueltakString + "0.01€-ko moneta \n";
-				}
-			}
-		}
-		return bueltakString;
-	}
-
-	public static void fitxIdatzi(String hartutakoHotela, String sartzeData, String irtetzeData) {
-		FileWriter fitx = null;
-		PrintWriter pw = null;
-
-		try {
-			fitx = new FileWriter("eredua\\ErreserbaFitx", true);
-			pw = new PrintWriter(fitx);
-
-			pw.println("Izena:" +hartutakoHotela +"\n Sartze data: "+ sartzeData+ " Irtetze data: "+ irtetzeData);
-
-			pw.println(
-					"******************************************************************************************************************************************");
-			pw.println("");
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (null != fitx)
-					fitx.close();
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
-	}
-
-	// Leiho6-ko metodoak
-	public static void Leiho_segunduak() {
-		for (int i = 1; i <= 5; i++) {
-			try {
-				TimeUnit.SECONDS.sleep(1);
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
-			}
-		}
-		lehenengoLeihoa();
-	}
 
 }

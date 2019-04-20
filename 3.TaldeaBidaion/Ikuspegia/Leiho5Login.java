@@ -161,7 +161,7 @@ public class Leiho5Login extends JFrame {
 				dispose();
 			}
 		});
-		btnErregistratuNahi.setBounds(227, 110, 122, 25);
+		btnErregistratuNahi.setBounds(227, 122, 122, 25);
 		getContentPane().add(btnErregistratuNahi);
 
 	}
