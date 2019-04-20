@@ -17,6 +17,7 @@ public class Metodoak {
 		gehiEgunBat = Calendar.getInstance();
 		gehiEgunBat.setTime(date);
 		gehiEgunBat.add(Calendar.DAY_OF_YEAR, 1);
+		System.out.println(gehiEgunBat.getTime());
 		return gehiEgunBat.getTime();
 
 	}

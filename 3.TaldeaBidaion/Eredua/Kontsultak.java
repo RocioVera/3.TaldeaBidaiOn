@@ -65,15 +65,15 @@ public class Kontsultak {
 		try {
 			st = konexioa.createStatement();
 			ResultSet rs = st.executeQuery(
-					"SELECT prezioa FROM `gelamota_hotela` gh, `gelamota` g , `hotela` h WHERE gh.gela_hotel_kod=h.hotel_kod AND g.gela_kodea=gh.gelaMota_gela_kodea "
+					"SELECT min(prezioa) FROM `gelamota_hotela` gh, `gelamota` g , `hotela` h WHERE gh.hotela_hotel_kod=h.hotel_kod "
+					+"AND g.gela_kodea=gh.gelaMota_gela_kodea AND g.mota like lower('logela') AND h.hotel_kod IN ("
+							+" SELECT ostatu_id FROM `ostatu` WHERE lower(ostatu.izena) LIKE lower('" + izena + "'))");
+					/*"SELECT prezioa FROM `gelamota_hotela` gh, `gelamota` g , `hotela` h WHERE gh.gela_hotel_kod=h.hotel_kod AND g.gela_kodea=gh.gelaMota_gela_kodea "
 							+ "AND g.mota like lower('logela') AND h.hotel_kod IN (SELECT ostatu_id FROM `ostatu` WHERE lower(ostatu.izena)"
-							+ "LIKE lower('" + izena + "'))");
-			// ResultSet rs = st.executeQuery("SELECT gelaPrezioa FROM
-			// `hotel_preziominimoa`, `ostatu` WHERE hotelKod LIKE ostatu_id AND
-			// lower(ostatu.izena) LIKE lower('"+izena+"')");
+							+ "LIKE lower('" + izena + "'))"); */
 
 			while (rs.next()) {
-				prezioa = (rs.getDouble("prezioa"));
+				prezioa = (rs.getDouble("min(prezioa)")); 
 			}
 
 		} catch (Exception e) {
@@ -89,12 +89,13 @@ public class Kontsultak {
 		int erreserbaKop = 0, gelaKopuru = 0;
 		boolean erantzuna = false;
 		ResultSet rs = null;
-
+	    java.sql.Date sqlDate = new java.sql.Date(data.getTime());
+		System.out.println(sqlDate);
 		try {
 			st = konexioa.createStatement();
 			rs = st.executeQuery(
 					"SELECT COUNT(eje.eguna) FROM ostatu o, erreserba e, erreserba_jaiegunak eje WHERE o.ostatu_id = e.ostatu_ostatu_id AND e.erreserba_kod = eje.erreserba_erreserba_kod AND lower(o.izena) like lower('"
-							+ izena + "') AND o.ostatu_id='" + hotel_kodea + "' AND eje.eguna='" + data + "'");
+							+ izena + "') AND o.ostatu_id=" + hotel_kodea + " AND eje.eguna='" + sqlDate + "'");
 			while (rs.next()) {
 				erreserbaKop = (rs.getInt(1));
 			}
@@ -104,7 +105,7 @@ public class Kontsultak {
 
 		try {
 			st = konexioa.createStatement();
-			rs = st.executeQuery("SELECT o.gela_kopuru FROM `ostatu` o where o.ostatu_id='" + hotel_kodea + "'");
+			rs = st.executeQuery("SELECT o.gela_kopuru FROM `ostatu` o where o.ostatu_id=" + hotel_kodea + "");
 			while (rs.next()) {
 				gelaKopuru = (rs.getInt(1));
 			}
@@ -113,7 +114,7 @@ public class Kontsultak {
 		}
 		if (gelaKopuru > erreserbaKop)
 			erantzuna = true;
-
+		System.out.println(hotel_kodea+" "+izena + "    "+gelaKopuru + " "+erreserbaKop);
 		return erantzuna;
 	}
 
@@ -130,30 +131,33 @@ public class Kontsultak {
 			rs = st.executeQuery(
 					"SELECT gela_kodea, prezioa FROM `ostatu_hotela_gelamota` WHERE ostatu_id=" + ostatu_id + "");
 
-				while (rs.next()) {
-					gela_kodea = (rs.getInt(1));
-					prezioa = (rs.getDouble(2));
-					goh = new  gelaMota_ohe_hotela(gela_kodea, prezioa);
-					gelaOheHotelaArray.add(goh);
+			while (rs.next()) {
+				gela_kodea = (rs.getInt(1));
+				prezioa = (rs.getDouble(2));
+				goh = new gelaMota_ohe_hotela(gela_kodea, prezioa);
+				gelaOheHotelaArray.add(goh);
 
+			}
+			for (int i = 0; i < gelaOheHotelaArray.size(); i++)
+				System.out.println(gelaOheHotelaArray.get(i).getGela_kodea());
+
+			for (int i = 0; i < gelaOheHotelaArray.size(); i++) {
+				rs = st.executeQuery(
+						"SELECT o.ohe_id,ohe_kopuru, ohe_mota FROM gelamota_oheak gmo, oheak o WHERE gmo.gelaMota_gela_kodea="
+								+ gelaOheHotelaArray.get(i).getGela_kodea()
+								+ " AND gmo.oheak_ohe_id=o.ohe_id ORDER BY o.ohe_id ASC");
+
+				while (rs.next()) {
+
+					if (rs.getInt(1) == 1)
+						gelaOheHotelaArray.get(i).setSinplea(rs.getInt(2));
+					if (rs.getInt(1) == 2)
+						gelaOheHotelaArray.get(i).setBikoitza(rs.getInt(2));
+					if (rs.getInt(1) == 3)
+						gelaOheHotelaArray.get(i).setUmeak(rs.getInt(2));
 				}
-				for (int i = 0; i < gelaOheHotelaArray.size(); i++) 
-					System.out.println(gelaOheHotelaArray.get(i).getGela_kodea());
-				
-				for (int i = 0; i < gelaOheHotelaArray.size(); i++) {
-					rs = st.executeQuery("SELECT o.ohe_id,ohe_kopuru, ohe_mota FROM gelamota_oheak gmo, oheak o WHERE gmo.gelaMota_gela_kodea="+gelaOheHotelaArray.get(i).getGela_kodea()+" AND gmo.oheak_ohe_id=o.ohe_id ORDER BY o.ohe_id ASC");
-				
-					while (rs.next()) {
-						
-						if (rs.getInt(1)==1)
-							gelaOheHotelaArray.get(i).setSinplea(rs.getInt(2));
-						if (rs.getInt(1)==2)
-							gelaOheHotelaArray.get(i).setBikoitza(rs.getInt(2));
-						if (rs.getInt(1)==3)
-							gelaOheHotelaArray.get(i).setUmeak(rs.getInt(2));
-					}
-				}
-				
+			}
+
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

@@ -12,12 +12,10 @@ import javax.swing.*;
 public class Leiho4ZerbitzuGehigarriak extends JFrame {
 	private JTextField txtPrezioa, txtLogelak;
 	private JLabel lblIzena = new JLabel(""), lblLogelak = new JLabel("Logelak:");
-	private JLabel lblPrezioa = new JLabel("Prezioa:"), lblOheak = new JLabel("Oheak:");
-	private JLabel lblSinpleak = new JLabel("Sinpleak(num):"), lblBikoitzak = new JLabel("Bikoitzak(num):"),
-			lblUmeentzat = new JLabel("Umeentzat(num):"), lblPentsioa = new JLabel("Pentsioa:"),
+	private JLabel lblPrezioa = new JLabel("Prezioa:");
+	private JLabel lblPentsioa = new JLabel("Pentsioa:"),
 			lblZerbitzuak = new JLabel("Zerbitzuak:");
-	private JComboBox cboxOheSinpleak = new JComboBox(), cboxOheBikoitzak = new JComboBox(),
-			cboxOheUmeentzat = new JComboBox(), cboxPentsioa = new JComboBox();
+	private JComboBox cboxPentsioa = new JComboBox();
 	private JCheckBox chckbxGozaria = new JCheckBox("Gozaria"), chckbxWifi = new JCheckBox("Wifi"),
 			chckbxIgerilekua = new JCheckBox("Igerilekua"), chckbxSpa = new JCheckBox("Spa"),
 			chckbxParking = new JCheckBox("Parking"), chckbxAireGirotua = new JCheckBox("Aire girotua"),
@@ -86,31 +84,9 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 
 		lblPrezioa.setBounds(210, 72, 63, 14);
 		getContentPane().add(lblPrezioa);
-		lblOheak.setFont(new Font("Verdana", Font.BOLD, 13));
-
-		lblOheak.setBounds(62, 97, 75, 28);
-		getContentPane().add(lblOheak);
-
-		lblSinpleak.setBounds(72, 139, 103, 14);
-		getContentPane().add(lblSinpleak);
-
-		cboxOheSinpleak.setBounds(174, 136, 46, 20);
-		getContentPane().add(cboxOheSinpleak);
-
-		lblBikoitzak.setBounds(72, 177, 103, 14);
-		getContentPane().add(lblBikoitzak);
-
-		cboxOheBikoitzak.setBounds(174, 174, 46, 20);
-		getContentPane().add(cboxOheBikoitzak);
-
-		lblUmeentzat.setBounds(72, 217, 103, 14);
-		getContentPane().add(lblUmeentzat);
-
-		cboxOheUmeentzat.setBounds(174, 214, 46, 20);
-		getContentPane().add(cboxOheUmeentzat);
 
 		txtPrezioa = new JTextField();
-		txtPrezioa.setText(h2.getPrezioa()+" €");
+		txtPrezioa.setText(prezioTot+" €");
 		txtPrezioa.setEditable(false);
 		txtPrezioa.setBounds(268, 69, 86, 20);
 		txtPrezioa.setColumns(10);

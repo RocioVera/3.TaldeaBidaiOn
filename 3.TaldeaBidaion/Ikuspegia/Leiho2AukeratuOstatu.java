@@ -249,13 +249,15 @@ public class Leiho2AukeratuOstatu extends JFrame {
 				// ematerakoan 0 tik hasteko
 				for (int i = modelo.getRowCount() - 1; i >= 0; i--)
 					modelo.removeRow(i);
-
 				arrayHotelak = MetodoakKontsultak.hotelakAtera((String) cbHerria.getSelectedItem());
+				dataSartze = dchSartzeData.getDate();
+				dataIrtetze = dchIrtetzeData.getDate();
 				for (Ostatua h : arrayHotelak) {
-					dataSartze = dchSartzeData.getDate();
-					dataIrtetze = dchIrtetzeData.getDate();
+					System.out.println("izena"+h.getIzena());
 					for (java.util.Date auxData = dataSartze; auxData.getTime() < dataIrtetze
 							.getTime(); auxData = Metodoak.gehiEgunBat(auxData)) {
+						System.out.println("auxData"+auxData+" dataSArtze"+dataSartze+"  dataIrtetze"+dataIrtetze);
+						System.out.println(MetodoakKontsultak.erreserbaBetetaMet(auxData, arrayHotelak));
 						if (MetodoakKontsultak.erreserbaBetetaMet(auxData, arrayHotelak)) {
 							hotelIzen = h.getIzena();
 							ostatuMota = "Hotela";

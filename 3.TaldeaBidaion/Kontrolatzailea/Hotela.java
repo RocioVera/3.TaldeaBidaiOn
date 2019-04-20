@@ -20,7 +20,7 @@ public class Hotela extends Ostatua {
 	}
 
 	public int getHotelKod() {
-		return hotelKod;
+ 		return hotelKod;
 		
 	}
 

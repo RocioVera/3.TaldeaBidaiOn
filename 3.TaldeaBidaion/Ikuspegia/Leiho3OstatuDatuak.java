@@ -3,27 +3,24 @@ package Ikuspegia;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
+import java.util.*;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.event.*;
 
 import Kontrolatzailea.*;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellEditor;
-import javax.swing.table.TableColumn;
+import javax.swing.table.*;
 
 public class Leiho3OstatuDatuak extends JFrame {
+
+	private static final long serialVersionUID = 1L;
 	private JLabel lblIzena = new JLabel("");
 	private JButton btn_next = new JButton("Hurrengoa"), btn_prev = new JButton("Atzera"),
 			restart = new JButton("\u2302");
 	private JTable table;
 	private DefaultTableModel modelo = new DefaultTableModel() {
+		private static final long serialVersionUID = 1L;
 		public boolean isCellEditable(int row, int column) {
 			if (column == 4)
 				return true;
@@ -35,8 +32,6 @@ public class Leiho3OstatuDatuak extends JFrame {
 	private String ohe_kopuru, sinplea, bikoitza, umeak, prezioa;
 	private JComboBox<String> cblibreKant;
 	private TableColumn col;
-	private String dataSartzeString, dataIrtetzeString;
-	private SimpleDateFormat dataFormato = new SimpleDateFormat("yyyy-MM-dd");
 	private double prezioTot;
 
 	private gelaMota_ohe_hotela h2;
@@ -132,16 +127,19 @@ public class Leiho3OstatuDatuak extends JFrame {
 
 		oheGelaHotela = MetodoakKontsultak.oheGelaHotelaDatuakMet(hartutakoHotela.getHotelKod());
 		col = table.getColumnModel().getColumn(4);
-
+        
 		for (gelaMota_ohe_hotela h : oheGelaHotela) {
 			Object[] aux = new Object[5];
 			// lamarmet -1;
 			cblibreKant = new JComboBox<String>();
+			cblibreKant.addItem("0");
 			cblibreKant.addItem("1");
 			cblibreKant.addItem("2");
+			cblibreKant.setSelectedIndex(0);
+		
+	        
 			col.setCellEditor(new DefaultCellEditor(cblibreKant));
-
-			getContentPane().add(cblibreKant);
+			
 			ohe_kopuru = h.getOhe_kopuru() + "";
 			sinplea = h.getSinplea() + "";
 			bikoitza = h.getBikoitza() + "";
@@ -168,6 +166,6 @@ public class Leiho3OstatuDatuak extends JFrame {
 		scrollPane.setBounds(21, 68, 563, 402);
 		scrollPane.setViewportBorder(null);
 		getContentPane().add(scrollPane);
-
+		
 	}
 }
