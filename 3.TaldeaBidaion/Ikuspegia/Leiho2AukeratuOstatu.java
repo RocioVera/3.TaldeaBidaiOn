@@ -43,20 +43,26 @@ public class Leiho2AukeratuOstatu extends JFrame {
 	private java.util.Date dataIrtetze, dataSartze;
 	private JButton btn_next = new JButton("Hurrengoa"), restart = new JButton("\u2302"),
 			btnBilatu = new JButton("Bilatu");
-	// private JList list = new JList();
-	private ArrayList<Hotela> arrayHotelak;
+	private ArrayList<Hotela> arrayHotela;
+	private ArrayList<Etxea> arrayEtxea;
+	private ArrayList<Apartamentua> arrayApartamentua;
+
 	private Hotela hartutakoHotela;
+	private Etxea hartutakoEtxea;
+	private Apartamentua hartutakoApartamentua;
+	
 	private DefaultTableModel modelo = new DefaultTableModel() {
 		public boolean isCellEditable(int row, int column) {
 			return false;
 		}
 	};
-	private String hotelString, hotelIzen, ostatuMota, prezioa;
+	private String hotelString, ostatuIzen, ostatuMota, prezioa;
+	private int hartutakoLerroa;
 	private double prezioTot = 0;
 	private JComboBox cbHerria;
 	private JTable table;
 	private JScrollPane scrollPane;
-	private String[] hotelaBerria = new String[3];
+	private String[] hotelaBerria = new String[3], etxeBerria = new String[3], apartamentuBerria = new String[3];
 
 	public Leiho2AukeratuOstatu() {
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
@@ -70,10 +76,18 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				hartutakoHotela = arrayHotelak.get(table.getSelectedRow());
-				MetodoakLeihoAldaketa.hirugarrenLeihoa(hartutakoHotela, dataSartze, dataIrtetze);
-				dispose();
+				hartutakoLerroa=table.getSelectedRow();
+				if (modelo.getValueAt(hartutakoLerroa, 1) == "Hotela") {
+					hartutakoHotela = (Hotela) arrayHotela.get(hartutakoLerroa);
+					MetodoakLeihoAldaketa.hirugarrenLeihoa(hartutakoHotela, dataSartze, dataIrtetze);
+					dispose();
+				}
+				else if (modelo.getValueAt(hartutakoLerroa, 1) == "Etxea") {
+					dispose();
+				}
+				else if (modelo.getValueAt(hartutakoLerroa, 1) == "Apartamentua") {
+					dispose();
+				}
 			}
 		});
 		btn_next.setBounds(392, 477, 122, 32);
@@ -119,6 +133,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		mnOstatuMota.setFont(new Font("Verdana", Font.PLAIN, 16));
 		menuBar.add(mnOstatuMota);
 		mnOstatuMota.add(chckbxmntmHotela);
+		
 		chckbxmntmHotela.setFont(new Font("Verdana", Font.PLAIN, 16));
 		mnOstatuMota.add(chckbxmntmApartamentua);
 		chckbxmntmApartamentua.setFont(new Font("Verdana", Font.PLAIN, 16));
@@ -167,11 +182,8 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		// jcalendar irtetze
 		dchIrtetzeData.getCalendarButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				dataIrtetze = Metodoak.gehiEgunBat(dchSartzeData.getDate());
-
 				dchIrtetzeData.setDate(dataIrtetze);
-
 				dchIrtetzeData.getJCalendar().setMinSelectableDate(dataIrtetze);
 				dchIrtetzeData.getJCalendar().setMaxSelectableDate(null);
 				btnBilatu.setVisible(true);
@@ -216,7 +228,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		table.setFont(new Font("Verdana", Font.PLAIN, 14));
 
 		// tabla datuak
-	
+
 		table.getColumnModel().getColumn(0).setPreferredWidth(200);
 		table.getColumnModel().getColumn(1).setPreferredWidth(90);
 		table.getColumnModel().getColumn(2).setPreferredWidth(80);
@@ -249,20 +261,19 @@ public class Leiho2AukeratuOstatu extends JFrame {
 				// ematerakoan 0 tik hasteko
 				for (int i = modelo.getRowCount() - 1; i >= 0; i--)
 					modelo.removeRow(i);
-				arrayHotelak = MetodoakKontsultak.hotelakAtera((String) cbHerria.getSelectedItem());
 				dataSartze = dchSartzeData.getDate();
 				dataIrtetze = dchIrtetzeData.getDate();
-				for (Ostatua h : arrayHotelak) {
-					System.out.println("izena"+h.getIzena());
+				
+				// hotelak gehitu
+				arrayHotela = MetodoakKontsultak.hotelakAtera((String) cbHerria.getSelectedItem());
+				for (Hotela h : arrayHotela) {
 					for (java.util.Date auxData = dataSartze; auxData.getTime() < dataIrtetze
 							.getTime(); auxData = Metodoak.gehiEgunBat(auxData)) {
-						System.out.println("auxData"+auxData+" dataSArtze"+dataSartze+"  dataIrtetze"+dataIrtetze);
-						System.out.println(MetodoakKontsultak.erreserbaBetetaMet(auxData, arrayHotelak));
-						if (MetodoakKontsultak.erreserbaBetetaMet(auxData, arrayHotelak)) {
-							hotelIzen = h.getIzena();
+						if (MetodoakKontsultak.erreserbaBetetaMet(auxData, arrayHotela)) {
+							ostatuIzen = ((Hotela) h).getIzena();
 							ostatuMota = "Hotela";
-							prezioa = MetodoakKontsultak.hotelarenPrezioaAtera(hotelIzen) + " €";
-							hotelaBerria[0] = hotelIzen;
+							prezioa = MetodoakKontsultak.hotelarenPrezioaAtera(ostatuIzen) + " €";
+							hotelaBerria[0] = ostatuIzen;
 							hotelaBerria[1] = ostatuMota;
 							hotelaBerria[2] = prezioa;
 							modelo.addRow(hotelaBerria);
@@ -271,8 +282,40 @@ public class Leiho2AukeratuOstatu extends JFrame {
 
 					}
 				}
+				// etxeak gehitu
+				arrayEtxea = MetodoakKontsultak.etxeakAtera((String) cbHerria.getSelectedItem());
+				for (Etxea e1 : arrayEtxea) {
+					for (java.util.Date auxData = dataSartze; auxData.getTime() < dataIrtetze
+							.getTime(); auxData = Metodoak.gehiEgunBat(auxData)) {
+						ostatuIzen = e1.getIzena();
+						ostatuMota = "Etxea";
+						prezioa = MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen) + " €";
+						etxeBerria[0] = ostatuIzen;
+						etxeBerria[1] = ostatuMota;
+						etxeBerria[2] = prezioa;
+						modelo.addRow(etxeBerria);
+					}
+				}
 				table.setModel(modelo);
 				btnBilatu.setVisible(false);
+				
+				// apartamentuak gehitu
+				arrayApartamentua = MetodoakKontsultak.apartamentuakAtera((String) cbHerria.getSelectedItem());
+				for (Apartamentua a : arrayApartamentua) {
+					for (java.util.Date auxData = dataSartze; auxData.getTime() < dataIrtetze
+							.getTime(); auxData = Metodoak.gehiEgunBat(auxData)) {
+						ostatuIzen = a.getIzena();
+						ostatuMota = "Apartamentua";
+						prezioa = MetodoakKontsultak.apartamentuarenPrezioaAtera(ostatuIzen) + " €";
+						apartamentuBerria[0] = ostatuIzen;
+						apartamentuBerria[1] = ostatuMota;
+						apartamentuBerria[2] = prezioa;
+						modelo.addRow(apartamentuBerria);
+					}
+				}
+				table.setModel(modelo);
+				btnBilatu.setVisible(false);
+				
 			}
 		});
 

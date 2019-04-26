@@ -35,7 +35,7 @@ public class Kontsultak {
 		try {
 			st = konexioa.createStatement();
 			ResultSet rs = st.executeQuery("SELECT * FROM `hotela` h,`ostatu` o where o.herria LIKE '" + herria
-					+ "' and h.hotel_kod LIKE o.ostatu_id");
+					+ "' and h.hotel_kod LIKE o.ostatu_id AND o.ostatu_mota LIKE 'H'");
 
 			while (rs.next()) {
 				izarKop = (rs.getInt("izarkop"));
@@ -58,6 +58,76 @@ public class Kontsultak {
 		return arrayHotelak;
 	}
 
+	public static ArrayList<Etxea> etxeakBilatu(String herria) {
+		ArrayList<Etxea> arrayEtxeak = new ArrayList<Etxea>();
+		Statement st = null;
+		Connection konexioa = Konexioa.getConexion();
+		int komun_kop, ostatu_id, postKod, gelaKop, erreserbaKop;
+		double m2;
+		String izena, helbidea, ostatuMota;
+		try {
+			st = konexioa.createStatement();
+			ResultSet rs = st.executeQuery("SELECT * FROM `etxea` e,`ostatu` o where LOWER(o.herria) LIKE LOWER('"
+					+ herria + "') and e.etxe_kod LIKE o.ostatu_id AND o.ostatu_mota LIKE 'E'");
+
+			while (rs.next()) {
+				ostatu_id = (rs.getInt("ostatu_id"));
+				komun_kop = (rs.getInt("komun_kop"));
+				m2 = (rs.getInt("m2"));
+				izena = (rs.getString("izena"));
+				helbidea = (rs.getString("helbidea"));
+				postKod = (rs.getInt("postaKod"));
+				ostatuMota = (rs.getString("ostatu_mota"));
+				gelaKop = (rs.getInt("gela_kopuru"));
+				erreserbaKop = (rs.getInt("erreserba_kopuru"));
+
+				Etxea etxea = new Etxea(izena, herria, helbidea, postKod, ostatuMota, gelaKop, erreserbaKop, komun_kop,
+						m2, ostatu_id);
+				arrayEtxeak.add(etxea);
+			}
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return arrayEtxeak;
+	}
+
+	public static ArrayList<Apartamentua> apartamentuakBilatu(String herria) {
+		ArrayList<Apartamentua> arrayApartamentua = new ArrayList<Apartamentua>();
+		Statement st = null;
+		Connection konexioa = Konexioa.getConexion();
+		int komun_kop, ostatu_id, postKod, gelaKop, erreserbaKop, solairua;
+		double m2;
+		String izena, helbidea, ostatuMota;
+		try {
+			st = konexioa.createStatement();
+			ResultSet rs = st.executeQuery("SELECT e.komun_kop, e.m2, o.*, a.solairua FROM `etxea` e,`ostatu` o, `apartamentua` a where LOWER(o.herria) LIKE LOWER('"
+					+ herria + "') and e.etxe_kod LIKE o.ostatu_id AND e.etxe_kod LIKE a.etxea_etxe_kod AND o.ostatu_mota LIKE 'A'");
+			while (rs.next()) {
+				ostatu_id = (rs.getInt("ostatu_id"));
+				komun_kop = (rs.getInt("komun_kop"));
+				m2 = (rs.getInt("m2"));
+				izena = (rs.getString("izena"));
+				helbidea = (rs.getString("helbidea"));
+				postKod = (rs.getInt("postaKod"));
+				ostatuMota = (rs.getString("ostatu_mota"));
+				gelaKop = (rs.getInt("gela_kopuru"));
+				erreserbaKop = (rs.getInt("erreserba_kopuru"));
+				solairua = (rs.getInt("solairua"));
+
+
+				Apartamentua apartamentua = new Apartamentua(izena, herria, helbidea, postKod, ostatuMota, gelaKop, erreserbaKop, komun_kop,
+						m2, ostatu_id, solairua);
+				arrayApartamentua.add(apartamentua);
+			}
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return arrayApartamentua;
+	}
+	
+	
 	public static double hotelarenPrezioaBilatu(String izena) {
 		Statement st = null;
 		Connection konexioa = Konexioa.getConexion();
@@ -66,14 +136,11 @@ public class Kontsultak {
 			st = konexioa.createStatement();
 			ResultSet rs = st.executeQuery(
 					"SELECT min(prezioa) FROM `gelamota_hotela` gh, `gelamota` g , `hotela` h WHERE gh.hotela_hotel_kod=h.hotel_kod "
-					+"AND g.gela_kodea=gh.gelaMota_gela_kodea AND g.mota like lower('logela') AND h.hotel_kod IN ("
-							+" SELECT ostatu_id FROM `ostatu` WHERE lower(ostatu.izena) LIKE lower('" + izena + "'))");
-					/*"SELECT prezioa FROM `gelamota_hotela` gh, `gelamota` g , `hotela` h WHERE gh.gela_hotel_kod=h.hotel_kod AND g.gela_kodea=gh.gelaMota_gela_kodea "
-							+ "AND g.mota like lower('logela') AND h.hotel_kod IN (SELECT ostatu_id FROM `ostatu` WHERE lower(ostatu.izena)"
-							+ "LIKE lower('" + izena + "'))"); */
+							+ "AND g.gela_kodea=gh.gelaMota_gela_kodea AND g.mota like lower('logela') AND h.hotel_kod IN ("
+							+ " SELECT ostatu_id FROM `ostatu` WHERE lower(ostatu.izena) LIKE lower('" + izena + "'))");
 
 			while (rs.next()) {
-				prezioa = (rs.getDouble("min(prezioa)")); 
+				prezioa = (rs.getDouble("min(prezioa)"));
 			}
 
 		} catch (Exception e) {
@@ -82,6 +149,47 @@ public class Kontsultak {
 		return prezioa;
 	}
 
+	public static double etxearenPrezioaBilatu(String izena) {
+		Statement st = null;
+		Connection konexioa = Konexioa.getConexion();
+		double prezioa = 0;
+		try {
+			st = konexioa.createStatement();
+			ResultSet rs = st.executeQuery(
+					"SELECT SUM(prezioa) FROM `etxea_gelamota` eg, `gelamota` g , `etxea` e WHERE eg.etxea_etxe_kod=e.etxe_kod AND g.gela_kodea=eg.gelaMota_gela_kodea AND e.etxe_kod IN (SELECT ostatu_id FROM `ostatu` WHERE lower(ostatu.izena) LIKE lower('"
+							+ izena + "'))");
+
+			while (rs.next()) {
+				prezioa = (rs.getDouble("sum(prezioa)"));
+			}
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return prezioa;
+	}
+
+	public static double apartamentuarenPrezioaBilatu(String izena) {
+		Statement st = null;
+		Connection konexioa = Konexioa.getConexion();
+		double prezioa = 0;
+		try {
+			st = konexioa.createStatement();
+			ResultSet rs = st.executeQuery(
+					"SELECT SUM(prezioa) FROM `etxea_gelamota` eg, `gelamota` g , `etxea` e WHERE eg.etxea_etxe_kod=e.etxe_kod AND g.gela_kodea=eg.gelaMota_gela_kodea AND e.etxe_kod IN (SELECT ostatu_id FROM `ostatu` WHERE lower(ostatu.izena) LIKE lower('"
+							+ izena + "'))");
+
+			while (rs.next()) {
+				prezioa = (rs.getDouble("sum(prezioa)"));
+			}
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return prezioa;
+	}
+
+	
 	// Leiho3-ko kontsultak
 	public static boolean erreserbaBeteta(java.util.Date data, String izena, int hotel_kodea) {
 		Statement st = null;
@@ -89,7 +197,7 @@ public class Kontsultak {
 		int erreserbaKop = 0, gelaKopuru = 0;
 		boolean erantzuna = false;
 		ResultSet rs = null;
-	    java.sql.Date sqlDate = new java.sql.Date(data.getTime());
+		java.sql.Date sqlDate = new java.sql.Date(data.getTime());
 		System.out.println(sqlDate);
 		try {
 			st = konexioa.createStatement();
@@ -114,7 +222,7 @@ public class Kontsultak {
 		}
 		if (gelaKopuru > erreserbaKop)
 			erantzuna = true;
-		System.out.println(hotel_kodea+" "+izena + "    "+gelaKopuru + " "+erreserbaKop);
+		System.out.println(hotel_kodea + " " + izena + "    " + gelaKopuru + " " + erreserbaKop);
 		return erantzuna;
 	}
 

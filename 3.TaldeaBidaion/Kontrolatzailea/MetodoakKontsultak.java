@@ -24,12 +24,37 @@ public class MetodoakKontsultak {
 		arrayHotelak = Kontsultak.hotelakBilatu(herria);
 		return arrayHotelak;
 	}
+	
+	public static ArrayList<Etxea> etxeakAtera(String herria) {
+		ArrayList<Etxea> arrayEtxea = new ArrayList<Etxea>();
+		arrayEtxea = Kontsultak.etxeakBilatu(herria);
+		return arrayEtxea;
+	}
+	
+	public static ArrayList<Apartamentua> apartamentuakAtera(String herria) {
+		ArrayList<Apartamentua> arrayApartamentua = new ArrayList<Apartamentua>();
+		arrayApartamentua = Kontsultak.apartamentuakBilatu(herria);
+		return arrayApartamentua;
+	}
 
 	public static double hotelarenPrezioaAtera(String hotela) {
 		double prezioa = 0;
 		prezioa = Kontsultak.hotelarenPrezioaBilatu(hotela);
 		return prezioa;
 	}
+	
+	public static double etxearenPrezioaAtera(String etxea) {
+		double prezioa = 0;
+		prezioa = Kontsultak.etxearenPrezioaBilatu(etxea);
+		return prezioa;
+	}
+	
+	public static double apartamentuarenPrezioaAtera(String apartamentua) {
+		double prezioa = 0;
+		prezioa = Kontsultak.apartamentuarenPrezioaBilatu(apartamentua);
+		return prezioa;
+	}
+	
 
 	public static boolean erreserbaBetetaMet(Date data, ArrayList<Hotela> arrayHotelak) {
 		String izena = "";

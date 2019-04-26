@@ -1,15 +1,13 @@
 package Kontrolatzailea;
 
-public class Apartamentua extends Ostatua {
+public class Apartamentua extends Etxea {
 
-	private int solairua, apartamentuKod, etxeKod;
+	private int solairua;
 
 	public Apartamentua(String izena, String herria, String helbidea, int postKod, String ostatuMota, int gelaKop,
-			int erreserbaKop, int solairua, int apartamentuKod, int etxeKod) {
-		super(izena, herria, helbidea, postKod, ostatuMota, gelaKop, erreserbaKop);
+			int erreserbaKop, int komunKop, double m2, int etxeKod, int solairua) {
+		super(izena, herria, helbidea, postKod, ostatuMota, gelaKop, erreserbaKop, komunKop, m2, etxeKod);
 		this.solairua = solairua;
-		this.apartamentuKod = apartamentuKod;
-		this.etxeKod = etxeKod;
 	}
 
 	public int getSolairua() {
@@ -20,26 +18,11 @@ public class Apartamentua extends Ostatua {
 		this.solairua = solairua;
 	}
 
-	public int getApartamentuKod() {
-		return apartamentuKod;
-	}
-
-	public void setApartamentuKod(int apartamentuKod) {
-		this.apartamentuKod = apartamentuKod;
-	}
-
-	public int getEtxeKod() {
-		return etxeKod;
-	}
-
-	public void setEtxeKod(int etxeKod) {
-		this.etxeKod = etxeKod;
-	}
 
 	@Override
 	public String toString() {
-		return super.toString() + "Apartamentua [solairua=" + solairua + ", apartamentuKod=" + apartamentuKod
-				+ ", etxeKod=" + etxeKod + "]";
+		return super.toString()+". Apartamentua [solairua=" + solairua + "]";
 	}
+
 
 }

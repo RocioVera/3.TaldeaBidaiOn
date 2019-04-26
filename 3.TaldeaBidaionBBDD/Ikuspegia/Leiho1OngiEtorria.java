@@ -20,12 +20,12 @@ public class Leiho1OngiEtorria extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png")); 
 		getContentPane().setLayout(null);
 		this.setBounds(350,50,600,600);
-		this.setTitle("3.taldearen administratzaileen aplikazioa");
+		this.setTitle("Airour ostatu zerbitzuen bilatzailea");
 		this.setResizable(false); // neurketak ez aldatzeko
 		this.setSize(new Dimension(600, 600));
 		
 		aurreraBtn = new JButton("");
-		aurreraBtn.setIcon(new ImageIcon(".\\Argazkiak\\ongiEtorri.png"));
+		aurreraBtn.setIcon(new ImageIcon(".\\Argazkiak\\ongiEtorria.png"));
 		aurreraBtn.setBounds(0, -30, 600, 630);
 		getContentPane().add(aurreraBtn);
 		aurreraBtn.addActionListener(new ActionListener() {

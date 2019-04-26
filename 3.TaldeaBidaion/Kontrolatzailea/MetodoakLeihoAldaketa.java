@@ -52,6 +52,7 @@ public class MetodoakLeihoAldaketa {
 		Leiho7.setVisible(true);
 	}
 
+	
 	public static void zortzigarrenLeihoa(Hotela hartutakoHotela, Date sartzeData, Date irtetzeData,
 			double prezioTot, String nan, gelaMota_ohe_hotela h2) {
 		Leiho8Ticket Leiho8 = new Leiho8Ticket(hartutakoHotela, sartzeData, irtetzeData, prezioTot, nan, h2);

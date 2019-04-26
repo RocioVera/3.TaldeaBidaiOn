@@ -2,10 +2,11 @@ package Kontrolatzailea;
 
 public class Etxea extends Ostatua {
 
-	private int komunKop, m2, etxeKod;
+	protected int komunKop, etxeKod;
+	protected double m2;
 
 	public Etxea(String izena, String herria, String helbidea, int postKod, String ostatuMota, int gelaKop,
-			int erreserbaKop, int komunKop, int m2, int etxeKod) {
+			int erreserbaKop, int komunKop, double m2, int etxeKod) {
 		super(izena, herria, helbidea, postKod, ostatuMota, gelaKop, erreserbaKop);
 		this.komunKop = komunKop;
 		this.m2 = m2;
@@ -20,11 +21,11 @@ public class Etxea extends Ostatua {
 		this.komunKop = komunKop;
 	}
 
-	public int getM2() {
+	public double getM2() {
 		return m2;
 	}
 
-	public void setM2(int m2) {
+	public void setM2(double m2) {
 		this.m2 = m2;
 	}
 
