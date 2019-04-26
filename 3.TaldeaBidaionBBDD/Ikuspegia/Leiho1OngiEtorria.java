@@ -20,7 +20,7 @@ public class Leiho1OngiEtorria extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png")); 
 		getContentPane().setLayout(null);
 		this.setBounds(350,50,600,600);
-		this.setTitle("1.taldearen txartel salmenta");
+		this.setTitle("3.taldearen administratzaileen aplikazioa");
 		this.setResizable(false); // neurketak ez aldatzeko
 		this.setSize(new Dimension(600, 600));
 		

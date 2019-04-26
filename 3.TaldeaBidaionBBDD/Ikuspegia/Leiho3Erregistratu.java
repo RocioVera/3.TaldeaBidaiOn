@@ -35,7 +35,7 @@ public class Leiho3Erregistratu extends JFrame {
 		this.setBounds(350, 50, 600, 600);
 		this.setResizable(false); // neurketak ez aldatzeko
 		this.setSize(new Dimension(600, 600));
-		this.setTitle("3.taldearen ostatu zerbitzuen bilatzailea");
+		this.setTitle("3.taldearen administratzaileen aplikazioa");
 
 		btn_prev.addActionListener(new ActionListener() {
 			@Override

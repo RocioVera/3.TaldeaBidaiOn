@@ -4,22 +4,14 @@ import java.awt.*;
 import javax.swing.*;
 import Kontrolatzailea.*;
 import java.awt.event.*;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import com.toedter.calendar.*;
 
 public class Leiho2Login extends JFrame {
 	private static final long serialVersionUID = 1L;
 	// panelan ikusten diren bariableak
-	private JTextField txtNan = new JTextField(), txtIzena = new JTextField(),
-			txtAbizenak = new JTextField();
+	private JTextField txtNan = new JTextField();
 	private JPasswordField passwordField = new JPasswordField();
-	private JLabel lblNan, lblPasahitza, lblIzena, lblAbizenak, lblJaioData, lblErroreakonektatu,
-			lblKonekBezeroMezua;
-	private JButton btnErregistratuNahi = new JButton("Erregistratu"), btnErregistratu = new JButton("Erregistratu"),
-			btn_next = new JButton("Hurrengoa"), restart = new JButton("\u2302");
-	private JDateChooser txtJaioData = new JDateChooser();
+	private JLabel lblNan, lblPasahitza, lblErroreakonektatu, lblKonekBezeroMezua;
+	private JButton btnErregistratuNahi = new JButton("Erregistratu"),btn_next = new JButton("Hurrengoa"), restart = new JButton("\u2302");
 
 	// bariableak
 	private String pasahitza, nan, nanLarria;
@@ -34,7 +26,7 @@ public class Leiho2Login extends JFrame {
 		this.setBounds(350, 50, 600, 600);
 		this.setResizable(false); // neurketak ez aldatzeko
 		this.setSize(new Dimension(600, 600));
-		this.setTitle("3.taldearen ostatu zerbitzuen bilatzailea");
+		this.setTitle("3.taldearen administratzaileen aplikazioa");
 
 		// botoiak
 		btn_next.addActionListener(new ActionListener() {
@@ -122,10 +114,6 @@ public class Leiho2Login extends JFrame {
 		lblErroreakonektatu = new JLabel();
 		lblErroreakonektatu.setHorizontalAlignment(SwingConstants.CENTER);
 		getContentPane().add(lblErroreakonektatu);
-
-		lblIzena = new JLabel("Izena:");
-		lblAbizenak = new JLabel("Abizenak:");
-		lblJaioData = new JLabel("Jaio data:");
 
 		// erregistratu ematerakoan agertu behar diren bariableak
 		btnErregistratuNahi.addActionListener(new ActionListener() {

@@ -15,14 +15,9 @@ public class Leiho5OstatuakAldatu extends JFrame {
 	private JMenuBar menuBar = new JMenuBar();
 	private ButtonGroup ostatuGroup;
 
-	private JMenu mnHotela;
-	private JRadioButton rbHAldatu,rbHGehitu, rbHEzabatu;
-	// ostatu mota
-	private JMenu mnEtxea;
-	private JRadioButton rbEAldatu, rbEGehitu,rbEEzabatu;
-	// ordenatu
-	private JMenu mnApartamentua;
-	private JRadioButton rbAGehitu, rbAAldatu, rbAEzabatu;
+	private JMenu mnHotela, mnEtxea, mnApartamentua;
+	private JRadioButton rbHAldatu, rbHGehitu, rbHEzabatu, rbEAldatu, rbEGehitu, rbEEzabatu, rbAGehitu, rbAAldatu,
+			rbAEzabatu;
 
 	// bariableak
 
@@ -33,7 +28,7 @@ public class Leiho5OstatuakAldatu extends JFrame {
 		this.setBounds(350, 50, 600, 600);
 		this.setResizable(false); // neurketak ez aldatzeko
 		this.setSize(new Dimension(600, 600));
-		this.setTitle("3.taldearen ostatu zerbitzuen bilatzailea");
+		this.setTitle("3.taldearen administratzaileen aplikazioa");
 
 		// botoiak
 		restart = new JButton("\u2302");
@@ -61,16 +56,15 @@ public class Leiho5OstatuakAldatu extends JFrame {
 		btn_prev.setForeground(Color.RED);
 		getContentPane().add(btn_prev);
 
-		
-		//group --> bakarrik bat 
+		// group --> bakarrik bat
 		ostatuGroup = new ButtonGroup();
 		this.setJMenuBar(menuBar);
-		
-		// Hotela	
+
+		// Hotela
 		mnHotela = new JMenu("           Hotela           ");
 		mnHotela.setFont(new Font("Verdana", Font.PLAIN, 16));
 		menuBar.add(mnHotela);
-		
+
 		rbHAldatu = new JRadioButton("Aldatu                 ");
 		rbHAldatu.addActionListener(new ActionListener() {
 			@Override
@@ -90,7 +84,7 @@ public class Leiho5OstatuakAldatu extends JFrame {
 		});
 		rbHGehitu.setFont(new Font("Verdana", Font.PLAIN, 16));
 		mnHotela.add(rbHGehitu);
-	
+
 		rbHEzabatu = new JRadioButton("Ezabatu");
 		rbHEzabatu.addActionListener(new ActionListener() {
 			@Override
@@ -101,12 +95,11 @@ public class Leiho5OstatuakAldatu extends JFrame {
 		rbHEzabatu.setFont(new Font("Verdana", Font.PLAIN, 16));
 		mnHotela.add(rbHEzabatu);
 
-		
-		//etxea
+		// etxea
 		mnEtxea = new JMenu("           Etxea           ");
 		mnEtxea.setFont(new Font("Verdana", Font.PLAIN, 16));
 		menuBar.add(mnEtxea);
-		
+
 		rbEAldatu = new JRadioButton("Aldatu                ");
 		rbEAldatu.addActionListener(new ActionListener() {
 			@Override
@@ -116,7 +109,7 @@ public class Leiho5OstatuakAldatu extends JFrame {
 		});
 		rbEAldatu.setFont(new Font("Verdana", Font.PLAIN, 16));
 		mnEtxea.add(rbEAldatu);
-		
+
 		rbEGehitu = new JRadioButton("Gehitu");
 		rbEGehitu.addActionListener(new ActionListener() {
 			@Override
@@ -126,7 +119,7 @@ public class Leiho5OstatuakAldatu extends JFrame {
 		});
 		rbEGehitu.setFont(new Font("Verdana", Font.PLAIN, 16));
 		mnEtxea.add(rbEGehitu);
-	
+
 		rbEEzabatu = new JRadioButton("Ezabatu");
 		rbEEzabatu.addActionListener(new ActionListener() {
 			@Override
@@ -137,13 +130,11 @@ public class Leiho5OstatuakAldatu extends JFrame {
 		rbEEzabatu.setFont(new Font("Verdana", Font.PLAIN, 16));
 		mnEtxea.add(rbEEzabatu);
 
-		
-		
 		// apartamentua
 		mnApartamentua = new JMenu("        Apartamentua       ");
 		mnApartamentua.setFont(new Font("Verdana", Font.PLAIN, 16));
 		menuBar.add(mnApartamentua);
-		
+
 		rbAAldatu = new JRadioButton("Aldatu                    ");
 		rbAAldatu.addActionListener(new ActionListener() {
 			@Override
@@ -153,7 +144,7 @@ public class Leiho5OstatuakAldatu extends JFrame {
 		});
 		rbAAldatu.setFont(new Font("Verdana", Font.PLAIN, 16));
 		mnApartamentua.add(rbAAldatu);
-		
+
 		rbAGehitu = new JRadioButton("Gehitu");
 		rbAGehitu.setFont(new Font("Verdana", Font.PLAIN, 16));
 		rbAGehitu.addActionListener(new ActionListener() {
@@ -163,8 +154,7 @@ public class Leiho5OstatuakAldatu extends JFrame {
 			}
 		});
 		mnApartamentua.add(rbAGehitu);
-	
-		
+
 		rbAEzabatu = new JRadioButton("Ezabatu");
 		rbAEzabatu.setFont(new Font("Verdana", Font.PLAIN, 16));
 		rbAEzabatu.addActionListener(new ActionListener() {
@@ -174,8 +164,6 @@ public class Leiho5OstatuakAldatu extends JFrame {
 			}
 		});
 		mnApartamentua.add(rbAEzabatu);
-
-		
 
 	}
 }
