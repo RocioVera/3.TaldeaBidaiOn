@@ -45,13 +45,12 @@ public class Leiho2Login extends JFrame {
 					if (balPasa && balNan) {
 						MetodoakLeihoAldaketaBBDD.laugarrenLeihoa();
 						dispose();
-						lblErroreakonektatu.setBounds(145, 329, 318, 22);
-						lblErroreakonektatu.setForeground(Color.BLACK);
-						lblErroreakonektatu.setText("Konektatuta");
+					}
+					else {
+						lblErroreakonektatu.setBounds(145, 350, 318, 22);
+						lblErroreakonektatu.setForeground(Color.RED);
+						lblErroreakonektatu.setText("NAN-a edo pasahitza ez dago ondo, sartu berriz");
 						lblErroreakonektatu.setVisible(true);
-						passwordField.setEnabled(false);
-						txtNan.setEnabled(false);
-						btnErregistratuNahi.setVisible(false);
 					}
 				} else {
 					lblErroreakonektatu.setBounds(145, 350, 318, 22);

@@ -2,63 +2,28 @@ package Kontrolatzailea;
 
 import java.sql.Date;
 
-public class Bezeroa {
+public class Bezeroa extends Pertsona {
 
-	private String nan, izena, abizenak, pasahitza;
-	private Date jaiotzeData;
+	private int erreserba_kop;
 
-	public Bezeroa(String nan, String izena, String abizenak, Date jaiotzeData, String pasahitza) {
-		this.nan = nan;
-		this.izena = izena;
-		this.abizenak = abizenak;
-		this.jaiotzeData = jaiotzeData;
-		this.pasahitza = pasahitza;
+	public Bezeroa(String nan, String izena, String abizenak, Date jaiotzeData, String pasahitza, int erreserba_kop) {
+		super(nan, izena, abizenak, jaiotzeData, pasahitza);
+		this.erreserba_kop = erreserba_kop;
 	}
 
-	public String getNan() {
-		return nan;
+	public int getErreserba_kop() {
+		return erreserba_kop;
 	}
 
-	public void setNan(String nan) {
-		this.nan = nan;
-	}
-
-	public String getIzena() {
-		return izena;
-	}
-
-	public void setIzena(String izena) {
-		this.izena = izena;
-	}
-
-	public String getAbizenak() {
-		return abizenak;
-	}
-
-	public void setAbizena(String abizenak) {
-		this.abizenak = abizenak;
-	}
-
-	public Date getJaiotzeData() {
-		return jaiotzeData;
-	}
-
-	public void setJaiotzeData(Date jaiotzeData) {
-		this.jaiotzeData = jaiotzeData;
-	}
-
-	public String getPasahitza() {
-		return pasahitza;
-	}
-
-	public void setPasahitza(String pasahitza) {
-		this.pasahitza = pasahitza;
+	public void setErreserba_kop(int erreserba_kop) {
+		this.erreserba_kop = erreserba_kop;
 	}
 
 	@Override
 	public String toString() {
-		return "Bezeroa [nan=" + nan + ", izena=" + izena + ", abizena=" + abizenak + ", jaiotzeData=" + jaiotzeData
-				+ ", promozioKod=" + pasahitza + "]";
+		return super.toString()+" Bezeroa [erreserba_kop=" + erreserba_kop + "]";
 	}
+
+	
 
 }

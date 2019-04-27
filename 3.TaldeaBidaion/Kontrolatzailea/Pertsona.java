@@ -2,12 +2,12 @@ package Kontrolatzailea;
 
 import java.sql.Date;
 
-public class Bezeroa {
+public abstract class Pertsona {
 
-	private String nan, izena, abizenak, pasahitza;
-	private Date jaiotzeData;
+	protected String nan, izena, abizenak, pasahitza;
+	protected Date jaiotzeData;
 
-	public Bezeroa(String nan, String izena, String abizenak, Date jaiotzeData, String pasahitza) {
+	public Pertsona(String nan, String izena, String abizenak, Date jaiotzeData, String pasahitza) {
 		this.nan = nan;
 		this.izena = izena;
 		this.abizenak = abizenak;

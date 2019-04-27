@@ -18,17 +18,17 @@ public class MetodoakKontsultak {
 	 * @param nan
 	 * @return balNan
 	 */
-	public static boolean nanGordetaEgon(String nan) {
-		ArrayList<Bezeroa> bezeroak = new ArrayList<>();
-		boolean balNan = false;
+	/*public static boolean nanGordetaEgon(String nan) {
+		ArrayList<Langilea> bezeroak = new ArrayList<>();
+		boolean balNan = true;
 		bezeroak = Kontsultak.bezeroDatuak();
-		for (Bezeroa bezeroak2 : bezeroak) {
+		for (Langilea bezeroak2 : bezeroak) {
 			if (bezeroak2.getNan().equals(nan)) {
-				balNan = true;
+				balNan = false;
 			}
 		}
 		return balNan;
-	}
+	}*/
 
 	/**
 	 * Sartutako pasahitza (zifratuta) ea datu basean dagoen ala ez.
@@ -41,9 +41,9 @@ public class MetodoakKontsultak {
 		boolean bal = false;
 		String pasaEnkr = "";
 		pasaEnkr = Metodoak.zifratuPasahitza(pasahitza);
-		ArrayList<Bezeroa> bezeroak = new ArrayList<Bezeroa>();
+		ArrayList<Langilea> bezeroak = new ArrayList<Langilea>();
 		bezeroak = Kontsultak.bezeroDatuak();
-		for (Bezeroa bezeroak2 : bezeroak) {
+		for (Langilea bezeroak2 : bezeroak) {
 			if (pasaEnkr.equals(bezeroak2.getPasahitza()))
 				bal = true;
 		}
@@ -59,9 +59,9 @@ public class MetodoakKontsultak {
 	 */
 	public static boolean frogatuNAN(String nan) {
 		boolean bal = false;
-		ArrayList<Bezeroa> bezeroak = new ArrayList<>();
+		ArrayList<Langilea> bezeroak = new ArrayList<>();
 		bezeroak = Kontsultak.bezeroDatuak();
-		for (Bezeroa bezeroak2 : bezeroak) {
+		for (Langilea bezeroak2 : bezeroak) {
 			if (nan.equals(bezeroak2.getNan()))
 				bal = true;
 		}
@@ -81,25 +81,46 @@ public class MetodoakKontsultak {
 	 * @param jaioDataString
 	 * @return bal
 	 */
+	public static ArrayList<String> ostatuIzenak() {
+		ArrayList<String> arrayIzenak = new ArrayList<>();
+		arrayIzenak = Kontsultak.ostatuIzenak();
+		return arrayIzenak;
+	}
+
+	public static boolean nanGordetaEgon(String nan) {
+		boolean bal=false;
+		int pertsonaKant=Kontsultak.bilatuPertsNan(nan);
+		int langileKant=Kontsultak.bilatuLangNan(nan);
+		if (langileKant!=1 && pertsonaKant!=1)
+			bal=true;
+		return bal;
+	}
+	
 	public static boolean erregistratuBezeroak(String pasahitza, String nan, String izena, String abizenak,
-			String jaioDataString) {
+			String jaioDataString, int ostatu_id) {
 		boolean bal = true;
-		String pasaEnkr = "";
-		pasaEnkr = Metodoak.zifratuPasahitza(pasahitza);
-		ArrayList<Bezeroa> bezeroak = new ArrayList<>();
+		String pasaEnkr = Metodoak.zifratuPasahitza(pasahitza);
+		int pertsonaKant, langileKant;
 
 		// fitxeroari bidali
-		if (pasahitza.length() == 0 || nan.length() < 8 || izena.isEmpty() || abizenak.isEmpty() || nan.length() < 8
-				|| jaioDataString == null || nanGordetaEgon(nan))
+		if (pasahitza.length() == 0 || nan.length() < 9 || izena.isEmpty() || abizenak.isEmpty()
+				|| jaioDataString == null)
 			bal = false;
 
-		if (bal && !nanGordetaEgon(nan)) {
-			bezeroak = Kontsultak.erregistratuBezeroak(pasaEnkr, nan, izena, abizenak, jaioDataString);
+		if (bal) {
+			pertsonaKant=Kontsultak.bilatuPertsNan(nan);
+			System.out.println(pertsonaKant+"perts");
+			langileKant=Kontsultak.bilatuLangNan(nan);
+			System.out.println(langileKant +"lang");
+			System.out.println(ostatu_id);
+			if (langileKant==0)
+				Kontsultak.erregistratuLangileak(nan, ostatu_id);
+			
+			if (pertsonaKant==0)
+				Kontsultak.erregistratuPertsonak(pasahitza, nan, izena, abizenak, jaioDataString);
+			
 		}
 		return bal;
 	}
-
-
-
 
 }

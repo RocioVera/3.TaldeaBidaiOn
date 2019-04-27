@@ -14,18 +14,18 @@ public class Leiho3Erregistratu extends JFrame {
 	// panelan ikusten diren bariableak
 	private JTextField txtNan = new JTextField(), txtIzena = new JTextField(), txtAbizenak = new JTextField();
 	private JPasswordField passwordField = new JPasswordField();
-	private JLabel lblNan, lblPasahitza, lblIzena, lblAbizenak, lblJaioData, lblErroreakonektatu;
+	private JLabel lblNan, lblPasahitza, lblIzena, lblAbizenak, lblJaioData, lblErroreakonektatu, lblOstatuIzena;
 	private JButton btnErregistratuNahi = new JButton("Erregistratu"), btnErregistratu = new JButton("Erregistratu"),
 			btn_prev = new JButton("Hasi saioa"), restart = new JButton("\u2302");
 	private JDateChooser txtJaioData = new JDateChooser();
 	private JTextFieldDateEditor dataEzEditatu; // kentzeko eskuz sartu ahal izana
-
+	private JComboBox cbOstatuIzena;
 	// bariableak
 	private java.util.Date jaioData;
 	private SimpleDateFormat dataFormato = new SimpleDateFormat("yyyy-MM-dd");
 	private String jaioDataString, pasahitza, nan, izena, abizenak, nanLarria, nanBalLarria;
 	private boolean balPasa, balNan, balErregis;
-	private int nanLuzera = 8, izenLuzera = 49, abizenLuzera = 99, pasahitzLuzera = 49, sexuLuzera = 0;
+	private int nanLuzera = 8, izenLuzera = 49, abizenLuzera = 99, pasahitzLuzera = 49, sexuLuzera = 0, ostatu_id=0;
 	private char letra;
 
 	public Leiho3Erregistratu() {
@@ -118,11 +118,11 @@ public class Leiho3Erregistratu extends JFrame {
 
 		// non, formatua eta zer jarri
 		lblPasahitza.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblPasahitza.setBounds(170, 331, 93, 20);
+		lblPasahitza.setBounds(170, 314, 93, 20);
 		getContentPane().add(lblPasahitza);
 
 		passwordField.setEchoChar('*');
-		passwordField.setBounds(281, 333, 86, 20);
+		passwordField.setBounds(281, 316, 86, 20);
 		getContentPane().add(passwordField);
 		passwordField.addKeyListener(new KeyAdapter() {
 			@SuppressWarnings("deprecation")
@@ -133,6 +133,19 @@ public class Leiho3Erregistratu extends JFrame {
 					e.consume(); // ez du godetzen
 			}
 		});
+
+		// ostatuIzena
+		lblOstatuIzena = new JLabel("Ostatu izena:");
+		lblOstatuIzena.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblOstatuIzena.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblOstatuIzena.setBounds(137, 366, 126, 20);
+		getContentPane().add(lblOstatuIzena);
+
+		cbOstatuIzena = new JComboBox<String>();
+		cbOstatuIzena.setBounds(281, 368, 173, 20);
+		for (String izena : MetodoakKontsultak.ostatuIzenak())
+			cbOstatuIzena.addItem(izena);
+		getContentPane().add(cbOstatuIzena);
 
 		// non, formatua eta zer jarri
 		lblJaioData.setFont(new Font("Tahoma", Font.BOLD, 17));
@@ -167,34 +180,22 @@ public class Leiho3Erregistratu extends JFrame {
 					nanLarria = nan.substring(8).toUpperCase();
 					nan = nan.substring(0, 8) + nanLarria;
 					nanBalLarria = Metodoak.nanLetra(nan);
+					ostatu_id = cbOstatuIzena.getSelectedIndex()+1;
 					if (nanBalLarria.equals(nanLarria)) {
 						balErregis = MetodoakKontsultak.erregistratuBezeroak(pasahitza, nan, izena, abizenak,
-								jaioDataString);
-
-						if (nan.length() - 1 == nanLuzera && !MetodoakKontsultak.nanGordetaEgon(nan))
-							txtNan.setEnabled(false);
-						else if (!izena.isEmpty())
-							txtIzena.setEnabled(false);
-						else if (!abizenak.isEmpty())
-							txtAbizenak.setEnabled(false);
-						else if (jaioData != null)
-							txtJaioData.setEnabled(false);
-						else if (pasahitza.length() != 0)
-							passwordField.setEnabled(false);
+								jaioDataString, ostatu_id);
 					}
 				}
 
 				if (balErregis) {
-					if (!MetodoakKontsultak.nanGordetaEgon(nan)) { // dagoela erregistratuta
-						lblErroreakonektatu.setText("Erregistratuta zaude, hasi saioa.");
+					if (!MetodoakKontsultak.nanGordetaEgon(nan)) { // erregistratu dela
+						lblErroreakonektatu.setText("Erregistratu zara, hasi saioa.");
+						txtNan.setEnabled(false);
 						passwordField.setEnabled(false);
 						txtIzena.setEnabled(false);
 						txtAbizenak.setEnabled(false);
 						txtJaioData.setEnabled(false);
-					} else {
-						MetodoakLeihoAldaketaBBDD.laugarrenLeihoa();
-						dispose();
-
+						cbOstatuIzena.setEnabled(false);
 					}
 				} else { // !balErregis
 					lblErroreakonektatu.setForeground(Color.RED);
@@ -204,7 +205,7 @@ public class Leiho3Erregistratu extends JFrame {
 					} else if (!nan.matches("^[0-9]{8}[A-Za-z]$") || !nanBalLarria.equals(nanLarria)) {
 						lblErroreakonektatu.setBounds(126, 91, 318, 22);
 						lblErroreakonektatu.setText("nan-a txarto sartu duzu.");
-					} else if (MetodoakKontsultak.nanGordetaEgon(nan)) {
+					} else if (!MetodoakKontsultak.nanGordetaEgon(nan)) {
 						lblErroreakonektatu.setBounds(122, 445, 318, 22);
 						lblErroreakonektatu.setText("Erregistratuta zaude, hasi saioa.");
 						passwordField.setEnabled(false);
@@ -224,11 +225,12 @@ public class Leiho3Erregistratu extends JFrame {
 						lblErroreakonektatu.setBounds(120, 364, 318, 22);
 						lblErroreakonektatu.setText("pasahitza bete behar duzu.");
 					}
+
 				}
 			}
 
 		});
-		btnErregistratu.setBounds(247, 401, 109, 25);
+		btnErregistratu.setBounds(248, 408, 109, 25);
 		getContentPane().add(btnErregistratu);
 
 	}

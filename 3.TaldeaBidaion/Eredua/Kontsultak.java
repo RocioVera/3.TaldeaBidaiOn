@@ -285,18 +285,20 @@ public class Kontsultak {
 		Statement st = null;
 		Connection konexioa = Konexioa.getConexion();
 		String izena, abizenak, NAN, pasahitza;
+		int erreserba_kop;
 		java.sql.Date data;
 		ResultSet rs = null;
 		try {
 			st = konexioa.createStatement();
-			rs = st.executeQuery("SELECT * FROM bezeroa");
+			rs = st.executeQuery("SELECT p.*, b.erreserba_kop FROM bezeroa b, pertsona p where b.nan=p.nan");
 			while (rs.next()) {
 				NAN = (rs.getString(1));
 				izena = (rs.getString(2));
 				abizenak = (rs.getString(3));
 				data = (rs.getDate(4));
 				pasahitza = (rs.getString(5));
-				Bezeroa bezeroa = new Bezeroa(NAN, izena, abizenak, data, pasahitza);
+				erreserba_kop = (rs.getInt(6));
+				Bezeroa bezeroa = new Bezeroa(NAN, izena, abizenak, data, pasahitza, erreserba_kop);
 				arrayBezeroak.add(bezeroa);
 			}
 		} catch (Exception e) {
@@ -324,7 +326,7 @@ public class Kontsultak {
 		Connection konexioa = Konexioa.getConexion();
 		try {
 			PreparedStatement st = konexioa
-					.prepareStatement("INSERT INTO `bezeroa` (`nan`, `izena`, `abizenak`, `jaiotze_data`, `pasahitza`)"
+					.prepareStatement("INSERT INTO `pertsona` (`nan`, `izena`, `abizenak`, `jaiotze_data`, `pasahitza`)"
 							+ " VALUES(?, ?, ?, ?, ?)");
 			st.setString(1, NAN);
 			st.setString(2, izena);
@@ -333,10 +335,21 @@ public class Kontsultak {
 			st.setString(5, pasahitza);
 			st.executeUpdate();
 			st.close();
-			System.out.println("Gehitu da");
+			System.out.println("Gehitu da pertsona");
 		} catch (SQLException e) {
-			System.out.println("Ez da gehitu");
+			System.out.println("Ez da gehitu pertsona");
 		}
+		
+		try {
+			PreparedStatement st = konexioa.prepareStatement("INSERT INTO `bezeroa` (`nan`)"+ " VALUES(?)");
+			st.setString(1, NAN);
+			st.executeUpdate();
+			st.close();
+			System.out.println("Gehitu da bezeroa");
+		} catch (SQLException e) {
+			System.out.println("Ez da gehitu bezeroa");
+		}
+		
 		arrayBezeroak = bezeroDatuak();
 		return arrayBezeroak;
 	}
