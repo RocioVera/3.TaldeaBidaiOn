@@ -20,7 +20,7 @@ public class Leiho8Ticket extends JFrame {
 		this.setBounds(350, 50, 600, 600);
 		this.setResizable(false); // neurketak ez aldatzeko
 		this.setSize(new Dimension(600, 600));
-		this.setTitle("3.taldearen ostatu zerbitzuen bilatzailea");
+		this.setTitle("Airour ostatu bilatzailea");
 
 		// Eskerrik asko mezua
 		lblEskerrikAskoMezua1 = new JLabel("Eskerrik asko Termibus-eko");
