@@ -191,19 +191,18 @@ public class Kontsultak {
 
 	
 	// Leiho3-ko kontsultak
-	public static boolean erreserbaBeteta(java.util.Date data, String izena, int hotel_kodea) {
+	public static boolean erreserbaBeteta(java.util.Date data, String izena, int kodea) {
 		Statement st = null;
 		Connection konexioa = Konexioa.getConexion();
 		int erreserbaKop = 0, gelaKopuru = 0;
 		boolean erantzuna = false;
 		ResultSet rs = null;
 		java.sql.Date sqlDate = new java.sql.Date(data.getTime());
-		System.out.println(sqlDate);
 		try {
 			st = konexioa.createStatement();
 			rs = st.executeQuery(
 					"SELECT COUNT(eje.eguna) FROM ostatu o, erreserba e, erreserba_jaiegunak eje WHERE o.ostatu_id = e.ostatu_ostatu_id AND e.erreserba_kod = eje.erreserba_erreserba_kod AND lower(o.izena) like lower('"
-							+ izena + "') AND o.ostatu_id=" + hotel_kodea + " AND eje.eguna='" + sqlDate + "'");
+							+ izena + "') AND o.ostatu_id=" + kodea + " AND eje.eguna='" + sqlDate + "'");
 			while (rs.next()) {
 				erreserbaKop = (rs.getInt(1));
 			}
@@ -213,16 +212,18 @@ public class Kontsultak {
 
 		try {
 			st = konexioa.createStatement();
-			rs = st.executeQuery("SELECT o.gela_kopuru FROM `ostatu` o where o.ostatu_id=" + hotel_kodea + "");
+			rs = st.executeQuery("SELECT o.gela_kopuru FROM `ostatu` o where o.ostatu_id=" + kodea + "");
 			while (rs.next()) {
 				gelaKopuru = (rs.getInt(1));
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+		System.out.println(gelaKopuru+ "gelaKopuru");
+		System.out.println(erreserbaKop);
+
 		if (gelaKopuru > erreserbaKop)
 			erantzuna = true;
-		System.out.println(hotel_kodea + " " + izena + "    " + gelaKopuru + " " + erreserbaKop);
 		return erantzuna;
 	}
 

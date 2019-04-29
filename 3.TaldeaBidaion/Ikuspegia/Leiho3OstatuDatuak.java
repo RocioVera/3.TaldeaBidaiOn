@@ -52,8 +52,8 @@ public class Leiho3OstatuDatuak extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				h2 = oheGelaHotela.get(table.getSelectedRow());
-
-				prezioTot = MetodoakKontsultak.hotelarenPrezioaAtera(hartutakoHotela.getIzena());
+				System.out.println(h2.getPrezioa());
+				prezioTot = h2.getPrezioa();
 				prezioTot = Metodoak.prezioTotalaGauekin(dataSartze, dataIrtetze, prezioTot);
 
 				MetodoakLeihoAldaketa.laugarrenLeihoa(hartutakoHotela, prezioTot, dataSartze, dataIrtetze, h2);

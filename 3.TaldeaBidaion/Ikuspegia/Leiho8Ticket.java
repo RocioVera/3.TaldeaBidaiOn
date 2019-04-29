@@ -23,13 +23,13 @@ public class Leiho8Ticket extends JFrame {
 		this.setTitle("Airour ostatu bilatzailea");
 
 		// Eskerrik asko mezua
-		lblEskerrikAskoMezua1 = new JLabel("Eskerrik asko Termibus-eko");
+		lblEskerrikAskoMezua1 = new JLabel("Eskerrik asko");
 		lblEskerrikAskoMezua1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEskerrikAskoMezua1.setFont(new Font("MS PMincho", Font.BOLD, 30));
 		lblEskerrikAskoMezua1.setBounds(53, 13, 493, 40);
 		getContentPane().add(lblEskerrikAskoMezua1);
 
-		lblEskerrikAskoMezua2 = new JLabel("makinetan erosteagatik");
+		lblEskerrikAskoMezua2 = new JLabel("erosteagatik");
 		lblEskerrikAskoMezua2.setFont(new Font("MS PMincho", Font.BOLD, 30));
 		lblEskerrikAskoMezua2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEskerrikAskoMezua2.setBounds(63, 55, 493, 40);
@@ -39,8 +39,9 @@ public class Leiho8Ticket extends JFrame {
 		txtTiket = new JTextArea();
 		txtTiket.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 		txtTiket.setText("Prezioa: " + prezioTot + " €" + "\nBezeroaren datuak: \n     Nan: "
-				+ nan + "\nHotelaren datuak: \n     Izena: " + hartutakoHotela + "\t"
-				+ "\n     Sartze data: " + sartzeData + "\t Irtetze data: " + irtetzeData);
+				+ nan + "\nHotelaren datuak: \n     Izena: " + hartutakoHotela.getIzena() + "\n\t" + 
+				"     Herria: " + hartutakoHotela.getHerria() + "\n     Helbidea: " + hartutakoHotela.getIzena() 
+				+ "\n     Sartze data: " + sartzeData + "\n     Irtetze data: " + irtetzeData);
 		txtTiket.setEditable(false);
 		txtTiket.setBackground(Color.LIGHT_GRAY);
 		txtTiket.setBounds(37, 146, 545, 391);

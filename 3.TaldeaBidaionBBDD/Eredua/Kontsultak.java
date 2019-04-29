@@ -114,7 +114,7 @@ public class Kontsultak {
 		try {
 			PreparedStatement st = konexioa
 					.prepareStatement("INSERT INTO `pertsona` (`nan`, `izena`, `abizenak`, `jaiotze_data`, `pasahitza`)"
-							+ " VALUES(?, ?, ?, ?, ?)");
+							+ " VALUES(?, ?, ?, ?, MD5( ? ))");
 			st.setString(1, NAN);
 			st.setString(2, izena);
 			st.setString(3, abizenak);

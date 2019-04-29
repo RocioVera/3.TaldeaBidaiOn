@@ -19,22 +19,60 @@ public class MetodoakKontsultak {
 		return arrayHerria;
 	}
 
-	public static ArrayList<Hotela> hotelakAtera(String herria) {
+	public static ArrayList<Hotela> hotelakAtera(String herria, Date dataSartze, Date dataIrtetze) {
 		ArrayList<Hotela> arrayHotelak = new ArrayList<Hotela>();
 		arrayHotelak = Kontsultak.hotelakBilatu(herria);
-		return arrayHotelak;
+		boolean libre = false;
+		ArrayList<Hotela> arrayHotelak2 = new ArrayList<Hotela>();
+		for (Hotela h : arrayHotelak) {
+			for (java.util.Date auxData = dataSartze; auxData.getTime() < dataIrtetze.getTime(); auxData = Metodoak
+					.gehiEgunBat(auxData)) {
+				libre = false;
+				if (MetodoakKontsultak.erreserbaBetetaMet(auxData, h.getIzena(), h.getHotelKod()))
+					libre = true;
+				else 
+					break;
+			}
+			if (libre == true)
+				arrayHotelak2.add(h);
+		}
+		return arrayHotelak2;
 	}
-	
-	public static ArrayList<Etxea> etxeakAtera(String herria) {
+
+	public static ArrayList<Etxea> etxeakAtera(String herria, Date dataSartze, Date dataIrtetze) {
 		ArrayList<Etxea> arrayEtxea = new ArrayList<Etxea>();
 		arrayEtxea = Kontsultak.etxeakBilatu(herria);
-		return arrayEtxea;
+		boolean libre = true;
+		ArrayList<Etxea> arrayEtxea2 = new ArrayList<Etxea>();
+		for (Etxea e : arrayEtxea) {
+			for (java.util.Date auxData = dataSartze; auxData.getTime() < dataIrtetze.getTime(); auxData = Metodoak
+					.gehiEgunBat(auxData)) {
+				libre = true;
+				if (MetodoakKontsultak.erreserbaBetetaMet(auxData, e.getIzena(), e.getEtxeKod()))
+					libre = false;
+			}
+			if (libre == true)
+				arrayEtxea2.add(e);
+		}
+		return arrayEtxea2;
 	}
-	
-	public static ArrayList<Apartamentua> apartamentuakAtera(String herria) {
+
+	public static ArrayList<Apartamentua> apartamentuakAtera(String herria, Date dataSartze, Date dataIrtetze) {
 		ArrayList<Apartamentua> arrayApartamentua = new ArrayList<Apartamentua>();
 		arrayApartamentua = Kontsultak.apartamentuakBilatu(herria);
-		return arrayApartamentua;
+		boolean libre = true;
+		ArrayList<Apartamentua> arrayApartamentua2 = new ArrayList<Apartamentua>();
+		for (Apartamentua a : arrayApartamentua) {
+			for (java.util.Date auxData = dataSartze; auxData.getTime() < dataIrtetze.getTime(); auxData = Metodoak
+					.gehiEgunBat(auxData)) {
+				libre = true;
+				if (MetodoakKontsultak.erreserbaBetetaMet(auxData, a.getIzena(), a.getEtxeKod()))
+					libre = false;
+			}
+			if (libre == true)
+				arrayApartamentua2.add(a);
+		}
+		return arrayApartamentua2;
 	}
 
 	public static double hotelarenPrezioaAtera(String hotela) {
@@ -42,45 +80,33 @@ public class MetodoakKontsultak {
 		prezioa = Kontsultak.hotelarenPrezioaBilatu(hotela);
 		return prezioa;
 	}
-	
+
 	public static double etxearenPrezioaAtera(String etxea) {
 		double prezioa = 0;
 		prezioa = Kontsultak.etxearenPrezioaBilatu(etxea);
 		return prezioa;
 	}
-	
+
 	public static double apartamentuarenPrezioaAtera(String apartamentua) {
 		double prezioa = 0;
 		prezioa = Kontsultak.apartamentuarenPrezioaBilatu(apartamentua);
 		return prezioa;
 	}
-	
 
-	public static boolean erreserbaBetetaMet(Date data, ArrayList<Hotela> arrayHotelak) {
-		String izena = "";
-		int hotel_kodea = 0;
-		boolean erantzuna=false; 
-		for (Hotela hotela : arrayHotelak) {
-			izena=hotela.getIzena();
-			hotel_kodea=hotela.getHotelKod();
-			erantzuna=Kontsultak.erreserbaBeteta(data, izena, hotel_kodea);
-			if (erantzuna) {
-				break;
-			}
-		}
-		return erantzuna;
+	public static boolean erreserbaBetetaMet(Date data, String izena, int kodea) {
+		boolean erantzuna = false;
+		erantzuna = Kontsultak.erreserbaBeteta(data, izena, kodea);
+	return erantzuna;
 
 	}
-	
-	
-	
+
 	// Leiho3-ko metodoak
-	//oheGelaHotelaDatuak
+	// oheGelaHotelaDatuak
 	public static ArrayList<gelaMota_ohe_hotela> oheGelaHotelaDatuakMet(int ostatu_id) {
 		return Kontsultak.oheGelaHotelaDatuak(ostatu_id);
-	}	
-	
-	//Leiho4-ko metodoak
+	}
+
+	// Leiho4-ko metodoak
 	/**
 	 * Frogatu dni-a erregistratuta ez dagoela.
 	 * 
@@ -91,7 +117,6 @@ public class MetodoakKontsultak {
 	public static boolean nanGordetaEgon(String nan) {
 		ArrayList<Bezeroa> bezeroak = new ArrayList<>();
 		boolean balNan = false;
-		System.out.println(nan);
 		bezeroak = Kontsultak.bezeroDatuak();
 		for (Bezeroa bezeroak2 : bezeroak) {
 			if (bezeroak2.getNan().equals(nan)) {
@@ -157,6 +182,7 @@ public class MetodoakKontsultak {
 		boolean bal = true;
 		String pasaEnkr = "";
 		pasaEnkr = Metodoak.zifratuPasahitza(pasahitza);
+		System.out.println(pasaEnkr);
 		ArrayList<Bezeroa> bezeroak = new ArrayList<>();
 
 		// fitxeroari bidali

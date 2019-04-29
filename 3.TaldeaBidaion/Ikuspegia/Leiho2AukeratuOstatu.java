@@ -50,7 +50,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 	private Hotela hartutakoHotela;
 	private Etxea hartutakoEtxea;
 	private Apartamentua hartutakoApartamentua;
-	
+
 	private DefaultTableModel modelo = new DefaultTableModel() {
 		public boolean isCellEditable(int row, int column) {
 			return false;
@@ -76,16 +76,15 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				hartutakoLerroa=table.getSelectedRow();
+				hartutakoLerroa = table.getSelectedRow();
+				System.out.println(hartutakoLerroa);
 				if (modelo.getValueAt(hartutakoLerroa, 1) == "Hotela") {
 					hartutakoHotela = (Hotela) arrayHotela.get(hartutakoLerroa);
 					MetodoakLeihoAldaketa.hirugarrenLeihoa(hartutakoHotela, dataSartze, dataIrtetze);
 					dispose();
-				}
-				else if (modelo.getValueAt(hartutakoLerroa, 1) == "Etxea") {
+				} else if (modelo.getValueAt(hartutakoLerroa, 1) == "Etxea") {
 					dispose();
-				}
-				else if (modelo.getValueAt(hartutakoLerroa, 1) == "Apartamentua") {
+				} else if (modelo.getValueAt(hartutakoLerroa, 1) == "Apartamentua") {
 					dispose();
 				}
 			}
@@ -133,7 +132,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		mnOstatuMota.setFont(new Font("Verdana", Font.PLAIN, 16));
 		menuBar.add(mnOstatuMota);
 		mnOstatuMota.add(chckbxmntmHotela);
-		
+
 		chckbxmntmHotela.setFont(new Font("Verdana", Font.PLAIN, 16));
 		mnOstatuMota.add(chckbxmntmApartamentua);
 		chckbxmntmApartamentua.setFont(new Font("Verdana", Font.PLAIN, 16));
@@ -263,59 +262,52 @@ public class Leiho2AukeratuOstatu extends JFrame {
 					modelo.removeRow(i);
 				dataSartze = dchSartzeData.getDate();
 				dataIrtetze = dchIrtetzeData.getDate();
-				
-				// hotelak gehitu
-				arrayHotela = MetodoakKontsultak.hotelakAtera((String) cbHerria.getSelectedItem());
-				for (Hotela h : arrayHotela) {
-					for (java.util.Date auxData = dataSartze; auxData.getTime() < dataIrtetze
-							.getTime(); auxData = Metodoak.gehiEgunBat(auxData)) {
-						if (MetodoakKontsultak.erreserbaBetetaMet(auxData, arrayHotela)) {
-							ostatuIzen = ((Hotela) h).getIzena();
-							ostatuMota = "Hotela";
-							prezioa = MetodoakKontsultak.hotelarenPrezioaAtera(ostatuIzen) + " €";
-							hotelaBerria[0] = ostatuIzen;
-							hotelaBerria[1] = ostatuMota;
-							hotelaBerria[2] = prezioa;
-							modelo.addRow(hotelaBerria);
-							break;
-						}
 
-					}
+				// hotelak gehitu
+				arrayHotela = MetodoakKontsultak.hotelakAtera((String) cbHerria.getSelectedItem(), dataSartze,
+						dataIrtetze);
+				for (Hotela h : arrayHotela) {
+					ostatuIzen = ((Hotela) h).getIzena();
+					ostatuMota = "Hotela";
+					prezioa = MetodoakKontsultak.hotelarenPrezioaAtera(ostatuIzen) + " €";
+					hotelaBerria[0] = ostatuIzen;
+					hotelaBerria[1] = ostatuMota;
+					hotelaBerria[2] = prezioa;
+					modelo.addRow(hotelaBerria);
+
 				}
 				// etxeak gehitu
-				arrayEtxea = MetodoakKontsultak.etxeakAtera((String) cbHerria.getSelectedItem());
+				arrayEtxea = MetodoakKontsultak.etxeakAtera((String) cbHerria.getSelectedItem(), dataIrtetze,
+						dataIrtetze);
 				for (Etxea e1 : arrayEtxea) {
-					for (java.util.Date auxData = dataSartze; auxData.getTime() < dataIrtetze
-							.getTime(); auxData = Metodoak.gehiEgunBat(auxData)) {
-						ostatuIzen = e1.getIzena();
-						ostatuMota = "Etxea";
-						prezioa = MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen) + " €";
-						etxeBerria[0] = ostatuIzen;
-						etxeBerria[1] = ostatuMota;
-						etxeBerria[2] = prezioa;
-						modelo.addRow(etxeBerria);
-					}
+					ostatuIzen = e1.getIzena();
+					ostatuMota = "Etxea";
+					prezioa = MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen) + " €";
+					etxeBerria[0] = ostatuIzen;
+					etxeBerria[1] = ostatuMota;
+					etxeBerria[2] = prezioa;
+					modelo.addRow(etxeBerria);
 				}
+
 				table.setModel(modelo);
 				btnBilatu.setVisible(false);
-				
+
 				// apartamentuak gehitu
-				arrayApartamentua = MetodoakKontsultak.apartamentuakAtera((String) cbHerria.getSelectedItem());
+				arrayApartamentua = MetodoakKontsultak.apartamentuakAtera((String) cbHerria.getSelectedItem(),
+						dataIrtetze, dataIrtetze);
 				for (Apartamentua a : arrayApartamentua) {
-					for (java.util.Date auxData = dataSartze; auxData.getTime() < dataIrtetze
-							.getTime(); auxData = Metodoak.gehiEgunBat(auxData)) {
-						ostatuIzen = a.getIzena();
-						ostatuMota = "Apartamentua";
-						prezioa = MetodoakKontsultak.apartamentuarenPrezioaAtera(ostatuIzen) + " €";
-						apartamentuBerria[0] = ostatuIzen;
-						apartamentuBerria[1] = ostatuMota;
-						apartamentuBerria[2] = prezioa;
-						modelo.addRow(apartamentuBerria);
-					}
+					ostatuIzen = a.getIzena();
+					ostatuMota = "Apartamentua";
+					prezioa = MetodoakKontsultak.apartamentuarenPrezioaAtera(ostatuIzen) + " €";
+					apartamentuBerria[0] = ostatuIzen;
+					apartamentuBerria[1] = ostatuMota;
+					apartamentuBerria[2] = prezioa;
+					modelo.addRow(apartamentuBerria);
 				}
+
 				table.setModel(modelo);
 				btnBilatu.setVisible(false);
-				
+
 			}
 		});
 

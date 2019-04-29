@@ -99,7 +99,6 @@ public class MetodoakKontsultak {
 	public static boolean erregistratuBezeroak(String pasahitza, String nan, String izena, String abizenak,
 			String jaioDataString, int ostatu_id) {
 		boolean bal = true;
-		String pasaEnkr = Metodoak.zifratuPasahitza(pasahitza);
 		int pertsonaKant, langileKant;
 
 		// fitxeroari bidali
@@ -109,15 +108,15 @@ public class MetodoakKontsultak {
 
 		if (bal) {
 			pertsonaKant=Kontsultak.bilatuPertsNan(nan);
-			System.out.println(pertsonaKant+"perts");
 			langileKant=Kontsultak.bilatuLangNan(nan);
-			System.out.println(langileKant +"lang");
-			System.out.println(ostatu_id);
-			if (langileKant==0)
-				Kontsultak.erregistratuLangileak(nan, ostatu_id);
 			
 			if (pertsonaKant==0)
 				Kontsultak.erregistratuPertsonak(pasahitza, nan, izena, abizenak, jaioDataString);
+			
+			if (langileKant==0)
+				Kontsultak.erregistratuLangileak(nan, ostatu_id);
+			
+			
 			
 		}
 		return bal;
