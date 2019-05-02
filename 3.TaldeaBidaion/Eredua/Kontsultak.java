@@ -47,8 +47,9 @@ public class Kontsultak {
 				gelaKop = (rs.getInt("gela_kopuru"));
 				erreserbaKop = (rs.getInt("erreserba_kopuru"));
 
-				Hotela hotela = new Hotela(izena, herria, helbidea, postKod, ostatuMota, gelaKop, erreserbaKop, izarKop,
-						ostatu_id);
+				Hotela hotela = new Hotela(izena, herria, helbidea, ostatuMota, ostatu_id, postKod, gelaKop,
+						erreserbaKop, izarKop);
+
 				arrayHotelak.add(hotela);
 			}
 
@@ -81,8 +82,9 @@ public class Kontsultak {
 				gelaKop = (rs.getInt("gela_kopuru"));
 				erreserbaKop = (rs.getInt("erreserba_kopuru"));
 
-				Etxea etxea = new Etxea(izena, herria, helbidea, postKod, ostatuMota, gelaKop, erreserbaKop, komun_kop,
-						m2, ostatu_id);
+				Etxea etxea = new Etxea(izena, herria, helbidea, ostatuMota, postKod, gelaKop, erreserbaKop, komun_kop,
+						ostatu_id, m2);
+
 				arrayEtxeak.add(etxea);
 			}
 
@@ -101,8 +103,10 @@ public class Kontsultak {
 		String izena, helbidea, ostatuMota;
 		try {
 			st = konexioa.createStatement();
-			ResultSet rs = st.executeQuery("SELECT e.komun_kop, e.m2, o.*, a.solairua FROM `etxea` e,`ostatu` o, `apartamentua` a where LOWER(o.herria) LIKE LOWER('"
-					+ herria + "') and e.etxe_kod LIKE o.ostatu_id AND e.etxe_kod LIKE a.etxea_etxe_kod AND o.ostatu_mota LIKE 'A'");
+			ResultSet rs = st.executeQuery(
+					"SELECT e.komun_kop, e.m2, o.*, a.solairua FROM `etxea` e,`ostatu` o, `apartamentua` a where LOWER(o.herria) LIKE LOWER('"
+							+ herria
+							+ "') and e.etxe_kod LIKE o.ostatu_id AND e.etxe_kod LIKE a.etxea_etxe_kod AND o.ostatu_mota LIKE 'A'");
 			while (rs.next()) {
 				ostatu_id = (rs.getInt("ostatu_id"));
 				komun_kop = (rs.getInt("komun_kop"));
@@ -115,9 +119,8 @@ public class Kontsultak {
 				erreserbaKop = (rs.getInt("erreserba_kopuru"));
 				solairua = (rs.getInt("solairua"));
 
-
-				Apartamentua apartamentua = new Apartamentua(izena, herria, helbidea, postKod, ostatuMota, gelaKop, erreserbaKop, komun_kop,
-						m2, ostatu_id, solairua);
+				Apartamentua apartamentua = new Apartamentua(izena, herria, helbidea, ostatuMota, postKod, gelaKop,
+						erreserbaKop, komun_kop, ostatu_id, m2, solairua);
 				arrayApartamentua.add(apartamentua);
 			}
 
@@ -126,8 +129,7 @@ public class Kontsultak {
 		}
 		return arrayApartamentua;
 	}
-	
-	
+
 	public static double hotelarenPrezioaBilatu(String izena) {
 		Statement st = null;
 		Connection konexioa = Konexioa.getConexion();
@@ -168,25 +170,74 @@ public class Kontsultak {
 		}
 		return prezioa;
 	}
+	
 
-	public static double apartamentuarenPrezioaBilatu(String izena) {
+	public static int gelaLibreKant(Ostatua hartutakoOstatua, int gelaKod) {
 		Statement st = null;
 		Connection konexioa = Konexioa.getConexion();
-		double prezioa = 0;
+		int kant = 0;
+ 
 		try {
 			st = konexioa.createStatement();
 			ResultSet rs = st.executeQuery(
-					"SELECT SUM(prezioa) FROM `etxea_gelamota` eg, `gelamota` g , `etxea` e WHERE eg.etxea_etxe_kod=e.etxe_kod AND g.gela_kodea=eg.gelaMota_gela_kodea AND e.etxe_kod IN (SELECT ostatu_id FROM `ostatu` WHERE lower(ostatu.izena) LIKE lower('"
-							+ izena + "'))");
+					"SELECT gmh.kantitatea FROM gelamota_hotela gmh, hotela h , gelamota gm, ostatu o where gmh.hotela_hotel_kod=h.hotel_kod AND gm.gela_kodea=gmh.gelaMota_gela_kodea AND o.ostatu_id=h.hotel_kod AND o.ostatu_id="+ hartutakoOstatua.getOstatuKod()+" AND gm.gela_kodea="+gelaKod);
 
 			while (rs.next()) {
-				prezioa = (rs.getDouble("sum(prezioa)"));
+				kant = (rs.getInt("kantitatea"));
 			}
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		return prezioa;
+		return kant;
+	}
+
+	public static int gelaErreserbaKant(Ostatua hartutakoOstatua, int gelaKod, java.util.Date auxData) {
+		Statement st = null;
+		Connection konexioa = Konexioa.getConexion();
+		int kant = 0;
+
+ 		try {
+			st = konexioa.createStatement();
+			ResultSet rs = st.executeQuery(
+			"SELECT COUNT(*) FROM erreserba e, ostatu o, gelamota_erreserba gme, gelamota gm, erreserba_jaiegunak eje WHERE o.ostatu_id=e.ostatu_ostatu_id AND eje.erreserba_erreserba_kod=e.erreserba_kod AND gm.gela_kodea=gme.gelaMota_gela_kodea AND e.erreserba_kod=gme.erreserba_erreserba_kod AND o.ostatu_id="+hartutakoOstatua.getOstatuKod()+" AND gm.gela_kodea="+gelaKod+" AND eje.eguna='"+auxData+"'");
+
+			while (rs.next()) {
+				kant = (rs.getInt("kantitatea"));
+			}
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return kant;
+	}
+
+	// Leiho3zerbitzugehigarrietxea
+
+	public static ArrayList<ZerbitzuGehigarriak> zerbGehi(Ostatua hartutakoOstatua) {
+		Statement st = null;
+		Connection konexioa = Konexioa.getConexion();
+		String izena="";
+		int kod_zerbitzua=0;
+		ArrayList<ZerbitzuGehigarriak> zerbitzuGehigarriArray = new ArrayList<ZerbitzuGehigarriak>();
+		ZerbitzuGehigarriak zerbGehi = null;
+		try {
+			st = konexioa.createStatement();
+			ResultSet rs = st.executeQuery(
+					"SELECT zg.* FROM ostatu o, zerbitzugehigarriak_ostatu zgo, zerbitzugehigarriak zg WHERE o.ostatu_id=zgo.ostatu_ostatu_id AND zgo.zerbitzuGehigarriak_kod_zerbitzuak=zg.kod_zerbitzuak AND o.ostatu_id="
+							+ hartutakoOstatua.getOstatuKod());
+
+			while (rs.next()) {
+				kod_zerbitzua = (rs.getInt("kod_zerbitzuak"));
+				izena = (rs.getString("izena"));
+				zerbGehi= new ZerbitzuGehigarriak(kod_zerbitzua, izena);
+				zerbitzuGehigarriArray.add(zerbGehi);
+			}
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return zerbitzuGehigarriArray;
 	}
 
 	
@@ -219,8 +270,6 @@ public class Kontsultak {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		System.out.println(gelaKopuru+ "gelaKopuru");
-		System.out.println(erreserbaKop);
 
 		if (gelaKopuru > erreserbaKop)
 			erantzuna = true;
@@ -235,6 +284,7 @@ public class Kontsultak {
 		double prezioa = 0;
 		ResultSet rs = null;
 		gelaMota_ohe_hotela goh = null;
+		
 		try {
 			st = konexioa.createStatement();
 			rs = st.executeQuery(
@@ -340,9 +390,9 @@ public class Kontsultak {
 		} catch (SQLException e) {
 			System.out.println("Ez da gehitu pertsona");
 		}
-		
+
 		try {
-			PreparedStatement st = konexioa.prepareStatement("INSERT INTO `bezeroa` (`nan`)"+ " VALUES(?)");
+			PreparedStatement st = konexioa.prepareStatement("INSERT INTO `bezeroa` (`nan`)" + " VALUES(?)");
 			st.setString(1, NAN);
 			st.executeUpdate();
 			st.close();
@@ -350,7 +400,7 @@ public class Kontsultak {
 		} catch (SQLException e) {
 			System.out.println("Ez da gehitu bezeroa");
 		}
-		
+
 		arrayBezeroak = bezeroDatuak();
 		return arrayBezeroak;
 	}

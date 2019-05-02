@@ -13,7 +13,7 @@ public class Leiho8Ticket extends JFrame {
 	private JButton btnTiketaImprimatu;
 	private JTextArea txtTiket;
 
-	public Leiho8Ticket(Hotela hartutakoHotela, Date sartzeData, Date irtetzeData, double prezioTot, String nan, gelaMota_ohe_hotela h2) {
+	public Leiho8Ticket(Ostatua hartutakoOstatua, Date sartzeData, Date irtetzeData, double prezioTot, String nan) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
@@ -39,8 +39,8 @@ public class Leiho8Ticket extends JFrame {
 		txtTiket = new JTextArea();
 		txtTiket.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 		txtTiket.setText("Prezioa: " + prezioTot + " €" + "\nBezeroaren datuak: \n     Nan: "
-				+ nan + "\nHotelaren datuak: \n     Izena: " + hartutakoHotela.getIzena() + "\n\t" + 
-				"     Herria: " + hartutakoHotela.getHerria() + "\n     Helbidea: " + hartutakoHotela.getIzena() 
+				+ nan + "\nHotelaren datuak: \n     Izena: " + hartutakoOstatua.getIzena() + "\n\t" + 
+				"     Herria: " + hartutakoOstatua.getHerria() + "\n     Helbidea: " + hartutakoOstatua.getHelbidea() 
 				+ "\n     Sartze data: " + sartzeData + "\n     Irtetze data: " + irtetzeData);
 		txtTiket.setEditable(false);
 		txtTiket.setBackground(Color.LIGHT_GRAY);

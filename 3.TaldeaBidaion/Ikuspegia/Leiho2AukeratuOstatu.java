@@ -47,8 +47,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 	private ArrayList<Etxea> arrayEtxea;
 	private ArrayList<Apartamentua> arrayApartamentua;
 
-	private Hotela hartutakoHotela;
-	private Etxea hartutakoEtxea;
+	private Ostatua hartutakoOstatua;
 	private Apartamentua hartutakoApartamentua;
 
 	private DefaultTableModel modelo = new DefaultTableModel() {
@@ -77,14 +76,21 @@ public class Leiho2AukeratuOstatu extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				hartutakoLerroa = table.getSelectedRow();
-				System.out.println(hartutakoLerroa);
 				if (modelo.getValueAt(hartutakoLerroa, 1) == "Hotela") {
-					hartutakoHotela = (Hotela) arrayHotela.get(hartutakoLerroa);
-					MetodoakLeihoAldaketa.hirugarrenLeihoa(hartutakoHotela, dataSartze, dataIrtetze);
+					hartutakoOstatua = arrayHotela.get(hartutakoLerroa);
+					MetodoakLeihoAldaketa.hirugarrenLeihoaHotelak(hartutakoOstatua, dataSartze, dataIrtetze);
 					dispose();
 				} else if (modelo.getValueAt(hartutakoLerroa, 1) == "Etxea") {
+					hartutakoLerroa = hartutakoLerroa-arrayHotela.size();
+					hartutakoOstatua = arrayEtxea.get(hartutakoLerroa);
+					prezioTot=MetodoakKontsultak.etxearenPrezioaAtera(hartutakoOstatua.getIzena());
+					MetodoakLeihoAldaketa.hirugarrenLeihoaEtxeak(hartutakoOstatua, prezioTot, dataSartze, dataIrtetze);
 					dispose();
 				} else if (modelo.getValueAt(hartutakoLerroa, 1) == "Apartamentua") {
+					hartutakoLerroa = hartutakoLerroa-arrayHotela.size()-arrayEtxea.size();
+					hartutakoOstatua = arrayApartamentua.get(hartutakoLerroa);
+					prezioTot=MetodoakKontsultak.etxearenPrezioaAtera(hartutakoOstatua.getIzena());
+					MetodoakLeihoAldaketa.hirugarrenLeihoaEtxeak(hartutakoOstatua, prezioTot, dataSartze, dataIrtetze);
 					dispose();
 				}
 			}
@@ -298,7 +304,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 				for (Apartamentua a : arrayApartamentua) {
 					ostatuIzen = a.getIzena();
 					ostatuMota = "Apartamentua";
-					prezioa = MetodoakKontsultak.apartamentuarenPrezioaAtera(ostatuIzen) + " €";
+					prezioa = MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen) + " €";
 					apartamentuBerria[0] = ostatuIzen;
 					apartamentuBerria[1] = ostatuMota;
 					apartamentuBerria[2] = prezioa;

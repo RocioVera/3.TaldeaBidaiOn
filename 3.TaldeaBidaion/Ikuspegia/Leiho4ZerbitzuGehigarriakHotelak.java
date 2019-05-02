@@ -2,14 +2,14 @@ package Ikuspegia;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.Date;
+import java.util.*;
 
 import javax.swing.*;
 import Kontrolatzailea.*;
 import javax.swing.*;
 
 
-public class Leiho4ZerbitzuGehigarriak extends JFrame {
+public class Leiho4ZerbitzuGehigarriakHotelak extends JFrame {
 	private JTextField txtPrezioa, txtLogelak;
 	private JLabel lblIzena = new JLabel(""), lblLogelak = new JLabel("Logelak:");
 	private JLabel lblPrezioa = new JLabel("Prezioa:");
@@ -24,7 +24,7 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 	private JButton btn_next = new JButton("Hurrengoa"), btn_prev = new JButton("Atzera"),
 			restart = new JButton("\u2302");
 
-	public Leiho4ZerbitzuGehigarriak(Hotela hartutakoHotela, double prezioTot, java.util.Date dataSartzeString, java.util.Date dataIrtetzeString, gelaMota_ohe_hotela h2) {
+	public Leiho4ZerbitzuGehigarriakHotelak(Ostatua hartutakoOstatua, double prezioTot, Date dataSartze, Date dataIrtetze) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
 		this.setBounds(350, 50, 600, 600);
@@ -37,7 +37,7 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoHotela, prezioTot, dataSartzeString, dataIrtetzeString, h2);
+				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoOstatua, prezioTot, dataSartze, dataIrtetze);
 				dispose();
 			}
 		});
@@ -50,12 +50,12 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		btn_prev.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-				MetodoakLeihoAldaketa.hirugarrenLeihoa(hartutakoHotela, dataSartzeString, dataIrtetzeString);
+				
+				MetodoakLeihoAldaketa.hirugarrenLeihoaHotelak(hartutakoOstatua, dataSartze, dataIrtetze);
 				dispose();
 			}
 		});
-		btn_prev.setBounds(38, 508, 99, 32);
+		btn_prev.setBounds(38, 508, 107, 32);
 		btn_prev.setFont(new Font("Tahoma", Font.ITALIC, 16));
 		btn_prev.setForeground(Color.RED);
 		btn_prev.setBackground(Color.LIGHT_GRAY);
@@ -73,7 +73,7 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		restart.setBackground(Color.LIGHT_GRAY);
 		getContentPane().add(restart);
 		
-		lblIzena.setText(hartutakoHotela.getIzena());
+		lblIzena.setText(hartutakoOstatua.getIzena());
 		lblIzena.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIzena.setFont(new Font("Verdana", Font.BOLD | Font.ITALIC, 20));
 		lblIzena.setBounds(0, 24, 594, 32);

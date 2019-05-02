@@ -17,7 +17,6 @@ public class Metodoak {
 		gehiEgunBat = Calendar.getInstance();
 		gehiEgunBat.setTime(date);
 		gehiEgunBat.add(Calendar.DAY_OF_YEAR, 1);
-		System.out.println(gehiEgunBat.getTime());
 		return gehiEgunBat.getTime();
 
 	}
@@ -244,11 +243,11 @@ public class Metodoak {
 		return bueltakString;
 	}
 
-	public static void fitxIdatzi(Hotela hartutakoHotela, Date sartzeData, Date irtetzeData, double prezioTot,
+	public static void fitxIdatzi(Ostatua hartutakoOstatua, Date sartzeData, Date irtetzeData, double prezioTot,
 			String nan) {
 		FileWriter fitx = null;
 		PrintWriter pw = null;
-		String hotelaIzena = hartutakoHotela.getIzena();
+		String hotelaIzena = hartutakoOstatua.getIzena();
 
 		try {
 			fitx = new FileWriter("eredua\\ErreserbaFitx", true);

@@ -12,8 +12,8 @@ import javax.swing.event.*;
 import Kontrolatzailea.*;
 import javax.swing.table.*;
 
-public class Leiho3OstatuDatuak extends JFrame {
-
+public class Leiho3HotelDatuak extends JFrame {
+	public static gelaMota_ohe_hotela h2;
 	private static final long serialVersionUID = 1L;
 	private JLabel lblIzena = new JLabel("");
 	private JButton btn_next = new JButton("Hurrengoa"), btn_prev = new JButton("Atzera"),
@@ -21,6 +21,7 @@ public class Leiho3OstatuDatuak extends JFrame {
 	private JTable table;
 	private DefaultTableModel modelo = new DefaultTableModel() {
 		private static final long serialVersionUID = 1L;
+
 		public boolean isCellEditable(int row, int column) {
 			if (column == 4)
 				return true;
@@ -30,13 +31,11 @@ public class Leiho3OstatuDatuak extends JFrame {
 	private JScrollPane scrollPane;
 	private ArrayList<gelaMota_ohe_hotela> oheGelaHotela;
 	private String ohe_kopuru, sinplea, bikoitza, umeak, prezioa;
-	private JComboBox<String> cblibreKant;
+	private JComboBox<Integer> cblibreKant;
 	private TableColumn col;
 	private double prezioTot;
 
-	private gelaMota_ohe_hotela h2;
-
-	public Leiho3OstatuDatuak(Hotela hartutakoHotela, Date dataSartze, Date dataIrtetze) {
+	public Leiho3HotelDatuak(Ostatua hartutakoOstatua, Date dataSartze, Date dataIrtetze) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		this.setBounds(350, 50, 600, 600);
 		this.setResizable(false); // neurketak ez aldatzeko
@@ -44,8 +43,6 @@ public class Leiho3OstatuDatuak extends JFrame {
 		this.setTitle("Airour ostatu bilatzailea");
 		btn_next.setBounds(423, 508, 122, 32);
 
-		
-		
 		// botoiak
 		btn_next.addActionListener(new ActionListener() {
 			@Override
@@ -56,7 +53,7 @@ public class Leiho3OstatuDatuak extends JFrame {
 				prezioTot = h2.getPrezioa();
 				prezioTot = Metodoak.prezioTotalaGauekin(dataSartze, dataIrtetze, prezioTot);
 
-				MetodoakLeihoAldaketa.laugarrenLeihoa(hartutakoHotela, prezioTot, dataSartze, dataIrtetze, h2);
+				MetodoakLeihoAldaketa.laugarrenLeihoa(hartutakoOstatua, prezioTot, dataSartze, dataIrtetze);
 				dispose();
 			}
 		});
@@ -93,7 +90,7 @@ public class Leiho3OstatuDatuak extends JFrame {
 		getContentPane().add(restart);
 		lblIzena.setBounds(0, 25, 594, 32);
 
-		lblIzena.setText(hartutakoHotela.getIzena());
+		lblIzena.setText(hartutakoOstatua.getIzena());
 		lblIzena.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIzena.setFont(new Font("Verdana", Font.BOLD | Font.ITALIC, 20));
 		getContentPane().add(lblIzena);
@@ -125,21 +122,25 @@ public class Leiho3OstatuDatuak extends JFrame {
 		table.getTableHeader().setReorderingAllowed(false);
 		getContentPane().add(table);
 
-		oheGelaHotela = MetodoakKontsultak.oheGelaHotelaDatuakMet(hartutakoHotela.getHotelKod());
+		oheGelaHotela = MetodoakKontsultak.oheGelaHotelaDatuakMet(hartutakoOstatua.getOstatuKod());
 		col = table.getColumnModel().getColumn(4);
-        
+
 		for (gelaMota_ohe_hotela h : oheGelaHotela) {
+			int gelaLibreak = 0;
 			Object[] aux = new Object[5];
 			// lamarmet -1;
-			cblibreKant = new JComboBox<String>();
-			cblibreKant.addItem("0");
-			cblibreKant.addItem("1");
-			cblibreKant.addItem("2");
-			cblibreKant.setSelectedIndex(0);
-		
-	        
-			col.setCellEditor(new DefaultCellEditor(cblibreKant));
+			cblibreKant = new JComboBox<Integer>();
+			gelaLibreak = MetodoakKontsultak.gelaLibre(hartutakoOstatua, dataIrtetze, dataIrtetze, h.getGela_kodea());
 			
+			System.out.println(gelaLibreak);
+			for (int i = 0; i <= gelaLibreak; i++) {
+				cblibreKant.addItem(i);
+			}
+
+			// cblibreKant.setSelectedIndex(0);
+
+			col.setCellEditor(new DefaultCellEditor(cblibreKant));
+
 			ohe_kopuru = h.getOhe_kopuru() + "";
 			sinplea = h.getSinplea() + "";
 			bikoitza = h.getBikoitza() + "";
@@ -166,6 +167,6 @@ public class Leiho3OstatuDatuak extends JFrame {
 		scrollPane.setBounds(21, 68, 563, 402);
 		scrollPane.setViewportBorder(null);
 		getContentPane().add(scrollPane);
-		
+
 	}
 }

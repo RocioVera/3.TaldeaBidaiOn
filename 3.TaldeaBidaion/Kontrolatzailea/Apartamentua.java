@@ -4,9 +4,9 @@ public class Apartamentua extends Etxea {
 
 	private int solairua;
 
-	public Apartamentua(String izena, String herria, String helbidea, int postKod, String ostatuMota, int gelaKop,
-			int erreserbaKop, int komunKop, double m2, int etxeKod, int solairua) {
-		super(izena, herria, helbidea, postKod, ostatuMota, gelaKop, erreserbaKop, komunKop, m2, etxeKod);
+	public Apartamentua(String izena, String herria, String helbidea, String ostatuMota, int postKod, int gelaKop,
+			int erreserbaKop, int komunKop, int ostatuKod, double m2, int solairua) {
+		super(izena, herria, helbidea, ostatuMota, postKod, gelaKop, erreserbaKop, komunKop, ostatuKod, m2);
 		this.solairua = solairua;
 	}
 

@@ -27,7 +27,7 @@ public class Leiho7Ordaindu extends JFrame {
 	private double diruFalta, sartutakoa;
 	private ArrayList<String> geltIzenak = new ArrayList<>();
 
-	public Leiho7Ordaindu(double prezioTot, Hotela hartutakoHotela, java.util.Date sartzeData, java.util.Date irtetzeData, String nan, gelaMota_ohe_hotela h2) {
+	public Leiho7Ordaindu(double prezioTot, Ostatua hartutakoOstatua, java.util.Date sartzeData, java.util.Date irtetzeData, String nan) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
@@ -40,10 +40,10 @@ public class Leiho7Ordaindu extends JFrame {
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Metodoak.fitxIdatzi(hartutakoHotela, sartzeData, irtetzeData, prezioTot, nan); // billetea fitxategian
+				Metodoak.fitxIdatzi(hartutakoOstatua, sartzeData, irtetzeData, prezioTot, nan); // billetea fitxategian
 																								// sartzen duen
 																								// metodoari deitu
-				MetodoakLeihoAldaketa.zortzigarrenLeihoa(hartutakoHotela, sartzeData, irtetzeData, prezioTot, nan, h2);
+				MetodoakLeihoAldaketa.zortzigarrenLeihoa(hartutakoOstatua, sartzeData, irtetzeData, prezioTot, nan);
 				dispose();
 			}
 		});
@@ -57,7 +57,7 @@ public class Leiho7Ordaindu extends JFrame {
 		btn_prev.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData,h2);
+				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoOstatua, prezioTot, sartzeData, irtetzeData);
 
 				dispose();
 			}

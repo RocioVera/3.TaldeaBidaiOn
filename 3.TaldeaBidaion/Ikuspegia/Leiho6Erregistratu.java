@@ -29,7 +29,7 @@ public class Leiho6Erregistratu extends JFrame {
 	private int nanLuzera = 8, izenLuzera = 49, abizenLuzera = 99, pasahitzLuzera = 49, sexuLuzera = 0;
 	private char letra;
 
-	public Leiho6Erregistratu(Hotela hartutakoHotela, double prezioTot, java.util.Date sartzeData, java.util.Date irtetzeData, gelaMota_ohe_hotela h2) {
+	public Leiho6Erregistratu(Ostatua hartutakoOstatua, double prezioTot, java.util.Date sartzeData, java.util.Date irtetzeData) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
@@ -41,7 +41,7 @@ public class Leiho6Erregistratu extends JFrame {
 		btn_prev.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData,h2);
+				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoOstatua, prezioTot, sartzeData, irtetzeData);
 				dispose();
 			}
 		});
@@ -207,8 +207,8 @@ public class Leiho6Erregistratu extends JFrame {
 						txtAbizenak.setEnabled(false);
 						txtJaioData.setEnabled(false);
 					} else {
-						MetodoakLeihoAldaketa.zazpigarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData,
-								nan, h2);
+						MetodoakLeihoAldaketa.zazpigarrenLeihoa(hartutakoOstatua, prezioTot, sartzeData, irtetzeData,
+								nan);
 						dispose();
 
 					}

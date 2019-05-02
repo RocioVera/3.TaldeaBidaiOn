@@ -3,19 +3,28 @@ package Kontrolatzailea;
 public abstract class Ostatua {
 
 	protected String izena, herria, helbidea, ostatuMota;
-	protected int postKod, gelaKop, erreserbaKop;
+	protected int ostatuKod, postKod, gelaKop, erreserbaKop;
 
-	protected Ostatua(String izena, String herria, String helbidea, int postKod, String ostatuMota, int gelaKop,
-			int erreserbaKop) {
+	public Ostatua(String izena, String herria, String helbidea, String ostatuMota, int ostatuKod, int postKod,
+			int gelaKop, int erreserbaKop) {
 		this.izena = izena;
 		this.herria = herria;
 		this.helbidea = helbidea;
-		this.postKod = postKod;
 		this.ostatuMota = ostatuMota;
+		this.ostatuKod = ostatuKod;
+		this.postKod = postKod;
 		this.gelaKop = gelaKop;
 		this.erreserbaKop = erreserbaKop;
 	}
 
+	public int getOstatuKod() {
+		return ostatuKod;
+	}
+
+	public void setOstatuKod(int ostatuKod) {
+		this.ostatuKod = ostatuKod;
+	}
+	
 	public String getIzena() {
 		return izena;
 	}

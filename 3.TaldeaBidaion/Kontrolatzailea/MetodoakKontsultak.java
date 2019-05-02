@@ -28,9 +28,9 @@ public class MetodoakKontsultak {
 			for (java.util.Date auxData = dataSartze; auxData.getTime() < dataIrtetze.getTime(); auxData = Metodoak
 					.gehiEgunBat(auxData)) {
 				libre = false;
-				if (MetodoakKontsultak.erreserbaBetetaMet(auxData, h.getIzena(), h.getHotelKod()))
+				if (MetodoakKontsultak.erreserbaBetetaMet(auxData, h.getIzena(), h.getOstatuKod()))
 					libre = true;
-				else 
+				else
 					break;
 			}
 			if (libre == true)
@@ -48,7 +48,7 @@ public class MetodoakKontsultak {
 			for (java.util.Date auxData = dataSartze; auxData.getTime() < dataIrtetze.getTime(); auxData = Metodoak
 					.gehiEgunBat(auxData)) {
 				libre = true;
-				if (MetodoakKontsultak.erreserbaBetetaMet(auxData, e.getIzena(), e.getEtxeKod()))
+				if (MetodoakKontsultak.erreserbaBetetaMet(auxData, e.getIzena(), e.getOstatuKod()))
 					libre = false;
 			}
 			if (libre == true)
@@ -66,7 +66,7 @@ public class MetodoakKontsultak {
 			for (java.util.Date auxData = dataSartze; auxData.getTime() < dataIrtetze.getTime(); auxData = Metodoak
 					.gehiEgunBat(auxData)) {
 				libre = true;
-				if (MetodoakKontsultak.erreserbaBetetaMet(auxData, a.getIzena(), a.getEtxeKod()))
+				if (MetodoakKontsultak.erreserbaBetetaMet(auxData, a.getIzena(), a.getOstatuKod()))
 					libre = false;
 			}
 			if (libre == true)
@@ -76,27 +76,37 @@ public class MetodoakKontsultak {
 	}
 
 	public static double hotelarenPrezioaAtera(String hotela) {
-		double prezioa = 0;
-		prezioa = Kontsultak.hotelarenPrezioaBilatu(hotela);
-		return prezioa;
+		return Kontsultak.hotelarenPrezioaBilatu(hotela);
 	}
 
 	public static double etxearenPrezioaAtera(String etxea) {
-		double prezioa = 0;
-		prezioa = Kontsultak.etxearenPrezioaBilatu(etxea);
-		return prezioa;
+		return Kontsultak.etxearenPrezioaBilatu(etxea);
 	}
 
-	public static double apartamentuarenPrezioaAtera(String apartamentua) {
-		double prezioa = 0;
-		prezioa = Kontsultak.apartamentuarenPrezioaBilatu(apartamentua);
-		return prezioa;
+	public static ArrayList<ZerbitzuGehigarriak> zerbGehiMet(Ostatua hartutakoOstatua) {
+		return Kontsultak.zerbGehi(hartutakoOstatua);
+
+	}
+
+	public static int gelaLibre(Ostatua hartutakoOstatua, Date dataSartze, Date dataIrtetze, int gelaKod) {
+		int libreKant = Kontsultak.gelaLibreKant(hartutakoOstatua, gelaKod);
+		int gelaLibreak = 0;
+		int erreserbaKant = 0;
+
+		for (java.util.Date auxData = dataSartze; auxData.getTime() < dataIrtetze.getTime(); auxData = Metodoak
+				.gehiEgunBat(auxData)) {
+			int auxErreserbaKant = Kontsultak.gelaErreserbaKant(hartutakoOstatua, gelaKod, auxData);
+			if (erreserbaKant < auxErreserbaKant)
+				erreserbaKant = auxErreserbaKant;
+		}
+		gelaLibreak = libreKant - erreserbaKant;
+
+		return gelaLibreak;
+
 	}
 
 	public static boolean erreserbaBetetaMet(Date data, String izena, int kodea) {
-		boolean erantzuna = false;
-		erantzuna = Kontsultak.erreserbaBeteta(data, izena, kodea);
-	return erantzuna;
+		return Kontsultak.erreserbaBeteta(data, izena, kodea);
 
 	}
 
@@ -182,7 +192,6 @@ public class MetodoakKontsultak {
 		boolean bal = true;
 		String pasaEnkr = "";
 		pasaEnkr = Metodoak.zifratuPasahitza(pasahitza);
-		System.out.println(pasaEnkr);
 		ArrayList<Bezeroa> bezeroak = new ArrayList<>();
 
 		// fitxeroari bidali

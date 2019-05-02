@@ -2,15 +2,14 @@ package Kontrolatzailea;
 
 public class Etxea extends Ostatua {
 
-	protected int komunKop, etxeKod;
+	protected int komunKop;
 	protected double m2;
 
-	public Etxea(String izena, String herria, String helbidea, int postKod, String ostatuMota, int gelaKop,
-			int erreserbaKop, int komunKop, double m2, int etxeKod) {
-		super(izena, herria, helbidea, postKod, ostatuMota, gelaKop, erreserbaKop);
+	public Etxea(String izena, String herria, String helbidea, String ostatuMota, int postKod,
+			int gelaKop, int erreserbaKop, int komunKop, int ostatuKod, double m2) {
+		super(izena, herria, helbidea, ostatuMota, ostatuKod, postKod, gelaKop, erreserbaKop);
 		this.komunKop = komunKop;
 		this.m2 = m2;
-		this.etxeKod = etxeKod;
 	}
 
 	public int getKomunKop() {
@@ -29,17 +28,10 @@ public class Etxea extends Ostatua {
 		this.m2 = m2;
 	}
 
-	public int getEtxeKod() {
-		return etxeKod;
-	}
-
-	public void setEtxeKod(int etxeKod) {
-		this.etxeKod = etxeKod;
-	}
-
+	
 	@Override
 	public String toString() {
-		return super.toString() + "Etxea [komunKop=" + komunKop + ", m2=" + m2 + ", etxeKod=" + etxeKod + "]";
+		return super.toString() + "Etxea [komunKop=" + komunKop + ", m2=" + m2 + "]";
 	}
 
 }

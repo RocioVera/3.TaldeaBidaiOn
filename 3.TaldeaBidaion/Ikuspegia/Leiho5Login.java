@@ -27,7 +27,7 @@ public class Leiho5Login extends JFrame {
 	private int nanLuzera = 8;
 	private char letra;
 
-	public Leiho5Login(Hotela hartutakoHotela, double prezioTot, java.util.Date sartzeData, java.util.Date irtetzeData, gelaMota_ohe_hotela h2) {
+	public Leiho5Login(Ostatua hartutakoOstatua, double prezioTot, java.util.Date sartzeData, java.util.Date irtetzeData) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
@@ -51,8 +51,8 @@ public class Leiho5Login extends JFrame {
 					balPasa = MetodoakKontsultak.frogatuPasahitza(pasahitza);
 					balNan = MetodoakKontsultak.frogatuNAN(nan);
 					if (balPasa && balNan) {
-						MetodoakLeihoAldaketa.zazpigarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData,
-								nan, h2);
+						MetodoakLeihoAldaketa.zazpigarrenLeihoa(hartutakoOstatua, prezioTot, sartzeData, irtetzeData,
+								nan);
 						dispose();
 						lblErroreakonektatu.setBounds(145, 329, 318, 22);
 						lblErroreakonektatu.setForeground(Color.BLACK);
@@ -79,13 +79,13 @@ public class Leiho5Login extends JFrame {
 		btn_prev.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MetodoakLeihoAldaketa.laugarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData, h2);
+				MetodoakLeihoAldaketa.laugarrenLeihoa(hartutakoOstatua, prezioTot, sartzeData, irtetzeData);
 				dispose();
 			}
 		});
 		btn_prev.setFont(new Font("Tahoma", Font.ITALIC, 16));
 		btn_prev.setForeground(Color.RED);
-		btn_prev.setBounds(38, 500, 99, 32);
+		btn_prev.setBounds(38, 500, 107, 32);
 		getContentPane().add(btn_prev);
 
 		restart.addActionListener(new ActionListener() {
@@ -157,7 +157,7 @@ public class Leiho5Login extends JFrame {
 		// erregistratu ematerakoan agertu behar diren bariableak
 		btnErregistratuNahi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				MetodoakLeihoAldaketa.seigarrenLeihoa(hartutakoHotela, prezioTot, sartzeData, irtetzeData, h2);
+				MetodoakLeihoAldaketa.seigarrenLeihoa(hartutakoOstatua, prezioTot, sartzeData, irtetzeData);
 				dispose();
 			}
 		});
