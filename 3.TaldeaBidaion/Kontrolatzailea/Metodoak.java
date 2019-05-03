@@ -32,6 +32,8 @@ public class Metodoak {
 		return fechaDate;
 	}*/
 
+	
+
 	public static double prezioTotalaGauekin(Date dataSartze, Date dataIrtetze, double prezioTot) {
 		// 86400000 milisegundo/egun
 		int gauak = (int) ((dataIrtetze.getTime() - dataSartze.getTime()) / 86400000);

@@ -15,25 +15,27 @@ import javax.swing.table.*;
 public class Leiho3HotelDatuak extends JFrame {
 	public static gelaMota_ohe_hotela h2;
 	private static final long serialVersionUID = 1L;
-	private JLabel lblIzena = new JLabel("");
+	private JLabel lblIzena = new JLabel(""),
+			lblJarriNahiLogela = new JLabel("Jarri nahi logela mota honen nahi dituzun logela kantitatea"),
+			lblPrezioa = new JLabel("Prezioa:");
 	private JButton btn_next = new JButton("Hurrengoa"), btn_prev = new JButton("Atzera"),
-			restart = new JButton("\u2302");
+			restart = new JButton("\u2302"), btnGehitu = new JButton("Gehitu");
 	private JTable table;
 	private DefaultTableModel modelo = new DefaultTableModel() {
 		private static final long serialVersionUID = 1L;
 
 		public boolean isCellEditable(int row, int column) {
-			if (column == 4)
-				return true;
 			return false;
 		}
 	};
 	private JScrollPane scrollPane;
+	private JTextField txtPrezioa;
+	private JComboBox<Integer> cblibreKant = new JComboBox();;
+
 	private ArrayList<gelaMota_ohe_hotela> oheGelaHotela;
 	private String ohe_kopuru, sinplea, bikoitza, umeak, prezioa;
-	private JComboBox<Integer> cblibreKant;
-	private TableColumn col;
-	private double prezioTot;
+	private double prezioTot = 0.00;
+	private int gelaLibreak, logelaKant, lehenengoAldia;
 
 	public Leiho3HotelDatuak(Ostatua hartutakoOstatua, Date dataSartze, Date dataIrtetze) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
@@ -47,10 +49,6 @@ public class Leiho3HotelDatuak extends JFrame {
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-				h2 = oheGelaHotela.get(table.getSelectedRow());
-				System.out.println(h2.getPrezioa());
-				prezioTot = h2.getPrezioa();
 				prezioTot = Metodoak.prezioTotalaGauekin(dataSartze, dataIrtetze, prezioTot);
 
 				MetodoakLeihoAldaketa.laugarrenLeihoa(hartutakoOstatua, prezioTot, dataSartze, dataIrtetze);
@@ -99,7 +97,7 @@ public class Leiho3HotelDatuak extends JFrame {
 		modelo.addColumn("Sinplea");
 		modelo.addColumn("Binaka");
 		modelo.addColumn("Umeeak");
-		modelo.addColumn("Logela libre kantitatea");
+		modelo.addColumn("Hartutako logelak");
 
 		table = new JTable(modelo);
 		table.setBounds(1, 1, 537, 0);
@@ -123,23 +121,10 @@ public class Leiho3HotelDatuak extends JFrame {
 		getContentPane().add(table);
 
 		oheGelaHotela = MetodoakKontsultak.oheGelaHotelaDatuakMet(hartutakoOstatua.getOstatuKod());
-		col = table.getColumnModel().getColumn(4);
 
 		for (gelaMota_ohe_hotela h : oheGelaHotela) {
-			int gelaLibreak = 0;
+
 			Object[] aux = new Object[5];
-			// lamarmet -1;
-			cblibreKant = new JComboBox<Integer>();
-			gelaLibreak = MetodoakKontsultak.gelaLibre(hartutakoOstatua, dataIrtetze, dataIrtetze, h.getGela_kodea());
-			
-			System.out.println(gelaLibreak);
-			for (int i = 0; i <= gelaLibreak; i++) {
-				cblibreKant.addItem(i);
-			}
-
-			// cblibreKant.setSelectedIndex(0);
-
-			col.setCellEditor(new DefaultCellEditor(cblibreKant));
 
 			ohe_kopuru = h.getOhe_kopuru() + "";
 			sinplea = h.getSinplea() + "";
@@ -150,6 +135,7 @@ public class Leiho3HotelDatuak extends JFrame {
 			aux[1] = sinplea;
 			aux[2] = bikoitza;
 			aux[3] = umeak;
+			aux[4] = 0;
 			modelo.addRow(aux);
 
 		}
@@ -158,15 +144,97 @@ public class Leiho3HotelDatuak extends JFrame {
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				if (table.getSelectedRowCount() == 1)
-					btn_next.setVisible(true);
+				if (table.getSelectedRowCount() == 1) {
+
+					// vaciar
+					for (int i = cblibreKant.getItemCount() - 1; i >= 0; i--) {
+						cblibreKant.removeItemAt(i);
+					}
+
+					gelaMota_ohe_hotela a = oheGelaHotela.get(table.getSelectedRow());
+
+				
+					gelaLibreak = MetodoakKontsultak.gelaLibre(hartutakoOstatua, dataIrtetze, dataIrtetze,
+							a.getGela_kodea());
+
+					// llenar
+					for (int i = 0; i <= gelaLibreak; i++) {
+						cblibreKant.addItem(i);
+					}
+					cblibreKant.setVisible(true);
+					lblJarriNahiLogela.setVisible(true);
+					btnGehitu.setVisible(true);
+
+					logelaKant = (int) table.getValueAt(table.getSelectedRow(), 4);
+					// poner en el combobox lo que hay en la tabla
+					cblibreKant.setSelectedIndex(logelaKant);
+				}
 			}
 
 		});
 		scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(21, 68, 563, 402);
+		scrollPane.setBounds(22, 109, 553, 246);
 		scrollPane.setViewportBorder(null);
 		getContentPane().add(scrollPane);
+
+		cblibreKant.setBounds(256, 412, 51, 20);
+		cblibreKant.setVisible(false);
+		getContentPane().add(cblibreKant);
+
+		lblJarriNahiLogela.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblJarriNahiLogela.setBounds(79, 368, 451, 31);
+		lblJarriNahiLogela.setVisible(false);
+		getContentPane().add(lblJarriNahiLogela);
+
+		btnGehitu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//precio no hace bien
+				if (lehenengoAldia==0)
+				table.setValueAt(cblibreKant.getSelectedIndex(), table.getSelectedRow(), 4);
+			
+				for (int i = 0; i < table.getRowCount(); i++) {
+
+					System.out.println(i+"   "+prezioTot+"gehitu");
+
+					if ((int) table.getValueAt(i, 4)>cblibreKant.getSelectedIndex())
+						prezioTot=prezioTot-oheGelaHotela.get(i).getPrezioa() * ((int) table.getValueAt(i, 4)-cblibreKant.getSelectedIndex());
+
+					else 
+						prezioTot = prezioTot + oheGelaHotela.get(i).getPrezioa() * (int) table.getValueAt(i, 4);
+					System.out.println(i+"   "+prezioTot+"kendu");
+
+					
+				}
+
+				if (lehenengoAldia!=0)
+					table.setValueAt(cblibreKant.getSelectedIndex(), table.getSelectedRow(), 4);
+
+				if (prezioTot != 0)
+					btn_next.setVisible(true);
+				else
+					btn_next.setVisible(false);
+				
+				txtPrezioa.setText(prezioTot + " €");
+				for (int i = 0; i < table.getRowCount() - 1; i++) {
+
+				}
+				lehenengoAldia++;
+
+			}
+		});
+		btnGehitu.setBounds(245, 445, 72, 25);
+		btnGehitu.setVisible(false);
+		getContentPane().add(btnGehitu);
+
+		txtPrezioa = new JTextField();
+		txtPrezioa.setEditable(false);
+		txtPrezioa.setBounds(282, 66, 59, 22);
+		txtPrezioa.setColumns(10);
+		txtPrezioa.setText(prezioTot + " €");
+		getContentPane().add(txtPrezioa);
+
+		lblPrezioa.setBounds(220, 69, 63, 14);
+		getContentPane().add(lblPrezioa);
 
 	}
 }
