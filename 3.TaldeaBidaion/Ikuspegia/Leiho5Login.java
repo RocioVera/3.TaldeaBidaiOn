@@ -54,18 +54,16 @@ public class Leiho5Login extends JFrame {
 						MetodoakLeihoAldaketa.zazpigarrenLeihoa(hartutakoOstatua, prezioTot, sartzeData, irtetzeData,
 								nan);
 						dispose();
+					} else {
 						lblErroreakonektatu.setBounds(145, 329, 318, 22);
-						lblErroreakonektatu.setForeground(Color.BLACK);
-						lblErroreakonektatu.setText("Konektatuta");
+						lblErroreakonektatu.setForeground(Color.RED);
+						lblErroreakonektatu.setText("NAN-a edo pasahitza ez dago ondo, sartu berriz");
 						lblErroreakonektatu.setVisible(true);
-						passwordField.setEnabled(false);
-						txtNan.setEnabled(false);
-						btnErregistratuNahi.setVisible(false);
 					}
 				} else {
 					lblErroreakonektatu.setBounds(145, 329, 318, 22);
 					lblErroreakonektatu.setForeground(Color.RED);
-					lblErroreakonektatu.setText("NAN-a edo pasahitza ez dago ondo, sartu berriz");
+					lblErroreakonektatu.setText("NAN-a 8 zenbaki eta letra bat du");
 					lblErroreakonektatu.setVisible(true);
 				}
 

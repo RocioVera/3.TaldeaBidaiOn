@@ -166,7 +166,7 @@ public class Leiho3HotelDatuak extends JFrame {
 					btnGehitu.setVisible(true);
 
 					logelaKant = (int) table.getValueAt(table.getSelectedRow(), 4);
-					// poner en el combobox lo que hay en la tabla
+					// poner en el combobox lo que hay en la tabla 
 					cblibreKant.setSelectedIndex(logelaKant);
 				}
 			}
@@ -188,20 +188,18 @@ public class Leiho3HotelDatuak extends JFrame {
 
 		btnGehitu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//precio no hace bien
+				//precio no hace bien ********************
 				if (lehenengoAldia==0)
 				table.setValueAt(cblibreKant.getSelectedIndex(), table.getSelectedRow(), 4);
 			
 				for (int i = 0; i < table.getRowCount(); i++) {
 
-					System.out.println(i+"   "+prezioTot+"gehitu");
 
 					if ((int) table.getValueAt(i, 4)>cblibreKant.getSelectedIndex())
 						prezioTot=prezioTot-oheGelaHotela.get(i).getPrezioa() * ((int) table.getValueAt(i, 4)-cblibreKant.getSelectedIndex());
 
 					else 
 						prezioTot = prezioTot + oheGelaHotela.get(i).getPrezioa() * (int) table.getValueAt(i, 4);
-					System.out.println(i+"   "+prezioTot+"kendu");
 
 					
 				}
@@ -209,6 +207,7 @@ public class Leiho3HotelDatuak extends JFrame {
 				if (lehenengoAldia!=0)
 					table.setValueAt(cblibreKant.getSelectedIndex(), table.getSelectedRow(), 4);
 
+				// **** cuando se pone 0 en un habtacion aunque en otras haya se quita el btn_next
 				if (prezioTot != 0)
 					btn_next.setVisible(true);
 				else

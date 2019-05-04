@@ -275,7 +275,8 @@ public class Leiho2AukeratuOstatu extends JFrame {
 				for (Hotela h : arrayHotela) {
 					ostatuIzen = ((Hotela) h).getIzena();
 					ostatuMota = "Hotela";
-					prezioa = MetodoakKontsultak.hotelarenPrezioaAtera(ostatuIzen) + " €";
+					//prezioa = MetodoakKontsultak.hotelarenPrezioaAtera(ostatuIzen) + " €";
+					prezioa = MetodoakKontsultak.tarifaAldatuDatengatik(MetodoakKontsultak.hotelarenPrezioaAtera(ostatuIzen), dataSartze, dataIrtetze)+" €";
 					hotelaBerria[0] = ostatuIzen;
 					hotelaBerria[1] = ostatuMota;
 					hotelaBerria[2] = prezioa;

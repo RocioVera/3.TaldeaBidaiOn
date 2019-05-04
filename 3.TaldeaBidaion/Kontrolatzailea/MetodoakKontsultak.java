@@ -116,6 +116,21 @@ public class MetodoakKontsultak {
 		return Kontsultak.oheGelaHotelaDatuak(ostatu_id);
 	}
 
+	public static ArrayList<HartutakoOstatuarenZerbitzuak> zerbitzuakOstatuanMet(Ostatua hartutakoOstatua) {
+		return Kontsultak.zerbitzuGehigarriakOstatuan(hartutakoOstatua);
+	}
+
+	public static double tarifaAldatuDatengatik(double prezioa, Date dataSartze, Date dataIrtetze) {
+		ArrayList<JaiEgunak> arrayEgunak = new ArrayList<JaiEgunak>();
+		arrayEgunak = Kontsultak.jaiEgunakAtera();
+		boolean festa = Metodoak.egunFestiboa(dataSartze, dataIrtetze, arrayEgunak);
+		
+		
+		if (festa=true)
+			prezioa=prezioa+10;
+		return prezioa;
+	}
+
 	// Leiho4-ko metodoak
 	/**
 	 * Frogatu dni-a erregistratuta ez dagoela.

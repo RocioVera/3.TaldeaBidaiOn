@@ -21,6 +21,36 @@ public class Metodoak {
 
 	}
 
+
+	public static boolean egunFestiboa( Date dataSartze, Date dataIrtetze, ArrayList<JaiEgunak> arrayEgunak) {
+		boolean festa=false;
+		for (JaiEgunak jaiEgunak : arrayEgunak) {
+			for (java.util.Date auxData = dataSartze; auxData.getTime() < dataIrtetze.getTime(); auxData = Metodoak
+					.gehiEgunBat(auxData)) {
+				if (jaiEgunak.getJaiEguna().equals(auxData)) {
+					festa = true;
+					break;
+				}
+			}
+		}
+		return festa;
+	}
+	
+	// **************************************** ALDATU
+	public static boolean egunDenboraldiAltua(Date dataSartze, Date dataIrtetze) {
+		boolean denboraldia=false;
+			for (java.util.Date auxData = dataSartze; auxData.getTime() < dataIrtetze.getTime(); auxData = Metodoak
+					.gehiEgunBat(auxData)) {
+				Date data=null;
+				if (auxData.after(data)) {
+					denboraldia = true;
+					break;
+				}
+			}
+		return denboraldia;
+	}
+	
+	
 	/*public static Date ParseFecha(String fecha) {
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 		Date fechaDate = null;
@@ -41,8 +71,6 @@ public class Metodoak {
 		prezioTot = prezioTot * gauak;
 		return prezioTot;
 	}
-
-	// Leiho3-ko metodoak
 
 	// Leiho4-ko metodoak
 	/**

@@ -14,7 +14,7 @@ public class Leiho4ZerbitzuGehigarriakHotelak extends JFrame {
 	private JLabel lblIzena = new JLabel(""), lblLogelak = new JLabel("Logelak:");
 	private JLabel lblPrezioa = new JLabel("Prezioa:");
 	private JLabel lblPentsioa = new JLabel("Pentsioa:"),
-			lblZerbitzuak = new JLabel("Zerbitzuak:");
+			lblZerbitzuak = new JLabel("Zerbitzu gehigarriak:");
 	private JComboBox cboxPentsioa = new JComboBox();
 	private JCheckBox chckbxGozaria = new JCheckBox("Gozaria"), chckbxWifi = new JCheckBox("Wifi"),
 			chckbxIgerilekua = new JCheckBox("Igerilekua"), chckbxSpa = new JCheckBox("Spa"),
@@ -23,6 +23,7 @@ public class Leiho4ZerbitzuGehigarriakHotelak extends JFrame {
 			chckbxGimnasioa = new JCheckBox("Gimnasioa");
 	private JButton btn_next = new JButton("Hurrengoa"), btn_prev = new JButton("Atzera"),
 			restart = new JButton("\u2302");
+	private ArrayList<HartutakoOstatuarenZerbitzuak> zerbitzuArray = new ArrayList<HartutakoOstatuarenZerbitzuak>();
 
 	public Leiho4ZerbitzuGehigarriakHotelak(Ostatua hartutakoOstatua, double prezioTot, Date dataSartze, Date dataIrtetze) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
@@ -73,66 +74,114 @@ public class Leiho4ZerbitzuGehigarriakHotelak extends JFrame {
 		restart.setBackground(Color.LIGHT_GRAY);
 		getContentPane().add(restart);
 		
+		//panela
 		lblIzena.setText(hartutakoOstatua.getIzena());
 		lblIzena.setHorizontalAlignment(SwingConstants.CENTER);
-		lblIzena.setFont(new Font("Verdana", Font.BOLD | Font.ITALIC, 20));
-		lblIzena.setBounds(0, 24, 594, 32);
+		lblIzena.setFont(new Font("Verdana", Font.BOLD | Font.ITALIC, 21));
+		lblIzena.setBounds(0, 13, 594, 32);
 		getContentPane().add(lblIzena);
-
-		lblLogelak.setBounds(329, 134, 72, 25);
-		getContentPane().add(lblLogelak);
-
+		
+		lblPrezioa.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblPrezioa.setBounds(210, 72, 63, 14);
 		getContentPane().add(lblPrezioa);
-
+		
 		txtPrezioa = new JTextField();
+		txtPrezioa.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		txtPrezioa.setText(prezioTot+" €");
 		txtPrezioa.setEditable(false);
-		txtPrezioa.setBounds(268, 69, 86, 20);
+		txtPrezioa.setBounds(274, 70, 57, 20);
 		txtPrezioa.setColumns(10);
 		getContentPane().add(txtPrezioa);
+		
+		lblLogelak.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblLogelak.setBounds(210, 114, 72, 25);
+		getContentPane().add(lblLogelak);
 
 		txtLogelak = new JTextField();
+		txtLogelak.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		txtLogelak.setEditable(false);
-		txtLogelak.setBounds(404, 136, 86, 20);
-		getContentPane().add(txtLogelak);
+		txtLogelak.setText("0");
+		txtLogelak.setBounds(285, 116, 86, 20);
 		txtLogelak.setColumns(10);
-
-		lblPentsioa.setBounds(329, 190, 72, 14);
+		getContentPane().add(txtLogelak);
+		
+		lblPentsioa.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblPentsioa.setBounds(210, 165, 72, 14);
 		getContentPane().add(lblPentsioa);
-
-		cboxPentsioa.setBounds(404, 187, 86, 20);
+		
+		cboxPentsioa.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		cboxPentsioa.setBounds(285, 162, 111, 20);
 		getContentPane().add(cboxPentsioa);
-
-		chckbxGozaria.setBounds(373, 213, 97, 23);
+		
+		chckbxGozaria.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		chckbxGozaria.setBounds(245, 212, 97, 23);
 		getContentPane().add(chckbxGozaria);
-		lblZerbitzuak.setFont(new Font("Verdana", Font.BOLD, 13));
-
-		lblZerbitzuak.setBounds(62, 280, 97, 25);
+		
+		lblZerbitzuak.setFont(new Font("Verdana", Font.BOLD, 16));
+		lblZerbitzuak.setBounds(62, 263, 230, 25);
 		getContentPane().add(lblZerbitzuak);
-
-		chckbxWifi.setBounds(359, 328, 97, 23);
+		
+		//gehigarriak
+		chckbxWifi.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		chckbxWifi.setBounds(299, 359, 97, 23);
+		chckbxWifi.setVisible(false);
 		getContentPane().add(chckbxWifi);
-
-		chckbxIgerilekua.setBounds(210, 376, 97, 23);
+		
+		chckbxIgerilekua.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		chckbxIgerilekua.setBounds(367, 410, 97, 23);
+		chckbxIgerilekua.setVisible(false);
 		getContentPane().add(chckbxIgerilekua);
-
-		chckbxSpa.setBounds(62, 328, 97, 23);
+		
+		chckbxSpa.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		chckbxSpa.setBounds(210, 410, 97, 23);
+		chckbxSpa.setVisible(false);
 		getContentPane().add(chckbxSpa);
-
-		chckbxParking.setBounds(62, 376, 97, 23);
+		
+		chckbxParking.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		chckbxParking.setBounds(111, 307, 97, 23);
+		chckbxParking.setVisible(false);
 		getContentPane().add(chckbxParking);
-
-		chckbxAireGirotua.setBounds(62, 424, 97, 23);
+		
+		chckbxAireGirotua.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		chckbxAireGirotua.setBounds(299, 307, 133, 23);
+		chckbxAireGirotua.setVisible(false);
 		getContentPane().add(chckbxAireGirotua);
-
-		chckbxJatetxea.setBounds(210, 328, 97, 23);
+		
+		chckbxJatetxea.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		chckbxJatetxea.setBounds(468, 307, 97, 23);
+		chckbxJatetxea.setVisible(false);
 		getContentPane().add(chckbxJatetxea);
-
-		chckbxTaberna.setBounds(210, 424, 97, 23);
+		
+		chckbxTaberna.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		chckbxTaberna.setBounds(468, 359, 97, 23);
+		chckbxTaberna.setVisible(false);
 		getContentPane().add(chckbxTaberna);
-
-		chckbxGimnasioa.setBounds(359, 376, 97, 23);
+		
+		chckbxGimnasioa.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		chckbxGimnasioa.setBounds(111, 359, 97, 23);
+		chckbxGimnasioa.setVisible(false);
 		getContentPane().add(chckbxGimnasioa);
+		
+		zerbitzuArray=MetodoakKontsultak.zerbitzuakOstatuanMet(hartutakoOstatua);
+		for (HartutakoOstatuarenZerbitzuak zerb : zerbitzuArray) {
+			if (zerb.getIzena().equals("wifi"))
+				chckbxWifi.setVisible(true);
+			if (zerb.getIzena().equals("igerilekua"))
+				chckbxIgerilekua.setVisible(true);		
+			if (zerb.getIzena().equals("spa"))
+				chckbxSpa.setVisible(true);
+			if (zerb.getIzena().equals("aparkalekua"))
+				chckbxParking.setVisible(true);
+			if (zerb.getIzena().equals("aire girotua"))
+				chckbxAireGirotua.setVisible(true);
+			if (zerb.getIzena().equals("jatetxea"))
+				chckbxJatetxea.setVisible(true);
+			if (zerb.getIzena().equals("taberna"))
+				chckbxTaberna.setVisible(true);
+			if (zerb.getIzena().equals("gimnasioa"))
+				chckbxGimnasioa.setVisible(true);
+			
+		}
+		
 	}
 }

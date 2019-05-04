@@ -170,17 +170,17 @@ public class Kontsultak {
 		}
 		return prezioa;
 	}
-	
 
 	public static int gelaLibreKant(Ostatua hartutakoOstatua, int gelaKod) {
 		Statement st = null;
 		Connection konexioa = Konexioa.getConexion();
 		int kant = 0;
- 
+
 		try {
 			st = konexioa.createStatement();
 			ResultSet rs = st.executeQuery(
-					"SELECT gmh.kantitatea FROM gelamota_hotela gmh, hotela h , gelamota gm, ostatu o where gmh.hotela_hotel_kod=h.hotel_kod AND gm.gela_kodea=gmh.gelaMota_gela_kodea AND o.ostatu_id=h.hotel_kod AND o.ostatu_id="+ hartutakoOstatua.getOstatuKod()+" AND gm.gela_kodea="+gelaKod);
+					"SELECT gmh.kantitatea FROM gelamota_hotela gmh, hotela h , gelamota gm, ostatu o where gmh.hotela_hotel_kod=h.hotel_kod AND gm.gela_kodea=gmh.gelaMota_gela_kodea AND o.ostatu_id=h.hotel_kod AND o.ostatu_id="
+							+ hartutakoOstatua.getOstatuKod() + " AND gm.gela_kodea=" + gelaKod);
 
 			while (rs.next()) {
 				kant = (rs.getInt("kantitatea"));
@@ -197,10 +197,12 @@ public class Kontsultak {
 		Connection konexioa = Konexioa.getConexion();
 		int kant = 0;
 
- 		try {
+		try {
 			st = konexioa.createStatement();
 			ResultSet rs = st.executeQuery(
-			"SELECT COUNT(*) FROM erreserba e, ostatu o, gelamota_erreserba gme, gelamota gm, erreserba_jaiegunak eje WHERE o.ostatu_id=e.ostatu_ostatu_id AND eje.erreserba_erreserba_kod=e.erreserba_kod AND gm.gela_kodea=gme.gelaMota_gela_kodea AND e.erreserba_kod=gme.erreserba_erreserba_kod AND o.ostatu_id="+hartutakoOstatua.getOstatuKod()+" AND gm.gela_kodea="+gelaKod+" AND eje.eguna='"+auxData+"'");
+					"SELECT COUNT(*) FROM erreserba e, ostatu o, gelamota_erreserba gme, gelamota gm, erreserba_jaiegunak eje WHERE o.ostatu_id=e.ostatu_ostatu_id AND eje.erreserba_erreserba_kod=e.erreserba_kod AND gm.gela_kodea=gme.gelaMota_gela_kodea AND e.erreserba_kod=gme.erreserba_erreserba_kod AND o.ostatu_id="
+							+ hartutakoOstatua.getOstatuKod() + " AND gm.gela_kodea=" + gelaKod + " AND eje.eguna='"
+							+ auxData + "'");
 
 			while (rs.next()) {
 				kant = (rs.getInt("kantitatea"));
@@ -213,12 +215,42 @@ public class Kontsultak {
 	}
 
 	// Leiho3zerbitzugehigarrietxea
+	public static ArrayList<HartutakoOstatuarenZerbitzuak>  zerbitzuGehigarriakOstatuan(Ostatua hartutakoOstatua) {
+		Statement st = null;
+		Connection konexioa = Konexioa.getConexion();
+
+		ArrayList<HartutakoOstatuarenZerbitzuak> zerbitzuArray = new ArrayList<HartutakoOstatuarenZerbitzuak>();
+		HartutakoOstatuarenZerbitzuak zerbitzuak = null;
+
+		int kod_zerbitzua;
+		String izena;
+		double prezioa;
+		
+		try {
+			st = konexioa.createStatement();
+			ResultSet rs = st.executeQuery(
+					"SELECT DISTINCT(zp.kod_zerbitzuak), zp.izena, zp.prezioa FROM zerbitzuprezioak zp, zerbitzugehigarriak_ostatu zgo, ostatu o WHERE zp.kod_zerbitzuak=zgo.zerbitzuGehigarriak_kod_zerbitzuak AND o.ostatu_id=zgo.ostatu_ostatu_id AND o.ostatu_id="
+							+ hartutakoOstatua.getOstatuKod());
+
+			while (rs.next()) {
+				kod_zerbitzua = (rs.getInt("kod_zerbitzuak"));
+				izena = (rs.getString("izena"));
+				prezioa = (rs.getDouble("prezioa"));
+
+				zerbitzuak = new HartutakoOstatuarenZerbitzuak(kod_zerbitzua, izena, prezioa);
+				zerbitzuArray.add(zerbitzuak);			}
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return zerbitzuArray;
+	}
 
 	public static ArrayList<ZerbitzuGehigarriak> zerbGehi(Ostatua hartutakoOstatua) {
 		Statement st = null;
 		Connection konexioa = Konexioa.getConexion();
-		String izena="";
-		int kod_zerbitzua=0;
+		String izena = "";
+		int kod_zerbitzua = 0;
 		ArrayList<ZerbitzuGehigarriak> zerbitzuGehigarriArray = new ArrayList<ZerbitzuGehigarriak>();
 		ZerbitzuGehigarriak zerbGehi = null;
 		try {
@@ -230,7 +262,7 @@ public class Kontsultak {
 			while (rs.next()) {
 				kod_zerbitzua = (rs.getInt("kod_zerbitzuak"));
 				izena = (rs.getString("izena"));
-				zerbGehi= new ZerbitzuGehigarriak(kod_zerbitzua, izena);
+				zerbGehi = new ZerbitzuGehigarriak(kod_zerbitzua, izena);
 				zerbitzuGehigarriArray.add(zerbGehi);
 			}
 
@@ -240,7 +272,6 @@ public class Kontsultak {
 		return zerbitzuGehigarriArray;
 	}
 
-	
 	// Leiho3-ko kontsultak
 	public static boolean erreserbaBeteta(java.util.Date data, String izena, int kodea) {
 		Statement st = null;
@@ -284,7 +315,7 @@ public class Kontsultak {
 		double prezioa = 0;
 		ResultSet rs = null;
 		gelaMota_ohe_hotela goh = null;
-		
+
 		try {
 			st = konexioa.createStatement();
 			rs = st.executeQuery(
@@ -322,6 +353,32 @@ public class Kontsultak {
 		}
 
 		return gelaOheHotelaArray;
+	}
+	
+	public static ArrayList<JaiEgunak> jaiEgunakAtera() {
+		ArrayList<JaiEgunak> arrayEgunak = new ArrayList<JaiEgunak>();
+		Statement st = null;
+		Connection konexioa = Konexioa.getConexion();
+		String arrazoia;
+		int jaiEgunKod;
+		Date jaiEgunData;
+		ResultSet rs = null;
+		try {
+			st = konexioa.createStatement();
+			rs = st.executeQuery("SELECT * FROM jaiegunak");
+			while (rs.next()) {
+				jaiEgunKod = (rs.getInt(1));
+				jaiEgunData = (rs.getDate(2));
+				arrazoia = (rs.getString(3));
+				
+				JaiEgunak jaiEgunak = new JaiEgunak(jaiEgunKod, jaiEgunData, arrazoia);
+				arrayEgunak.add(jaiEgunak);
+
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return arrayEgunak;
 	}
 
 	// Lehio5-ko kontsultak

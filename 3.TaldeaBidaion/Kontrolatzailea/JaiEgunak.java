@@ -4,13 +4,23 @@ import java.sql.Date;
 
 public class JaiEgunak {
 
+	private int jaiEgunKod;
 	private Date jaiEguna;
 	private String zergatia;
 	
-	public JaiEgunak(Date jaiEguna, String zergatia) {
-		super();
+	public JaiEgunak(int jaiEgunKod, Date jaiEguna, String zergatia) {
+		this.jaiEgunKod=jaiEgunKod;
 		this.jaiEguna = jaiEguna;
 		this.zergatia = zergatia;
+	}
+
+	public int getJaiEgunKod() {
+		return jaiEgunKod;
+	}
+
+
+	public void setJaiEgunKod(int jaiEgunKod) {
+		this.jaiEgunKod = jaiEgunKod;
 	}
 
 
@@ -30,10 +40,12 @@ public class JaiEgunak {
 		this.zergatia = zergatia;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Erreserba_jaiEgunak eguna=" + jaiEguna + ", zergatia=" + zergatia + "]";
+		return "JaiEgunak [jaiEgunKod=" + jaiEgunKod + ", jaiEguna=" + jaiEguna + ", zergatia=" + zergatia + "]";
 	}
+
 
 	
 }
