@@ -9,7 +9,7 @@ import Kontrolatzailea.*;
 import javax.swing.*;
 
 
-public class Leiho4ZerbitzuGehigarriakHotelak extends JFrame {
+public class Leiho4ZerbitzuGehigarriak extends JFrame {
 	private JTextField txtPrezioa, txtLogelak;
 	private JLabel lblIzena = new JLabel(""), lblLogelak = new JLabel("Logelak:");
 	private JLabel lblPrezioa = new JLabel("Prezioa:");
@@ -25,7 +25,7 @@ public class Leiho4ZerbitzuGehigarriakHotelak extends JFrame {
 			restart = new JButton("\u2302");
 	private ArrayList<HartutakoOstatuarenZerbitzuak> zerbitzuArray = new ArrayList<HartutakoOstatuarenZerbitzuak>();
 
-	public Leiho4ZerbitzuGehigarriakHotelak(Ostatua hartutakoOstatua, double prezioTot, Date dataSartze, Date dataIrtetze) {
+	public Leiho4ZerbitzuGehigarriak(Ostatua hartutakoOstatua, double prezioTot, Date dataSartze, Date dataIrtetze) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
 		this.setBounds(350, 50, 600, 600);
@@ -51,8 +51,11 @@ public class Leiho4ZerbitzuGehigarriakHotelak extends JFrame {
 		btn_prev.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				MetodoakLeihoAldaketa.hirugarrenLeihoaHotelak(hartutakoOstatua, dataSartze, dataIrtetze);
+				System.out.println(hartutakoOstatua.getOstatuMota());
+				if (hartutakoOstatua.getOstatuMota().equals("H"))
+					MetodoakLeihoAldaketa.hirugarrenLeihoaHotelak(hartutakoOstatua, dataSartze, dataIrtetze);
+				else
+					MetodoakLeihoAldaketa.bigarrenLeihoa();
 				dispose();
 			}
 		});
@@ -95,14 +98,18 @@ public class Leiho4ZerbitzuGehigarriakHotelak extends JFrame {
 		
 		lblLogelak.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblLogelak.setBounds(210, 114, 72, 25);
+		if (!hartutakoOstatua.getOstatuMota().equals("H"))
+			lblLogelak.setVisible(false);
 		getContentPane().add(lblLogelak);
 
 		txtLogelak = new JTextField();
 		txtLogelak.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		txtLogelak.setEditable(false);
 		txtLogelak.setText("0");
-		txtLogelak.setBounds(285, 116, 86, 20);
+		txtLogelak.setBounds(285, 116, 32, 20);
 		txtLogelak.setColumns(10);
+		if (!hartutakoOstatua.getOstatuMota().equals("H"))
+			txtLogelak.setVisible(false);
 		getContentPane().add(txtLogelak);
 		
 		lblPentsioa.setFont(new Font("Tahoma", Font.PLAIN, 15));

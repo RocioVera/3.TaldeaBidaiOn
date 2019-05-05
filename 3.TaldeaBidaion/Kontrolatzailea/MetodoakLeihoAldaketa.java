@@ -26,16 +26,10 @@ public class MetodoakLeihoAldaketa {
 		Leiho3.setVisible(true);
 
 	}
-	
-	public static void hirugarrenLeihoaEtxeak(Ostatua hartutakoOstatua, double prezioTot, Date dataSartze, Date dataIrtetze) {
-		Leiho3ZerbitzuGehigarriakEtxeak Leiho3 = new Leiho3ZerbitzuGehigarriakEtxeak(hartutakoOstatua, prezioTot, dataSartze, dataIrtetze);
-		Leiho3.setVisible(true);
 
-	}
-	
 	public static void laugarrenLeihoa(Ostatua hartutakoOstatua, double prezioTot, Date dataSartzeString,
 			Date dataIrtetzeString) {
-		Leiho4ZerbitzuGehigarriakHotelak Leiho4 = new Leiho4ZerbitzuGehigarriakHotelak(hartutakoOstatua, prezioTot, dataSartzeString,
+		Leiho4ZerbitzuGehigarriak Leiho4 = new Leiho4ZerbitzuGehigarriak(hartutakoOstatua, prezioTot, dataSartzeString,
 				dataIrtetzeString);
 		Leiho4.setVisible(true);
 	}

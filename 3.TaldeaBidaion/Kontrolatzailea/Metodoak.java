@@ -21,9 +21,8 @@ public class Metodoak {
 
 	}
 
-
-	public static boolean egunFestiboa( Date dataSartze, Date dataIrtetze, ArrayList<JaiEgunak> arrayEgunak) {
-		boolean festa=false;
+	public static boolean egunFestiboa(Date dataSartze, Date dataIrtetze, ArrayList<JaiEgunak> arrayEgunak) {
+		boolean festa = false;
 		for (JaiEgunak jaiEgunak : arrayEgunak) {
 			for (java.util.Date auxData = dataSartze; auxData.getTime() < dataIrtetze.getTime(); auxData = Metodoak
 					.gehiEgunBat(auxData)) {
@@ -35,34 +34,38 @@ public class Metodoak {
 		}
 		return festa;
 	}
-	
-	// **************************************** ALDATU
+
 	public static boolean egunDenboraldiAltua(Date dataSartze, Date dataIrtetze) {
-		boolean denboraldia=false;
-			for (java.util.Date auxData = dataSartze; auxData.getTime() < dataIrtetze.getTime(); auxData = Metodoak
-					.gehiEgunBat(auxData)) {
-				Date data=null;
-				if (auxData.after(data)) {
-					denboraldia = true;
+		boolean denboraldiAltua = false;
+		int erresHilabetea = -1, erresEguna = -1;
+
+		// 21-06-yyyy
+		Date ekainaAltuaData = new Date();
+		ekainaAltuaData.setMonth(5);
+		ekainaAltuaData.setDate(21);
+
+		for (Date auxData = dataSartze; auxData.getTime() < dataIrtetze.getTime(); auxData = Metodoak
+				.gehiEgunBat(auxData)) {
+			erresHilabetea = auxData.getMonth();
+			if (erresHilabetea == 0 || erresHilabetea == 1 || erresHilabetea == 2 || erresHilabetea == 6
+					|| erresHilabetea == 7 || erresHilabetea == 10 || erresHilabetea == 11) {
+				denboraldiAltua = true;
+				break;
+			} else if (erresHilabetea == 5)
+				if (auxData.after(ekainaAltuaData)) {
+					denboraldiAltua = true;
 					break;
 				}
-			}
-		return denboraldia;
-	}
-	
-	
-	/*public static Date ParseFecha(String fecha) {
-		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-		Date fechaDate = null;
-		try {
-			fechaDate = formato.parse(fecha);
-		} catch (ParseException ex) {
-			System.out.println(ex);
 		}
-		return fechaDate;
-	}*/
+		return denboraldiAltua;
+	}
 
-	
+	/*
+	 * public static Date ParseFecha(String fecha) { SimpleDateFormat formato = new
+	 * SimpleDateFormat("dd/MM/yyyy"); Date fechaDate = null; try { fechaDate =
+	 * formato.parse(fecha); } catch (ParseException ex) { System.out.println(ex); }
+	 * return fechaDate; }
+	 */
 
 	public static double prezioTotalaGauekin(Date dataSartze, Date dataIrtetze, double prezioTot) {
 		// 86400000 milisegundo/egun

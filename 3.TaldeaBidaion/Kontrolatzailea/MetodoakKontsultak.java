@@ -124,10 +124,13 @@ public class MetodoakKontsultak {
 		ArrayList<JaiEgunak> arrayEgunak = new ArrayList<JaiEgunak>();
 		arrayEgunak = Kontsultak.jaiEgunakAtera();
 		boolean festa = Metodoak.egunFestiboa(dataSartze, dataIrtetze, arrayEgunak);
-		
-		
-		if (festa=true)
+		boolean denboraldiAltua = Metodoak.egunDenboraldiAltua(dataSartze, dataIrtetze);
+
+		if (festa==true) 
 			prezioa=prezioa+10;
+		if (denboraldiAltua==true)
+			prezioa=prezioa+20;
+		
 		return prezioa;
 	}
 
