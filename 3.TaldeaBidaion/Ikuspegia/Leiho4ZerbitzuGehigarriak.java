@@ -25,7 +25,7 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 			restart = new JButton("\u2302");
 	private ArrayList<HartutakoOstatuarenZerbitzuak> zerbitzuArray = new ArrayList<HartutakoOstatuarenZerbitzuak>();
 
-	public Leiho4ZerbitzuGehigarriak(Ostatua hartutakoOstatua, double prezioTot, Date dataSartze, Date dataIrtetze) {
+	public Leiho4ZerbitzuGehigarriak(Ostatua hartutakoOstatua, double prezioTot, Date dataSartze, Date dataIrtetze, int logelaTot) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
 		this.setBounds(350, 50, 600, 600);
@@ -38,7 +38,7 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoOstatua, prezioTot, dataSartze, dataIrtetze);
+				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoOstatua, prezioTot, dataSartze, dataIrtetze, logelaTot);
 				dispose();
 			}
 		});
@@ -51,7 +51,7 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		btn_prev.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(hartutakoOstatua.getOstatuMota());
+				//System.out.println(hartutakoOstatua.getOstatuMota());
 				if (hartutakoOstatua.getOstatuMota().equals("H"))
 					MetodoakLeihoAldaketa.hirugarrenLeihoaHotelak(hartutakoOstatua, dataSartze, dataIrtetze);
 				else
@@ -105,7 +105,7 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		txtLogelak = new JTextField();
 		txtLogelak.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		txtLogelak.setEditable(false);
-		txtLogelak.setText("0");
+		txtLogelak.setText(logelaTot+"");
 		txtLogelak.setBounds(285, 116, 32, 20);
 		txtLogelak.setColumns(10);
 		if (!hartutakoOstatua.getOstatuMota().equals("H"))

@@ -27,7 +27,7 @@ public class Leiho7Ordaindu extends JFrame {
 	private double diruFalta, sartutakoa;
 	private ArrayList<String> geltIzenak = new ArrayList<>();
 
-	public Leiho7Ordaindu(double prezioTot, Ostatua hartutakoOstatua, java.util.Date sartzeData, java.util.Date irtetzeData, String nan) {
+	public Leiho7Ordaindu(double prezioTot, Ostatua hartutakoOstatua, java.util.Date sartzeData, java.util.Date irtetzeData, String nan, int logelaTot) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
@@ -40,10 +40,10 @@ public class Leiho7Ordaindu extends JFrame {
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Metodoak.fitxIdatzi(hartutakoOstatua, sartzeData, irtetzeData, prezioTot, nan); // billetea fitxategian
+				Metodoak.fitxIdatzi(hartutakoOstatua, sartzeData, irtetzeData, prezioTot, nan, logelaTot); // billetea fitxategian
 																								// sartzen duen
 																								// metodoari deitu
-				MetodoakLeihoAldaketa.zortzigarrenLeihoa(hartutakoOstatua, sartzeData, irtetzeData, prezioTot, nan);
+				MetodoakLeihoAldaketa.zortzigarrenLeihoa(hartutakoOstatua, sartzeData, irtetzeData, prezioTot, nan, logelaTot);
 				dispose();
 			}
 		});
@@ -57,7 +57,7 @@ public class Leiho7Ordaindu extends JFrame {
 		btn_prev.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoOstatua, prezioTot, sartzeData, irtetzeData);
+				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoOstatua, prezioTot, sartzeData, irtetzeData, logelaTot);
 
 				dispose();
 			}

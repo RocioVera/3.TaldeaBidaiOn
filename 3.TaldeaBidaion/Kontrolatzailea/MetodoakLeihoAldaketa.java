@@ -28,34 +28,34 @@ public class MetodoakLeihoAldaketa {
 	}
 
 	public static void laugarrenLeihoa(Ostatua hartutakoOstatua, double prezioTot, Date dataSartzeString,
-			Date dataIrtetzeString) {
+			Date dataIrtetzeString, int logelaTot) {
 		Leiho4ZerbitzuGehigarriak Leiho4 = new Leiho4ZerbitzuGehigarriak(hartutakoOstatua, prezioTot, dataSartzeString,
-				dataIrtetzeString);
+				dataIrtetzeString, logelaTot);
 		Leiho4.setVisible(true);
 	}
 
 	public static void bostgarrenLeihoa(Ostatua hartutakoOstatua, double prezioTot, Date sartzeData,
-			Date irtetzeData) {
-		Leiho5Login Leiho5 = new Leiho5Login(hartutakoOstatua, prezioTot, sartzeData, irtetzeData);
+			Date irtetzeData, int logelaTot) {
+		Leiho5Login Leiho5 = new Leiho5Login(hartutakoOstatua, prezioTot, sartzeData, irtetzeData,logelaTot);
 		Leiho5.setVisible(true);
 	}
 
 	public static void seigarrenLeihoa(Ostatua hartutakoOstatua, double prezioTot, Date sartzeData,
-			Date irtetzeData) {
-		Leiho6Erregistratu Leiho6 = new Leiho6Erregistratu(hartutakoOstatua, prezioTot, sartzeData, irtetzeData);
+			Date irtetzeData, int logelaTot) {
+		Leiho6Erregistratu Leiho6 = new Leiho6Erregistratu(hartutakoOstatua, prezioTot, sartzeData, irtetzeData, logelaTot);
 		Leiho6.setVisible(true);
 	}
 
 	public static void zazpigarrenLeihoa(Ostatua hartutakoOstatua, double prezioTot, Date sartzeData,
-			Date irtetzeData, String nan) {
-		Leiho7Ordaindu Leiho7 = new Leiho7Ordaindu(prezioTot, hartutakoOstatua, sartzeData, irtetzeData, nan);
+			Date irtetzeData, String nan, int logelaTot) {
+		Leiho7Ordaindu Leiho7 = new Leiho7Ordaindu(prezioTot, hartutakoOstatua, sartzeData, irtetzeData, nan, logelaTot);
 		Leiho7.setVisible(true);
 	}
 
 	
 	public static void zortzigarrenLeihoa(Ostatua hartutakoOstatua, Date sartzeData, Date irtetzeData,
-			double prezioTot, String nan) {
-		Leiho8Ticket Leiho8 = new Leiho8Ticket(hartutakoOstatua, sartzeData, irtetzeData, prezioTot, nan);
+			double prezioTot, String nan, int logelaTot) {
+		Leiho8Ticket Leiho8 = new Leiho8Ticket(hartutakoOstatua, sartzeData, irtetzeData, prezioTot, nan, logelaTot);
 		Leiho8.setVisible(true);
 	}
 

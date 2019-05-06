@@ -211,6 +211,7 @@ public class Kontsultak {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+		System.out.println(kant +"          df");
 		return kant;
 	}
 
@@ -328,8 +329,8 @@ public class Kontsultak {
 				gelaOheHotelaArray.add(goh);
 
 			}
-			for (int i = 0; i < gelaOheHotelaArray.size(); i++)
-				System.out.println(gelaOheHotelaArray.get(i).getGela_kodea());
+		//	for (int i = 0; i < gelaOheHotelaArray.size(); i++)
+		//		System.out.println(gelaOheHotelaArray.get(i).getGela_kodea());
 
 			for (int i = 0; i < gelaOheHotelaArray.size(); i++) {
 				rs = st.executeQuery(

@@ -21,22 +21,20 @@ public class Metodoak {
 
 	}
 
-	public static boolean egunFestiboa(Date dataSartze, Date dataIrtetze, ArrayList<JaiEgunak> arrayEgunak) {
-		boolean festa = false;
+	public static int egunFestiboa(Date dataSartze, Date dataIrtetze, ArrayList<JaiEgunak> arrayEgunak) {
+		int festaKant = 0;
 		for (JaiEgunak jaiEgunak : arrayEgunak) {
 			for (java.util.Date auxData = dataSartze; auxData.getTime() < dataIrtetze.getTime(); auxData = Metodoak
 					.gehiEgunBat(auxData)) {
-				if (jaiEgunak.getJaiEguna().equals(auxData)) {
-					festa = true;
-					break;
-				}
+				if (jaiEgunak.getJaiEguna().equals(auxData))
+					festaKant++;
 			}
 		}
-		return festa;
+		return festaKant;
 	}
 
-	public static boolean egunDenboraldiAltua(Date dataSartze, Date dataIrtetze) {
-		boolean denboraldiAltua = false;
+	public static int egunDenboraldiAltua(Date dataSartze, Date dataIrtetze) {
+		int denboraldiAltuaKant = 0;
 		int erresHilabetea = -1, erresEguna = -1;
 
 		// 21-06-yyyy
@@ -49,15 +47,12 @@ public class Metodoak {
 			erresHilabetea = auxData.getMonth();
 			if (erresHilabetea == 0 || erresHilabetea == 1 || erresHilabetea == 2 || erresHilabetea == 6
 					|| erresHilabetea == 7 || erresHilabetea == 10 || erresHilabetea == 11) {
-				denboraldiAltua = true;
-				break;
+				denboraldiAltuaKant++;
 			} else if (erresHilabetea == 5)
-				if (auxData.after(ekainaAltuaData)) {
-					denboraldiAltua = true;
-					break;
-				}
+				if (auxData.after(ekainaAltuaData))
+					denboraldiAltuaKant++;
 		}
-		return denboraldiAltua;
+		return denboraldiAltuaKant;
 	}
 
 	/*
@@ -277,7 +272,7 @@ public class Metodoak {
 	}
 
 	public static void fitxIdatzi(Ostatua hartutakoOstatua, Date sartzeData, Date irtetzeData, double prezioTot,
-			String nan) {
+			String nan, int logelaTot) {
 		FileWriter fitx = null;
 		PrintWriter pw = null;
 		String hotelaIzena = hartutakoOstatua.getIzena();
@@ -288,6 +283,7 @@ public class Metodoak {
 
 			pw.println("Prezioa: " + prezioTot + " €" + "\nBezeroaren datuak:");
 			pw.println("     Nan: " + nan + "\nIzena: \n     Hartutako hotela: " + hotelaIzena + "\t");
+			pw.println("     Logela Totala: "+ logelaTot);
 			pw.println("     Sartze data: " + sartzeData + "\t Irtetze data: " + irtetzeData);
 			pw.println(
 					"******************************************************************************************************************************************");

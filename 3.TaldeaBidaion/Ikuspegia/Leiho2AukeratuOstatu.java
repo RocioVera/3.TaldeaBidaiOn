@@ -39,7 +39,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 
 	private JDateChooser dchSartzeData = new JDateChooser(), dchIrtetzeData = new JDateChooser();
 	private JTextFieldDateEditor dataEzEditatu; // kentzeko eskuz sartu ahal izana
-	private JLabel lblSartzeData = new JLabel("Sartze data"), lblIrtetzeData = new JLabel("Irtetze data");
+	private JLabel lblSartzeData = new JLabel("Sartze data"), lblIrtetzeData = new JLabel("Irtetze data"), lblGogoratu;
 	private java.util.Date dataIrtetze, dataSartze;
 	private JButton btn_next = new JButton("Hurrengoa"), restart = new JButton("\u2302"),
 			btnBilatu = new JButton("Bilatu");
@@ -85,19 +85,21 @@ public class Leiho2AukeratuOstatu extends JFrame {
 					hartutakoLerroa = hartutakoLerroa-arrayHotela.size();
 					hartutakoOstatua = arrayEtxea.get(hartutakoLerroa);
 					//prezioaKalkulatu
-					prezioTot = MetodoakKontsultak.tarifaAldatuDatengatik(MetodoakKontsultak.etxearenPrezioaAtera(hartutakoOstatua.getIzena()), dataSartze, dataIrtetze);
+					prezioTot = MetodoakKontsultak.etxearenPrezioaAtera(hartutakoOstatua.getIzena());
 					prezioTot = Metodoak.prezioTotalaGauekin(dataSartze, dataIrtetze, prezioTot);
+					prezioTot = prezioTot + MetodoakKontsultak.tarifaAldatuDatengatik(dataSartze, dataIrtetze);
 
-					MetodoakLeihoAldaketa.laugarrenLeihoa(hartutakoOstatua, prezioTot, dataSartze, dataIrtetze);
+					MetodoakLeihoAldaketa.laugarrenLeihoa(hartutakoOstatua, prezioTot, dataSartze, dataIrtetze, 0);
 					dispose();
 				} else if (modelo.getValueAt(hartutakoLerroa, 1) == "Apartamentua") {
 					hartutakoLerroa = hartutakoLerroa-arrayHotela.size()-arrayEtxea.size();
 					hartutakoOstatua = arrayApartamentua.get(hartutakoLerroa);
 					//prezioaKalkulatu
-					prezioTot = MetodoakKontsultak.tarifaAldatuDatengatik(MetodoakKontsultak.etxearenPrezioaAtera(hartutakoOstatua.getIzena()), dataSartze, dataIrtetze);
+					prezioTot = MetodoakKontsultak.etxearenPrezioaAtera(hartutakoOstatua.getIzena());
 					prezioTot = Metodoak.prezioTotalaGauekin(dataSartze, dataIrtetze, prezioTot);
+					prezioTot = prezioTot + MetodoakKontsultak.tarifaAldatuDatengatik(dataSartze, dataIrtetze);
 
-					MetodoakLeihoAldaketa.laugarrenLeihoa(hartutakoOstatua, prezioTot, dataSartze, dataIrtetze);
+					MetodoakLeihoAldaketa.laugarrenLeihoa(hartutakoOstatua, prezioTot, dataSartze, dataIrtetze, 0);
 					dispose();
 				}
 			}
@@ -282,7 +284,9 @@ public class Leiho2AukeratuOstatu extends JFrame {
 				for (Hotela h : arrayHotela) {
 					ostatuIzen = ((Hotela) h).getIzena();
 					ostatuMota = "Hotela";
-					prezioa = MetodoakKontsultak.tarifaAldatuDatengatik(MetodoakKontsultak.hotelarenPrezioaAtera(ostatuIzen), dataSartze, dataIrtetze)+" €";
+				//	prezioa = MetodoakKontsultak.tarifaAldatuDatengatik(MetodoakKontsultak.hotelarenPrezioaAtera(ostatuIzen), dataSartze, dataIrtetze)+" €";
+
+					prezioa = MetodoakKontsultak.hotelarenPrezioaAtera(ostatuIzen)+" €";
 
 					hotelaBerria[0] = ostatuIzen;
 					hotelaBerria[1] = ostatuMota;
@@ -296,7 +300,9 @@ public class Leiho2AukeratuOstatu extends JFrame {
 				for (Etxea e1 : arrayEtxea) {
 					ostatuIzen = e1.getIzena();
 					ostatuMota = "Etxea";
-					prezioa = MetodoakKontsultak.tarifaAldatuDatengatik(MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen), dataSartze, dataIrtetze)+" €";
+				//	prezioa = MetodoakKontsultak.tarifaAldatuDatengatik(MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen), dataSartze, dataIrtetze)+" €";
+					
+					prezioa = MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen)+" €";
 
 					etxeBerria[0] = ostatuIzen;
 					etxeBerria[1] = ostatuMota;
@@ -314,7 +320,9 @@ public class Leiho2AukeratuOstatu extends JFrame {
 					ostatuIzen = a.getIzena();
 					ostatuMota = "Apartamentua";
 
-					prezioa = MetodoakKontsultak.tarifaAldatuDatengatik(MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen), dataSartze, dataIrtetze)+" €";
+					prezioa = MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen)+" €";
+
+					//prezioa = MetodoakKontsultak.tarifaAldatuDatengatik(MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen), dataSartze, dataIrtetze)+" €";
 
 					apartamentuBerria[0] = ostatuIzen;
 					apartamentuBerria[1] = ostatuMota;
@@ -332,6 +340,12 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		btnBilatu.setBounds(471, 56, 97, 25);
 		btnBilatu.setVisible(false);
 		getContentPane().add(btnBilatu);
+		
+		lblGogoratu = new JLabel("Gogoratu festetan edo denboraldi altuko erreserbetan gehigarri bat dagoela");
+		lblGogoratu.setForeground(Color.RED);
+		lblGogoratu.setFont(new Font("Verdana", Font.PLAIN, 13));
+		lblGogoratu.setBounds(38, 104, 524, 30);
+		getContentPane().add(lblGogoratu);
 
 	}
 }

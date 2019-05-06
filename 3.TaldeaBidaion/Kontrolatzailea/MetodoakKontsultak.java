@@ -93,9 +93,12 @@ public class MetodoakKontsultak {
 		int gelaLibreak = 0;
 		int erreserbaKant = 0;
 
-		for (java.util.Date auxData = dataSartze; auxData.getTime() < dataIrtetze.getTime(); auxData = Metodoak
+		for (Date auxData = dataSartze; auxData.getTime() < dataIrtetze.getTime(); auxData = Metodoak
 				.gehiEgunBat(auxData)) {
+			System.out.println(auxData);
+
 			int auxErreserbaKant = Kontsultak.gelaErreserbaKant(hartutakoOstatua, gelaKod, auxData);
+
 			if (erreserbaKant < auxErreserbaKant)
 				erreserbaKant = auxErreserbaKant;
 		}
@@ -120,17 +123,15 @@ public class MetodoakKontsultak {
 		return Kontsultak.zerbitzuGehigarriakOstatuan(hartutakoOstatua);
 	}
 
-	public static double tarifaAldatuDatengatik(double prezioa, Date dataSartze, Date dataIrtetze) {
+	public static double tarifaAldatuDatengatik(Date dataSartze, Date dataIrtetze) {
+		double prezioa;
 		ArrayList<JaiEgunak> arrayEgunak = new ArrayList<JaiEgunak>();
 		arrayEgunak = Kontsultak.jaiEgunakAtera();
-		boolean festa = Metodoak.egunFestiboa(dataSartze, dataIrtetze, arrayEgunak);
-		boolean denboraldiAltua = Metodoak.egunDenboraldiAltua(dataSartze, dataIrtetze);
+		int festaKant = Metodoak.egunFestiboa(dataSartze, dataIrtetze, arrayEgunak);
+		int denboraldiAltuaKant = Metodoak.egunDenboraldiAltua(dataSartze, dataIrtetze);
 
-		if (festa==true) 
-			prezioa=prezioa+10;
-		if (denboraldiAltua==true)
-			prezioa=prezioa+20;
-		
+		prezioa = (festaKant * 10) + (denboraldiAltuaKant * 20);
+
 		return prezioa;
 	}
 

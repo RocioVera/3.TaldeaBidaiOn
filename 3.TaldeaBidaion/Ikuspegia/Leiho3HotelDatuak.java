@@ -35,7 +35,7 @@ public class Leiho3HotelDatuak extends JFrame {
 	private ArrayList<gelaMota_ohe_hotela> oheGelaHotela;
 	private String ohe_kopuru, sinplea, bikoitza, umeak, prezioa;
 	private double prezioTot = 0.00;
-	private int gelaLibreak, logelaKant, lehenengoAldia;
+	private int gelaLibreak, logelaKant, lehenengoAldia, logelaTot;
 
 	public Leiho3HotelDatuak(Ostatua hartutakoOstatua, Date dataSartze, Date dataIrtetze) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
@@ -49,9 +49,15 @@ public class Leiho3HotelDatuak extends JFrame {
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				prezioTot = Metodoak.prezioTotalaGauekin(dataSartze, dataIrtetze, prezioTot);
+				for (int i = 0; i < oheGelaHotela.size(); i++) {
+					System.out.println(i);
+					logelaTot = logelaTot + (int) table.getValueAt(i, 4);
+				}
 
-				MetodoakLeihoAldaketa.laugarrenLeihoa(hartutakoOstatua, prezioTot, dataSartze, dataIrtetze);
+				prezioTot = Metodoak.prezioTotalaGauekin(dataSartze, dataIrtetze, prezioTot);
+				prezioTot = prezioTot + MetodoakKontsultak.tarifaAldatuDatengatik(dataSartze, dataIrtetze) * logelaTot;
+
+				MetodoakLeihoAldaketa.laugarrenLeihoa(hartutakoOstatua, prezioTot, dataSartze, dataIrtetze, logelaTot);
 				dispose();
 			}
 		});
@@ -96,7 +102,7 @@ public class Leiho3HotelDatuak extends JFrame {
 		modelo.addColumn("Prezioa");
 		modelo.addColumn("Sinplea");
 		modelo.addColumn("Binaka");
-		modelo.addColumn("Umeeak");
+		modelo.addColumn("Umeak");
 		modelo.addColumn("Hartutako logelak");
 
 		table = new JTable(modelo);
@@ -153,8 +159,7 @@ public class Leiho3HotelDatuak extends JFrame {
 
 					gelaMota_ohe_hotela a = oheGelaHotela.get(table.getSelectedRow());
 
-				
-					gelaLibreak = MetodoakKontsultak.gelaLibre(hartutakoOstatua, dataIrtetze, dataIrtetze,
+					gelaLibreak = MetodoakKontsultak.gelaLibre(hartutakoOstatua, dataSartze, dataIrtetze,
 							a.getGela_kodea());
 
 					// llenar
@@ -166,14 +171,14 @@ public class Leiho3HotelDatuak extends JFrame {
 					btnGehitu.setVisible(true);
 
 					logelaKant = (int) table.getValueAt(table.getSelectedRow(), 4);
-					// poner en el combobox lo que hay en la tabla 
+					// poner en el combobox lo que hay en la tabla
 					cblibreKant.setSelectedIndex(logelaKant);
 				}
 			}
 
 		});
 		scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(22, 109, 553, 246);
+		scrollPane.setBounds(20, 68, 553, 246);
 		scrollPane.setViewportBorder(null);
 		getContentPane().add(scrollPane);
 
@@ -188,35 +193,24 @@ public class Leiho3HotelDatuak extends JFrame {
 
 		btnGehitu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//precio no hace bien ********************
-				if (lehenengoAldia==0)
-				table.setValueAt(cblibreKant.getSelectedIndex(), table.getSelectedRow(), 4);
-			
-				for (int i = 0; i < table.getRowCount(); i++) {
-
-
-					if ((int) table.getValueAt(i, 4)>cblibreKant.getSelectedIndex())
-						prezioTot=prezioTot-oheGelaHotela.get(i).getPrezioa() * ((int) table.getValueAt(i, 4)-cblibreKant.getSelectedIndex());
-
-					else 
-						prezioTot = prezioTot + oheGelaHotela.get(i).getPrezioa() * (int) table.getValueAt(i, 4);
-
-					
-				}
-
-				if (lehenengoAldia!=0)
+				// precio no hace bien ********************
+			//	if (lehenengoAldia == 0)
 					table.setValueAt(cblibreKant.getSelectedIndex(), table.getSelectedRow(), 4);
 
-				// **** cuando se pone 0 en un habtacion aunque en otras haya se quita el btn_next
+				prezioTot = 0;
+				for (int i = 0; i < table.getRowCount(); i++) {
+					prezioTot = prezioTot + oheGelaHotela.get(i).getPrezioa() * (int) table.getValueAt(i, 4);
+				}
+
+
+				// btn_next
 				if (prezioTot != 0)
 					btn_next.setVisible(true);
 				else
 					btn_next.setVisible(false);
-				
-				txtPrezioa.setText(prezioTot + " €");
-				for (int i = 0; i < table.getRowCount() - 1; i++) {
 
-				}
+				txtPrezioa.setText(prezioTot + " €");
+
 				lehenengoAldia++;
 
 			}
@@ -227,12 +221,12 @@ public class Leiho3HotelDatuak extends JFrame {
 
 		txtPrezioa = new JTextField();
 		txtPrezioa.setEditable(false);
-		txtPrezioa.setBounds(282, 66, 59, 22);
+		txtPrezioa.setBounds(307, 335, 59, 22);
 		txtPrezioa.setColumns(10);
 		txtPrezioa.setText(prezioTot + " €");
 		getContentPane().add(txtPrezioa);
 
-		lblPrezioa.setBounds(220, 69, 63, 14);
+		lblPrezioa.setBounds(245, 338, 63, 14);
 		getContentPane().add(lblPrezioa);
 
 	}
