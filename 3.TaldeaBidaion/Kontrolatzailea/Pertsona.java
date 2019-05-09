@@ -1,13 +1,10 @@
 package Kontrolatzailea;
 
-import java.sql.Date;
-
 public abstract class Pertsona {
 
-	protected String nan, izena, abizenak, pasahitza;
-	protected Date jaiotzeData;
+	protected String nan, izena, abizenak, pasahitza, jaiotzeData;
 
-	public Pertsona(String nan, String izena, String abizenak, Date jaiotzeData, String pasahitza) {
+	public Pertsona(String nan, String izena, String abizenak, String jaiotzeData, String pasahitza) {
 		this.nan = nan;
 		this.izena = izena;
 		this.abizenak = abizenak;
@@ -39,12 +36,16 @@ public abstract class Pertsona {
 		this.abizenak = abizenak;
 	}
 
-	public Date getJaiotzeData() {
+	public String getJaiotzeData() {
 		return jaiotzeData;
 	}
 
-	public void setJaiotzeData(Date jaiotzeData) {
+	public void setJaiotzeData(String jaiotzeData) {
 		this.jaiotzeData = jaiotzeData;
+	}
+
+	public void setAbizenak(String abizenak) {
+		this.abizenak = abizenak;
 	}
 
 	public String getPasahitza() {

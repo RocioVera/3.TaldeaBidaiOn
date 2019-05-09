@@ -79,10 +79,10 @@ public class Metodoak {
 	 * @param pasahitza
 	 * @return hashtext
 	 */
-	public static String zifratuPasahitza(String pasahitza) {
+	public static String zifratuHitza(String hitza) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");
-			byte[] messageDigest = md.digest(pasahitza.getBytes());
+			byte[] messageDigest = md.digest(hitza.getBytes());
 			BigInteger number = new BigInteger(1, messageDigest);
 			String hashtext = number.toString(16);
 

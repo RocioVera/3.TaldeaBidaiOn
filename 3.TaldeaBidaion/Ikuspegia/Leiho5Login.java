@@ -46,10 +46,10 @@ public class Leiho5Login extends JFrame {
 				if (nan.matches("^[0-9]{8}[A-Za-z]$")) {
 					nanLarria = nan.substring(8).toUpperCase();
 					nan = nan.substring(0, 8) + nanLarria;
-
 					pasahitza = String.valueOf(passwordField.getPassword());
 					balPasa = MetodoakKontsultak.frogatuPasahitza(pasahitza);
 					balNan = MetodoakKontsultak.frogatuNAN(nan);
+					System.out.println(balNan);
 					if (balPasa && balNan) {
 						MetodoakLeihoAldaketa.zazpigarrenLeihoa(hartutakoOstatua, prezioTot, sartzeData, irtetzeData,
 								nan, logelaTot);

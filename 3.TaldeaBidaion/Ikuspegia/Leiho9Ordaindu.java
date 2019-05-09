@@ -9,7 +9,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Leiho7Ordaindu extends JFrame {
+public class Leiho9Ordaindu extends JFrame {
 	private static final long serialVersionUID = 1L;
 	// panelan ikusten diren bariableak
 	private JTextField txtPrezioTot = new JTextField(), txtDiruFalta = new JTextField(), txtBueltak = new JTextField();
@@ -24,10 +24,10 @@ public class Leiho7Ordaindu extends JFrame {
 	private Timestamp ordua = new Timestamp(System.currentTimeMillis());
 	private int kont = 0;
 	private String txanponTot, diruFaltaString, ibilbideData;
-	private double diruFalta, sartutakoa;
+	private double diruFalta, sartutakoa, prezioTot2;
 	private ArrayList<String> geltIzenak = new ArrayList<>();
 
-	public Leiho7Ordaindu(double prezioTot, Ostatua hartutakoOstatua, java.util.Date sartzeData, java.util.Date irtetzeData, String nan, int logelaTot) {
+	public Leiho9Ordaindu(double prezioTot, Ostatua hartutakoOstatua, java.util.Date sartzeData, java.util.Date irtetzeData, String nan, int logelaTot, Promozioa promHartu) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
@@ -36,14 +36,21 @@ public class Leiho7Ordaindu extends JFrame {
 		this.setSize(new Dimension(600, 600));
 		this.setTitle("Airour ostatu bilatzailea");
 
+		
+		/*********************
+		 * INSERT ETA UPDATE (KODEPROM)
+		 * ****************************/
+		
+		
+		
 		// botoiak
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Metodoak.fitxIdatzi(hartutakoOstatua, sartzeData, irtetzeData, prezioTot, nan, logelaTot); // billetea fitxategian
+				Metodoak.fitxIdatzi(hartutakoOstatua, sartzeData, irtetzeData, prezioTot2, nan, logelaTot); // billetea fitxategian
 																								// sartzen duen
 																								// metodoari deitu
-				MetodoakLeihoAldaketa.zortzigarrenLeihoa(hartutakoOstatua, sartzeData, irtetzeData, prezioTot, nan, logelaTot);
+				MetodoakLeihoAldaketa.hamargarrenLeihoa(hartutakoOstatua, sartzeData, irtetzeData, prezioTot2, nan, logelaTot);
 				dispose();
 			}
 		});
@@ -58,7 +65,6 @@ public class Leiho7Ordaindu extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoOstatua, prezioTot, sartzeData, irtetzeData, logelaTot);
-
 				dispose();
 			}
 		});
@@ -86,10 +92,13 @@ public class Leiho7Ordaindu extends JFrame {
 		lblPrezioTotala.setBounds(180, 13, 117, 20);
 		getContentPane().add(lblPrezioTotala);
 
+		prezioTot2=prezioTot;
+		if (promHartu!=null)
+			prezioTot2-=promHartu.getPrezioa();
 		txtPrezioTot.setEditable(false);
 		txtPrezioTot.setColumns(10);
 		txtPrezioTot.setBounds(300, 15, 86, 20);
-		txtPrezioTot.setText(prezioTot + " €");
+		txtPrezioTot.setText(prezioTot2 + " €");
 		getContentPane().add(txtPrezioTot);
 
 		/* ZenbatDiru sartu nahi */
@@ -113,7 +122,7 @@ public class Leiho7Ordaindu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				kont = 1;
 				sartutakoa = Metodoak.diruaSartu(kont, sartutakoa);
-				botoiakKendu(prezioTot);
+				botoiakKendu(prezioTot2);
 			}
 		});
 		btn_200Euro.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -126,7 +135,7 @@ public class Leiho7Ordaindu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				kont = 2;
 				sartutakoa = Metodoak.diruaSartu(kont, sartutakoa);
-				botoiakKendu(prezioTot);
+				botoiakKendu(prezioTot2);
 
 			}
 		});
@@ -140,7 +149,7 @@ public class Leiho7Ordaindu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				kont = 3;
 				sartutakoa = Metodoak.diruaSartu(kont, sartutakoa);
-				botoiakKendu(prezioTot);
+				botoiakKendu(prezioTot2);
 
 			}
 		});
@@ -154,7 +163,7 @@ public class Leiho7Ordaindu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				kont = 4;
 				sartutakoa = Metodoak.diruaSartu(kont, sartutakoa);
-				botoiakKendu(prezioTot);
+				botoiakKendu(prezioTot2);
 
 			}
 		});
@@ -169,7 +178,7 @@ public class Leiho7Ordaindu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				kont = 5;
 				sartutakoa = Metodoak.diruaSartu(kont, sartutakoa);
-				botoiakKendu(prezioTot);
+				botoiakKendu(prezioTot2);
 
 			}
 		});
@@ -183,7 +192,7 @@ public class Leiho7Ordaindu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				kont = 6;
 				sartutakoa = Metodoak.diruaSartu(kont, sartutakoa);
-				botoiakKendu(prezioTot);
+				botoiakKendu(prezioTot2);
 
 			}
 		});
@@ -197,7 +206,7 @@ public class Leiho7Ordaindu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				kont = 7;
 				sartutakoa = Metodoak.diruaSartu(kont, sartutakoa);
-				botoiakKendu(prezioTot);
+				botoiakKendu(prezioTot2);
 
 			}
 		});
@@ -211,7 +220,7 @@ public class Leiho7Ordaindu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				kont = 8;
 				sartutakoa = Metodoak.diruaSartu(kont, sartutakoa);
-				botoiakKendu(prezioTot);
+				botoiakKendu(prezioTot2);
 
 			}
 		});
@@ -225,7 +234,7 @@ public class Leiho7Ordaindu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				kont = 9;
 				sartutakoa = Metodoak.diruaSartu(kont, sartutakoa);
-				botoiakKendu(prezioTot);
+				botoiakKendu(prezioTot2);
 
 			}
 		});
@@ -239,7 +248,7 @@ public class Leiho7Ordaindu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				kont = 10;
 				sartutakoa = Metodoak.diruaSartu(kont, sartutakoa);
-				botoiakKendu(prezioTot);
+				botoiakKendu(prezioTot2);
 
 			}
 		});
@@ -253,7 +262,7 @@ public class Leiho7Ordaindu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				kont = 11;
 				sartutakoa = Metodoak.diruaSartu(kont, sartutakoa);
-				botoiakKendu(prezioTot);
+				botoiakKendu(prezioTot2);
 
 			}
 		});
@@ -267,7 +276,7 @@ public class Leiho7Ordaindu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				kont = 12;
 				sartutakoa = Metodoak.diruaSartu(kont, sartutakoa);
-				botoiakKendu(prezioTot);
+				botoiakKendu(prezioTot2);
 
 			}
 		});
@@ -281,7 +290,7 @@ public class Leiho7Ordaindu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				kont = 13;
 				sartutakoa = Metodoak.diruaSartu(kont, sartutakoa);
-				botoiakKendu(prezioTot);
+				botoiakKendu(prezioTot2);
 
 			}
 		});
@@ -295,7 +304,7 @@ public class Leiho7Ordaindu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				kont = 14;
 				sartutakoa = Metodoak.diruaSartu(kont, sartutakoa);
-				botoiakKendu(prezioTot);
+				botoiakKendu(prezioTot2);
 
 			}
 		});
@@ -310,7 +319,7 @@ public class Leiho7Ordaindu extends JFrame {
 		txtDiruFalta.setEditable(false);
 		txtDiruFalta.setColumns(10);
 		txtDiruFalta.setBounds(443, 350, 64, 20);
-		txtDiruFalta.setText(prezioTot + " €");
+		txtDiruFalta.setText(prezioTot2 + " €");
 		getContentPane().add(txtDiruFalta);
 
 		txtBueltak = new JTextField();
@@ -340,6 +349,7 @@ public class Leiho7Ordaindu extends JFrame {
 		txtrTxtareatxanponbueltak.setBackground(Color.LIGHT_GRAY);
 		txtrTxtareatxanponbueltak.setText("Emaiozu botoiari");
 		txtrTxtareatxanponbueltak.setBounds(38, 236, 202, 259);
+		txtrTxtareatxanponbueltak.setEditable(false);
 		getContentPane().add(txtrTxtareatxanponbueltak);
 
 	}

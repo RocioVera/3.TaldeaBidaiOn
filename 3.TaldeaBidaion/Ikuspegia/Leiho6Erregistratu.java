@@ -29,7 +29,8 @@ public class Leiho6Erregistratu extends JFrame {
 	private int nanLuzera = 8, izenLuzera = 49, abizenLuzera = 99, pasahitzLuzera = 49, sexuLuzera = 0;
 	private char letra;
 
-	public Leiho6Erregistratu(Ostatua hartutakoOstatua, double prezioTot, java.util.Date sartzeData, java.util.Date irtetzeData, int logelaTot) {
+	public Leiho6Erregistratu(Ostatua hartutakoOstatua, double prezioTot, java.util.Date sartzeData,
+			java.util.Date irtetzeData, int logelaTot) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
@@ -183,24 +184,16 @@ public class Leiho6Erregistratu extends JFrame {
 					nan = nan.substring(0, 8) + nanLarria;
 					nanBalLarria = Metodoak.nanLetra(nan);
 					if (nanBalLarria.equals(nanLarria)) {
-						balErregis = MetodoakKontsultak.erregistratuBezeroak(pasahitza, nan, izena, abizenak,
-								jaioDataString);
-
-						if (nan.length() - 1 == nanLuzera && !MetodoakKontsultak.nanGordetaEgon(nan))
-							txtNan.setEnabled(false);
-						else if (!izena.isEmpty())
-							txtIzena.setEnabled(false);
-						else if (!abizenak.isEmpty())
-							txtAbizenak.setEnabled(false);
-						else if (jaioData != null)
-							txtJaioData.setEnabled(false);
-						else if (pasahitza.length() != 0)
-							passwordField.setEnabled(false);
+						if (pasahitza.length() != 0 && nan != null && izena != null && abizenak != null
+								&& jaioDataString != null) {
+							balErregis = MetodoakKontsultak.erregistratuBezeroak(pasahitza, nan, izena, abizenak,
+									jaioDataString);
+						}
 					}
 				}
 
 				if (balErregis) {
-					if (!MetodoakKontsultak.nanGordetaEgon(nan)) { // dagoela erregistratuta
+					if (!MetodoakKontsultak.nanGordetaEgon(Metodoak.zifratuHitza(nan))) { // dagoela erregistratuta
 						lblErroreakonektatu.setText("Erregistratuta zaude, hasi saioa.");
 						passwordField.setEnabled(false);
 						txtIzena.setEnabled(false);
@@ -216,7 +209,7 @@ public class Leiho6Erregistratu extends JFrame {
 					lblErroreakonektatu.setForeground(Color.RED);
 					if (nan.length() + 1 < nanLuzera)
 						lblErroreakonektatu.setText("nan-a bete behar duzu.");
-					else if (!nan.matches("^[0-9]{8}[A-Za-z]$") || !nanBalLarria.equals(nanLarria)) {		
+					else if (!nan.matches("^[0-9]{8}[A-Za-z]$") || !nanBalLarria.equals(nanLarria)) {
 						lblErroreakonektatu.setText("nan-a txarto sartu duzu.");
 					} else if (MetodoakKontsultak.nanGordetaEgon(nan)) {
 						lblErroreakonektatu.setText("Erregistratuta zaude, hasi saioa.");

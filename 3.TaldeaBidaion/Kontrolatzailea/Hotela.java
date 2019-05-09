@@ -3,7 +3,6 @@ package Kontrolatzailea;
 public class Hotela extends Ostatua {
 
 	private int izarKop;
-
 	
 	public Hotela(String izena, String herria, String helbidea, String ostatuMota, int ostatuKod, int postKod,
 			int gelaKop, int erreserbaKop, int izarKop) {

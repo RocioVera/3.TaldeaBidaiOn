@@ -6,14 +6,14 @@ import Kontrolatzailea.*;
 import java.awt.event.*;
 import java.util.Date;
 
-public class Leiho8Ticket extends JFrame {
+public class Leiho10Ticket extends JFrame {
 	private static final long serialVersionUID = 1L;
 	// panelan ikusten diren bariableak
 	private JLabel lblEskerrikAskoMezua1, lblEskerrikAskoMezua2;
 	private JButton btnTiketaImprimatu;
 	private JTextArea txtTiket;
 
-	public Leiho8Ticket(Ostatua hartutakoOstatua, Date sartzeData, Date irtetzeData, double prezioTot, String nan,
+	public Leiho10Ticket(Ostatua hartutakoOstatua, Date sartzeData, Date irtetzeData, double prezioTot, String nan,
 			int logelaTot) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));

@@ -87,22 +87,24 @@ public class MetodoakKontsultak {
 		return Kontsultak.zerbGehi(hartutakoOstatua);
 
 	}
+	
+	public static ArrayList<Promozioa> promozioakBilatuMet(String nan) {
+		nan= Metodoak.zifratuHitza(nan);
+		return Kontsultak.promozioakBilatu(nan);
+
+	}
 
 	public static int gelaLibre(Ostatua hartutakoOstatua, Date dataSartze, Date dataIrtetze, int gelaKod) {
-		int libreKant = Kontsultak.gelaLibreKant(hartutakoOstatua, gelaKod);
-		int gelaLibreak = 0;
-		int erreserbaKant = 0;
+		int gelaTot = Kontsultak.gelaLibreKant(hartutakoOstatua, gelaKod);
+		int gelaLibreak = 0,erreserbaKant = 0;
 
 		for (Date auxData = dataSartze; auxData.getTime() < dataIrtetze.getTime(); auxData = Metodoak
 				.gehiEgunBat(auxData)) {
-			System.out.println(auxData);
-
 			int auxErreserbaKant = Kontsultak.gelaErreserbaKant(hartutakoOstatua, gelaKod, auxData);
-
 			if (erreserbaKant < auxErreserbaKant)
 				erreserbaKant = auxErreserbaKant;
 		}
-		gelaLibreak = libreKant - erreserbaKant;
+		gelaLibreak = gelaTot - erreserbaKant;
 
 		return gelaLibreak;
 
@@ -123,8 +125,8 @@ public class MetodoakKontsultak {
 		return Kontsultak.zerbitzuGehigarriakOstatuan(hartutakoOstatua);
 	}
 
-	public static double tarifaAldatuDatengatik(Date dataSartze, Date dataIrtetze) {
-		double prezioa;
+	public static double tarifaAldatuDatengatik(java.util.Date dataSartze, java.util.Date dataIrtetze) {
+		double prezioa=0;
 		ArrayList<JaiEgunak> arrayEgunak = new ArrayList<JaiEgunak>();
 		arrayEgunak = Kontsultak.jaiEgunakAtera();
 		int festaKant = Metodoak.egunFestiboa(dataSartze, dataIrtetze, arrayEgunak);
@@ -165,9 +167,10 @@ public class MetodoakKontsultak {
 	public static boolean frogatuPasahitza(String pasahitza) {
 		boolean bal = false;
 		String pasaEnkr = "";
-		pasaEnkr = Metodoak.zifratuPasahitza(pasahitza);
+		pasaEnkr = Metodoak.zifratuHitza(pasahitza);
 		ArrayList<Bezeroa> bezeroak = new ArrayList<Bezeroa>();
 		bezeroak = Kontsultak.bezeroDatuak();
+
 		for (Bezeroa bezeroak2 : bezeroak) {
 			if (pasaEnkr.equals(bezeroak2.getPasahitza()))
 				bal = true;
@@ -186,6 +189,7 @@ public class MetodoakKontsultak {
 		boolean bal = false;
 		ArrayList<Bezeroa> bezeroak = new ArrayList<>();
 		bezeroak = Kontsultak.bezeroDatuak();
+		nan = Metodoak.zifratuHitza(nan);
 		for (Bezeroa bezeroak2 : bezeroak) {
 			if (nan.equals(bezeroak2.getNan()))
 				bal = true;
@@ -209,8 +213,13 @@ public class MetodoakKontsultak {
 	public static boolean erregistratuBezeroak(String pasahitza, String nan, String izena, String abizenak,
 			String jaioDataString) {
 		boolean bal = true;
-		String pasaEnkr = "";
-		pasaEnkr = Metodoak.zifratuPasahitza(pasahitza);
+		pasahitza = Metodoak.zifratuHitza(pasahitza);
+		nan = Metodoak.zifratuHitza(nan);
+		izena = Metodoak.zifratuHitza(izena);
+		abizenak = Metodoak.zifratuHitza(abizenak);
+		jaioDataString = Metodoak.zifratuHitza(jaioDataString);
+
+
 		ArrayList<Bezeroa> bezeroak = new ArrayList<>();
 
 		// fitxeroari bidali
@@ -219,7 +228,7 @@ public class MetodoakKontsultak {
 			bal = false;
 
 		if (bal && !nanGordetaEgon(nan)) {
-			bezeroak = Kontsultak.erregistratuBezeroak(pasaEnkr, nan, izena, abizenak, jaioDataString);
+			bezeroak = Kontsultak.erregistratuBezeroak(pasahitza, nan, izena, abizenak, jaioDataString);
 		}
 		return bal;
 	}

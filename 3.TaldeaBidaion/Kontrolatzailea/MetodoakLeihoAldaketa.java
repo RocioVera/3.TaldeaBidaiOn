@@ -45,18 +45,30 @@ public class MetodoakLeihoAldaketa {
 		Leiho6Erregistratu Leiho6 = new Leiho6Erregistratu(hartutakoOstatua, prezioTot, sartzeData, irtetzeData, logelaTot);
 		Leiho6.setVisible(true);
 	}
-
+	
 	public static void zazpigarrenLeihoa(Ostatua hartutakoOstatua, double prezioTot, Date sartzeData,
 			Date irtetzeData, String nan, int logelaTot) {
-		Leiho7Ordaindu Leiho7 = new Leiho7Ordaindu(prezioTot, hartutakoOstatua, sartzeData, irtetzeData, nan, logelaTot);
+		Leiho7BaseLegalak Leiho7 = new Leiho7BaseLegalak(prezioTot, hartutakoOstatua, sartzeData, irtetzeData, nan, logelaTot);
 		Leiho7.setVisible(true);
 	}
 
-	
-	public static void zortzigarrenLeihoa(Ostatua hartutakoOstatua, Date sartzeData, Date irtetzeData,
-			double prezioTot, String nan, int logelaTot) {
-		Leiho8Ticket Leiho8 = new Leiho8Ticket(hartutakoOstatua, sartzeData, irtetzeData, prezioTot, nan, logelaTot);
+	public static void zortzigarrenLeihoa(Ostatua hartutakoOstatua, double prezioTot, Date sartzeData,
+			Date irtetzeData, String nan, int logelaTot) {
+		Leiho8KodePromozionalak Leiho8 = new Leiho8KodePromozionalak(prezioTot, hartutakoOstatua, sartzeData, irtetzeData, nan, logelaTot);
 		Leiho8.setVisible(true);
+	}
+	
+	public static void bederatzigarrenLeihoa(Ostatua hartutakoOstatua, double prezioTot, Date sartzeData,
+			Date irtetzeData, String nan, int logelaTot, Promozioa promHartu) {
+		Leiho9Ordaindu Leiho9 = new Leiho9Ordaindu(prezioTot, hartutakoOstatua, sartzeData, irtetzeData, nan, logelaTot, promHartu);
+		Leiho9.setVisible(true);
+	}
+
+	
+	public static void hamargarrenLeihoa(Ostatua hartutakoOstatua, Date sartzeData, Date irtetzeData,
+			double prezioTot, String nan, int logelaTot) {
+		Leiho10Ticket Leiho10 = new Leiho10Ticket(hartutakoOstatua, sartzeData, irtetzeData, prezioTot, nan, logelaTot);
+		Leiho10.setVisible(true);
 	}
 
 	// Leiho6-ko metodoak

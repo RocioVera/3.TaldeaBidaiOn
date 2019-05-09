@@ -37,7 +37,7 @@ public class Leiho3HotelDatuak extends JFrame {
 	private double prezioTot = 0.00;
 	private int gelaLibreak, logelaKant, lehenengoAldia, logelaTot;
 
-	public Leiho3HotelDatuak(Ostatua hartutakoOstatua, Date dataSartze, Date dataIrtetze) {
+	public Leiho3HotelDatuak(Ostatua hartutakoOstatua, java.util.Date dataSartze, java.util.Date dataIrtetze) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		this.setBounds(350, 50, 600, 600);
 		this.setResizable(false); // neurketak ez aldatzeko
@@ -50,7 +50,6 @@ public class Leiho3HotelDatuak extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				for (int i = 0; i < oheGelaHotela.size(); i++) {
-					System.out.println(i);
 					logelaTot = logelaTot + (int) table.getValueAt(i, 4);
 				}
 

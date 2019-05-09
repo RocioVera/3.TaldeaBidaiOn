@@ -6,7 +6,7 @@ public class Bezeroa extends Pertsona {
 
 	private int erreserba_kop;
 
-	public Bezeroa(String nan, String izena, String abizenak, Date jaiotzeData, String pasahitza, int erreserba_kop) {
+	public Bezeroa(String nan, String izena, String abizenak, String jaiotzeData, String pasahitza, int erreserba_kop) {
 		super(nan, izena, abizenak, jaiotzeData, pasahitza);
 		this.erreserba_kop = erreserba_kop;
 	}
