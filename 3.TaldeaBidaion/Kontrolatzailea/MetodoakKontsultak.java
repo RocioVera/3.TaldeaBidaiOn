@@ -244,6 +244,11 @@ public class MetodoakKontsultak {
 	}
 
 	// Leiho9Ordaindu
+	
+	public static void erreserbaGordeMet(int ostatuKod, String nan, int pertsonaKop, double prezioTot, String pentsioMota) {
+		Kontsultak.erreserbaGorde(ostatuKod, nan, pertsonaKop, prezioTot, pertsonaKop, pentsioMota);
+	}
+	
 	public static void promozioaErabilitaMet(Promozioa promozioa) {
 		Kontsultak.promozioaErabilita(promozioa);
 	}

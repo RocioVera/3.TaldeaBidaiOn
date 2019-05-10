@@ -40,39 +40,39 @@ public class MetodoakLeihoAldaketa {
 	}
 
 	public static void bostgarrenLeihoa(Ostatua hartutakoOstatua, double prezioTot, Date sartzeData,
-			Date irtetzeData, int logelaTot,  int pertsonaKop) {
-		Leiho5Login Leiho5 = new Leiho5Login(hartutakoOstatua, prezioTot, sartzeData, irtetzeData,logelaTot, pertsonaKop);
+			Date irtetzeData, int logelaTot,  int pertsonaKop, String pentsioMota) {
+		Leiho5Login Leiho5 = new Leiho5Login(hartutakoOstatua, prezioTot, sartzeData, irtetzeData,logelaTot, pertsonaKop, pentsioMota);
 		Leiho5.setVisible(true);
 	}
 
 	public static void seigarrenLeihoa(Ostatua hartutakoOstatua, double prezioTot, Date sartzeData,
-			Date irtetzeData, int logelaTot,  int pertsonaKop) {
-		Leiho6Erregistratu Leiho6 = new Leiho6Erregistratu(hartutakoOstatua, prezioTot, sartzeData, irtetzeData, logelaTot, pertsonaKop);
+			Date irtetzeData, int logelaTot,  int pertsonaKop, String pentsioMota) {
+		Leiho6Erregistratu Leiho6 = new Leiho6Erregistratu(hartutakoOstatua, prezioTot, sartzeData, irtetzeData, logelaTot, pertsonaKop, pentsioMota);
 		Leiho6.setVisible(true);
 	}
 	
 	public static void zazpigarrenLeihoa(Ostatua hartutakoOstatua, double prezioTot, Date sartzeData,
-			Date irtetzeData, String nan, int logelaTot, int pertsonaKop) {
-		Leiho7BaseLegalak Leiho7 = new Leiho7BaseLegalak(prezioTot, hartutakoOstatua, sartzeData, irtetzeData, nan, logelaTot, pertsonaKop);
+			Date irtetzeData, String nan, int logelaTot, int pertsonaKop, String pentsioMota) {
+		Leiho7BaseLegalak Leiho7 = new Leiho7BaseLegalak(prezioTot, hartutakoOstatua, sartzeData, irtetzeData, nan, logelaTot, pertsonaKop, pentsioMota);
 		Leiho7.setVisible(true);
 	}
 
 	public static void zortzigarrenLeihoa(Ostatua hartutakoOstatua, double prezioTot, Date sartzeData,
-			Date irtetzeData, String nan, int logelaTot, int pertsonaKop) {
-		Leiho8KodePromozionalak Leiho8 = new Leiho8KodePromozionalak(prezioTot, hartutakoOstatua, sartzeData, irtetzeData, nan, logelaTot, pertsonaKop);
+			Date irtetzeData, String nan, int logelaTot, int pertsonaKop, String pentsioMota) {
+		Leiho8KodePromozionalak Leiho8 = new Leiho8KodePromozionalak(prezioTot, hartutakoOstatua, sartzeData, irtetzeData, nan, logelaTot, pertsonaKop, pentsioMota);
 		Leiho8.setVisible(true);
 	}
 	
 	public static void bederatzigarrenLeihoa(Ostatua hartutakoOstatua, double prezioTot, Date sartzeData,
-			Date irtetzeData, String nan, int logelaTot, Promozioa promHartu, int pertsonaKop) {
-		Leiho9Ordaindu Leiho9 = new Leiho9Ordaindu(prezioTot, hartutakoOstatua, sartzeData, irtetzeData, nan, logelaTot, promHartu, pertsonaKop);
+			Date irtetzeData, String nan, int logelaTot, Promozioa promHartu, int pertsonaKop, String pentsioMota) {
+		Leiho9Ordaindu Leiho9 = new Leiho9Ordaindu(prezioTot, hartutakoOstatua, sartzeData, irtetzeData, nan, logelaTot, promHartu, pertsonaKop, pentsioMota);
 		Leiho9.setVisible(true);
 	}
 
 	
 	public static void hamargarrenLeihoa(Ostatua hartutakoOstatua, Date sartzeData, Date irtetzeData,
-			double prezioTot, String nan, int logelaTot, int pertsonaKop) {
-		Leiho10Ticket Leiho10 = new Leiho10Ticket(hartutakoOstatua, sartzeData, irtetzeData, prezioTot, nan, logelaTot, pertsonaKop);
+			double prezioTot, String nan, int logelaTot, int pertsonaKop, String pentsioMota) {
+		Leiho10Ticket Leiho10 = new Leiho10Ticket(hartutakoOstatua, sartzeData, irtetzeData, prezioTot, nan, logelaTot, pertsonaKop, pentsioMota);
 		Leiho10.setVisible(true);
 	}
 

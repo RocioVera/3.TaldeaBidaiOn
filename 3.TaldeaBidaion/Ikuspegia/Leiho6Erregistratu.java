@@ -30,7 +30,7 @@ public class Leiho6Erregistratu extends JFrame {
 	private char letra;
 
 	public Leiho6Erregistratu(Ostatua hartutakoOstatua, double prezioTot, java.util.Date sartzeData,
-			java.util.Date irtetzeData, int logelaTot, int pertsonaKop) {
+			java.util.Date irtetzeData, int logelaTot, int pertsonaKop, String pentsioMota) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
@@ -42,7 +42,7 @@ public class Leiho6Erregistratu extends JFrame {
 		btn_prev.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoOstatua, prezioTot, sartzeData, irtetzeData, logelaTot, pertsonaKop);
+				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoOstatua, prezioTot, sartzeData, irtetzeData, logelaTot, pertsonaKop, pentsioMota);
 				dispose();
 			}
 		});
@@ -201,7 +201,7 @@ public class Leiho6Erregistratu extends JFrame {
 						txtJaioData.setEnabled(false);
 					} else {
 						MetodoakLeihoAldaketa.zazpigarrenLeihoa(hartutakoOstatua, prezioTot, sartzeData, irtetzeData,
-								nan, logelaTot, pertsonaKop);
+								nan, logelaTot, pertsonaKop, pentsioMota);
 						dispose();
 
 					}

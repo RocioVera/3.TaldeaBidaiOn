@@ -4,12 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 import Kontrolatzailea.*;
 import java.awt.event.*;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
-
-import com.toedter.calendar.*;
 
 public class Leiho8KodePromozionalak extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -24,7 +19,7 @@ public class Leiho8KodePromozionalak extends JFrame {
 	private ArrayList<Promozioa> promArray = new ArrayList<Promozioa>();
 	
 	public Leiho8KodePromozionalak(double prezioTot, Ostatua hartutakoOstatua, java.util.Date sartzeData,
-			java.util.Date irtetzeData, String nan, int logelaTot, int pertsonaKop) {
+			java.util.Date irtetzeData, String nan, int logelaTot, int pertsonaKop, String pentsioMota) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
@@ -41,7 +36,7 @@ public class Leiho8KodePromozionalak extends JFrame {
 						promHartu = promArray.get(comboBox.getSelectedIndex()-1);
 
 				MetodoakLeihoAldaketa.bederatzigarrenLeihoa(hartutakoOstatua, prezioTot, sartzeData, irtetzeData, nan,
-						logelaTot, promHartu, pertsonaKop);
+						logelaTot, promHartu, pertsonaKop, pentsioMota);
 				dispose();
 			}
 		});

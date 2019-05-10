@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import Kontrolatzailea.*;
 
@@ -572,7 +573,80 @@ public class Kontsultak {
 		return arrayBezeroak;
 	}
 
+	
+	
+	
 	// Leiho9Ordaindu
+	public static void baseLegalakIgo(int erreserbaKod) {
+		LocalDateTime gaurordua = LocalDateTime.now();
+		Date gaurData = Date.valueOf(LocalDate.now());
+
+		int orduak = gaurordua.getHour();
+		int minutuak = gaurordua.getMinute();
+		int segunduak = gaurordua.getSecond();
+		
+		String gaurOrduOsoa = orduak+":"+minutuak+":"+segunduak;
+
+		Connection konexioa = Konexioa.getConexion();
+		try {
+			PreparedStatement st = konexioa
+					.prepareStatement("INSERT INTO `legeaonartu`(`erreserbaKod`, `data`, `ordua`)"
+							+ " VALUES(?, ?, ?)");
+			st.setInt(1, erreserbaKod);
+			st.setDate(2, gaurData);
+			st.setString(3, gaurOrduOsoa);
+
+
+			st.executeUpdate();
+			st.close();
+		} catch (SQLException e) {
+			System.out.println("Ez da gehitu legea");
+		}
+	}
+	
+	//SELECT count(*) FROM `erreserba`
+	public static int promozioakBilatu() {
+		Statement st = null;
+		Connection konexioa = Konexioa.getConexion();
+		int zenbaErreserba = 0;
+
+		try {
+			st = konexioa.createStatement();
+			ResultSet rs = st.executeQuery(
+					"SELECT count(*) FROM `erreserba`");
+			while (rs.next()) {
+				zenbaErreserba = (rs.getInt("count(*)"));
+			}
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return zenbaErreserba;
+	}
+	
+	public static void erreserbaGorde(int ostatuKod, String nan, int pertsonaKop, double prezioTot, int gelaTot, String pentsioMota) {
+		Connection konexioa = Konexioa.getConexion();
+		try {
+			PreparedStatement st = konexioa
+					.prepareStatement("INSERT INTO `legeaonartu`(`ostatu_ostatu_id`, `bezeroa_nan`, `pertsona_kopuru`, `prezio_totala`, `erreserbaGela_kopuru`, `pentsio_mota`)"
+							+ " VALUES(?, ?, ?, ?, ?, ?)");
+			st.setInt(1, ostatuKod);
+			st.setString(2, nan);
+			st.setInt(3, pertsonaKop);
+			st.setDouble(4, prezioTot);
+			st.setInt(5, gelaTot);
+			st.setString(6, pentsioMota);
+
+			st.executeUpdate();
+			st.close();
+		} catch (SQLException e) {
+			System.out.println("Ez da gehitu erreserbaigo");
+		}
+	}
+	
+	
+	
 	public static void promozioaErabilita(Promozioa promozioa) {
 		Connection konexioa = Konexioa.getConexion();
 		try {

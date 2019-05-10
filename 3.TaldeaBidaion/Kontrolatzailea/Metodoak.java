@@ -66,7 +66,25 @@ public class Metodoak {
 
 	
 	//
-	public static ArrayList<ZerbitzuGehigarriak> zerbGehiMet(Ostatua hartutakoOstatua) {
+	public static ArrayList<Ostatua> ostatuakSortu(ArrayList<Hotela> arrayHotela, ArrayList<Etxea> arrayEtxea, ArrayList<Apartamentua> arrayApartamentua) {
+		ArrayList<Ostatua> arrayOstatua= new ArrayList<Ostatua>();
+		
+		for (Hotela h : arrayHotela) {
+			arrayOstatua.add(h);
+		}
+		
+		// etxeak gehitu
+		for (Etxea e : arrayEtxea) {
+			arrayOstatua.add(e);
+		}
+		
+		// apartamentuak gehitu
+		for (Apartamentua a : arrayApartamentua) {
+			arrayOstatua.add(a);
+		}
+		
+		return arrayOstatua;
+		
 	}
 	
 	
@@ -272,7 +290,7 @@ public class Metodoak {
 	}
 
 	public static void fitxIdatzi(Ostatua hartutakoOstatua, Date sartzeData, Date irtetzeData, double prezioTot,
-			String nan, int logelaTot, int pertsonaKop) {
+			String nan, int logelaTot, int pertsonaKop, String pentsioMota) {
 		FileWriter fitx = null;
 		PrintWriter pw = null;
 		String ostatuIzena = hartutakoOstatua.getIzena();
@@ -282,6 +300,9 @@ public class Metodoak {
 			pw = new PrintWriter(fitx);
 
 			pw.println("Prezioa: " + prezioTot + " €" + "\nBezeroaren datuak:");
+			if (pentsioMota!=null)
+				pw.println("Pentsio mota: " + pentsioMota + "");
+
 			pw.println("     Nan: " + nan + "\nIzena: \n     Hartutako ostatua: " + ostatuIzena + "\t");
 			if (hartutakoOstatua.getOstatuMota().equals("H"))
 				pw.println("     Logela Totala: "+ logelaTot);

@@ -2,6 +2,10 @@ package Ikuspegia;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import javax.swing.*;
 
 
@@ -16,6 +20,7 @@ public class Leiho1OngiEtorria extends JFrame {
  * @author talde1
  */
 	public Leiho1OngiEtorria() {
+	
 		//panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png")); 
 		getContentPane().setLayout(null);

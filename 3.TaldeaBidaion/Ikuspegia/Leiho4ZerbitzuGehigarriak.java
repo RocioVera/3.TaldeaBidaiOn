@@ -38,7 +38,7 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoOstatua, prezioTot, dataSartze, dataIrtetze, logelaTot, pertsonaKop);
+				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoOstatua, prezioTot, dataSartze, dataIrtetze, logelaTot, pertsonaKop, cboxPentsioa.getSelectedItem()+"");
 				dispose();
 			}
 		});
@@ -117,8 +117,13 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		getContentPane().add(lblPentsioa);
 		
 		cboxPentsioa.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		cboxPentsioa.addItem("Pentsio gabe");
+		cboxPentsioa.addItem("erdia");
+		cboxPentsioa.addItem("osoa");
 		cboxPentsioa.setBounds(285, 162, 111, 20);
 		getContentPane().add(cboxPentsioa);
+		if (!hartutakoOstatua.getOstatuMota().equals("H"))
+			cboxPentsioa.setVisible(false);
 		
 		chckbxGozaria.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		chckbxGozaria.setBounds(245, 212, 97, 23);

@@ -70,7 +70,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 	private JComboBox cbHerria;
 	private JTable table;
 	private JScrollPane scrollPane;
-	private String[] hotelaBerria = new String[3], etxeBerria = new String[3], apartamentuBerria = new String[3];
+	private String[] hotelaBerria = new String[3], etxeBerria = new String[3], apartamentuBerria = new String[3], ostatuBerria = new String[3];
 
 	public Leiho2AukeratuOstatu() {
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
@@ -85,14 +85,14 @@ public class Leiho2AukeratuOstatu extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				hartutakoLerroa = table.getSelectedRow();
+				hartutakoOstatua = arrayOstatua.get(hartutakoLerroa);
+				
 				if (modelo.getValueAt(hartutakoLerroa, 1) == "Hotela") {
-					hartutakoOstatua = arrayHotela.get(hartutakoLerroa);
 					MetodoakLeihoAldaketa.hirugarrenLeihoaHotelak(hartutakoOstatua, dataSartze, dataIrtetze);
 					dispose();
 
 				} else if (modelo.getValueAt(hartutakoLerroa, 1) == "Etxea") {
-					hartutakoLerroa = hartutakoLerroa - arrayHotela.size();
-					hartutakoOstatua = arrayEtxea.get(hartutakoLerroa);
+
 					// prezioaKalkulatu
 					prezioTot = MetodoakKontsultak.etxearenPrezioaAtera(hartutakoOstatua.getIzena());
 					prezioTot = Metodoak.prezioTotalaGauekin(dataSartze, dataIrtetze, prezioTot);
@@ -101,8 +101,6 @@ public class Leiho2AukeratuOstatu extends JFrame {
 					MetodoakLeihoAldaketa.hirugarrenLeihoaEtxeak(hartutakoOstatua, prezioTot, dataSartze, dataIrtetze);
 					dispose();
 				} else if (modelo.getValueAt(hartutakoLerroa, 1) == "Apartamentua") {
-					hartutakoLerroa = hartutakoLerroa - arrayHotela.size() - arrayEtxea.size();
-					hartutakoOstatua = arrayApartamentua.get(hartutakoLerroa);
 					// prezioaKalkulatu
 					prezioTot = MetodoakKontsultak.etxearenPrezioaAtera(hartutakoOstatua.getIzena());
 					prezioTot = Metodoak.prezioTotalaGauekin(dataSartze, dataIrtetze, prezioTot);
@@ -290,58 +288,41 @@ public class Leiho2AukeratuOstatu extends JFrame {
 				dataSartze = dchSartzeData.getDate();
 				dataIrtetze = dchIrtetzeData.getDate();
 
-				// hotelak gehitu
+				// hotelak 
 				arrayHotela = MetodoakKontsultak.hotelakAtera((String) cbHerria.getSelectedItem(), dataSartze,
 						dataIrtetze);
-				
-				arrayOstatu = Metodoak.
-				
-				for (Hotela h : arrayHotela) {
-					ostatuIzen = ((Hotela) h).getIzena();
-					ostatuMota = "Hotela";
-
-					prezioa = MetodoakKontsultak.hotelarenPrezioaAtera(ostatuIzen) + " €";
-
-					hotelaBerria[0] = ostatuIzen;
-					hotelaBerria[1] = ostatuMota;
-					hotelaBerria[2] = prezioa;
-					modelo.addRow(hotelaBerria);
-
-				}
-				// etxeak gehitu
-				arrayEtxea = MetodoakKontsultak.etxeakAtera((String) cbHerria.getSelectedItem(), dataIrtetze,
-						dataIrtetze);
-				for (Etxea e1 : arrayEtxea) {
-					ostatuIzen = e1.getIzena();
-					ostatuMota = "Etxea";
-
-
-					prezioa = MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen) + " €";
-
-					etxeBerria[0] = ostatuIzen;
-					etxeBerria[1] = ostatuMota;
-					etxeBerria[2] = prezioa;
-					modelo.addRow(etxeBerria);
-				}
-
-				table.setModel(modelo);
-				btnBilatu.setVisible(false);
-
-				// apartamentuak gehitu
+				// apartamentuak 
 				arrayApartamentua = MetodoakKontsultak.apartamentuakAtera((String) cbHerria.getSelectedItem(),
 						dataIrtetze, dataIrtetze);
-				for (Apartamentua a : arrayApartamentua) {
-					ostatuIzen = a.getIzena();
-					ostatuMota = "Apartamentua";
+				// etxeak 
+				arrayEtxea = MetodoakKontsultak.etxeakAtera((String) cbHerria.getSelectedItem(), dataIrtetze,
+						dataIrtetze);
+				
+				arrayOstatua = Metodoak.ostatuakSortu(arrayHotela, arrayEtxea, arrayApartamentua);
 
-					prezioa = MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen) + " €";
+				for (Ostatua o : arrayOstatua) {
+					ostatuIzen = o.getIzena();
+					
+					if (o.getOstatuMota().equals("H")) {
+						ostatuMota = "Hotela";
+						prezioa = MetodoakKontsultak.hotelarenPrezioaAtera(ostatuIzen) + " €";
+					}
+					else if (o.getOstatuMota().equals("E")) {
+						ostatuMota = "Etxea";
+						prezioa = MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen) + " €";
 
-					apartamentuBerria[0] = ostatuIzen;
-					apartamentuBerria[1] = ostatuMota;
-					apartamentuBerria[2] = prezioa;
-					modelo.addRow(apartamentuBerria);
+					}
+					else if (o.getOstatuMota().equals("A")) {
+						ostatuMota = "Apartamentua";
+						prezioa = MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen) + " €";
+					}
+
+					ostatuBerria[0] = ostatuIzen;
+					ostatuBerria[1] = ostatuMota;
+					ostatuBerria[2] = prezioa;
+					modelo.addRow(ostatuBerria);
 				}
-
+				
 				table.setModel(modelo);
 				btnBilatu.setVisible(false);
 
