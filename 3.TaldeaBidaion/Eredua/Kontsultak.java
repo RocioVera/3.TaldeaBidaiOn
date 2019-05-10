@@ -131,6 +131,9 @@ public class Kontsultak {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+		for (Apartamentua a : arrayApartamentua) {
+			System.out.println(a.getOstatuKod()+"apa");
+		}
 		return arrayApartamentua;
 	}
 

@@ -24,6 +24,7 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 	private JButton btn_next = new JButton("Hurrengoa"), btn_prev = new JButton("Atzera"),
 			restart = new JButton("\u2302");
 	private ArrayList<HartutakoOstatuarenZerbitzuak> zerbitzuArray = new ArrayList<HartutakoOstatuarenZerbitzuak>();
+	private JList zerbLista;
 
 	public Leiho4ZerbitzuGehigarriak(Ostatua hartutakoOstatua, double prezioTot, Date dataSartze, Date dataIrtetze, int logelaTot, int pertsonaKop) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
@@ -174,24 +175,28 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		chckbxGimnasioa.setVisible(false);
 		getContentPane().add(chckbxGimnasioa);
 		
+		zerbLista = new JList();
+		zerbLista.setBounds(38, 299, 508, 179);
+		getContentPane().add(zerbLista);
+		
 		zerbitzuArray=MetodoakKontsultak.zerbitzuakOstatuanMet(hartutakoOstatua);
 		for (HartutakoOstatuarenZerbitzuak zerb : zerbitzuArray) {
 			if (zerb.getIzena().equals("wifi"))
-				chckbxWifi.setVisible(true);
+				zerbLista.add(chckbxWifi);
 			if (zerb.getIzena().equals("igerilekua"))
-				chckbxIgerilekua.setVisible(true);		
+				zerbLista.add(chckbxIgerilekua);		
 			if (zerb.getIzena().equals("spa"))
-				chckbxSpa.setVisible(true);
+				zerbLista.add(chckbxSpa);
 			if (zerb.getIzena().equals("aparkalekua"))
-				chckbxParking.setVisible(true);
+				zerbLista.add(chckbxParking);
 			if (zerb.getIzena().equals("aire girotua"))
-				chckbxAireGirotua.setVisible(true);
+				zerbLista.add(chckbxAireGirotua);
 			if (zerb.getIzena().equals("jatetxea"))
-				chckbxJatetxea.setVisible(true);
+				zerbLista.add(chckbxJatetxea);
 			if (zerb.getIzena().equals("taberna"))
-				chckbxTaberna.setVisible(true);
+				zerbLista.add(chckbxTaberna);
 			if (zerb.getIzena().equals("gimnasioa"))
-				chckbxGimnasioa.setVisible(true);
+				zerbLista.add(chckbxGimnasioa);
 			
 		}
 		

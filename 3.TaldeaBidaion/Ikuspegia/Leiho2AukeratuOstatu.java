@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Iterator;
 
 import javax.swing.*;
@@ -37,20 +38,19 @@ public class Leiho2AukeratuOstatu extends JFrame {
 	private JRadioButton chckbxmntmPrezioa = new JRadioButton("Prezioa"),
 			chckbxmntmAlfabetoa = new JRadioButton("Alfabetoa"),
 			chckbxmntmErreserbaKopurua = new JRadioButton("Erreserba kopurua  ");
-	//zerbitzuak
+	// zerbitzuak
 	private JMenu mnZerbitzuak = new JMenu("        Zerbitzuak            ");
 
-	
-	//taldeak
+	// taldeak
 	private ButtonGroup izarkopGroup, ostatuMotaGroup, ordenatuGroup;
-	
+
 	private JDateChooser dchSartzeData = new JDateChooser(), dchIrtetzeData = new JDateChooser();
 	private JTextFieldDateEditor dataEzEditatu; // kentzeko eskuz sartu ahal izana
 	private JLabel lblSartzeData = new JLabel("Sartze data"), lblIrtetzeData = new JLabel("Irtetze data"), lblGogoratu;
 	private java.util.Date dataIrtetze, dataSartze;
 	private JButton btn_next = new JButton("Hurrengoa"), restart = new JButton("\u2302"),
 			btnBilatu = new JButton("Bilatu");
-	
+
 	private ArrayList<Hotela> arrayHotela;
 	private ArrayList<Etxea> arrayEtxea;
 	private ArrayList<Apartamentua> arrayApartamentua;
@@ -70,7 +70,8 @@ public class Leiho2AukeratuOstatu extends JFrame {
 	private JComboBox cbHerria;
 	private JTable table;
 	private JScrollPane scrollPane;
-	private String[] hotelaBerria = new String[3], etxeBerria = new String[3], apartamentuBerria = new String[3], ostatuBerria = new String[3];
+	private String[] hotelaBerria = new String[3], etxeBerria = new String[3], apartamentuBerria = new String[3],
+			ostatuBerria = new String[3];
 
 	public Leiho2AukeratuOstatu() {
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
@@ -86,7 +87,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				hartutakoLerroa = table.getSelectedRow();
 				hartutakoOstatua = arrayOstatua.get(hartutakoLerroa);
-				
+
 				if (modelo.getValueAt(hartutakoLerroa, 1) == "Hotela") {
 					MetodoakLeihoAldaketa.hirugarrenLeihoaHotelak(hartutakoOstatua, dataSartze, dataIrtetze);
 					dispose();
@@ -131,10 +132,11 @@ public class Leiho2AukeratuOstatu extends JFrame {
 
 		// Jmenua izar kopurua
 		this.setJMenuBar(menuBar);
+		/*
+		 * mnOstatuMota.setEnabled(false); mnIzarKopurua.setEnabled(false);
+		 * mnOrdenatu.setEnabled(false);
+		 */
 
-	
-		
-		
 		// ostatu mota
 		mnOstatuMota.setFont(new Font("Verdana", Font.PLAIN, 16));
 		menuBar.add(mnOstatuMota);
@@ -287,32 +289,70 @@ public class Leiho2AukeratuOstatu extends JFrame {
 					modelo.removeRow(i);
 				dataSartze = dchSartzeData.getDate();
 				dataIrtetze = dchIrtetzeData.getDate();
-
-				// hotelak 
+				// hotelak
 				arrayHotela = MetodoakKontsultak.hotelakAtera((String) cbHerria.getSelectedItem(), dataSartze,
 						dataIrtetze);
-				// apartamentuak 
+				// apartamentuak
 				arrayApartamentua = MetodoakKontsultak.apartamentuakAtera((String) cbHerria.getSelectedItem(),
 						dataIrtetze, dataIrtetze);
-				// etxeak 
+				// etxeak
 				arrayEtxea = MetodoakKontsultak.etxeakAtera((String) cbHerria.getSelectedItem(), dataIrtetze,
 						dataIrtetze);
-				
 				arrayOstatua = Metodoak.ostatuakSortu(arrayHotela, arrayEtxea, arrayApartamentua);
 
-				for (Ostatua o : arrayOstatua) {
-					ostatuIzen = o.getIzena();
+				//ostatu mota filtroa
+				if (!chckbxmntmApartamentua.isSelected()) {
+					for (Apartamentua u : arrayApartamentua) {
+						u.setIzena("");
+					}
+				}
+				if (!chckbxmntmEtxea.isSelected()) {
+					for (Etxea a : arrayEtxea) {
+						a.setIzena("");
+					}
+				}
+				if (!chckbxmntmHotela.isSelected()) {
+					for (Hotela l : arrayHotela) {
+						l.setIzena("");
+					}
+				}
+				
+				//ordenatu filtroa
+				if (chckbxmntmErreserbaKopurua.isSelected()) {
+					for(int i = 0; i < arrayOstatua.size(); i++)
+			        {
+			            for(int j = 0; j < arrayOstatua.size() - 1; j++)
+			            {
+			                if (arrayOstatua.get(j).getErreserbaKop() < arrayOstatua.get(j+1).getErreserbaKop())
+			                {
+			                    int tmp = arrayOstatua.get(j+1).getErreserbaKop();
+			                    arrayOstatua.get(j+1).setErreserbaKop(arrayOstatua.get(j).getErreserbaKop());;
+			                    arrayOstatua.get(j).setErreserbaKop(tmp);
+			                }
+			            }
+			        }
+				}
+				if (chckbxmntmAlfabetoa.isSelected()) {
+					/*for (Ostatua o : arrayOstatua) {
+						Collections.sort(o.getIzena());
+					}*/
+				}
+				if (chckbxmntmPrezioa.isSelected()) {
 					
+				}
+				
+				for (Ostatua o : arrayOstatua) {
+					boolean utzik = false;
+					ostatuIzen = o.getIzena();
+
 					if (o.getOstatuMota().equals("H")) {
 						ostatuMota = "Hotela";
 						prezioa = MetodoakKontsultak.hotelarenPrezioaAtera(ostatuIzen) + " €";
-					}
-					else if (o.getOstatuMota().equals("E")) {
+					} else if (o.getOstatuMota().equals("E")) {
 						ostatuMota = "Etxea";
 						prezioa = MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen) + " €";
 
-					}
-					else if (o.getOstatuMota().equals("A")) {
+					} else if (o.getOstatuMota().equals("A")) {
 						ostatuMota = "Apartamentua";
 						prezioa = MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen) + " €";
 					}
@@ -320,9 +360,17 @@ public class Leiho2AukeratuOstatu extends JFrame {
 					ostatuBerria[0] = ostatuIzen;
 					ostatuBerria[1] = ostatuMota;
 					ostatuBerria[2] = prezioa;
-					modelo.addRow(ostatuBerria);
+					for (String s : ostatuBerria) {
+						if (s.equals("")) {
+							utzik = true;
+						}
+					}
+					if (!utzik) {
+						modelo.addRow(ostatuBerria);
+					}
 				}
-				
+
+				mnOstatuMota.setEnabled(true);
 				table.setModel(modelo);
 				btnBilatu.setVisible(false);
 
