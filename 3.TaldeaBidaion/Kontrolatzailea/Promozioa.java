@@ -1,15 +1,27 @@
 package Kontrolatzailea;
 
+import java.util.Date;
+
 public class Promozioa {
 	private String bezeroNan, zergatia;
 	private double prezioa; 
 	private int promozioKod;
+	private Date iraungitzeData;
 	
-	public Promozioa(int promozioKod, String zergatia, double prezioa) {
+	public Promozioa(String bezeroNan, String zergatia, double prezioa, int promozioKod, Date iraungitzeData) {
+		this.bezeroNan = bezeroNan;
 		this.zergatia = zergatia;
 		this.prezioa = prezioa;
 		this.promozioKod = promozioKod;
+		this.iraungitzeData = iraungitzeData;
 	}
+	public Promozioa(int promozioKod, String zergatia, double prezioa, Date iraungitzeData) {
+		this.zergatia = zergatia;
+		this.prezioa = prezioa;
+		this.promozioKod = promozioKod;
+		this.iraungitzeData = iraungitzeData;
+	}
+
 
 	public String getBezeroNan() {
 		return bezeroNan;
@@ -43,11 +55,18 @@ public class Promozioa {
 		this.promozioKod = promozioKod;
 	}
 
-	@Override
-	public String toString() {
-		return "Promozioa [zergatia=" + zergatia + ", prezioa=" + prezioa + ", promozioKod=" + promozioKod + "]";
+	public Date getIraungitzeData() {
+		return iraungitzeData;
 	}
 
-
+	public void setIraungitzeData(Date iraungitzeData) {
+		this.iraungitzeData = iraungitzeData;
+	}
+	
+	@Override
+	public String toString() {
+		return "Promozioa [bezeroNan=" + bezeroNan + ", zergatia=" + zergatia + ", prezioa=" + prezioa
+				+ ", promozioKod=" + promozioKod + ", iraungitzeData=" + iraungitzeData + "]";
+	}
 
 }

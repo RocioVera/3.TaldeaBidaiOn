@@ -16,7 +16,7 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 	private JLabel lblPentsioa = new JLabel("Pentsioa:"),
 			lblZerbitzuak = new JLabel("Zerbitzu gehigarriak:");
 	private JComboBox cboxPentsioa = new JComboBox();
-	private JCheckBox chckbxGozaria = new JCheckBox("Gozaria"), chckbxWifi = new JCheckBox("Wifi"),
+	private JCheckBox chckbxGozaria = new JCheckBox("Gosaria"), chckbxWifi = new JCheckBox("Wifi"),
 			chckbxIgerilekua = new JCheckBox("Igerilekua"), chckbxSpa = new JCheckBox("Spa"),
 			chckbxParking = new JCheckBox("Parking"), chckbxAireGirotua = new JCheckBox("Aire girotua"),
 			chckbxJatetxea = new JCheckBox("Jatetxea"), chckbxTaberna = new JCheckBox("Taberna"),
@@ -25,7 +25,7 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 			restart = new JButton("\u2302");
 	private ArrayList<HartutakoOstatuarenZerbitzuak> zerbitzuArray = new ArrayList<HartutakoOstatuarenZerbitzuak>();
 
-	public Leiho4ZerbitzuGehigarriak(Ostatua hartutakoOstatua, double prezioTot, Date dataSartze, Date dataIrtetze, int logelaTot) {
+	public Leiho4ZerbitzuGehigarriak(Ostatua hartutakoOstatua, double prezioTot, Date dataSartze, Date dataIrtetze, int logelaTot, int pertsonaKop) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
 		this.setBounds(350, 50, 600, 600);
@@ -38,7 +38,7 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoOstatua, prezioTot, dataSartze, dataIrtetze, logelaTot);
+				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoOstatua, prezioTot, dataSartze, dataIrtetze, logelaTot, pertsonaKop);
 				dispose();
 			}
 		});
@@ -55,7 +55,7 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 				if (hartutakoOstatua.getOstatuMota().equals("H"))
 					MetodoakLeihoAldaketa.hirugarrenLeihoaHotelak(hartutakoOstatua, dataSartze, dataIrtetze);
 				else
-					MetodoakLeihoAldaketa.bigarrenLeihoa();
+					MetodoakLeihoAldaketa.hirugarrenLeihoaEtxeak(hartutakoOstatua, prezioTot, dataIrtetze, dataIrtetze);
 				dispose();
 			}
 		});
@@ -92,7 +92,7 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		txtPrezioa.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		txtPrezioa.setText(prezioTot+" €");
 		txtPrezioa.setEditable(false);
-		txtPrezioa.setBounds(274, 70, 57, 20);
+		txtPrezioa.setBounds(274, 70, 136, 20);
 		txtPrezioa.setColumns(10);
 		getContentPane().add(txtPrezioa);
 		

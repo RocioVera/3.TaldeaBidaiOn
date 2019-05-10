@@ -14,7 +14,7 @@ public class Leiho10Ticket extends JFrame {
 	private JTextArea txtTiket;
 
 	public Leiho10Ticket(Ostatua hartutakoOstatua, Date sartzeData, Date irtetzeData, double prezioTot, String nan,
-			int logelaTot) {
+			int logelaTot, int pertsonaKop) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);

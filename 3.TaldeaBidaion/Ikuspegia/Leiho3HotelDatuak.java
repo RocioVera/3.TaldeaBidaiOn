@@ -13,7 +13,7 @@ import Kontrolatzailea.*;
 import javax.swing.table.*;
 
 public class Leiho3HotelDatuak extends JFrame {
-	public static gelaMota_ohe_hotela h2;
+	public static gelaMota_ohe_ostatu h2;
 	private static final long serialVersionUID = 1L;
 	private JLabel lblIzena = new JLabel(""),
 			lblJarriNahiLogela = new JLabel("Jarri nahi logela mota honen nahi dituzun logela kantitatea"),
@@ -32,10 +32,10 @@ public class Leiho3HotelDatuak extends JFrame {
 	private JTextField txtPrezioa;
 	private JComboBox<Integer> cblibreKant = new JComboBox();;
 
-	private ArrayList<gelaMota_ohe_hotela> oheGelaHotela;
+	private ArrayList<gelaMota_ohe_ostatu> oheGelaHotela;
 	private String ohe_kopuru, sinplea, bikoitza, umeak, prezioa;
 	private double prezioTot = 0.00;
-	private int gelaLibreak, logelaKant, lehenengoAldia, logelaTot;
+	private int gelaLibreak, logelaKant, lehenengoAldia, logelaTot, pertsonaKop,sinpleKop,umeKop,bikoitzaKop;
 
 	public Leiho3HotelDatuak(Ostatua hartutakoOstatua, java.util.Date dataSartze, java.util.Date dataIrtetze) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
@@ -51,12 +51,16 @@ public class Leiho3HotelDatuak extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				for (int i = 0; i < oheGelaHotela.size(); i++) {
 					logelaTot = logelaTot + (int) table.getValueAt(i, 4);
+					sinpleKop+=oheGelaHotela.get(i).getSinplea()*(int) table.getValueAt(i, 4);
+					bikoitzaKop+=oheGelaHotela.get(i).getBikoitza()*(int) table.getValueAt(i, 4)*2;
+					umeKop +=oheGelaHotela.get(i).getUmeak()*(int) table.getValueAt(i, 4);
 				}
 
 				prezioTot = Metodoak.prezioTotalaGauekin(dataSartze, dataIrtetze, prezioTot);
 				prezioTot = prezioTot + MetodoakKontsultak.tarifaAldatuDatengatik(dataSartze, dataIrtetze) * logelaTot;
-
-				MetodoakLeihoAldaketa.laugarrenLeihoa(hartutakoOstatua, prezioTot, dataSartze, dataIrtetze, logelaTot);
+				pertsonaKop=sinpleKop+bikoitzaKop+umeKop;
+				
+				MetodoakLeihoAldaketa.laugarrenLeihoa(hartutakoOstatua, prezioTot, dataSartze, dataIrtetze, logelaTot,pertsonaKop);
 				dispose();
 			}
 		});
@@ -127,7 +131,7 @@ public class Leiho3HotelDatuak extends JFrame {
 
 		oheGelaHotela = MetodoakKontsultak.oheGelaHotelaDatuakMet(hartutakoOstatua.getOstatuKod());
 
-		for (gelaMota_ohe_hotela h : oheGelaHotela) {
+		for (gelaMota_ohe_ostatu h : oheGelaHotela) {
 
 			Object[] aux = new Object[5];
 
@@ -156,7 +160,7 @@ public class Leiho3HotelDatuak extends JFrame {
 						cblibreKant.removeItemAt(i);
 					}
 
-					gelaMota_ohe_hotela a = oheGelaHotela.get(table.getSelectedRow());
+					gelaMota_ohe_ostatu a = oheGelaHotela.get(table.getSelectedRow());
 
 					gelaLibreak = MetodoakKontsultak.gelaLibre(hartutakoOstatua, dataSartze, dataIrtetze,
 							a.getGela_kodea());
@@ -220,7 +224,7 @@ public class Leiho3HotelDatuak extends JFrame {
 
 		txtPrezioa = new JTextField();
 		txtPrezioa.setEditable(false);
-		txtPrezioa.setBounds(307, 335, 59, 22);
+		txtPrezioa.setBounds(307, 335, 99, 22);
 		txtPrezioa.setColumns(10);
 		txtPrezioa.setText(prezioTot + " €");
 		getContentPane().add(txtPrezioa);

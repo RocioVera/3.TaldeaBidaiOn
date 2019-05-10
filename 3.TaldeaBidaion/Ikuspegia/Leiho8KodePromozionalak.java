@@ -24,7 +24,7 @@ public class Leiho8KodePromozionalak extends JFrame {
 	private ArrayList<Promozioa> promArray = new ArrayList<Promozioa>();
 	
 	public Leiho8KodePromozionalak(double prezioTot, Ostatua hartutakoOstatua, java.util.Date sartzeData,
-			java.util.Date irtetzeData, String nan, int logelaTot) {
+			java.util.Date irtetzeData, String nan, int logelaTot, int pertsonaKop) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
@@ -36,11 +36,12 @@ public class Leiho8KodePromozionalak extends JFrame {
 		btn_next.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Promozioa promHartu=null;
-				if (promArray.size()>0)
-					promHartu = promArray.get(comboBox.getSelectedIndex()-1);
-				
+				if ( promArray.size()>0 )
+					if (comboBox.getSelectedIndex()!=0)
+						promHartu = promArray.get(comboBox.getSelectedIndex()-1);
+
 				MetodoakLeihoAldaketa.bederatzigarrenLeihoa(hartutakoOstatua, prezioTot, sartzeData, irtetzeData, nan,
-						logelaTot, promHartu);
+						logelaTot, promHartu, pertsonaKop);
 				dispose();
 			}
 		});
@@ -79,7 +80,6 @@ public class Leiho8KodePromozionalak extends JFrame {
 		for (Promozioa promozioa : promArray) {
 			comboBox.addItem(promozioa.getZergatia()+" (-"+promozioa.getPrezioa()+"€)");
 		}
-		
 
 		getContentPane().add(comboBox);
 

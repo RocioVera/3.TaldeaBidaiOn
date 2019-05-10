@@ -2,9 +2,10 @@ package Kontrolatzailea;
 
 public class GelaMotaEtxea {
 
-	private int etxeKod, gelaMota, kantitatea;
+	private int etxeKod, kantitatea, gelaKod;
+	private String gelaMota;
 
-	public GelaMotaEtxea(int etxeKod, int gelaMota, int kantitatea) {
+	public GelaMotaEtxea(int etxeKod, String gelaMota, int kantitatea) {
 		this.etxeKod = etxeKod;
 		this.gelaMota = gelaMota;
 		this.kantitatea = kantitatea;
@@ -14,15 +15,23 @@ public class GelaMotaEtxea {
 		return etxeKod;
 	}
 
+	public void setgelaKod(int gelaKod) {
+		this.gelaKod = gelaKod;
+	}
+	
+	public int getgelaKod() {
+		return gelaKod;
+	}
+
 	public void setEtxeKod(int etxeKod) {
 		this.etxeKod = etxeKod;
 	}
 
-	public int getGelaMota() {
+	public String getGelaMota() {
 		return gelaMota;
 	}
 
-	public void setGelaMota(int gelaMota) {
+	public void setGelaMota(String gelaMota) {
 		this.gelaMota = gelaMota;
 	}
 

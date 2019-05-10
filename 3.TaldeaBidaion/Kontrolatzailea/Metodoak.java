@@ -55,12 +55,6 @@ public class Metodoak {
 		return denboraldiAltuaKant;
 	}
 
-	/*
-	 * public static Date ParseFecha(String fecha) { SimpleDateFormat formato = new
-	 * SimpleDateFormat("dd/MM/yyyy"); Date fechaDate = null; try { fechaDate =
-	 * formato.parse(fecha); } catch (ParseException ex) { System.out.println(ex); }
-	 * return fechaDate; }
-	 */
 
 	public static double prezioTotalaGauekin(Date dataSartze, Date dataIrtetze, double prezioTot) {
 		// 86400000 milisegundo/egun
@@ -70,6 +64,12 @@ public class Metodoak {
 		return prezioTot;
 	}
 
+	
+	//
+	public static ArrayList<ZerbitzuGehigarriak> zerbGehiMet(Ostatua hartutakoOstatua) {
+	}
+	
+	
 	// Leiho4-ko metodoak
 	/**
 	 * 
@@ -272,19 +272,23 @@ public class Metodoak {
 	}
 
 	public static void fitxIdatzi(Ostatua hartutakoOstatua, Date sartzeData, Date irtetzeData, double prezioTot,
-			String nan, int logelaTot) {
+			String nan, int logelaTot, int pertsonaKop) {
 		FileWriter fitx = null;
 		PrintWriter pw = null;
-		String hotelaIzena = hartutakoOstatua.getIzena();
+		String ostatuIzena = hartutakoOstatua.getIzena();
 
 		try {
 			fitx = new FileWriter("eredua\\ErreserbaFitx", true);
 			pw = new PrintWriter(fitx);
 
 			pw.println("Prezioa: " + prezioTot + " €" + "\nBezeroaren datuak:");
-			pw.println("     Nan: " + nan + "\nIzena: \n     Hartutako hotela: " + hotelaIzena + "\t");
-			pw.println("     Logela Totala: "+ logelaTot);
+			pw.println("     Nan: " + nan + "\nIzena: \n     Hartutako ostatua: " + ostatuIzena + "\t");
+			if (hartutakoOstatua.getOstatuMota().equals("H"))
+				pw.println("     Logela Totala: "+ logelaTot);
+			pw.println("     Pertsona Kopurua: " + pertsonaKop + "\t Irtetze data: " + irtetzeData);
+
 			pw.println("     Sartze data: " + sartzeData + "\t Irtetze data: " + irtetzeData);
+
 			pw.println(
 					"******************************************************************************************************************************************");
 			pw.println("");

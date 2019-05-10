@@ -23,29 +23,38 @@ public class Leiho2AukeratuOstatu extends JFrame {
 	private JMenuBar menuBar = new JMenuBar();
 	// izarkopuru
 	private JMenu mnIzarKopurua = new JMenu("       Izar kopurua      ");
-	private JCheckBoxMenuItem chckbxmntmIzar_5 = new JCheckBoxMenuItem("5 Izar"),
-			chckbxmntmIzar_1 = new JCheckBoxMenuItem("4 Izar"), chckbxmntmIzar_2 = new JCheckBoxMenuItem("3 Izar"),
-			chckbxmntmIzar_3 = new JCheckBoxMenuItem("2 Izar"), chckbxmntmIzar_4 = new JCheckBoxMenuItem("1 Izar");
+	private JRadioButton chckbxmntmIzar_5 = new JRadioButton("  5 Izar"),
+			chckbxmntmIzar_1 = new JRadioButton("  4 Izar"), chckbxmntmIzar_2 = new JRadioButton("  3 Izar"),
+			chckbxmntmIzar_3 = new JRadioButton("  2 Izar"),
+			chckbxmntmIzar_4 = new JRadioButton("  1 Izar             ");
 	// ostatu mota
-	private JMenu mnOstatuMota = new JMenu("       Ostatu mota      ");
-	private JCheckBoxMenuItem chckbxmntmHotela = new JCheckBoxMenuItem("Hotela"),
-			chckbxmntmApartamentua = new JCheckBoxMenuItem("Apartamentua"),
-			chckbxmntmEtxea = new JCheckBoxMenuItem("Etxea");
+	private JMenu mnOstatuMota = new JMenu("       Ostatu mota        ");
+	private JRadioButton chckbxmntmHotela = new JRadioButton("Hotela"),
+			chckbxmntmApartamentua = new JRadioButton("Apartamentua       "),
+			chckbxmntmEtxea = new JRadioButton("Etxea");
 	// ordenatu
-	private JMenu mnOrdenatu = new JMenu("        Ordenatu       ");
-	private JCheckBoxMenuItem chckbxmntmPrezioa = new JCheckBoxMenuItem("Prezioa"),
-			chckbxmntmAlfabetoa = new JCheckBoxMenuItem("Alfabetoa"),
-			chckbxmntmErreserbaKopurua = new JCheckBoxMenuItem("Erreserba kopurua");
+	private JMenu mnOrdenatu = new JMenu("        Ordenatu            ");
+	private JRadioButton chckbxmntmPrezioa = new JRadioButton("Prezioa"),
+			chckbxmntmAlfabetoa = new JRadioButton("Alfabetoa"),
+			chckbxmntmErreserbaKopurua = new JRadioButton("Erreserba kopurua  ");
+	//zerbitzuak
+	private JMenu mnZerbitzuak = new JMenu("        Zerbitzuak            ");
 
+	
+	//taldeak
+	private ButtonGroup izarkopGroup, ostatuMotaGroup, ordenatuGroup;
+	
 	private JDateChooser dchSartzeData = new JDateChooser(), dchIrtetzeData = new JDateChooser();
 	private JTextFieldDateEditor dataEzEditatu; // kentzeko eskuz sartu ahal izana
 	private JLabel lblSartzeData = new JLabel("Sartze data"), lblIrtetzeData = new JLabel("Irtetze data"), lblGogoratu;
 	private java.util.Date dataIrtetze, dataSartze;
 	private JButton btn_next = new JButton("Hurrengoa"), restart = new JButton("\u2302"),
 			btnBilatu = new JButton("Bilatu");
+	
 	private ArrayList<Hotela> arrayHotela;
 	private ArrayList<Etxea> arrayEtxea;
 	private ArrayList<Apartamentua> arrayApartamentua;
+	private ArrayList<Ostatua> arrayOstatua;
 
 	private Ostatua hartutakoOstatua;
 	private Apartamentua hartutakoApartamentua;
@@ -80,26 +89,26 @@ public class Leiho2AukeratuOstatu extends JFrame {
 					hartutakoOstatua = arrayHotela.get(hartutakoLerroa);
 					MetodoakLeihoAldaketa.hirugarrenLeihoaHotelak(hartutakoOstatua, dataSartze, dataIrtetze);
 					dispose();
-					
+
 				} else if (modelo.getValueAt(hartutakoLerroa, 1) == "Etxea") {
-					hartutakoLerroa = hartutakoLerroa-arrayHotela.size();
+					hartutakoLerroa = hartutakoLerroa - arrayHotela.size();
 					hartutakoOstatua = arrayEtxea.get(hartutakoLerroa);
-					//prezioaKalkulatu
+					// prezioaKalkulatu
 					prezioTot = MetodoakKontsultak.etxearenPrezioaAtera(hartutakoOstatua.getIzena());
 					prezioTot = Metodoak.prezioTotalaGauekin(dataSartze, dataIrtetze, prezioTot);
 					prezioTot = prezioTot + MetodoakKontsultak.tarifaAldatuDatengatik(dataSartze, dataIrtetze);
 
-					MetodoakLeihoAldaketa.laugarrenLeihoa(hartutakoOstatua, prezioTot, dataSartze, dataIrtetze, 0);
+					MetodoakLeihoAldaketa.hirugarrenLeihoaEtxeak(hartutakoOstatua, prezioTot, dataSartze, dataIrtetze);
 					dispose();
 				} else if (modelo.getValueAt(hartutakoLerroa, 1) == "Apartamentua") {
-					hartutakoLerroa = hartutakoLerroa-arrayHotela.size()-arrayEtxea.size();
+					hartutakoLerroa = hartutakoLerroa - arrayHotela.size() - arrayEtxea.size();
 					hartutakoOstatua = arrayApartamentua.get(hartutakoLerroa);
-					//prezioaKalkulatu
+					// prezioaKalkulatu
 					prezioTot = MetodoakKontsultak.etxearenPrezioaAtera(hartutakoOstatua.getIzena());
 					prezioTot = Metodoak.prezioTotalaGauekin(dataSartze, dataIrtetze, prezioTot);
 					prezioTot = prezioTot + MetodoakKontsultak.tarifaAldatuDatengatik(dataSartze, dataIrtetze);
 
-					MetodoakLeihoAldaketa.laugarrenLeihoa(hartutakoOstatua, prezioTot, dataSartze, dataIrtetze, 0);
+					MetodoakLeihoAldaketa.hirugarrenLeihoaEtxeak(hartutakoOstatua, prezioTot, dataSartze, dataIrtetze);
 					dispose();
 				}
 			}
@@ -124,25 +133,10 @@ public class Leiho2AukeratuOstatu extends JFrame {
 
 		// Jmenua izar kopurua
 		this.setJMenuBar(menuBar);
-		mnIzarKopurua.setFont(new Font("Verdana", Font.PLAIN, 16));
-		menuBar.add(mnIzarKopurua);
 
-		// 1
-		mnIzarKopurua.add(chckbxmntmIzar_1);
-		chckbxmntmIzar_1.setFont(new Font("Verdana", Font.PLAIN, 16));
-		// 2
-		mnIzarKopurua.add(chckbxmntmIzar_2);
-		chckbxmntmIzar_2.setFont(new Font("Verdana", Font.PLAIN, 16));
-		// 3
-		mnIzarKopurua.add(chckbxmntmIzar_3);
-		chckbxmntmIzar_3.setFont(new Font("Verdana", Font.PLAIN, 16));
-		// 4
-		mnIzarKopurua.add(chckbxmntmIzar_4);
-		chckbxmntmIzar_4.setFont(new Font("Verdana", Font.PLAIN, 16));
-		// 5
-		mnIzarKopurua.add(chckbxmntmIzar_5);
-		chckbxmntmIzar_5.setFont(new Font("Verdana", Font.PLAIN, 16));
-
+	
+		
+		
 		// ostatu mota
 		mnOstatuMota.setFont(new Font("Verdana", Font.PLAIN, 16));
 		menuBar.add(mnOstatuMota);
@@ -163,6 +157,24 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		chckbxmntmAlfabetoa.setFont(new Font("Verdana", Font.PLAIN, 16));
 		mnOrdenatu.add(chckbxmntmErreserbaKopurua);
 		chckbxmntmErreserbaKopurua.setFont(new Font("Verdana", Font.PLAIN, 16));
+		mnIzarKopurua.setFont(new Font("Verdana", Font.PLAIN, 16));
+		menuBar.add(mnIzarKopurua);
+		// 4
+		mnIzarKopurua.add(chckbxmntmIzar_4);
+		chckbxmntmIzar_4.setFont(new Font("Verdana", Font.PLAIN, 16));
+		// 3
+		mnIzarKopurua.add(chckbxmntmIzar_3);
+		chckbxmntmIzar_3.setFont(new Font("Verdana", Font.PLAIN, 16));
+		// 2
+		mnIzarKopurua.add(chckbxmntmIzar_2);
+		chckbxmntmIzar_2.setFont(new Font("Verdana", Font.PLAIN, 16));
+
+		// 1
+		mnIzarKopurua.add(chckbxmntmIzar_1);
+		chckbxmntmIzar_1.setFont(new Font("Verdana", Font.PLAIN, 16));
+		// 5
+		mnIzarKopurua.add(chckbxmntmIzar_5);
+		chckbxmntmIzar_5.setFont(new Font("Verdana", Font.PLAIN, 16));
 
 		// Sartze data
 		lblSartzeData.setFont(new Font("Verdana", Font.PLAIN, 13));
@@ -281,12 +293,14 @@ public class Leiho2AukeratuOstatu extends JFrame {
 				// hotelak gehitu
 				arrayHotela = MetodoakKontsultak.hotelakAtera((String) cbHerria.getSelectedItem(), dataSartze,
 						dataIrtetze);
+				
+				arrayOstatu = Metodoak.
+				
 				for (Hotela h : arrayHotela) {
 					ostatuIzen = ((Hotela) h).getIzena();
 					ostatuMota = "Hotela";
-				//	prezioa = MetodoakKontsultak.tarifaAldatuDatengatik(MetodoakKontsultak.hotelarenPrezioaAtera(ostatuIzen), dataSartze, dataIrtetze)+" €";
 
-					prezioa = MetodoakKontsultak.hotelarenPrezioaAtera(ostatuIzen)+" €";
+					prezioa = MetodoakKontsultak.hotelarenPrezioaAtera(ostatuIzen) + " €";
 
 					hotelaBerria[0] = ostatuIzen;
 					hotelaBerria[1] = ostatuMota;
@@ -300,9 +314,9 @@ public class Leiho2AukeratuOstatu extends JFrame {
 				for (Etxea e1 : arrayEtxea) {
 					ostatuIzen = e1.getIzena();
 					ostatuMota = "Etxea";
-				//	prezioa = MetodoakKontsultak.tarifaAldatuDatengatik(MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen), dataSartze, dataIrtetze)+" €";
-					
-					prezioa = MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen)+" €";
+
+
+					prezioa = MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen) + " €";
 
 					etxeBerria[0] = ostatuIzen;
 					etxeBerria[1] = ostatuMota;
@@ -320,9 +334,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 					ostatuIzen = a.getIzena();
 					ostatuMota = "Apartamentua";
 
-					prezioa = MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen)+" €";
-
-					//prezioa = MetodoakKontsultak.tarifaAldatuDatengatik(MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen), dataSartze, dataIrtetze)+" €";
+					prezioa = MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen) + " €";
 
 					apartamentuBerria[0] = ostatuIzen;
 					apartamentuBerria[1] = ostatuMota;
@@ -340,7 +352,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		btnBilatu.setBounds(471, 56, 97, 25);
 		btnBilatu.setVisible(false);
 		getContentPane().add(btnBilatu);
-		
+
 		lblGogoratu = new JLabel("Gogoratu festetan edo denboraldi altuko erreserbetan gehigarri bat dagoela");
 		lblGogoratu.setForeground(Color.RED);
 		lblGogoratu.setFont(new Font("Verdana", Font.PLAIN, 13));

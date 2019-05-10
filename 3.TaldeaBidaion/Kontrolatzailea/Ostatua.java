@@ -1,6 +1,6 @@
 package Kontrolatzailea;
 
-public abstract class Ostatua {
+public class Ostatua {
 
 	protected String izena, herria, helbidea, ostatuMota;
 	protected int ostatuKod, postKod, gelaKop, erreserbaKop;

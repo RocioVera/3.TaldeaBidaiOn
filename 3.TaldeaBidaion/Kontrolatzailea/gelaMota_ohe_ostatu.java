@@ -1,10 +1,10 @@
 package Kontrolatzailea;
 
-public class gelaMota_ohe_hotela {
+public class gelaMota_ohe_ostatu {
 	private int gela_kodea,ohe_kopuru, sinplea, bikoitza, umeak;
 	private double prezioa;
 
-	public gelaMota_ohe_hotela(int gela_kodea, int ohe_kopuru, int sinplea, int bikoitza, int umeak, double prezioa) {
+	public gelaMota_ohe_ostatu(int gela_kodea, int ohe_kopuru, int sinplea, int bikoitza, int umeak, double prezioa) {
 		this.gela_kodea = gela_kodea;
 		this.ohe_kopuru = ohe_kopuru;
 		this.sinplea = sinplea;
@@ -12,15 +12,15 @@ public class gelaMota_ohe_hotela {
 		this.umeak = umeak;
 		this.prezioa = prezioa;
 	}
-	
 
-	public gelaMota_ohe_hotela(int gela_kodea, double prezioa) {
+
+	public gelaMota_ohe_ostatu(int gela_kodea, double prezioa) {
 		this.gela_kodea = gela_kodea;
 		this.prezioa = prezioa;
 	}
 
 
-	public gelaMota_ohe_hotela() {
+	public gelaMota_ohe_ostatu() {
 	}
 
 	public int getGela_kodea() {

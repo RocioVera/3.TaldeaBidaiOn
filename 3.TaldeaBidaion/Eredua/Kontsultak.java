@@ -3,6 +3,7 @@ package Eredua;
 import java.util.ArrayList;
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 
 import Kontrolatzailea.*;
 
@@ -312,14 +313,14 @@ public class Kontsultak {
 		return erantzuna;
 	}
 
-	public static ArrayList<gelaMota_ohe_hotela> oheGelaHotelaDatuak(int ostatu_id) {
-		ArrayList<gelaMota_ohe_hotela> gelaOheHotelaArray = new ArrayList<gelaMota_ohe_hotela>();
+	public static ArrayList<gelaMota_ohe_ostatu> oheGelaHotelaDatuak(int ostatu_id) {
+		ArrayList<gelaMota_ohe_ostatu> gelaOheHotelaArray = new ArrayList<gelaMota_ohe_ostatu>();
 		Statement st = null;
 		Connection konexioa = Konexioa.getConexion();
 		int gela_kodea = 0;
 		double prezioa = 0;
 		ResultSet rs = null;
-		gelaMota_ohe_hotela goh = null;
+		gelaMota_ohe_ostatu goh = null;
 
 		try {
 			st = konexioa.createStatement();
@@ -329,12 +330,10 @@ public class Kontsultak {
 			while (rs.next()) {
 				gela_kodea = (rs.getInt(1));
 				prezioa = (rs.getDouble(2));
-				goh = new gelaMota_ohe_hotela(gela_kodea, prezioa);
+				goh = new gelaMota_ohe_ostatu(gela_kodea, prezioa);
 				gelaOheHotelaArray.add(goh);
 
 			}
-			// for (int i = 0; i < gelaOheHotelaArray.size(); i++)
-			// System.out.println(gelaOheHotelaArray.get(i).getGela_kodea());
 
 			for (int i = 0; i < gelaOheHotelaArray.size(); i++) {
 				rs = st.executeQuery(
@@ -343,7 +342,6 @@ public class Kontsultak {
 								+ " AND gmo.oheak_ohe_id=o.ohe_id ORDER BY o.ohe_id ASC");
 
 				while (rs.next()) {
-
 					if (rs.getInt(1) == 1)
 						gelaOheHotelaArray.get(i).setSinplea(rs.getInt(2));
 					if (rs.getInt(1) == 2)
@@ -360,6 +358,80 @@ public class Kontsultak {
 		return gelaOheHotelaArray;
 	}
 
+	public static ArrayList<gelaMota_ohe_ostatu> oheGelaEtxeakDatuak(int ostatu_id) {
+		ArrayList<gelaMota_ohe_ostatu> gelaOheHotelaArray = new ArrayList<gelaMota_ohe_ostatu>();
+		Statement st = null;
+		Connection konexioa = Konexioa.getConexion();
+		int gela_kodea = 0;
+		double prezioa = 0;
+		ResultSet rs = null;
+		gelaMota_ohe_ostatu goh = null;
+
+		try {
+			st = konexioa.createStatement();
+			rs = st.executeQuery("SELECT gela_kodea, prezioa FROM ostatu_etxea_gelamota oegm WHERE ostatu_id="
+					+ ostatu_id + " AND oegm.mota like 'logela'");
+
+			while (rs.next()) {
+				gela_kodea = (rs.getInt(1));
+				prezioa = (rs.getDouble(2));
+				goh = new gelaMota_ohe_ostatu(gela_kodea, prezioa);
+				gelaOheHotelaArray.add(goh);
+
+			}
+
+			for (int i = 0; i < gelaOheHotelaArray.size(); i++) {
+				rs = st.executeQuery(
+						"SELECT o.ohe_id,ohe_kopuru, ohe_mota FROM gelamota_oheak gmo, oheak o WHERE gmo.gelaMota_gela_kodea="
+								+ gelaOheHotelaArray.get(i).getGela_kodea()
+								+ " AND gmo.oheak_ohe_id=o.ohe_id ORDER BY o.ohe_id ASC");
+
+				while (rs.next()) {
+					if (rs.getInt(1) == 1)
+						gelaOheHotelaArray.get(i).setSinplea(rs.getInt(2));
+					if (rs.getInt(1) == 2)
+						gelaOheHotelaArray.get(i).setBikoitza(rs.getInt(2));
+					if (rs.getInt(1) == 3)
+						gelaOheHotelaArray.get(i).setUmeak(rs.getInt(2));
+				}
+			}
+
+		} catch (Exception e) {
+			e.getMessage();
+		}
+
+		return gelaOheHotelaArray;
+	}
+
+	public static ArrayList<GelaMotaEtxea> gelaKantMota(int ostatu_id) {
+		ArrayList<GelaMotaEtxea> gelaMotaEtxeaArray = new ArrayList<GelaMotaEtxea>();
+		Statement st = null;
+		Connection konexioa = Konexioa.getConexion();
+		int kant = 0;
+		String mota;
+		ResultSet rs = null;
+		GelaMotaEtxea gme = null;
+
+		try {
+			st = konexioa.createStatement();
+			rs = st.executeQuery("SELECT count(*), mota FROM ostatu_etxea_gelamota oegm WHERE ostatu_id=" + ostatu_id
+					+ " GROUP BY mota");
+
+			while (rs.next()) {
+				kant = (rs.getInt(1));
+				mota = (rs.getString(2));
+
+				gme = new GelaMotaEtxea(ostatu_id, mota, kant);
+				gelaMotaEtxeaArray.add(gme);
+			}
+
+		} catch (Exception e) {
+			e.getMessage();
+		}
+
+		return gelaMotaEtxeaArray;
+	}
+
 	public static ArrayList<JaiEgunak> jaiEgunakAtera() {
 		ArrayList<JaiEgunak> arrayEgunak = new ArrayList<JaiEgunak>();
 		Statement st = null;
@@ -374,6 +446,7 @@ public class Kontsultak {
 			while (rs.next()) {
 				jaiEgunKod = (rs.getInt(1));
 				jaiEgunData = (rs.getDate(2));
+
 				arrazoia = (rs.getString(3));
 
 				JaiEgunak jaiEgunak = new JaiEgunak(jaiEgunKod, jaiEgunData, arrazoia);
@@ -418,7 +491,7 @@ public class Kontsultak {
 		}
 		return arrayBezeroak;
 	}
-	
+
 	public static ArrayList<Promozioa> promozioakBilatu(String nan) {
 		ArrayList<Promozioa> arrayPromozioa = new ArrayList<Promozioa>();
 		Statement st = null;
@@ -426,25 +499,29 @@ public class Kontsultak {
 		double prezioa;
 		int promoKod;
 		String promoZergatia;
+		Date iraungitzeData, gaurData = Date.valueOf(LocalDate.now());
+
 		try {
 			st = konexioa.createStatement();
 			ResultSet rs = st.executeQuery(
-					"SELECT promozio_kod, promozio_zergatia, prezioa FROM promozioa WHERE bezeroa_nan='"+nan+"' AND erabilita= 0");
+					"SELECT promozio_kod, promozio_zergatia, prezioa, iraungitzeData FROM promozioa WHERE bezeroa_nan='"
+							+ nan + "' AND erabilita= 0");
 			while (rs.next()) {
 				promoKod = (rs.getInt("promozio_kod"));
 				promoZergatia = (rs.getString("promozio_zergatia"));
 				prezioa = (rs.getDouble("prezioa"));
+				iraungitzeData = (rs.getDate("iraungitzeData"));
 
-				Promozioa promozioa = new Promozioa(promoKod, promoZergatia, prezioa);
-				arrayPromozioa.add(promozioa);
+				if (!iraungitzeData.before(gaurData) || iraungitzeData.equals(gaurData)) {
+					Promozioa promozioa = new Promozioa(promoKod, promoZergatia, prezioa, iraungitzeData);
+					arrayPromozioa.add(promozioa);
+				}
 			}
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		for (Promozioa promozioa : arrayPromozioa) {
-			System.out.println("bai");
-		}
+
 		return arrayPromozioa;
 	}
 
@@ -493,5 +570,21 @@ public class Kontsultak {
 
 		arrayBezeroak = bezeroDatuak();
 		return arrayBezeroak;
+	}
+
+	// Leiho9Ordaindu
+	public static void promozioaErabilita(Promozioa promozioa) {
+		Connection konexioa = Konexioa.getConexion();
+		try {
+			PreparedStatement st = konexioa
+					.prepareStatement("UPDATE `promozioa` SET `erabilita` = '1' WHERE `promozioa`.`promozio_kod` = ?");
+			st.setInt(1, promozioa.getPromozioKod());
+
+			st.executeUpdate();
+			st.close();
+			System.out.println("Aldatu da promozioa");
+		} catch (SQLException e) {
+			System.out.println("Ez da gehitu pertsona");
+		}
 	}
 }

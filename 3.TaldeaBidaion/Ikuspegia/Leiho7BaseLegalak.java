@@ -25,7 +25,7 @@ public class Leiho7BaseLegalak extends JFrame {
 	private JLabel lblAcuerdo = new JLabel("ACUERDO ENTRE EL USUARIO Y Airour");
 
 	public Leiho7BaseLegalak(double prezioTot, Ostatua hartutakoOstatua, java.util.Date sartzeData,
-			java.util.Date irtetzeData, String nan, int logelaTot) {
+			java.util.Date irtetzeData, String nan, int logelaTot, int pertsonaKop) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
@@ -37,7 +37,7 @@ public class Leiho7BaseLegalak extends JFrame {
 		btn_next.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MetodoakLeihoAldaketa.zortzigarrenLeihoa(hartutakoOstatua, prezioTot, sartzeData, irtetzeData, nan,
-						logelaTot);
+						logelaTot, pertsonaKop);
 				dispose();
 
 			}
@@ -51,7 +51,7 @@ public class Leiho7BaseLegalak extends JFrame {
 		btn_prev.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoOstatua, prezioTot, sartzeData, irtetzeData, logelaTot);
+				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoOstatua, prezioTot, sartzeData, irtetzeData, logelaTot, pertsonaKop);
 				dispose();
 			}
 		});

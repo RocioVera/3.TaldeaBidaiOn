@@ -18,7 +18,7 @@ public class MetodoakKontsultak {
 		arrayHerria = Kontsultak.hotelHerriak();
 		return arrayHerria;
 	}
-
+	
 	public static ArrayList<Hotela> hotelakAtera(String herria, Date dataSartze, Date dataIrtetze) {
 		ArrayList<Hotela> arrayHotelak = new ArrayList<Hotela>();
 		arrayHotelak = Kontsultak.hotelakBilatu(herria);
@@ -117,8 +117,19 @@ public class MetodoakKontsultak {
 
 	// Leiho3-ko metodoak
 	// oheGelaHotelaDatuak
-	public static ArrayList<gelaMota_ohe_hotela> oheGelaHotelaDatuakMet(int ostatu_id) {
+	public static ArrayList<gelaMota_ohe_ostatu> oheGelaHotelaDatuakMet(int ostatu_id) {
 		return Kontsultak.oheGelaHotelaDatuak(ostatu_id);
+		
+	}
+	
+	public static ArrayList<gelaMota_ohe_ostatu> oheGelaDatuakMet(int ostatu_id) {
+		return Kontsultak.oheGelaEtxeakDatuak(ostatu_id);
+		
+	}
+	
+	public static ArrayList<GelaMotaEtxea> gelaKantMotaMet(int ostatu_id) {
+		return Kontsultak.gelaKantMota(ostatu_id);
+		
 	}
 
 	public static ArrayList<HartutakoOstatuarenZerbitzuak> zerbitzuakOstatuanMet(Ostatua hartutakoOstatua) {
@@ -219,7 +230,6 @@ public class MetodoakKontsultak {
 		abizenak = Metodoak.zifratuHitza(abizenak);
 		jaioDataString = Metodoak.zifratuHitza(jaioDataString);
 
-
 		ArrayList<Bezeroa> bezeroak = new ArrayList<>();
 
 		// fitxeroari bidali
@@ -233,8 +243,9 @@ public class MetodoakKontsultak {
 		return bal;
 	}
 
-	// Leiho4-ko metodoak
-
-	// Leiho5-ko metodoak
+	// Leiho9Ordaindu
+	public static void promozioaErabilitaMet(Promozioa promozioa) {
+		Kontsultak.promozioaErabilita(promozioa);
+	}
 
 }
