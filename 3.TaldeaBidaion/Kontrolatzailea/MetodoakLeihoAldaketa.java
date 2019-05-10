@@ -58,21 +58,21 @@ public class MetodoakLeihoAldaketa {
 	}
 
 	public static void zortzigarrenLeihoa(Ostatua hartutakoOstatua, double prezioTot, Date sartzeData,
-			Date irtetzeData, String nan, int logelaTot, int pertsonaKop, String pentsioMota) {
-		Leiho8KodePromozionalak Leiho8 = new Leiho8KodePromozionalak(prezioTot, hartutakoOstatua, sartzeData, irtetzeData, nan, logelaTot, pertsonaKop, pentsioMota);
+			Date irtetzeData, String nan, int gelaTot, int pertsonaKop, String pentsioMota) {
+		Erreserba erreserba=new Erreserba(hartutakoOstatua.getOstatuKod(), nan, pertsonaKop, prezioTot, gelaTot, pentsioMota);
+		erreserba.setErreserbaKod(hartutakoOstatua.getOstatuKod()); //bestela 0 agertzen da
+		Leiho8KodePromozionalak Leiho8 = new Leiho8KodePromozionalak(hartutakoOstatua, sartzeData, irtetzeData, erreserba);
 		Leiho8.setVisible(true);
 	}
 	
-	public static void bederatzigarrenLeihoa(Ostatua hartutakoOstatua, double prezioTot, Date sartzeData,
-			Date irtetzeData, String nan, int logelaTot, Promozioa promHartu, int pertsonaKop, String pentsioMota) {
-		Leiho9Ordaindu Leiho9 = new Leiho9Ordaindu(prezioTot, hartutakoOstatua, sartzeData, irtetzeData, nan, logelaTot, promHartu, pertsonaKop, pentsioMota);
+	public static void bederatzigarrenLeihoa(Ostatua hartutakoOstatua, Date sartzeData,
+			Date irtetzeData,Erreserba erreserba, Promozioa promHartu) {
+		Leiho9Ordaindu Leiho9 = new Leiho9Ordaindu(hartutakoOstatua, sartzeData, irtetzeData, promHartu, erreserba);
 		Leiho9.setVisible(true);
 	}
-
 	
-	public static void hamargarrenLeihoa(Ostatua hartutakoOstatua, Date sartzeData, Date irtetzeData,
-			double prezioTot, String nan, int logelaTot, int pertsonaKop, String pentsioMota) {
-		Leiho10Ticket Leiho10 = new Leiho10Ticket(hartutakoOstatua, sartzeData, irtetzeData, prezioTot, nan, logelaTot, pertsonaKop, pentsioMota);
+	public static void hamargarrenLeihoa(Ostatua hartutakoOstatua, Date sartzeData, Date irtetzeData, Erreserba erreserba) {
+		Leiho10Ticket Leiho10 = new Leiho10Ticket(hartutakoOstatua, sartzeData, irtetzeData, erreserba);
 		Leiho10.setVisible(true);
 	}
 

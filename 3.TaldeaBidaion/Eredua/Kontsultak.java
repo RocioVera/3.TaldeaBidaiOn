@@ -398,7 +398,7 @@ public class Kontsultak {
 			}
 
 		} catch (Exception e) {
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
 
 		return gelaOheHotelaArray;
@@ -605,7 +605,7 @@ public class Kontsultak {
 	}
 	
 	//SELECT count(*) FROM `erreserba`
-	public static int promozioakBilatu() {
+	public static int erreserbakZenbatu() {
 		Statement st = null;
 		Connection konexioa = Konexioa.getConexion();
 		int zenbaErreserba = 0;
@@ -625,23 +625,26 @@ public class Kontsultak {
 		return zenbaErreserba;
 	}
 	
-	public static void erreserbaGorde(int ostatuKod, String nan, int pertsonaKop, double prezioTot, int gelaTot, String pentsioMota) {
+	public static void erreserbaGorde(Erreserba erreserba, double prezioTot) {
 		Connection konexioa = Konexioa.getConexion();
 		try {
 			PreparedStatement st = konexioa
 					.prepareStatement("INSERT INTO `legeaonartu`(`ostatu_ostatu_id`, `bezeroa_nan`, `pertsona_kopuru`, `prezio_totala`, `erreserbaGela_kopuru`, `pentsio_mota`)"
 							+ " VALUES(?, ?, ?, ?, ?, ?)");
-			st.setInt(1, ostatuKod);
-			st.setString(2, nan);
-			st.setInt(3, pertsonaKop);
-			st.setDouble(4, prezioTot);
-			st.setInt(5, gelaTot);
-			st.setString(6, pentsioMota);
+			st.setInt(1, erreserba.getErreserbaKod());
+			st.setString(2, erreserba.getBezeroNan());
+			st.setInt(3, erreserba.getPertsonaKopuru());
+			st.setDouble(4, prezioTot);			
+			st.setInt(5, erreserba.getErreserbaGelaKop());
+			st.setString(6, erreserba.getPentsioMota());
 
 			st.executeUpdate();
 			st.close();
+			System.out.println("Gehitu da erreserbaigo");
+
 		} catch (SQLException e) {
 			System.out.println("Ez da gehitu erreserbaigo");
+			System.out.println(e.getMessage());
 		}
 	}
 	

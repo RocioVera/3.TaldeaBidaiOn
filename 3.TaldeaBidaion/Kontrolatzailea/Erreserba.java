@@ -4,24 +4,20 @@ import java.sql.Date;
 
 public class Erreserba {
 
-	private Date sartzeData, irtetzeData;
-	private int ostatuId, pertsonaKopuru, erreserbaGelaKop;
+	private int ostatuId, pertsonaKopuru, erreserbaGelaKop, erreserbaKod;
 	private double prezioTotala;
 	private String bezeroNan, pentsioMota;
 
-	public Erreserba(int ostatuId, String bezeroNan, Date sartzeData, Date irtetzeData, int pertsonaKopuru,
-			double prezioTotala, int erreserbaGelaKop, String pentsioMota, String oheMota, int oheKop,
-			String tarifaDenboraldia) {
+	public Erreserba(int ostatuId, String bezeroNan, int pertsonaKopuru,
+			double prezioTotala, int erreserbaGelaKop, String pentsioMota) {
 		this.ostatuId = ostatuId;
 		this.bezeroNan = bezeroNan;
-		this.sartzeData = sartzeData;
-		this.irtetzeData = irtetzeData;
 		this.pertsonaKopuru = pertsonaKopuru;
 		this.prezioTotala = prezioTotala;
 		this.erreserbaGelaKop = erreserbaGelaKop;
 		this.pentsioMota = pentsioMota;
 	}
-
+	
 	public int getOstatuId() {
 		return ostatuId;
 	}
@@ -33,25 +29,16 @@ public class Erreserba {
 	public String getBezeroNan() {
 		return bezeroNan;
 	}
+	
+	public int getErreserbaKod() {
+		return erreserbaKod;
+	}
 
+	public void setErreserbaKod(int erreserbaKod) {
+		this.erreserbaKod = erreserbaKod;
+	}
 	public void setBezeroNan(String bezeroNan) {
 		this.bezeroNan = bezeroNan;
-	}
-
-	public Date getSartzeData() {
-		return sartzeData;
-	}
-
-	public void setSartzeData(Date sartzeData) {
-		this.sartzeData = sartzeData;
-	}
-
-	public Date getIrtetzeData() {
-		return irtetzeData;
-	}
-
-	public void setIrtetzeData(Date irtetzeData) {
-		this.irtetzeData = irtetzeData;
 	}
 
 	public int getPertsonaKopuru() {
@@ -89,8 +76,7 @@ public class Erreserba {
 
 	@Override
 	public String toString() {
-		return "Erreserba [ostatuId=" + ostatuId + ", bezeroNan=" + bezeroNan + ", sartzeData=" + sartzeData
-				+ ", irtetzeData=" + irtetzeData + ", pertsonaKopuru=" + pertsonaKopuru + ", prezioTotala="
+		return "Erreserba [ostatuId=" + ostatuId + ", bezeroNan=" + bezeroNan + ", pertsonaKopuru=" + pertsonaKopuru + ", prezioTotala="
 				+ prezioTotala + ", erreserbaGelaKop=" + erreserbaGelaKop + ", pentsioMota=" + pentsioMota;
 	}
 

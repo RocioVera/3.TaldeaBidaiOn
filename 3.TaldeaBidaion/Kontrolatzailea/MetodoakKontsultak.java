@@ -18,7 +18,7 @@ public class MetodoakKontsultak {
 		arrayHerria = Kontsultak.hotelHerriak();
 		return arrayHerria;
 	}
-	
+
 	public static ArrayList<Hotela> hotelakAtera(String herria, Date dataSartze, Date dataIrtetze) {
 		ArrayList<Hotela> arrayHotelak = new ArrayList<Hotela>();
 		arrayHotelak = Kontsultak.hotelakBilatu(herria);
@@ -87,16 +87,16 @@ public class MetodoakKontsultak {
 		return Kontsultak.zerbGehi(hartutakoOstatua);
 
 	}
-	
+
 	public static ArrayList<Promozioa> promozioakBilatuMet(String nan) {
-		nan= Metodoak.zifratuHitza(nan);
+		nan = Metodoak.zifratuHitza(nan);
 		return Kontsultak.promozioakBilatu(nan);
 
 	}
 
 	public static int gelaLibre(Ostatua hartutakoOstatua, Date dataSartze, Date dataIrtetze, int gelaKod) {
 		int gelaTot = Kontsultak.gelaLibreKant(hartutakoOstatua, gelaKod);
-		int gelaLibreak = 0,erreserbaKant = 0;
+		int gelaLibreak = 0, erreserbaKant = 0;
 
 		for (Date auxData = dataSartze; auxData.getTime() < dataIrtetze.getTime(); auxData = Metodoak
 				.gehiEgunBat(auxData)) {
@@ -119,17 +119,17 @@ public class MetodoakKontsultak {
 	// oheGelaHotelaDatuak
 	public static ArrayList<gelaMota_ohe_ostatu> oheGelaHotelaDatuakMet(int ostatu_id) {
 		return Kontsultak.oheGelaHotelaDatuak(ostatu_id);
-		
+
 	}
-	
+
 	public static ArrayList<gelaMota_ohe_ostatu> oheGelaDatuakMet(int ostatu_id) {
 		return Kontsultak.oheGelaEtxeakDatuak(ostatu_id);
-		
+
 	}
-	
+
 	public static ArrayList<GelaMotaEtxea> gelaKantMotaMet(int ostatu_id) {
 		return Kontsultak.gelaKantMota(ostatu_id);
-		
+
 	}
 
 	public static ArrayList<HartutakoOstatuarenZerbitzuak> zerbitzuakOstatuanMet(Ostatua hartutakoOstatua) {
@@ -137,7 +137,7 @@ public class MetodoakKontsultak {
 	}
 
 	public static double tarifaAldatuDatengatik(java.util.Date dataSartze, java.util.Date dataIrtetze) {
-		double prezioa=0;
+		double prezioa = 0;
 		ArrayList<JaiEgunak> arrayEgunak = new ArrayList<JaiEgunak>();
 		arrayEgunak = Kontsultak.jaiEgunakAtera();
 		int festaKant = Metodoak.egunFestiboa(dataSartze, dataIrtetze, arrayEgunak);
@@ -244,9 +244,17 @@ public class MetodoakKontsultak {
 	}
 
 	// Leiho9Ordaindu
-	
-	public static void erreserbaGordeMet(int ostatuKod, String nan, int pertsonaKop, double prezioTot, String pentsioMota) {
-		Kontsultak.erreserbaGorde(ostatuKod, nan, pertsonaKop, prezioTot, pertsonaKop, pentsioMota);
+
+	public static void erreserbaGordeMet(Erreserba erreserba, double prezioTot) {
+		Kontsultak.erreserbaGorde(erreserba, prezioTot);
+	}
+
+	public static int erreserbakZenbatuMet() {
+		return Kontsultak.erreserbakZenbatu();
+	}
+
+	public static void baseLegalakIgoMet(int erreserbaKod) {
+		Kontsultak.baseLegalakIgo(erreserbaKod);
 	}
 	
 	public static void promozioaErabilitaMet(Promozioa promozioa) {

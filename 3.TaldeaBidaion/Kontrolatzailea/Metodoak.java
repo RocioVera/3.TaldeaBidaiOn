@@ -289,8 +289,7 @@ public class Metodoak {
 		return bueltakString;
 	}
 
-	public static void fitxIdatzi(Ostatua hartutakoOstatua, Date sartzeData, Date irtetzeData, double prezioTot,
-			String nan, int logelaTot, int pertsonaKop, String pentsioMota) {
+	public static void fitxIdatzi(Ostatua hartutakoOstatua, Date sartzeData, Date irtetzeData, double prezioTot, Erreserba erreserba) {
 		FileWriter fitx = null;
 		PrintWriter pw = null;
 		String ostatuIzena = hartutakoOstatua.getIzena();
@@ -299,17 +298,20 @@ public class Metodoak {
 			fitx = new FileWriter("eredua\\ErreserbaFitx", true);
 			pw = new PrintWriter(fitx);
 
-			pw.println("Prezioa: " + prezioTot + " €" + "\nBezeroaren datuak:");
-			if (pentsioMota!=null)
-				pw.println("Pentsio mota: " + pentsioMota + "");
+			pw.println("Prezioa: " + erreserba.getPrezioTotala() + " €" + "\nBezeroaren datuak:");
+			if (prezioTot<erreserba.getPrezioTotala())
+				pw.println("Promozioa hartu duzunez ordaindutako prezioa " + prezioTot + " €-koa da");
 
-			pw.println("     Nan: " + nan + "\nIzena: \n     Hartutako ostatua: " + ostatuIzena + "\t");
+			if (erreserba.getPentsioMota()!=null)
+				pw.println("Pentsio mota: " + erreserba.getPentsioMota() + "");
+
+			pw.println("     Nan: " + erreserba.getBezeroNan() + "\nIzena: \n     Hartutako ostatua: " + ostatuIzena + "\t");
 			if (hartutakoOstatua.getOstatuMota().equals("H"))
-				pw.println("     Logela Totala: "+ logelaTot);
-			pw.println("     Pertsona Kopurua: " + pertsonaKop + "\t Irtetze data: " + irtetzeData);
+				pw.println("     Logela Totala: "+ erreserba.getErreserbaGelaKop());
+			pw.println("     Pertsona Kopurua: " + erreserba.getPertsonaKopuru() + "\t Irtetze data: " + irtetzeData);
 
 			pw.println("     Sartze data: " + sartzeData + "\t Irtetze data: " + irtetzeData);
-
+			pw.println("");
 			pw.println(
 					"******************************************************************************************************************************************");
 			pw.println("");

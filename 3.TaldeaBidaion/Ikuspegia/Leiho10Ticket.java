@@ -13,8 +13,7 @@ public class Leiho10Ticket extends JFrame {
 	private JButton btnTiketaImprimatu;
 	private JTextArea txtTiket;
 
-	public Leiho10Ticket(Ostatua hartutakoOstatua, Date sartzeData, Date irtetzeData, double prezioTot, String nan,
-			int logelaTot, int pertsonaKop, String pentsioMota) {
+	public Leiho10Ticket(Ostatua hartutakoOstatua, Date sartzeData, Date irtetzeData, Erreserba erreserba) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
@@ -39,10 +38,10 @@ public class Leiho10Ticket extends JFrame {
 
 		txtTiket = new JTextArea();
 		txtTiket.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
-		txtTiket.setText("Prezioa: " + prezioTot + " €" + "\nBezeroaren datuak: \n     Nan: " + nan
+		txtTiket.setText("Prezioa: " + erreserba.getPrezioTotala() + " €" + "\nBezeroaren datuak: \n     Nan: " + erreserba.getBezeroNan()
 				+ "\nHotelaren datuak: \n     Izena: " + hartutakoOstatua.getIzena() + "\n\t" + "     Herria: "
 				+ hartutakoOstatua.getHerria() + "\n     Helbidea: " + hartutakoOstatua.getHelbidea()
-				+ "\n Logela Totala: " + logelaTot + "\n     Sartze data: " + sartzeData + "\n     Irtetze data: "
+				+ "\n Logela Totala: " + erreserba.getErreserbaGelaKop() + "\n     Sartze data: " + sartzeData + "\n     Irtetze data: "
 				+ irtetzeData);
 		txtTiket.setEditable(false);
 		txtTiket.setBackground(Color.LIGHT_GRAY);
