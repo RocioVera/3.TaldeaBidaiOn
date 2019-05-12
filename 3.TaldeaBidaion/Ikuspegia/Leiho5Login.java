@@ -49,7 +49,6 @@ public class Leiho5Login extends JFrame {
 					pasahitza = String.valueOf(passwordField.getPassword());
 					balPasa = MetodoakKontsultak.frogatuPasahitza(pasahitza);
 					balNan = MetodoakKontsultak.frogatuNAN(nan);
-					System.out.println(balNan);
 					if (balPasa && balNan) {
 						MetodoakLeihoAldaketa.zazpigarrenLeihoa(hartutakoOstatua, prezioTot, sartzeData, irtetzeData,
 								nan, logelaTot, pertsonaKop, pentsioMota);

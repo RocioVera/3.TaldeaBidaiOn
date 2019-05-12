@@ -1,12 +1,7 @@
 package Kontrolatzailea;
 
-import java.io.*;
 import java.math.BigInteger;
 import java.security.*;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
-import Eredua.*;
-import Ikuspegia.*;
 
 public class Metodoak {
 	/**

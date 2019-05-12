@@ -12,7 +12,23 @@ import Eredua.*;
 import Ikuspegia.*;
 
 public class MetodoakKontsultak {
-	// Leiho2-ko metodoak
+	//Leiho2AukeratuOstatu
+	public static double etxearenPrezioaAtera(String etxea) {
+		return Kontsultak.etxearenPrezioaBilatu(etxea);
+	}
+	
+	public static double tarifaAldatuDatengatik(java.util.Date dataSartze, java.util.Date dataIrtetze) {
+		double prezioa = 0;
+		ArrayList<JaiEgunak> arrayEgunak = new ArrayList<JaiEgunak>();
+		arrayEgunak = Kontsultak.jaiEgunakAtera();
+		int festaKant = Metodoak.egunFestiboa(dataSartze, dataIrtetze, arrayEgunak);
+		int denboraldiAltuaKant = Metodoak.egunDenboraldiAltua(dataSartze, dataIrtetze);
+
+		prezioa = (festaKant * 10) + (denboraldiAltuaKant * 20);
+
+		return prezioa;
+	}
+
 	public static ArrayList<String> hotelHerria() {
 		ArrayList<String> arrayHerria = new ArrayList<>();
 		arrayHerria = Kontsultak.hotelHerriak();
@@ -39,6 +55,26 @@ public class MetodoakKontsultak {
 		return arrayHotelak2;
 	}
 
+	public static ArrayList<Apartamentua> apartamentuakAtera(String herria, Date dataSartze, Date dataIrtetze) {
+		ArrayList<Apartamentua> arrayApartamentua = new ArrayList<Apartamentua>();
+		arrayApartamentua = Kontsultak.apartamentuakBilatu(herria);
+		boolean libre = true;
+		ArrayList<Apartamentua> arrayApartamentua2 = new ArrayList<Apartamentua>();
+		for (Apartamentua a : arrayApartamentua) {
+			for (java.util.Date auxData = dataSartze; auxData.getTime() < dataIrtetze.getTime(); auxData = Metodoak
+					.gehiEgunBat(auxData)) {
+				libre = true;
+				if (MetodoakKontsultak.erreserbaBetetaMet(auxData, a.getIzena(), a.getOstatuKod()))
+					libre = false;
+			}
+			if (libre == true)
+				arrayApartamentua2.add(a);
+		}
+		return arrayApartamentua2;
+	}
+	
+	
+
 	public static ArrayList<Etxea> etxeakAtera(String herria, Date dataSartze, Date dataIrtetze) {
 		ArrayList<Etxea> arrayEtxea = new ArrayList<Etxea>();
 		arrayEtxea = Kontsultak.etxeakBilatu(herria);
@@ -57,43 +93,29 @@ public class MetodoakKontsultak {
 		return arrayEtxea2;
 	}
 
-	public static ArrayList<Apartamentua> apartamentuakAtera(String herria, Date dataSartze, Date dataIrtetze) {
-		ArrayList<Apartamentua> arrayApartamentua = new ArrayList<Apartamentua>();
-		arrayApartamentua = Kontsultak.apartamentuakBilatu(herria);
-		boolean libre = true;
-		ArrayList<Apartamentua> arrayApartamentua2 = new ArrayList<Apartamentua>();
-		for (Apartamentua a : arrayApartamentua) {
-			for (java.util.Date auxData = dataSartze; auxData.getTime() < dataIrtetze.getTime(); auxData = Metodoak
-					.gehiEgunBat(auxData)) {
-				libre = true;
-				if (MetodoakKontsultak.erreserbaBetetaMet(auxData, a.getIzena(), a.getOstatuKod()))
-					libre = false;
-			}
-			if (libre == true)
-				arrayApartamentua2.add(a);
-		}
-		return arrayApartamentua2;
-	}
-
 	public static double hotelarenPrezioaAtera(String hotela) {
 		return Kontsultak.hotelarenPrezioaBilatu(hotela);
 	}
 
-	public static double etxearenPrezioaAtera(String etxea) {
-		return Kontsultak.etxearenPrezioaBilatu(etxea);
-	}
-
-	public static ArrayList<ZerbitzuGehigarriak> zerbGehiMet(Ostatua hartutakoOstatua) {
-		return Kontsultak.zerbGehi(hartutakoOstatua);
+	
+	//Leiho3EtxeDatuak
+	public static ArrayList<gelaMota_ohe_ostatu> oheGelaDatuakMet(int ostatu_id) {
+		return Kontsultak.oheGelaEtxeakDatuak(ostatu_id);
 
 	}
-
-	public static ArrayList<Promozioa> promozioakBilatuMet(String nan) {
-		nan = Metodoak.zifratuHitza(nan);
-		return Kontsultak.promozioakBilatu(nan);
+	
+	public static ArrayList<GelaMotaEtxea> gelaKantMotaMet(int ostatu_id) {
+		return Kontsultak.gelaKantMota(ostatu_id);
 
 	}
+	
+	
+	//Leiho3HotelDatuak
+	public static ArrayList<gelaMota_ohe_ostatu> oheGelaHotelaDatuakMet(int ostatu_id) {
+		return Kontsultak.oheGelaHotelaDatuak(ostatu_id);
 
+	}
+	
 	public static int gelaLibre(Ostatua hartutakoOstatua, Date dataSartze, Date dataIrtetze, int gelaKod) {
 		int gelaTot = Kontsultak.gelaLibreKant(hartutakoOstatua, gelaKod);
 		int gelaLibreak = 0, erreserbaKant = 0;
@@ -110,68 +132,16 @@ public class MetodoakKontsultak {
 
 	}
 
-	public static boolean erreserbaBetetaMet(Date data, String izena, int kodea) {
-		return Kontsultak.erreserbaBeteta(data, izena, kodea);
-
-	}
-
-	// Leiho3-ko metodoak
-	// oheGelaHotelaDatuak
-	public static ArrayList<gelaMota_ohe_ostatu> oheGelaHotelaDatuakMet(int ostatu_id) {
-		return Kontsultak.oheGelaHotelaDatuak(ostatu_id);
-
-	}
-
-	public static ArrayList<gelaMota_ohe_ostatu> oheGelaDatuakMet(int ostatu_id) {
-		return Kontsultak.oheGelaEtxeakDatuak(ostatu_id);
-
-	}
-
-	public static ArrayList<GelaMotaEtxea> gelaKantMotaMet(int ostatu_id) {
-		return Kontsultak.gelaKantMota(ostatu_id);
-
-	}
-
+	//Leiho4ZerbitzuGehigarriak
 	public static ArrayList<HartutakoOstatuarenZerbitzuak> zerbitzuakOstatuanMet(Ostatua hartutakoOstatua) {
 		return Kontsultak.zerbitzuGehigarriakOstatuan(hartutakoOstatua);
 	}
 
-	public static double tarifaAldatuDatengatik(java.util.Date dataSartze, java.util.Date dataIrtetze) {
-		double prezioa = 0;
-		ArrayList<JaiEgunak> arrayEgunak = new ArrayList<JaiEgunak>();
-		arrayEgunak = Kontsultak.jaiEgunakAtera();
-		int festaKant = Metodoak.egunFestiboa(dataSartze, dataIrtetze, arrayEgunak);
-		int denboraldiAltuaKant = Metodoak.egunDenboraldiAltua(dataSartze, dataIrtetze);
-
-		prezioa = (festaKant * 10) + (denboraldiAltuaKant * 20);
-
-		return prezioa;
-	}
-
-	// Leiho4-ko metodoak
-	/**
-	 * Frogatu dni-a erregistratuta ez dagoela.
-	 * 
-	 * @author talde1
-	 * @param nan
-	 * @return balNan
-	 */
-	public static boolean nanGordetaEgon(String nan) {
-		ArrayList<Bezeroa> bezeroak = new ArrayList<>();
-		boolean balNan = false;
-		bezeroak = Kontsultak.bezeroDatuak();
-		for (Bezeroa bezeroak2 : bezeroak) {
-			if (bezeroak2.getNan().equals(nan)) {
-				balNan = true;
-			}
-		}
-		return balNan;
-	}
-
+	//Leiho5Login
 	/**
 	 * Sartutako pasahitza (zifratuta) ea datu basean dagoen ala ez.
 	 * 
-	 * @author talde1
+	 * @author talde3
 	 * @param pasahitza
 	 * @return bal
 	 */
@@ -191,8 +161,7 @@ public class MetodoakKontsultak {
 
 	/**
 	 * Sartutako nan-a ea datu baaean dagoen ala ez.
-	 * 
-	 * @author talde1
+	 * @author talde3
 	 * @param nan
 	 * @return bal
 	 */
@@ -208,16 +177,16 @@ public class MetodoakKontsultak {
 		return bal;
 	}
 
+	//Leiho6Erregistratu
 	/**
 	 * Frogatu dni-a erregistratuta ez dagoela. Ez balegoke eta datuak hutzik ere
 	 * ez, bezeroen erregistroa egin datu basean.
 	 * 
-	 * @author talde1
+	 * @author talde3
 	 * @param pasahitza
 	 * @param nan
 	 * @param izena
 	 * @param abizenak
-	 * @param sexua
 	 * @param jaioDataString
 	 * @return bal
 	 */
@@ -243,22 +212,64 @@ public class MetodoakKontsultak {
 		return bal;
 	}
 
-	// Leiho9Ordaindu
-
-	public static void erreserbaGordeMet(Erreserba erreserba, double prezioTot) {
-		Kontsultak.erreserbaGorde(erreserba, prezioTot);
+	/**
+	 * Frogatu dni-a erregistratuta ez dagoela.
+	 * @author talde3
+	 * @param nan
+	 * @return balNan
+	 */
+	public static boolean nanGordetaEgon(String nan) {
+		ArrayList<Bezeroa> bezeroak = new ArrayList<>();
+		boolean balNan = false;
+		bezeroak = Kontsultak.bezeroDatuak();
+		for (Bezeroa bezeroak2 : bezeroak) {
+			if (bezeroak2.getNan().equals(nan)) {
+				balNan = true;
+			}
+		}
+		return balNan;
 	}
 
-	public static int erreserbakZenbatuMet() {
-		return Kontsultak.erreserbakZenbatu();
+	
+	//Leiho8KodePromozionalak
+	public static ArrayList<Promozioa> promozioakBilatuMet(String nan) {
+		nan = Metodoak.zifratuHitza(nan);
+		return Kontsultak.promozioakBilatu(nan);
+
+	}
+
+	//Leiho9Ordaindu
+	public static void erreserbaGordeMet(Erreserba erreserba, double prezioTot) {
+		Kontsultak.erreserbaGorde(erreserba, prezioTot);
 	}
 
 	public static void baseLegalakIgoMet(int erreserbaKod) {
 		Kontsultak.baseLegalakIgo(erreserbaKod);
 	}
 	
+	public static int erreserbakZenbatuMet() {
+		return Kontsultak.erreserbakZenbatu();
+	}
+
 	public static void promozioaErabilitaMet(Promozioa promozioa) {
 		Kontsultak.promozioaErabilita(promozioa);
 	}
 
+	
+	//MetodoakKontsultak
+
+	public static boolean erreserbaBetetaMet(Date data, String izena, int kodea) {
+		return Kontsultak.erreserbaBeteta(data, izena, kodea);
+
+	}
+	
+	// NADA	
+	public static ArrayList<ZerbitzuGehigarriak> zerbGehiMet(Ostatua hartutakoOstatua) {
+		return Kontsultak.zerbGehi(hartutakoOstatua);
+
+	}
+
+
+	
+	
 }

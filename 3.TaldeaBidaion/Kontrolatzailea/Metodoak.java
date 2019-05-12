@@ -9,7 +9,14 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class Metodoak {
-	// Leiho2-ko metodoak
+	// Leiho2AukeratuOstatu
+	public static double prezioTotalaGauekin(Date dataSartze, Date dataIrtetze, double prezioTot) {
+		// 86400000 milisegundo/egun
+		int gauak = (int) ((dataIrtetze.getTime() - dataSartze.getTime()) / 86400000);
+		// gauaren prezioa biderkatu gau bakoitzagatik
+		prezioTot = prezioTot * gauak;
+		return prezioTot;
+	}
 
 	public static Date gehiEgunBat(Date date) {
 		Calendar gehiEgunBat;
@@ -21,80 +28,50 @@ public class Metodoak {
 
 	}
 
-	public static int egunFestiboa(Date dataSartze, Date dataIrtetze, ArrayList<JaiEgunak> arrayEgunak) {
-		int festaKant = 0;
-		for (JaiEgunak jaiEgunak : arrayEgunak) {
-			for (java.util.Date auxData = dataSartze; auxData.getTime() < dataIrtetze.getTime(); auxData = Metodoak
-					.gehiEgunBat(auxData)) {
-				if (jaiEgunak.getJaiEguna().equals(auxData))
-					festaKant++;
-			}
-		}
-		return festaKant;
-	}
+	public static ArrayList<Ostatua> ostatuakSortu(ArrayList<Hotela> arrayHotela, ArrayList<Etxea> arrayEtxea,
+			ArrayList<Apartamentua> arrayApartamentua) {
+		ArrayList<Ostatua> arrayOstatua = new ArrayList<Ostatua>();
 
-	public static int egunDenboraldiAltua(Date dataSartze, Date dataIrtetze) {
-		int denboraldiAltuaKant = 0;
-		int erresHilabetea = -1, erresEguna = -1;
-
-		// 21-06-yyyy
-		Date ekainaAltuaData = new Date();
-		ekainaAltuaData.setMonth(5);
-		ekainaAltuaData.setDate(21);
-
-		for (Date auxData = dataSartze; auxData.getTime() < dataIrtetze.getTime(); auxData = Metodoak
-				.gehiEgunBat(auxData)) {
-			erresHilabetea = auxData.getMonth();
-			if (erresHilabetea == 0 || erresHilabetea == 1 || erresHilabetea == 2 || erresHilabetea == 6
-					|| erresHilabetea == 7 || erresHilabetea == 10 || erresHilabetea == 11) {
-				denboraldiAltuaKant++;
-			} else if (erresHilabetea == 5)
-				if (auxData.after(ekainaAltuaData))
-					denboraldiAltuaKant++;
-		}
-		return denboraldiAltuaKant;
-	}
-
-
-	public static double prezioTotalaGauekin(Date dataSartze, Date dataIrtetze, double prezioTot) {
-		// 86400000 milisegundo/egun
-		int gauak = (int) ((dataIrtetze.getTime() - dataSartze.getTime()) / 86400000);
-		// gauaren prezioa biderkatu gau bakoitzagatik
-		prezioTot = prezioTot * gauak;
-		return prezioTot;
-	}
-
-	
-	//
-	public static ArrayList<Ostatua> ostatuakSortu(ArrayList<Hotela> arrayHotela, ArrayList<Etxea> arrayEtxea, ArrayList<Apartamentua> arrayApartamentua) {
-		ArrayList<Ostatua> arrayOstatua= new ArrayList<Ostatua>();
-		
 		for (Hotela h : arrayHotela) {
 			arrayOstatua.add(h);
 		}
-		
+
 		// etxeak gehitu
 		for (Etxea e : arrayEtxea) {
 			arrayOstatua.add(e);
 		}
-		
+
 		// apartamentuak gehitu
 		for (Apartamentua a : arrayApartamentua) {
 			arrayOstatua.add(a);
 		}
-		
+
 		return arrayOstatua;
-		
+
 	}
-	
-	
-	// Leiho4-ko metodoak
+
+	//Leiho6Erregistratu
 	/**
-	 * 
-	 * /** Sartutako pasahitza zifratu.
-	 * 
-	 * @author talde1
-	 * @param pasahitza
+	 * nan-aren zenbaki guztiak gehitzen ditu eta zati 23 egiten hondarra lortzen
+	 * du. Hondarra horrekin sartutako nan-aren letra bueltatzen du.
+	 * @author talde3
+	 * @param nan
+	 * @return nanLarria
+	 */
+	public static String nanLetra(String nan) {
+		int nanGehiketa = Integer.parseInt(nan.substring(0, 8)), hondarra;
+		String nanLarria = null;
+		String[] zbkArray = { "T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V",
+				"H", "L", "C", "K", "E" };
+		hondarra = nanGehiketa % 23;
+		nanLarria = zbkArray[hondarra];
+		return nanLarria;
+	}
+
+	/**
+	 * Sartutako pasahitza zifratu.
+	 * @author talde3
+	 * @param hitza
 	 * @return hashtext
 	 */
 	public static String zifratuHitza(String hitza) {
@@ -113,26 +90,46 @@ public class Metodoak {
 		}
 	}
 
-	/**
-	 * nan-aren zenbaki guztiak gehitzen ditu eta zati 23 egiten hondarra lortzen
-	 * du. Hondarra horrekin sartutako nan-aren letra bueltatzen du.
-	 * 
-	 * @author talde1
-	 * @param nan
-	 * @return nanLarria
-	 */
-	public static String nanLetra(String nan) {
-		int nanGehiketa = Integer.parseInt(nan.substring(0, 8)), hondarra;
-		String nanLarria = null;
-		String[] zbkArray = { "T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V",
-				"H", "L", "C", "K", "E" };
-		hondarra = nanGehiketa % 23;
-		nanLarria = zbkArray[hondarra];
-		return nanLarria;
-	}
-	// Leiho4-ko metodoak
+	
+	//Leiho9Ordaindu
 
-	// Leiho5-ko metodoak
+	public static void fitxIdatzi(Ostatua hartutakoOstatua, Date sartzeData, Date irtetzeData, double prezioTot, Erreserba erreserba) {
+		FileWriter fitx = null;
+		PrintWriter pw = null;
+		String ostatuIzena = hartutakoOstatua.getIzena();
+
+		try {
+			fitx = new FileWriter("eredua\\ErreserbaFitx", true);
+			pw = new PrintWriter(fitx);
+
+			pw.println("Prezioa: " + erreserba.getPrezioTotala() + " €" + "\nBezeroaren datuak:");
+			if (prezioTot<erreserba.getPrezioTotala())
+				pw.println("Promozioa hartu duzunez ordaindutako prezioa " + prezioTot + " €-koa da");
+
+			if (erreserba.getPentsioMota()!=null)
+				pw.println("Pentsio mota: " + erreserba.getPentsioMota() + "");
+
+			pw.println("     Nan: " + erreserba.getBezeroNan() + "\nIzena: \n     Hartutako ostatua: " + ostatuIzena + "\t");
+			if (hartutakoOstatua.getOstatuMota().equals("H"))
+				pw.println("     Logela Totala: "+ erreserba.getErreserbaGelaKop());
+			pw.println("     Pertsona Kopurua: " + erreserba.getPertsonaKopuru() + "\t Irtetze data: " + irtetzeData);
+
+			pw.println("     Sartze data: " + sartzeData + "\t Irtetze data: " + irtetzeData);
+			pw.println("");
+			pw.println(
+					"******************************************************************************************************************************************");
+			pw.println("");
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (null != fitx)
+					fitx.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
 
 	public static double diruaSartu(int kont, double sartutakoa) {
 		switch (kont) {
@@ -199,7 +196,7 @@ public class Metodoak {
 		}
 		return sartutakoa;
 	}
-
+	
 	public static double diruFaltaBueltakMetodoa(double diruFalta, double guztiraPrez, double sartutakoa) {
 		diruFalta = guztiraPrez - sartutakoa;
 		diruFalta = Math.round(diruFalta * 100.0) / 100.0;
@@ -288,43 +285,43 @@ public class Metodoak {
 		}
 		return bueltakString;
 	}
+	
 
-	public static void fitxIdatzi(Ostatua hartutakoOstatua, Date sartzeData, Date irtetzeData, double prezioTot, Erreserba erreserba) {
-		FileWriter fitx = null;
-		PrintWriter pw = null;
-		String ostatuIzena = hartutakoOstatua.getIzena();
-
-		try {
-			fitx = new FileWriter("eredua\\ErreserbaFitx", true);
-			pw = new PrintWriter(fitx);
-
-			pw.println("Prezioa: " + erreserba.getPrezioTotala() + " €" + "\nBezeroaren datuak:");
-			if (prezioTot<erreserba.getPrezioTotala())
-				pw.println("Promozioa hartu duzunez ordaindutako prezioa " + prezioTot + " €-koa da");
-
-			if (erreserba.getPentsioMota()!=null)
-				pw.println("Pentsio mota: " + erreserba.getPentsioMota() + "");
-
-			pw.println("     Nan: " + erreserba.getBezeroNan() + "\nIzena: \n     Hartutako ostatua: " + ostatuIzena + "\t");
-			if (hartutakoOstatua.getOstatuMota().equals("H"))
-				pw.println("     Logela Totala: "+ erreserba.getErreserbaGelaKop());
-			pw.println("     Pertsona Kopurua: " + erreserba.getPertsonaKopuru() + "\t Irtetze data: " + irtetzeData);
-
-			pw.println("     Sartze data: " + sartzeData + "\t Irtetze data: " + irtetzeData);
-			pw.println("");
-			pw.println(
-					"******************************************************************************************************************************************");
-			pw.println("");
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (null != fitx)
-					fitx.close();
-			} catch (Exception e2) {
-				e2.printStackTrace();
+	//MetodoakKontsultak
+	public static int egunFestiboa(Date dataSartze, Date dataIrtetze, ArrayList<JaiEgunak> arrayEgunak) {
+		int festaKant = 0;
+		for (JaiEgunak jaiEgunak : arrayEgunak) {
+			for (java.util.Date auxData = dataSartze; auxData.getTime() < dataIrtetze.getTime(); auxData = Metodoak
+					.gehiEgunBat(auxData)) {
+				if (jaiEgunak.getJaiEguna().equals(auxData))
+					festaKant++;
 			}
 		}
+		return festaKant;
 	}
 
+	public static int egunDenboraldiAltua(Date dataSartze, Date dataIrtetze) {
+		int denboraldiAltuaKant = 0;
+		int erresHilabetea = -1, erresEguna = -1;
+
+		// 21-06-yyyy
+		Date ekainaAltuaData = new Date();
+		ekainaAltuaData.setMonth(5);
+		ekainaAltuaData.setDate(21);
+
+		for (Date auxData = dataSartze; auxData.getTime() < dataIrtetze.getTime(); auxData = Metodoak
+				.gehiEgunBat(auxData)) {
+			erresHilabetea = auxData.getMonth();
+			if (erresHilabetea == 0 || erresHilabetea == 1 || erresHilabetea == 2 || erresHilabetea == 6
+					|| erresHilabetea == 7 || erresHilabetea == 10 || erresHilabetea == 11) {
+				denboraldiAltuaKant++;
+			} else if (erresHilabetea == 5)
+				if (auxData.after(ekainaAltuaData))
+					denboraldiAltuaKant++;
+		}
+		return denboraldiAltuaKant;
+	}
+
+	
+	
 }
