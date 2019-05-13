@@ -321,6 +321,8 @@ public class Metodoak {
 		}
 		return denboraldiAltuaKant;
 	}
+	
+
 
 	
 	

@@ -115,10 +115,12 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		
 		lblPentsioa.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblPentsioa.setBounds(210, 165, 72, 14);
+		if (!hartutakoOstatua.getOstatuMota().equals("H"))
+			lblPentsioa.setVisible(false);
 		getContentPane().add(lblPentsioa);
 		
 		cboxPentsioa.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		cboxPentsioa.addItem("Pentsio gabe");
+		cboxPentsioa.addItem("Ez");
 		cboxPentsioa.addItem("erdia");
 		cboxPentsioa.addItem("osoa");
 		cboxPentsioa.setBounds(285, 162, 111, 20);

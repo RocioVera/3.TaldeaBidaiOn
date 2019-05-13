@@ -13,7 +13,10 @@ import Kontrolatzailea.*;
 import javax.swing.table.*;
 
 public class Leiho3HotelDatuak extends JFrame {
-	public static gelaMota_ohe_ostatu h2;
+//	public static gelaMota_ohe_ostatu h2;
+	public static ArrayList<GelaMotaErreserba> gelaMotaErreserba;
+
+	
 	private static final long serialVersionUID = 1L;
 	private JLabel lblIzena = new JLabel(""),
 			lblJarriNahiLogela = new JLabel("Jarri nahi logela mota honen nahi dituzun logela kantitatea"),
@@ -33,6 +36,8 @@ public class Leiho3HotelDatuak extends JFrame {
 	private JComboBox<Integer> cblibreKant = new JComboBox();;
 
 	private ArrayList<gelaMota_ohe_ostatu> oheGelaHotela;
+
+	
 	private String ohe_kopuru, sinplea, bikoitza, umeak, prezioa;
 	private double prezioTot = 0.00;
 	private int gelaLibreak, logelaKant, lehenengoAldia, logelaTot, pertsonaKop,sinpleKop,umeKop,bikoitzaKop;
@@ -54,8 +59,13 @@ public class Leiho3HotelDatuak extends JFrame {
 					sinpleKop+=oheGelaHotela.get(i).getSinplea()*(int) table.getValueAt(i, 4);
 					bikoitzaKop+=oheGelaHotela.get(i).getBikoitza()*(int) table.getValueAt(i, 4)*2;
 					umeKop +=oheGelaHotela.get(i).getUmeak()*(int) table.getValueAt(i, 4);
+					
+					GelaMotaErreserba gelaMotaErreserbaAux = new GelaMotaErreserba(oheGelaHotela.get(i).getGela_kodea(), (int) table.getValueAt(i, 4));
+					gelaMotaErreserba.add(gelaMotaErreserbaAux);
 				}
 
+				
+				
 				prezioTot = Metodoak.prezioTotalaGauekin(dataSartze, dataIrtetze, prezioTot);
 				prezioTot = prezioTot + MetodoakKontsultak.tarifaAldatuDatengatik(dataSartze, dataIrtetze) * logelaTot;
 				pertsonaKop=sinpleKop+bikoitzaKop+umeKop;

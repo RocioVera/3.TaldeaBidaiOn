@@ -140,6 +140,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		ostatuMotaGroup = new ButtonGroup();
 		ordenatuGroup = new ButtonGroup();
 		izarkopGroup = new ButtonGroup();
+		ostatuMotaGroup.clearSelection();
 
 		this.setJMenuBar(menuBar);
 
@@ -388,90 +389,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 
 		btnBilatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				table.setVisible(true);
-				// ematerakoan 0 tik hasteko
-				for (int i = modelo.getRowCount() - 1; i >= 0; i--)
-					modelo.removeRow(i);
-				dataSartze = dchSartzeData.getDate();
-				dataIrtetze = dchIrtetzeData.getDate();
-				// hotelak
-				arrayHotela = MetodoakKontsultak.hotelakAtera((String) cbHerria.getSelectedItem(), dataSartze,
-						dataIrtetze);
-				// apartamentuak
-				arrayApartamentua = MetodoakKontsultak.apartamentuakAtera((String) cbHerria.getSelectedItem(),
-						dataIrtetze, dataIrtetze);
-				// etxeak
-				arrayEtxea = MetodoakKontsultak.etxeakAtera((String) cbHerria.getSelectedItem(), dataIrtetze,
-						dataIrtetze);
-				arrayOstatua = Metodoak.ostatuakSortu(arrayHotela, arrayEtxea, arrayApartamentua);
-
-				// ostatu mota filtroa
-				if (chckbxmntmApartamentua.isSelected() || chckbxmntmHotela.isSelected()
-						|| chckbxmntmEtxea.isSelected()) {
-					if (!chckbxmntmApartamentua.isSelected()) {
-						for (Apartamentua u : arrayApartamentua) {
-							u.setIzena("");
-						}
-					}
-					if (!chckbxmntmEtxea.isSelected()) {
-						for (Etxea a : arrayEtxea) {
-							a.setIzena("");
-						}
-
-					}
-					if (!chckbxmntmHotela.isSelected()) {
-						for (Hotela l : arrayHotela) {
-							l.setIzena("");
-						}
-					}
-				}
-
-				// ordenatu filtroa
-				if (chckbxmntmErreserbaKopurua.isSelected()) {
-					for (int i = 0; i < arrayOstatua.size(); i++) {
-						for (int j = 0; j < arrayOstatua.size() - 1; j++) {
-							if (arrayOstatua.get(j).getErreserbaKop() < arrayOstatua.get(j + 1).getErreserbaKop()) {
-								int tmp = arrayOstatua.get(j + 1).getErreserbaKop();
-								arrayOstatua.get(j + 1).setErreserbaKop(arrayOstatua.get(j).getErreserbaKop());
-
-								arrayOstatua.get(j).setErreserbaKop(tmp);
-							}
-						}
-					}
-				}
-
-				if (chckbxmntmAlfabetoa.isSelected()) {
-					/*
-					 * for (Ostatua o : arrayOstatua) { Collections.sort(o.getIzena()); }
-					 */
-				}
-				if (chckbxmntmPrezioa.isSelected()) {
-
-				}
-
-				for (Ostatua o : arrayOstatua) {
-					ostatuIzen = o.getIzena();
-					if (!ostatuIzen.equals("")) {
-						if (o.getOstatuMota().equals("H")) {
-							ostatuMota = "Hotela";
-							prezioa = MetodoakKontsultak.hotelarenPrezioaAtera(ostatuIzen) + " €";
-						} else if (o.getOstatuMota().equals("E")) {
-							ostatuMota = "Etxea";
-							prezioa = MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen) + " €";
-						} else if (o.getOstatuMota().equals("A")) {
-							ostatuMota = "Apartamentua";
-							prezioa = MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen) + " €";
-						}
-						ostatuBerria[0] = ostatuIzen;
-						ostatuBerria[1] = ostatuMota;
-						ostatuBerria[2] = prezioa;
-						modelo.addRow(ostatuBerria);
-					}
-				}
-				mnOstatuMota.setEnabled(true);
-				table.setModel(modelo);
-				btnBilatu.setVisible(false);
-
+				datuakBerritu();
 			}
 		});
 
@@ -488,7 +406,6 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		getContentPane().add(lblGogoratu);
 
 	}
-
 	private void datuakBerritu() {
 		table.setVisible(true);
 		// ematerakoan 0 tik hasteko
@@ -503,29 +420,37 @@ public class Leiho2AukeratuOstatu extends JFrame {
 				dataIrtetze);
 		// etxeak
 		arrayEtxea = MetodoakKontsultak.etxeakAtera((String) cbHerria.getSelectedItem(), dataIrtetze, dataIrtetze);
-		arrayOstatua = Metodoak.ostatuakSortu(arrayHotela, arrayEtxea, arrayApartamentua);
+
+		arrayOstatua = new ArrayList<Ostatua>();
 
 		// ostatu mota filtroa
 		if (chckbxmntmApartamentua.isSelected() || chckbxmntmHotela.isSelected() || chckbxmntmEtxea.isSelected()) {
-			if (!chckbxmntmApartamentua.isSelected()) {
+			if (chckbxmntmApartamentua.isSelected()) {
 				for (Apartamentua u : arrayApartamentua) {
-					u.setIzena("");
+					arrayOstatua.add(u);
+				//	u.setIzena("");
 				}
 			}
-			if (!chckbxmntmEtxea.isSelected()) {
+			if (chckbxmntmEtxea.isSelected()) {
 				for (Etxea a : arrayEtxea) {
-					a.setIzena("");
+					arrayOstatua.add(a);
+				//	a.setIzena("");
 				}
 
 			}
-			if (!chckbxmntmHotela.isSelected()) {
-				for (Hotela l : arrayHotela) {
-					l.setIzena("");
+			if (chckbxmntmHotela.isSelected()) {
+				for (Hotela h : arrayHotela) {
+					arrayOstatua.add(h);
+					//h.setIzena("");
 				}
 			}
-		}
+			// arrayOstatua = Metodoak.ostatuakSortu(arrayHotela, arrayEtxea,
+			// arrayApartamentua);
 
-		/************************************************ORDENA MAL*/
+		} else
+			arrayOstatua = Metodoak.ostatuakSortu(arrayHotela, arrayEtxea, arrayApartamentua);
+
+		/************************************************ ORDENA MAL */
 		// ordenatu filtroa
 		if (chckbxmntmErreserbaKopurua.isSelected()) {
 			ArrayList<Ostatua> arrayOstatuaAux = new ArrayList<Ostatua>();
@@ -582,22 +507,21 @@ public class Leiho2AukeratuOstatu extends JFrame {
 
 		for (Ostatua o : arrayOstatua) {
 			ostatuIzen = o.getIzena();
-			if (!ostatuIzen.equals("")) {
-				if (o.getOstatuMota().equals("H")) {
-					ostatuMota = "Hotela";
-					prezioa = MetodoakKontsultak.hotelarenPrezioaAtera(ostatuIzen) + " €";
-				} else if (o.getOstatuMota().equals("E")) {
-					ostatuMota = "Etxea";
-					prezioa = MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen) + " €";
-				} else if (o.getOstatuMota().equals("A")) {
-					ostatuMota = "Apartamentua";
-					prezioa = MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen) + " €";
-				}
-				ostatuBerria[0] = ostatuIzen;
-				ostatuBerria[1] = ostatuMota;
-				ostatuBerria[2] = prezioa;
-				modelo.addRow(ostatuBerria);
+			if (o.getOstatuMota().equals("H")) {
+				ostatuMota = "Hotela";
+				prezioa = MetodoakKontsultak.hotelarenPrezioaAtera(ostatuIzen) + " €";
+			} else if (o.getOstatuMota().equals("E")) {
+				ostatuMota = "Etxea";
+				prezioa = MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen) + " €";
+			} else if (o.getOstatuMota().equals("A")) {
+				ostatuMota = "Apartamentua";
+				prezioa = MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen) + " €";
 			}
+			ostatuBerria[0] = ostatuIzen;
+			ostatuBerria[1] = ostatuMota;
+			ostatuBerria[2] = prezioa;
+			modelo.addRow(ostatuBerria);
+
 		}
 		mnOstatuMota.setEnabled(true);
 		table.setModel(modelo);

@@ -255,6 +255,36 @@ public class MetodoakKontsultak {
 		Kontsultak.promozioaErabilita(promozioa);
 	}
 
+	public static void erresJaiEgunIgoMet(Erreserba erreserba, Date dataSartze, Date dataIrtetze) {
+		int erresHilabetea = -1, erresEguna = -1;
+		String denboraldia = "baxua";
+
+		// 21-06-yyyy
+		Date ekainaAltuaData = new Date();
+		ekainaAltuaData.setMonth(5);
+		ekainaAltuaData.setDate(21);
+
+		for (Date auxData = dataSartze; auxData.getTime() < dataIrtetze.getTime(); auxData = Metodoak
+				.gehiEgunBat(auxData)) {
+			erresHilabetea = auxData.getMonth();
+			if (erresHilabetea == 0 || erresHilabetea == 1 || erresHilabetea == 2 || erresHilabetea == 6
+					|| erresHilabetea == 7 || erresHilabetea == 10 || erresHilabetea == 11) {
+				denboraldia = "altua";
+			} else if (erresHilabetea == 5) {
+				if (auxData.after(ekainaAltuaData))
+					denboraldia = "altua";
+			} else {
+				denboraldia = "baxua";
+			}
+			
+			Kontsultak.erresJaiEgunIgoMet(auxData,denboraldia );
+		}
+	}
+	
+	public static void gelaMotaErreserbaIgoMet(ArrayList<GelaMotaErreserba> gelaMotaErreserba) {
+		 Kontsultak.gelaMotaErreserbaIgo(gelaMotaErreserba);
+
+	}
 	
 	//MetodoakKontsultak
 

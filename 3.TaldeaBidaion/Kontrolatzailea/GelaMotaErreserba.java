@@ -1,11 +1,25 @@
 package Kontrolatzailea;
 
 public class GelaMotaErreserba {
-	private int gelaMotaKod, erreserbaKod;
+	private int gelaMotaKod, erreserbaKod, kantitatea;
 
-	public GelaMotaErreserba(int gelaMotaKod, int erreserbaKod) {
+	public GelaMotaErreserba(int gelaMotaKod, int erreserbaKod, int kantitatea) {
 		this.gelaMotaKod = gelaMotaKod;
 		this.erreserbaKod = erreserbaKod;
+		this.kantitatea = kantitatea;
+	}
+
+	public GelaMotaErreserba(int gelaMotaKod, int kantitatea) {
+		this.gelaMotaKod = gelaMotaKod;
+		this.kantitatea = kantitatea;
+	}
+	
+	public int getKantitatea() {
+		return kantitatea;
+	}
+
+	public void setKantitatea(int kantitatea) {
+		this.kantitatea = kantitatea;
 	}
 
 	public int getGelaMotaKod() {
@@ -26,8 +40,10 @@ public class GelaMotaErreserba {
 
 	@Override
 	public String toString() {
-		return "GelaMotaHotela [gelaMotaKod=" + gelaMotaKod + ", erreserbaKod=" + erreserbaKod + "]";
+		return "GelaMotaErreserba [gelaMotaKod=" + gelaMotaKod + ", erreserbaKod=" + erreserbaKod + ", kantitatea="
+				+ kantitatea + "]";
 	}
+
 
 
 

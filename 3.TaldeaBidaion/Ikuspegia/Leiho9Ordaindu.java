@@ -50,6 +50,12 @@ public class Leiho9Ordaindu extends JFrame {
 				//MetodoakKontsultak.erreserbakZenbatuMet();
 				//insert base legalak
 				MetodoakKontsultak.baseLegalakIgoMet(MetodoakKontsultak.erreserbakZenbatuMet());
+				
+				MetodoakKontsultak.erresJaiEgunIgoMet(erreserba, sartzeData, irtetzeData);
+
+				if (hartutakoOstatua.getOstatuMota().equals("H"))
+					MetodoakKontsultak.gelaMotaErreserbaIgoMet(Leiho3HotelDatuak.gelaMotaErreserba);
+				
 				if (promHartu!=null)
 					MetodoakKontsultak.promozioaErabilitaMet(promHartu);
 				//aldatu azkeneko preziora
