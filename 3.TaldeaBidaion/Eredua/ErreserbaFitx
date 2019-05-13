@@ -21,11 +21,19 @@ Izena:
 
 ******************************************************************************************************************************************
 
+<<<<<<< HEAD
 Prezioa: 200.0 €
 Bezeroaren datuak:
 Pentsio mota: Ez
      Nan: 12345678Z
 Izena: 
+=======
+Prezioa: 200.0 €
+Bezeroaren datuak:
+Pentsio mota: Ez
+     Nan: 12345678Z
+Izena: 
+>>>>>>> branch 'master' of https://github.com/RocioVera/3.TaldeaBidaiOn.git
      Hartutako ostatua: NH Bilbo	
      Logela Totala: 2
      Pertsona Kopurua: 6	 Irtetze data: Tue May 14 00:00:00 CEST 2019
@@ -33,3 +41,58 @@ Izena:
 
 ******************************************************************************************************************************************
 
+Prezioa: 176.0 €
+Bezeroaren datuak:
+Pentsio mota: Ez
+     Nan: 12345678Z
+Izena: 
+     Hartutako ostatua: Gran Hotel Domine Bilbao	
+     Logela Totala: 2
+     Pertsona Kopurua: 6	 Irtetze data: Tue May 14 00:00:00 CEST 2019
+     Sartze data: Mon May 13 00:00:00 CEST 2019	 Irtetze data: Tue May 14 00:00:00 CEST 2019
+
+******************************************************************************************************************************************
+
+Prezioa: 956.0 €
+Bezeroaren datuak:
+Pentsio mota: Ez
+     Nan: 11111111H
+Izena: 
+     Hartutako ostatua: Urgitxeta12Sop	
+     Pertsona Kopurua: 4	 Irtetze data: Fri May 17 00:00:00 CEST 2019
+     Sartze data: Mon May 13 00:00:00 CEST 2019	 Irtetze data: Fri May 17 00:00:00 CEST 2019
+
+******************************************************************************************************************************************
+
+Prezioa: 2632.0 €
+Bezeroaren datuak:
+Pentsio mota: Ez
+     Nan: 12345678Z
+Izena: 
+     Hartutako ostatua: Gran Hotel Domine Bilbao	
+     Logela Totala: 4
+     Pertsona Kopurua: 12	 Irtetze data: Sun Jul 28 00:00:00 CEST 2019
+     Sartze data: Mon Jul 22 00:00:00 CEST 2019	 Irtetze data: Sun Jul 28 00:00:00 CEST 2019
+
+******************************************************************************************************************************************
+
+Prezioa: 0.0 €
+Bezeroaren datuak:
+     Nan: null
+Izena: 
+     Hartutako ostatua: null	
+Prezioa: 0.0 €
+Bezeroaren datuak:
+     Nan: null
+Izena: 
+     Hartutako ostatua: null	
+Prezioa: 0.0 €
+Bezeroaren datuak:
+     Nan: null
+Izena: 
+     Hartutako ostatua: null	
+Prezioa: 0.0 €
+Bezeroaren datuak:
+     Nan: null
+Izena: 
+     Hartutako ostatua: null	

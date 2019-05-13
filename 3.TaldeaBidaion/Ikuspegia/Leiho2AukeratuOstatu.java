@@ -23,12 +23,6 @@ public class Leiho2AukeratuOstatu extends JFrame {
 	// panelaren bariableak
 	private JMenuBar menuBar = new JMenuBar();
 
-	// izarkopuru
-	private JMenu mnIzarKopurua = new JMenu("       Izar kopurua      ");
-	private JRadioButton chckbxmntmIzar_5 = new JRadioButton("  5 Izar"),
-			chckbxmntmIzar_1 = new JRadioButton("  4 Izar"), chckbxmntmIzar_2 = new JRadioButton("  3 Izar"),
-			chckbxmntmIzar_3 = new JRadioButton("  2 Izar"),
-			chckbxmntmIzar_4 = new JRadioButton("  1 Izar             ");
 	// ostatu mota
 	private JMenu mnOstatuMota = new JMenu("       Ostatu mota        ");
 	private JRadioButton chckbxmntmHotela = new JRadioButton("Hotela"),
@@ -38,12 +32,15 @@ public class Leiho2AukeratuOstatu extends JFrame {
 	private JMenu mnOrdenatu = new JMenu("        Ordenatu            ");
 	private JRadioButton chckbxmntmPrezioa = new JRadioButton("Prezioa"),
 			chckbxmntmAlfabetoa = new JRadioButton("Alfabetoa"),
-			chckbxmntmErreserbaKopurua = new JRadioButton("Erreserba kopurua  ");
+			chckbxmntmErreserbaKopurua = new JRadioButton("Erreserba kopurua  "),
+			chckbxmntmIzar_5 = new JRadioButton("  5 Izar"), chckbxmntmIzar_1 = new JRadioButton("  4 Izar"),
+			chckbxmntmIzar_2 = new JRadioButton("  3 Izar"), chckbxmntmIzar_3 = new JRadioButton("  2 Izar"),
+			chckbxmntmIzar_4 = new JRadioButton("  1 Izar             ");
 	// zerbitzuak
 	private JMenu mnZerbitzuak = new JMenu("        Zerbitzuak            ");
-
+	private JRadioButton chckbxmntmParkina = new JRadioButton("Parkina            ");
 	// taldeak
-	private ButtonGroup izarkopGroup, ostatuMotaGroup, ordenatuGroup;
+	private ButtonGroup zerbitzuakGroup, ostatuMotaGroup, ordenatuGroup;
 
 	private JDateChooser dchSartzeData = new JDateChooser(), dchIrtetzeData = new JDateChooser();
 	private JTextFieldDateEditor dataEzEditatu; // kentzeko eskuz sartu ahal izana
@@ -55,10 +52,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 	private static JTable table;
 	private JScrollPane scrollPane;
 	private DefaultTableModel modelo = new DefaultTableModel() {
-		public boolean isCellEditable(int row, int column) {
-			return false;
-		}
-	};
+		public boolean isCellEditable(int row,int column){return false;}};
 
 	// bariableak
 	private ArrayList<Hotela> arrayHotela;
@@ -139,7 +133,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		// group --> bakarrik bat
 		ostatuMotaGroup = new ButtonGroup();
 		ordenatuGroup = new ButtonGroup();
-		izarkopGroup = new ButtonGroup();
+		zerbitzuakGroup = new ButtonGroup();
 		ostatuMotaGroup.clearSelection();
 
 		this.setJMenuBar(menuBar);
@@ -153,13 +147,16 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		chckbxmntmHotela.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
 				ostatuMotaGroup.add(chckbxmntmHotela);
-				mnIzarKopurua.setEnabled(true);
 				btnBilatu.setVisible(true);
 				btn_next.setVisible(false);
 				datuakBerritu();
-
+				
+				chckbxmntmIzar_1.setEnabled(true);
+				chckbxmntmIzar_2.setEnabled(true);
+				chckbxmntmIzar_3.setEnabled(true);
+				chckbxmntmIzar_4.setEnabled(true);
+				chckbxmntmIzar_5.setEnabled(true);
 			}
 		});
 		chckbxmntmHotela.setFont(new Font("Verdana", Font.PLAIN, 16));
@@ -173,6 +170,11 @@ public class Leiho2AukeratuOstatu extends JFrame {
 				btn_next.setVisible(false);
 				datuakBerritu();
 
+				chckbxmntmIzar_1.setEnabled(false);
+				chckbxmntmIzar_2.setEnabled(false);
+				chckbxmntmIzar_3.setEnabled(false);
+				chckbxmntmIzar_4.setEnabled(false);
+				chckbxmntmIzar_5.setEnabled(false);
 			}
 		});
 		chckbxmntmApartamentua.setFont(new Font("Verdana", Font.PLAIN, 16));
@@ -184,6 +186,12 @@ public class Leiho2AukeratuOstatu extends JFrame {
 				btnBilatu.setVisible(true);
 				btn_next.setVisible(false);
 				datuakBerritu();
+				
+				chckbxmntmIzar_1.setEnabled(false);
+				chckbxmntmIzar_2.setEnabled(false);
+				chckbxmntmIzar_3.setEnabled(false);
+				chckbxmntmIzar_4.setEnabled(false);
+				chckbxmntmIzar_5.setEnabled(false);
 
 			}
 		});
@@ -222,61 +230,81 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		chckbxmntmErreserbaKopurua.setFont(new Font("Verdana", Font.PLAIN, 16));
 		mnOrdenatu.add(chckbxmntmErreserbaKopurua);
 
-		// izarkopurua
-		mnIzarKopurua.setFont(new Font("Verdana", Font.PLAIN, 16));
-		mnIzarKopurua.setEnabled(false);
-		menuBar.add(mnIzarKopurua);
 
 		// 1
 		chckbxmntmIzar_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				izarkopGroup.add(chckbxmntmIzar_1);
+				ordenatuGroup.add(chckbxmntmIzar_1);
 			}
 		});
 		chckbxmntmIzar_1.setFont(new Font("Verdana", Font.PLAIN, 16));
-		mnIzarKopurua.add(chckbxmntmIzar_1);
+		chckbxmntmIzar_1.setEnabled(false);
+		mnOrdenatu.add(chckbxmntmIzar_1);
 
 		// 2
 		chckbxmntmIzar_2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				izarkopGroup.add(chckbxmntmIzar_2);
+				ordenatuGroup.add(chckbxmntmIzar_2);
 			}
 		});
 		chckbxmntmIzar_2.setFont(new Font("Verdana", Font.PLAIN, 16));
-		mnIzarKopurua.add(chckbxmntmIzar_2);
+		chckbxmntmIzar_2.setEnabled(false);
+		mnOrdenatu.add(chckbxmntmIzar_2);
 
 		// 3
 		chckbxmntmIzar_3.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				izarkopGroup.add(chckbxmntmIzar_3);
+				ordenatuGroup.add(chckbxmntmIzar_3);
 			}
 		});
 		chckbxmntmIzar_3.setFont(new Font("Verdana", Font.PLAIN, 16));
-		mnIzarKopurua.add(chckbxmntmIzar_3);
+		chckbxmntmIzar_3.setEnabled(false);
+		mnOrdenatu.add(chckbxmntmIzar_3);
 
 		// 4
 		chckbxmntmIzar_4.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				izarkopGroup.add(chckbxmntmIzar_4);
+				ordenatuGroup.add(chckbxmntmIzar_4);
 			}
 		});
 		chckbxmntmIzar_4.setFont(new Font("Verdana", Font.PLAIN, 16));
-		mnIzarKopurua.add(chckbxmntmIzar_4);
+		chckbxmntmIzar_4.setEnabled(false);
+		mnOrdenatu.add(chckbxmntmIzar_4);
 
 		// 5
 		chckbxmntmIzar_5.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				izarkopGroup.add(chckbxmntmIzar_5);
+				ordenatuGroup.add(chckbxmntmIzar_5);
 			}
 		});
 		chckbxmntmIzar_5.setFont(new Font("Verdana", Font.PLAIN, 16));
-		mnIzarKopurua.add(chckbxmntmIzar_5);
+		chckbxmntmIzar_5.setEnabled(false);
+		mnOrdenatu.add(chckbxmntmIzar_5);
 
+		
+		// zerbitzuak
+		mnZerbitzuak.setFont(new Font("Verdana", Font.PLAIN, 16));
+		mnZerbitzuak.setEnabled(false);
+		menuBar.add(mnZerbitzuak);
+
+		chckbxmntmParkina.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				zerbitzuakGroup.add(chckbxmntmParkina);
+				btnBilatu.setVisible(true);
+				btn_next.setVisible(false);
+				datuakBerritu();
+
+			}
+		});
+		chckbxmntmParkina.setFont(new Font("Verdana", Font.PLAIN, 16));
+		mnZerbitzuak.add(chckbxmntmParkina);
+		
 		// Sartze data
 		lblSartzeData.setFont(new Font("Verdana", Font.PLAIN, 13));
 		lblSartzeData.setBounds(228, 26, 113, 30);
@@ -291,7 +319,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		dchSartzeData.getCalendarButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				mnOstatuMota.setEnabled(false);
-				mnIzarKopurua.setEnabled(false);
+				mnZerbitzuak.setEnabled(false);
 				mnOrdenatu.setEnabled(false);
 				dchIrtetzeData.setVisible(true);
 				dchIrtetzeData.setDate(null);
@@ -313,6 +341,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		dchIrtetzeData.getCalendarButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				mnOstatuMota.setEnabled(true);
+				mnZerbitzuak.setEnabled(true);
 				mnOrdenatu.setEnabled(true);
 				dataIrtetze = Metodoak.gehiEgunBat(dchSartzeData.getDate());
 				dchIrtetzeData.setDate(dataIrtetze);
@@ -406,6 +435,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		getContentPane().add(lblGogoratu);
 
 	}
+
 	private void datuakBerritu() {
 		table.setVisible(true);
 		// ematerakoan 0 tik hasteko
@@ -428,24 +458,19 @@ public class Leiho2AukeratuOstatu extends JFrame {
 			if (chckbxmntmApartamentua.isSelected()) {
 				for (Apartamentua u : arrayApartamentua) {
 					arrayOstatua.add(u);
-				//	u.setIzena("");
 				}
 			}
 			if (chckbxmntmEtxea.isSelected()) {
 				for (Etxea a : arrayEtxea) {
 					arrayOstatua.add(a);
-				//	a.setIzena("");
 				}
 
 			}
 			if (chckbxmntmHotela.isSelected()) {
 				for (Hotela h : arrayHotela) {
 					arrayOstatua.add(h);
-					//h.setIzena("");
 				}
 			}
-			// arrayOstatua = Metodoak.ostatuakSortu(arrayHotela, arrayEtxea,
-			// arrayApartamentua);
 
 		} else
 			arrayOstatua = Metodoak.ostatuakSortu(arrayHotela, arrayEtxea, arrayApartamentua);
@@ -502,6 +527,26 @@ public class Leiho2AukeratuOstatu extends JFrame {
 			 */
 		}
 		if (chckbxmntmPrezioa.isSelected()) {
+
+		}
+		
+		if (chckbxmntmIzar_1.isSelected()) {
+
+		}
+		
+		if (chckbxmntmIzar_2.isSelected()) {
+
+		}
+		
+		if (chckbxmntmIzar_3.isSelected()) {
+
+		}
+		
+		if (chckbxmntmIzar_4.isSelected()) {
+
+		}
+		
+		if (chckbxmntmIzar_5.isSelected()) {
 
 		}
 
