@@ -591,7 +591,7 @@ public class Kontsultak {
 		int erreserbaKod = erreserbakZenbatu();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String dataString = sdf.format(data);
-		
+
 		try {
 			PreparedStatement st = konexioa.prepareStatement(
 					"INSERT INTO `erreserba_jaiEgunak`(`erreserba_erreserba_kod`, `eguna`, `tarifa_denboraldia`)"
@@ -608,31 +608,32 @@ public class Kontsultak {
 			System.out.println(e.getMessage());
 			System.out.println("Ez da gehitu erresJaiEgun");
 		}
-		
+
 		jaiEgunKodIgo(data, konexioa);
 	}
-	
+
 	public static void jaiEgunKodIgo(java.util.Date data, Connection konexioa) {
 		int jaiEgunKod;
 		ArrayList<JaiEgunak> arrayEgunak = jaiEgunakAtera();
-		int erreserbaKod=0;
+		int erreserbaKod = 0;
 		Statement st2 = null;
 
 		for (JaiEgunak jaiEgunak : arrayEgunak) {
 			if (jaiEgunak.getJaiEguna().equals(data)) {
 				jaiEgunKod = jaiEgunak.getJaiEgunKod();
-				
+
 				try {
 					st2 = konexioa.createStatement();
 					ResultSet rs = st2.executeQuery("SELECT MAX(erreserba_jaiegunKod) FROM erreserba_jaiegunak");
-					
+
 					while (rs.next()) {
 						erreserbaKod = (rs.getInt("MAX(erreserba_jaiegunKod)"));
 					}
-					
-					PreparedStatement st = konexioa.prepareStatement(
-							"UPDATE erreserba_jaiegunak SET jaiEgunak_jaiEgunak_kod="+jaiEgunKod+" WHERE erreserba_jaiegunKod = "+erreserbaKod);
-					
+
+					PreparedStatement st = konexioa
+							.prepareStatement("UPDATE erreserba_jaiegunak SET jaiEgunak_jaiEgunak_kod=" + jaiEgunKod
+									+ " WHERE erreserba_jaiegunKod = " + erreserbaKod);
+
 					st.executeUpdate();
 					st.close();
 					System.out.println("Gehitu da egun kod");
@@ -645,25 +646,26 @@ public class Kontsultak {
 			}
 		}
 	}
-	
-	//erresJaiEgunIgo
-	public static void gelaMotaErreserbaIgo(ArrayList<GelaMotaErreserba> gelaMotaErreserba) {
+
+	// erresJaiEgunIgo
+	public static void gelaMotaErreserbaIgo(GelaMotaErreserba gelaMotaErreserba2) {
 		Connection konexioa = Konexioa.getConexion();
-		
 		try {
 			PreparedStatement st = konexioa.prepareStatement(
-					"");
-			
+					"INSERT INTO `gelamota_erreserba`(`gelaMota_gela_kodea`, `erreserba_erreserba_kod`, `kantitatea`) VALUES (?,?,?)");
+			st.setInt(1, gelaMotaErreserba2.getGelaMotaKod());
+			st.setInt(2, erreserbakZenbatu());
+			st.setInt(3, gelaMotaErreserba2.getKantitatea());
 
 			st.executeUpdate();
 			st.close();
-			System.out.println("Gehitu da erresJaiEgun");
+			System.out.println("Gehitu da gelaMotaErreserba");
 
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
-			System.out.println("Ez da gehitu erresJaiEgun");
+			System.out.println("Ez da gehitu gelaMotaErreserba");
 		}
-		
+
 	}
 
 	public static void promozioaErabilita(Promozioa promozioa) {
