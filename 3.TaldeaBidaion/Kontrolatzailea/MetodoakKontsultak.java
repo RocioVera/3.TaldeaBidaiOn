@@ -282,7 +282,10 @@ public class MetodoakKontsultak {
 	}
 	
 	public static void gelaMotaErreserbaIgoMet(ArrayList<GelaMotaErreserba> gelaMotaErreserba) {
-		 Kontsultak.gelaMotaErreserbaIgo(gelaMotaErreserba);
+		for (GelaMotaErreserba gelaMotaErreserba2 : gelaMotaErreserba) {
+			Kontsultak.gelaMotaErreserbaIgo(gelaMotaErreserba2);
+		}
+		
 
 	}
 	
