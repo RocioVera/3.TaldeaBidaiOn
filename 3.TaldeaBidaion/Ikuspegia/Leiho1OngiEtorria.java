@@ -15,10 +15,10 @@ public class Leiho1OngiEtorria extends JFrame {
 	private static final long serialVersionUID = 1L;
 	//panelan ikusten diren bariableak
 	private JButton aurreraBtn;
-/**
- * Ongietorria ematen duen panela sortu
- * @author talde1
- */
+	/**
+	 * Ongietorria ematen duen panela sortu
+	 * @author talde3
+	 */
 	public Leiho1OngiEtorria() {
 	
 		//panelaren propietateak

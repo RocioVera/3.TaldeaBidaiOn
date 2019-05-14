@@ -8,11 +8,20 @@ import java.util.Date;
 
 public class Leiho10Ticket extends JFrame {
 	private static final long serialVersionUID = 1L;
+	
 	// panelan ikusten diren bariableak
 	private JLabel lblEskerrikAskoMezua1, lblEskerrikAskoMezua2;
 	private JButton btnTiketaImprimatu;
 	private JTextArea txtTiket;
 
+	/**
+	 * Ticket egiten duen panela sortu 
+	 * @author talde3
+	 * @param hartutakoOstatua
+	 * @param sartzeData
+	 * @param irtetzeData
+	 * @param erreserba
+	 */
 	public Leiho10Ticket(Ostatua hartutakoOstatua, Date sartzeData, Date irtetzeData, Erreserba erreserba) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));

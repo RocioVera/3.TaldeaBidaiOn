@@ -12,7 +12,6 @@ import com.toedter.calendar.*;
 public class Leiho7BaseLegalak extends JFrame {
 	private static final long serialVersionUID = 1L;
 	// panelan ikusten diren bariableak
-
 	private JButton btnErregistratuNahi = new JButton("Erregistratu"), btn_prev = new JButton("Hasi saioa"),
 			restart = new JButton("\u2302"), btn_next = new JButton("Hurrengoa");
 	private JTextField txtBaseLegalak;
@@ -24,6 +23,18 @@ public class Leiho7BaseLegalak extends JFrame {
 	private JTextArea txtrTxtareabaselegalak = new JTextArea();
 	private JLabel lblAcuerdo = new JLabel("ACUERDO ENTRE EL USUARIO Y Airour");
 
+	/**
+	 * Base legalak onartzen duen panela sortu 
+	 * @author talde3
+	 * @param prezioTot
+	 * @param hartutakoOstatua
+	 * @param sartzeData
+	 * @param irtetzeData
+	 * @param nan
+	 * @param logelaTot
+	 * @param pertsonaKop
+	 * @param pentsioMota
+	 */
 	public Leiho7BaseLegalak(double prezioTot, Ostatua hartutakoOstatua, java.util.Date sartzeData,
 			java.util.Date irtetzeData, String nan, int logelaTot, int pertsonaKop, String pentsioMota) {
 		// panelaren propietateak

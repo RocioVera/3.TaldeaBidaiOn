@@ -12,24 +12,44 @@ import Kontrolatzailea.*;
 import javax.swing.*;
 
 public class Leiho4ZerbitzuGehigarriak extends JFrame {
+	// panelan ikusten diren bariableak
 	private JTextField txtPrezioa, txtLogelak;
-	private JLabel lblIzena = new JLabel(""), lblLogelak = new JLabel("Logelak:");
-	private JLabel lblPrezioa = new JLabel("Prezioa:");
-	private JLabel lblPentsioa = new JLabel("Pentsioa:"), lblZerbitzuak = new JLabel("Zerbitzu gehigarriak:");
+	private JLabel lblIzena = new JLabel(""), lblLogelak = new JLabel("Logelak:"), lblPrezioa = new JLabel("Prezioa:"),
+			lblPentsioa = new JLabel("Pentsioa:"), lblZerbitzuak = new JLabel("Zerbitzu gehigarriak:");
+
 	private JComboBox cboxPentsioa = new JComboBox();
 	private JCheckBox chckbxGozaria = new JCheckBox("Gosaria"), chckbxWifi = new JCheckBox("Wifi"),
 			chckbxIgerilekua = new JCheckBox("Igerilekua"), chckbxSpa = new JCheckBox("Spa"),
 			chckbxParking = new JCheckBox("Parking"), chckbxAireGirotua = new JCheckBox("Aire girotua"),
 			chckbxJatetxea = new JCheckBox("Jatetxea"), chckbxTaberna = new JCheckBox("Taberna"),
 			chckbxGimnasioa = new JCheckBox("Gimnasioa");
+
 	private JButton btn_next = new JButton("Hurrengoa"), btn_prev = new JButton("Atzera"),
 			restart = new JButton("\u2302");
-	private ArrayList<HartutakoOstatuarenZerbitzuak> zerbitzuArray = new ArrayList<HartutakoOstatuarenZerbitzuak>();
+
 	private JTable table;
 	private DefaultTableModel modelo = new DefaultTableModel() {
-		public boolean isCellEditable(int row,int column){return false;}};
-	private String[] array = new String[1];
+		public boolean isCellEditable(int row, int column) {
+			return false;
+		}
+	};
+	private JScrollPane scrollPane;
 
+	// bariableak
+	private ArrayList<HartutakoOstatuarenZerbitzuak> zerbitzuArray = new ArrayList<HartutakoOstatuarenZerbitzuak>();
+	private String[] array = new String[3];
+
+	/**
+	 * Zerbitzu gehigarri datuak agertzen den panela sortu
+	 * 
+	 * @author talde3
+	 * @param hartutakoOstatua
+	 * @param prezioTot
+	 * @param dataSartze
+	 * @param dataIrtetze
+	 * @param logelaTot
+	 * @param pertsonaKop
+	 */
 	public Leiho4ZerbitzuGehigarriak(Ostatua hartutakoOstatua, double prezioTot, Date dataSartze, Date dataIrtetze,
 			int logelaTot, int pertsonaKop) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
@@ -138,7 +158,7 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		getContentPane().add(chckbxGozaria);
 
 		lblZerbitzuak.setFont(new Font("Verdana", Font.BOLD, 16));
-		lblZerbitzuak.setBounds(62, 263, 230, 25);
+		lblZerbitzuak.setBounds(51, 244, 230, 25);
 		getContentPane().add(lblZerbitzuak);
 
 		// gehigarriak
@@ -177,16 +197,24 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		 */
 
 		zerbitzuArray = MetodoakKontsultak.zerbitzuakOstatuanMet(hartutakoOstatua);
-		
-		modelo.addColumn("Prezio (€/gaua):");
+
+		modelo.addColumn("Izena:");
+		modelo.addColumn("Prezio gehigarria:");
+		modelo.addColumn("Hartuta:");
+
 
 		// tabla datuak
 		table = new JTable(modelo);
 		table.setShowVerticalLines(false);
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 		table.setFont(new Font("Verdana", Font.PLAIN, 14));
-		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		table.getColumnModel().getColumn(0).setPreferredWidth(200);
+
+		table.getColumnModel().getColumn(0).setPreferredWidth(150);
+		table.getColumnModel().getColumn(1).setPreferredWidth(150);
+		table.getColumnModel().getColumn(1).setPreferredWidth(150);
+
+
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.getTableHeader().setResizingAllowed(false);
 		table.setRowHeight(32);
 		table.setBackground(Color.LIGHT_GRAY);
@@ -195,30 +223,38 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		table.getTableHeader().setReorderingAllowed(false);
 		getContentPane().add(table);
 
-		for (HartutakoOstatuarenZerbitzuak zerb : zerbitzuArray) {
-			if (zerb.getIzena().equals("wifi"))
-				array[1] = "wifi";
-				modelo.addRow(array);
-			if (zerb.getIzena().equals("igerilekua"))
-				modeloa.addElement("igerilekua");
-			if (zerb.getIzena().equals("spa"))
-				modeloa.addElement("spa");
-			if (zerb.getIzena().equals("aparkalekua"))
-				modeloa.addElement("aparkalekua");
-			if (zerb.getIzena().equals("aire girotua"))
-				modeloa.addElement("aire girotua");
-			if (zerb.getIzena().equals("jatetxea"))
-				modeloa.addElement("jatetxea");
-			if (zerb.getIzena().equals("taberna"))
-				modeloa.addElement("taberna");
-			if (zerb.getIzena().equals("gimnasioa"))
-				modeloa.addElement("gimnasioa");
-		}
-		//zerbLista.getSelectionModel().addSelectionInterval(index0, index1);
-		
-		zerbLista.setBounds(62, 299, 508, 179);
-		
-		getContentPane().add(zerbLista);
+		scrollPane = new JScrollPane(table);
+		scrollPane.setViewportBorder(null);
+		scrollPane.setBounds(20, 282, 562, 188);
+		getContentPane().add(scrollPane);
 
+		for (HartutakoOstatuarenZerbitzuak zerb : zerbitzuArray) {
+			/*
+			 * if (zerb.getIzena().equals("wifi")) array[1] = "wifi"; modelo.addRow(array);
+			 * if (zerb.getIzena().equals("igerilekua")) modelo.addRow("igerilekua"); if
+			 * (zerb.getIzena().equals("spa")) modelo.addElement("spa"); if
+			 * (zerb.getIzena().equals("aparkalekua")) modelo.addElement("aparkalekua"); if
+			 * (zerb.getIzena().equals("aire girotua")) modelo.addElement("aire girotua");
+			 * if (zerb.getIzena().equals("jatetxea")) modelo.addElement("jatetxea"); if
+			 * (zerb.getIzena().equals("taberna")) modelo.addElement("taberna"); if
+			 * (zerb.getIzena().equals("gimnasioa")) modelo.addElement("gimnasioa");
+			 */
+
+			array[0] = zerb.getIzena();
+			array[1] = zerb.getPrezioa() + " €";
+			array[2] = "Bai";
+
+			modelo.addRow(array);
+		}
+
+		table.setModel(modelo);
+
+		// zerbLista.getSelectionModel().addSelectionInterval(index0, index1);
+
+		// zerbLista.setBounds(62, 299, 508, 179);
+
+		// getContentPane().add(zerbLista);
+
+		/******** hau ******/
 	}
 }

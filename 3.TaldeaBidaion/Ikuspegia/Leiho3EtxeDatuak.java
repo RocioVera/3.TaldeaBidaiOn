@@ -14,24 +14,31 @@ import javax.swing.table.*;
 
 public class Leiho3EtxeDatuak extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private JLabel lblIzena = new JLabel(""), lblPrezioa = new JLabel("Prezioa:");
+	// panelan ikusten diren bariableak
 	private JButton btn_next = new JButton("Hurrengoa"), btn_prev = new JButton("Atzera"),
 			restart = new JButton("\u2302");
-	private JTextField txtPrezioa;
+
 	private ArrayList<gelaMota_ohe_ostatu> logelaOheTot = new ArrayList<gelaMota_ohe_ostatu>();
 	private ArrayList<GelaMotaEtxea> gelaTot = new ArrayList<GelaMotaEtxea>();
 
-	private int bikoitza, umeak, sinple, pertsonaKop;
-	private JTextField txtBinaka, txtSinplea, txtUmeak;
-
-	private JLabel lblBinaka = new JLabel("Bikoitza:"), lblSinplea = new JLabel("Sinplea:"),
-			lblUmeak = new JLabel("Umeak:"), lblOheKopuru = new JLabel("Ohe kopuru:");
-	private JLabel lblKomunKop = new JLabel("Komun kopurua:"), lblSukaldeKopurua = new JLabel("Sukalde kopurua:"),
+	private JLabel lblIzena = new JLabel(""), lblPrezioa = new JLabel("Prezioa:"), lblBinaka = new JLabel("Bikoitza:"), lblSinplea = new JLabel("Sinplea:"),
+			lblUmeak = new JLabel("Umeak:"), lblOheKopuru = new JLabel("Ohe kopuru:"), lblKomunKop = new JLabel("Komun kopurua:"), lblSukaldeKopurua = new JLabel("Sukalde kopurua:"),
 			lblEgongelaKopurua = new JLabel("Egongela kopurua:"), lblGarajeKopurua = new JLabel("Garaje kopurua:"),
 			lblLogelaKopurua = new JLabel("Logela kopurua:");
-	private JTextField txtKomunKop = new JTextField(), txtSukaldeKop = new JTextField(),
+	private JTextField txtPrezioa, txtBinaka, txtSinplea, txtUmeak, txtKomunKop = new JTextField(), txtSukaldeKop = new JTextField(),
 			txtEgongelaKop = new JTextField(), txtGarajeKop = new JTextField(), txtLogelaKop = new JTextField();
 
+	// bariableak
+	private int bikoitza, umeak, sinple, pertsonaKop;
+	
+	/**
+	 * Etxeen edo apartamentuen datuak agertzen den panela sortu 
+	 * @author talde3
+	 * @param hartutakoOstatua
+	 * @param prezioTot
+	 * @param dataSartze
+	 * @param dataIrtetze
+	 */
 	public Leiho3EtxeDatuak(Ostatua hartutakoOstatua, double prezioTot, java.util.Date dataSartze,
 			java.util.Date dataIrtetze) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));

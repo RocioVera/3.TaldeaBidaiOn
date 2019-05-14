@@ -15,8 +15,10 @@ import javax.swing.table.*;
 public class Leiho3HotelDatuak extends JFrame {
 	// public static gelaMota_ohe_ostatu h2;
 	public static ArrayList<GelaMotaErreserba> gelaMotaErreserba = new ArrayList<GelaMotaErreserba>();
-
 	private static final long serialVersionUID = 1L;
+
+	//panelaren bariableak
+
 	private JLabel lblIzena = new JLabel(""),
 			lblJarriNahiLogela = new JLabel("Jarri nahi logela mota honen nahi dituzun logela kantitatea"),
 			lblPrezioa = new JLabel("Prezioa:");
@@ -36,10 +38,18 @@ public class Leiho3HotelDatuak extends JFrame {
 
 	private ArrayList<gelaMota_ohe_ostatu> oheGelaHotela;
 
+	//bariableak
 	private String ohe_kopuru, sinplea, bikoitza, umeak, prezioa;
 	private double prezioTot = 0.00;
 	private int gelaLibreak, logelaKant, lehenengoAldia, logelaTot, pertsonaKop, sinpleKop, umeKop, bikoitzaKop;
 
+	/**
+	 * Hotelak datuak agertzen den panela sortu 
+	 * @author talde3
+	 * @param hartutakoOstatua
+	 * @param dataSartze
+	 * @param dataIrtetze
+	 */
 	public Leiho3HotelDatuak(Ostatua hartutakoOstatua, java.util.Date dataSartze, java.util.Date dataIrtetze) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		this.setBounds(350, 50, 600, 600);

@@ -27,6 +27,17 @@ public class Leiho5Login extends JFrame {
 	private int nanLuzera = 8;
 	private char letra;
 
+	/**
+	 * Login egiten duen panela sortu 
+	 * @author talde3
+	 * @param hartutakoOstatua
+	 * @param prezioTot
+	 * @param sartzeData
+	 * @param irtetzeData
+	 * @param logelaTot
+	 * @param pertsonaKop
+	 * @param pentsioMota
+	 */
 	public Leiho5Login(Ostatua hartutakoOstatua, double prezioTot, java.util.Date sartzeData, java.util.Date irtetzeData, int logelaTot, int pertsonaKop, String pentsioMota) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));

@@ -11,6 +11,12 @@ import Kontrolatzailea.*;
 public class Kontsultak {
 	// Leiho2AukeratuOstatu
 
+	/**
+	 * Etxe baten prezioa bilatzen duen kontsulta
+	 * @author talde3
+	 * @param izena
+	 * @return prezioa
+	 */
 	public static double etxearenPrezioaBilatu(String izena) {
 		Statement st = null;
 		Connection konexioa = Konexioa.getConexion();
@@ -31,6 +37,11 @@ public class Kontsultak {
 		return prezioa;
 	}
 
+	/**
+	 * Jai egunak bilatzen duen kontsulta
+	 * @author talde3
+	 * @return arrayEgunak
+	 */
 	public static ArrayList<JaiEgunak> jaiEgunakAtera() {
 		ArrayList<JaiEgunak> arrayEgunak = new ArrayList<JaiEgunak>();
 		Statement st = null;
@@ -58,7 +69,12 @@ public class Kontsultak {
 		return arrayEgunak;
 	}
 
-	public static ArrayList<String> hotelHerriak() {
+	/**
+	 * Ostatuen herriak bilatzen duen kontsulta
+	 * @author talde3
+	 * @return arrayHerriak
+	 */
+	public static ArrayList<String> ostatuHerriak() {
 		ArrayList<String> arrayHerria = new ArrayList<>();
 		Statement st = null;
 		Connection konexioa = Konexioa.getConexion();
@@ -77,6 +93,12 @@ public class Kontsultak {
 		return arrayHerria;
 	}
 
+	/**
+	 * Herri baten hotelak bilatzen duen kontsulta
+	 * @author talde3
+	 * @param herria
+	 * @return arrayHotelak
+	 */
 	public static ArrayList<Hotela> hotelakBilatu(String herria) {
 		ArrayList<Hotela> arrayHotelak = new ArrayList<Hotela>();
 		Statement st = null;
@@ -110,6 +132,12 @@ public class Kontsultak {
 		return arrayHotelak;
 	}
 
+	/**
+	 * Herri baten apartamentuak bilatzen duen kontsulta
+	 * @author talde3
+	 * @param herria
+	 * @return arrayApartamentua
+	 */
 	public static ArrayList<Apartamentua> apartamentuakBilatu(String herria) {
 		ArrayList<Apartamentua> arrayApartamentua = new ArrayList<Apartamentua>();
 		Statement st = null;
@@ -146,6 +174,12 @@ public class Kontsultak {
 		return arrayApartamentua;
 	}
 
+	/**
+	 * Herri baten etxeak bilatzen duen kontsulta
+	 * @author talde3
+	 * @param herria
+	 * @return arrayEtxeak
+	 */
 	public static ArrayList<Etxea> etxeakBilatu(String herria) {
 		ArrayList<Etxea> arrayEtxeak = new ArrayList<Etxea>();
 		Statement st = null;
@@ -181,6 +215,12 @@ public class Kontsultak {
 		return arrayEtxeak;
 	}
 
+	/**
+	 * Hotel baten prezioa bilatzen duen kontsulta
+	 * @author talde3
+	 * @param izena
+	 * @return prezioa
+	 */
 	public static double hotelarenPrezioaBilatu(String izena) {
 		Statement st = null;
 		Connection konexioa = Konexioa.getConexion();
@@ -203,6 +243,12 @@ public class Kontsultak {
 	}
 
 	// Leiho3EtxeDatuak
+	/**
+	 * Etxe batean ohe motak bilatzen duen kontsulta
+	 * @author talde3
+	 * @param ostatu_id
+	 * @return gelaOheHotelaArray
+	 */
 	public static ArrayList<gelaMota_ohe_ostatu> oheGelaEtxeakDatuak(int ostatu_id) {
 		ArrayList<gelaMota_ohe_ostatu> gelaOheHotelaArray = new ArrayList<gelaMota_ohe_ostatu>();
 		Statement st = null;
@@ -248,6 +294,12 @@ public class Kontsultak {
 		return gelaOheHotelaArray;
 	}
 
+	/**
+	 * Etxe batean gela motak bilatzen duen kontsulta
+	 * @author talde3
+	 * @param ostatu_id
+	 * @return gelaMotaEtxeaArray
+	 */
 	public static ArrayList<GelaMotaEtxea> gelaKantMota(int ostatu_id) {
 		ArrayList<GelaMotaEtxea> gelaMotaEtxeaArray = new ArrayList<GelaMotaEtxea>();
 		Statement st = null;
@@ -278,6 +330,12 @@ public class Kontsultak {
 	}
 
 	// Leiho3HotelDatuak
+	/**
+	 * Hotel batean ohe motak bilatzen duen kontsulta
+	 * @author talde3
+	 * @param ostatu_id
+	 * @return gelaOheHotelaArray
+	 */
 	public static ArrayList<gelaMota_ohe_ostatu> oheGelaHotelaDatuak(int ostatu_id) {
 		ArrayList<gelaMota_ohe_ostatu> gelaOheHotelaArray = new ArrayList<gelaMota_ohe_ostatu>();
 		Statement st = null;
@@ -323,6 +381,13 @@ public class Kontsultak {
 		return gelaOheHotelaArray;
 	}
 
+	/**
+	 * Hotel batean gela libre motak bilatzen duen kontsulta
+	 * @author talde3
+	 * @param hartutakoOstatua
+	 * @param gelaKod
+	 * @return kant
+	 */
 	public static int gelaLibreKant(Ostatua hartutakoOstatua, int gelaKod) {
 		Statement st = null;
 		Connection konexioa = Konexioa.getConexion();
@@ -344,6 +409,14 @@ public class Kontsultak {
 		return kant;
 	}
 
+	/**
+	 * Gela erreserba kantitatea bilatzen duen kontsulta
+	 * @author talde3
+	 * @param hartutakoOstatua
+	 * @param gelaKod
+	 * @param auxData
+	 * @return kant
+	 */
 	public static int gelaErreserbaKant(Ostatua hartutakoOstatua, int gelaKod, java.util.Date auxData) {
 		Statement st = null;
 		Connection konexioa = Konexioa.getConexion();
@@ -369,6 +442,12 @@ public class Kontsultak {
 	}
 
 	// Leiho4ZerbitzuGehigarriak
+	/**
+	 * Ostatu batean dauden zerbitzu gehigarriak bilatzen duen kontsulta
+	 * @author talde3
+	 * @param hartutakoOstatua
+	 * @return zerbitzuArray
+	 */
 	public static ArrayList<HartutakoOstatuarenZerbitzuak> zerbitzuGehigarriakOstatuan(Ostatua hartutakoOstatua) {
 		Statement st = null;
 		Connection konexioa = Konexioa.getConexion();
@@ -404,7 +483,6 @@ public class Kontsultak {
 	// Leiho5Login
 	/**
 	 * Bezero taulako datuak hartu.
-	 * 
 	 * @author talde3
 	 * @return arrayBezeroak
 	 */
@@ -437,7 +515,6 @@ public class Kontsultak {
 	// Leiho6Erregistratu
 	/**
 	 * Bezero berriak erregistratu.
-	 * 
 	 * @author talde3
 	 * @param pasahitza
 	 * @param NAN
@@ -481,6 +558,12 @@ public class Kontsultak {
 	}
 
 	// Leiho8KodePromozionalak
+	/**
+	 * Bezero batek dituen promozioak bilatzen duen kontsulta
+	 * @author talde3
+	 * @param nan
+	 * @return arrayPromozioa
+	 */
 	public static ArrayList<Promozioa> promozioakBilatu(String nan) {
 		ArrayList<Promozioa> arrayPromozioa = new ArrayList<Promozioa>();
 		Statement st = null;
@@ -515,9 +598,13 @@ public class Kontsultak {
 	}
 
 	// Leiho9Ordaindu
+	/**
+	 * Erreserba gordetzen duen kontsulta
+	 * @author talde3
+	 * @param erreserba
+	 * @param prezioTot
+	 */
 	public static void erreserbaGorde(Erreserba erreserba, double prezioTot) {
-		System.out.println(erreserba.getBezeroNan());
-
 		Connection konexioa = Konexioa.getConexion();
 		try {
 			PreparedStatement st = konexioa.prepareStatement(
@@ -540,6 +627,11 @@ public class Kontsultak {
 		}
 	}
 
+	/**
+	 * Erreserba totala zenbatzen duen kontsulta
+	 * @author talde3
+	 * @return zenbatErreserba
+	 */
 	public static int erreserbakZenbatu() {
 		Statement st = null;
 		Connection konexioa = Konexioa.getConexion();
@@ -559,6 +651,11 @@ public class Kontsultak {
 		return zenbatErreserba;
 	}
 
+	/**
+	 * Base legalak onartu dituela gordetzen duen kontsulta
+	 * @author talde3
+	 * @param erreserbaKod
+	 */
 	public static void baseLegalakIgo(int erreserbaKod) {
 		LocalDateTime gaurordua = LocalDateTime.now();
 		Date gaurData = Date.valueOf(LocalDate.now());
@@ -586,6 +683,12 @@ public class Kontsultak {
 		}
 	}
 
+	/**
+	 * Erreserba erregistratzen duen kontsulta
+	 * @author talde3
+	 * @param data
+	 * @param denboraldia
+	 */
 	public static void erresJaiEgunIgoMet(java.util.Date data, String denboraldia) {
 		Connection konexioa = Konexioa.getConexion();
 		int erreserbaKod = erreserbakZenbatu();
@@ -612,6 +715,12 @@ public class Kontsultak {
 		jaiEgunKodIgo(data, konexioa);
 	}
 
+	/**
+	 * Jai egunen kodigoa ateratzen duen kontsulta
+	 * @author talde3
+	 * @param data
+	 * @param konexioa
+	 */
 	public static void jaiEgunKodIgo(java.util.Date data, Connection konexioa) {
 		int jaiEgunKod;
 		ArrayList<JaiEgunak> arrayEgunak = jaiEgunakAtera();
@@ -648,6 +757,11 @@ public class Kontsultak {
 	}
 
 	// erresJaiEgunIgo
+	/**
+	 * Erreserba erregistratzen duen kontsulta
+	 * @author talde3
+	 * @param gelaMotaErreserba2
+	 */
 	public static void gelaMotaErreserbaIgo(GelaMotaErreserba gelaMotaErreserba2) {
 		Connection konexioa = Konexioa.getConexion();
 		try {
@@ -668,6 +782,11 @@ public class Kontsultak {
 
 	}
 
+	/**
+	 * Promozioa erabilita dagoela erregistratzen duen kontsulta
+	 * @author talde3
+	 * @param promozioa
+	 */
 	public static void promozioaErabilita(Promozioa promozioa) {
 		Connection konexioa = Konexioa.getConexion();
 		try {
@@ -683,6 +802,14 @@ public class Kontsultak {
 		}
 	}
 
+	/**
+	 * Zenbat errezerba dauden zenbatzen duen kontsulta
+	 * @author talde3
+	 * @param data
+	 * @param izena
+	 * @param kodea
+	 * @return erantzuna
+	 */
 	public static boolean erreserbaBeteta(java.util.Date data, String izena, int kodea) {
 		Statement st = null;
 		Connection konexioa = Konexioa.getConexion();

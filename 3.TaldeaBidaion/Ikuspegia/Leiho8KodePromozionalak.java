@@ -18,6 +18,14 @@ public class Leiho8KodePromozionalak extends JFrame {
 	// bariableak
 	private ArrayList<Promozioa> promArray = new ArrayList<Promozioa>();
 	
+	/**
+	 * Kode promozionalak duen panela sortu 
+	 * @author talde3
+	 * @param hartutakoOstatua
+	 * @param sartzeData
+	 * @param irtetzeData
+	 * @param erreserba
+	 */
 	public Leiho8KodePromozionalak(Ostatua hartutakoOstatua, java.util.Date sartzeData,
 			java.util.Date irtetzeData, Erreserba erreserba) {
 		// panelaren propietateak

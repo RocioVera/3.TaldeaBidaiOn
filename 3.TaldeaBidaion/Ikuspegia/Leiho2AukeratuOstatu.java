@@ -20,7 +20,7 @@ import javax.swing.event.*;
 
 public class Leiho2AukeratuOstatu extends JFrame {
 	private static final long serialVersionUID = 1L;
-	// panelaren bariableak
+	// panelan ikusten diren bariableak
 	private JMenuBar menuBar = new JMenuBar();
 
 	// ostatu mota
@@ -49,7 +49,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 	private JButton btn_next = new JButton("Hurrengoa"), restart = new JButton("\u2302"),
 			btnBilatu = new JButton("Bilatu");
 	private JComboBox cbHerria;
-	private static JTable table;
+	private JTable table;
 	private JScrollPane scrollPane;
 	private DefaultTableModel modelo = new DefaultTableModel() {
 		public boolean isCellEditable(int row,int column){return false;}};
@@ -70,6 +70,10 @@ public class Leiho2AukeratuOstatu extends JFrame {
 	private String[] hotelaBerria = new String[3], etxeBerria = new String[3], apartamentuBerria = new String[3],
 			ostatuBerria = new String[3];
 
+	/**
+	 * Ostatuak eta egunak aukeratu ahal duzun panela sortu 
+	 * @author talde3
+	 */
 	public Leiho2AukeratuOstatu() {
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		this.getContentPane().setLayout(null);
@@ -363,7 +367,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		// heriak atera
 		cbHerria = new JComboBox<String>();
 		cbHerria.setBounds(24, 61, 165, 20);
-		for (String herria : MetodoakKontsultak.hotelHerria())
+		for (String herria : MetodoakKontsultak.ostatuHerria())
 			cbHerria.addItem(herria);
 		getContentPane().add(cbHerria);
 

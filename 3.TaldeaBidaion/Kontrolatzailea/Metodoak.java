@@ -10,6 +10,14 @@ import java.util.concurrent.TimeUnit;
 
 public class Metodoak {
 	// Leiho2AukeratuOstatu
+	/**
+	 * Hartutako egunen arteko eta prezio totalaren arteko biderkaketa
+	 * @author talde3
+	 * @param dataSartze
+	 * @param dataIrtetze
+	 * @param prezioTot
+	 * @return prezioTot
+	 */
 	public static double prezioTotalaGauekin(Date dataSartze, Date dataIrtetze, double prezioTot) {
 		// 86400000 milisegundo/egun
 		int gauak = (int) ((dataIrtetze.getTime() - dataSartze.getTime()) / 86400000);
@@ -19,7 +27,7 @@ public class Metodoak {
 	}
 
 	/**
-	 * 
+	 * Data bati gehi egun bat egiteko metodoa
 	 * @author talde3
 	 * @param date
 	 * @return gehiEgunBat
@@ -34,6 +42,14 @@ public class Metodoak {
 
 	}
 
+	/**
+	 * Hotelak, etxeak, eta apartamentuak izanda ostatuak sortzeko metodoa
+	 * @author talde3
+	 * @param arrayHotela
+	 * @param arrayEtxea
+	 * @param arrayApartamentua
+	 * @return
+	 */
 	public static ArrayList<Ostatua> ostatuakSortu(ArrayList<Hotela> arrayHotela, ArrayList<Etxea> arrayEtxea,
 			ArrayList<Apartamentua> arrayApartamentua) {
 		ArrayList<Ostatua> arrayOstatua = new ArrayList<Ostatua>();
@@ -56,6 +72,7 @@ public class Metodoak {
 
 	}
 
+	
 	//Leiho6Erregistratu
 	/**
 	 * nan-aren zenbaki guztiak gehitzen ditu eta zati 23 egiten hondarra lortzen
@@ -75,7 +92,7 @@ public class Metodoak {
 	}
 
 	/**
-	 * Sartutako pasahitza zifratu.
+	 * Sartutako edozein hitz zifratu.
 	 * @author talde3
 	 * @param hitza
 	 * @return hashtext
@@ -98,7 +115,15 @@ public class Metodoak {
 
 	
 	//Leiho9Ordaindu
-
+	/**
+	 * Datu guztiak fitxategi batean gordetzeko metodoa
+	 * @author talde3
+	 * @param hartutakoOstatua
+	 * @param sartzeData
+	 * @param irtetzeData
+	 * @param prezioTot
+	 * @param erreserba
+	 */
 	public static void fitxIdatzi(Ostatua hartutakoOstatua, Date sartzeData, Date irtetzeData, double prezioTot, Erreserba erreserba) {
 		FileWriter fitx = null;
 		PrintWriter pw = null;
@@ -137,6 +162,13 @@ public class Metodoak {
 		}
 	}
 
+	/**
+	 * Zenbat diru sartzen duen jakiteko egiteko.
+	 * @author talde3
+	 * @param kont
+	 * @param sartutakoa
+	 * @return sartutakoa
+	 */
 	public static double diruaSartu(int kont, double sartutakoa) {
 		switch (kont) {
 		case 1:
@@ -203,12 +235,27 @@ public class Metodoak {
 		return sartutakoa;
 	}
 	
+	/**
+	 * Jakiteko zenbat diru sartu duen gero bueltak emateko ala ez.
+	 * @author talde3
+	 * @param diruFalta
+	 * @param guztiraPrez
+	 * @param sartutakoa
+	 * @return diruFalta
+	 */
 	public static double diruFaltaBueltakMetodoa(double diruFalta, double guztiraPrez, double sartutakoa) {
 		diruFalta = guztiraPrez - sartutakoa;
 		diruFalta = Math.round(diruFalta * 100.0) / 100.0;
 		return diruFalta;
 	}
 
+	/**
+	 * Arrayan sartzeko zenbat kantitate txanpon bakoitza eta bueltatu txanpona /
+	 * billete.
+	 * @author talde3
+	 * @param diruFalta
+	 * @return bueltakString
+	 */
 	public static String diruBueltakZerrenda(double diruFalta) {
 		String bueltakString = "";
 		int kont200 = 0, kont100 = 0, kont50, kont20, kont10, kont5, kont1;
@@ -294,6 +341,14 @@ public class Metodoak {
 	
 
 	//MetodoakKontsultak
+	/**
+	 * Bi daten artean zenbat egun festibo dauden jakiteko metodoa.
+	 * @author talde3
+	 * @param dataSartze
+	 * @param dataIrtetze
+	 * @param arrayEgunak
+	 * @return festaKant
+	 */
 	public static int egunFestiboa(Date dataSartze, Date dataIrtetze, ArrayList<JaiEgunak> arrayEgunak) {
 		int festaKant = 0;
 		for (JaiEgunak jaiEgunak : arrayEgunak) {
@@ -306,6 +361,13 @@ public class Metodoak {
 		return festaKant;
 	}
 
+	/**
+	 * Bi daten artean zenbat egun dauden denboraldi altuak jakiteko metodoa.
+	 * @author talde3
+	 * @param dataSartze
+	 * @param dataIrtetze
+	 * @return denboraldiAltuaKant
+	 */
 	public static int egunDenboraldiAltua(Date dataSartze, Date dataIrtetze) {
 		int denboraldiAltuaKant = 0;
 		int erresHilabetea = -1, erresEguna = -1;

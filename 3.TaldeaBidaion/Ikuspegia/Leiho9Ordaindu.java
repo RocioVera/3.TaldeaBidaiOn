@@ -5,29 +5,33 @@ import javax.swing.*;
 
 import Kontrolatzailea.*;
 import java.awt.event.*;
-import java.sql.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class Leiho9Ordaindu extends JFrame {
 	private static final long serialVersionUID = 1L;
+	
 	// panelan ikusten diren bariableak
 	private JTextField txtPrezioTot = new JTextField(), txtDiruFalta = new JTextField(), txtBueltak = new JTextField();
 	private JTextArea txtrTxtareatxanponbueltak = new JTextArea();
+	
 	private JButton btn_next = new JButton("Hurrengoa"), btn_prev = new JButton("Atzera"),
 			restart = new JButton("\u2302"), btn_200Euro, btn_100Euro, btn_50Euro, btn_20Euro, btn_10Euro, btn_5Euro,
 			btn_2Euro, btn_1Euro, btn_50Zent, btn_20Zent, btn_10Zent, btn_5Zent, btn_2Zent, btn_1Zent;
 	private JLabel lblPrezioTotala, lblZenbatDiru, lblEuro, lblZentimo, lblDiruFalta, lblBueltak;
 
 	// bariableak
-	private Date gaurkoData = Date.valueOf(LocalDate.now());
-	private Timestamp ordua = new Timestamp(System.currentTimeMillis());
 	private int kont = 0;
-	private String txanponTot, diruFaltaString, ibilbideData;
+	private String txanponTot, diruFaltaString;
 	private double diruFalta, sartutakoa, prezioTot2;
-	private ArrayList<String> geltIzenak = new ArrayList<>();
-	private Erreserba erreserba = null;
 
+	/**
+	 * Ordaindu egin ahal duzun panela sortu 
+	 * @author talde3
+	 * @param hartutakoOstatua
+	 * @param sartzeData
+	 * @param irtetzeData
+	 * @param promHartu
+	 * @param erreserba
+	 */
 	public Leiho9Ordaindu(Ostatua hartutakoOstatua, java.util.Date sartzeData, java.util.Date irtetzeData, Promozioa promHartu, Erreserba erreserba) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));

@@ -29,6 +29,17 @@ public class Leiho6Erregistratu extends JFrame {
 	private int nanLuzera = 8, izenLuzera = 49, abizenLuzera = 99, pasahitzLuzera = 49, sexuLuzera = 0;
 	private char letra;
 
+	/**
+	 * Erregistratu egiten duen panela sortu 
+	 * @author talde3
+	 * @param hartutakoOstatua
+	 * @param prezioTot
+	 * @param sartzeData
+	 * @param irtetzeData
+	 * @param logelaTot
+	 * @param pertsonaKop
+	 * @param pentsioMota
+	 */
 	public Leiho6Erregistratu(Ostatua hartutakoOstatua, double prezioTot, java.util.Date sartzeData,
 			java.util.Date irtetzeData, int logelaTot, int pertsonaKop, String pentsioMota) {
 		// panelaren propietateak

@@ -13,10 +13,24 @@ import Ikuspegia.*;
 
 public class MetodoakKontsultak {
 	//Leiho2AukeratuOstatu
+
+	/**
+	 * Etxe baten prezioa ateratzeko kontsultari deitzen duen metodoa.
+	 * @author talde3
+	 * @param etxea
+	 * @return Kontsultak.etxearenPrezioaBilatu(etxea)
+	 */
 	public static double etxearenPrezioaAtera(String etxea) {
 		return Kontsultak.etxearenPrezioaBilatu(etxea);
 	}
 	
+	/**
+	 * Bi daten artean dauden festiboak eta denboraldi altuan izatekotan plusa gehitzen duen metodoa.
+	 * @author talde3
+	 * @param dataSartze
+	 * @param dataIrtetze
+	 * @return prezioa
+	 */
 	public static double tarifaAldatuDatengatik(java.util.Date dataSartze, java.util.Date dataIrtetze) {
 		double prezioa = 0;
 		ArrayList<JaiEgunak> arrayEgunak = new ArrayList<JaiEgunak>();
@@ -29,12 +43,25 @@ public class MetodoakKontsultak {
 		return prezioa;
 	}
 
-	public static ArrayList<String> hotelHerria() {
+	/**
+	 * Herri guztiak ateratzen duen kontsultari deitzen duen metodoa
+	 * @author talde3
+	 * @return arrayHerria
+	 */
+	public static ArrayList<String> ostatuHerria() {
 		ArrayList<String> arrayHerria = new ArrayList<>();
-		arrayHerria = Kontsultak.hotelHerriak();
+		arrayHerria = Kontsultak.ostatuHerriak();
 		return arrayHerria;
 	}
 
+	/**
+	 * Hartutako egunen artean egun guztietan libre dauden hotelak ateratzen duen metodoa.
+	 * @author talde3
+	 * @param herria
+	 * @param dataSartze
+	 * @param dataIrtetze
+	 * @return arrayHotelak2
+	 */
 	public static ArrayList<Hotela> hotelakAtera(String herria, Date dataSartze, Date dataIrtetze) {
 		ArrayList<Hotela> arrayHotelak = new ArrayList<Hotela>();
 		arrayHotelak = Kontsultak.hotelakBilatu(herria);
@@ -55,6 +82,14 @@ public class MetodoakKontsultak {
 		return arrayHotelak2;
 	}
 
+	/**
+	 * Hartutako egunen artean egun guztietan libre dauden apartamentuak ateratzen duen metodoa.
+	 * @author talde3
+	 * @param herria
+	 * @param dataSartze
+	 * @param dataIrtetze
+	 * @return arrayApartamentua2
+	 */
 	public static ArrayList<Apartamentua> apartamentuakAtera(String herria, Date dataSartze, Date dataIrtetze) {
 		ArrayList<Apartamentua> arrayApartamentua = new ArrayList<Apartamentua>();
 		arrayApartamentua = Kontsultak.apartamentuakBilatu(herria);
@@ -73,8 +108,14 @@ public class MetodoakKontsultak {
 		return arrayApartamentua2;
 	}
 	
-	
-
+	/**
+	 * Hartutako egunen artean egun guztietan libre dauden etxeak ateratzen duen metodoa.
+	 * @author talde3
+	 * @param herria
+	 * @param dataSartze
+	 * @param dataIrtetze
+	 * @return arrayEtxea2
+	 */
 	public static ArrayList<Etxea> etxeakAtera(String herria, Date dataSartze, Date dataIrtetze) {
 		ArrayList<Etxea> arrayEtxea = new ArrayList<Etxea>();
 		arrayEtxea = Kontsultak.etxeakBilatu(herria);
@@ -93,17 +134,35 @@ public class MetodoakKontsultak {
 		return arrayEtxea2;
 	}
 
+	/**
+	 * Hotela baten prezioa ateratzeko kontsultari deitzen duen metodoa.
+	 * @author talde3
+	 * @param hotela
+	 * @return Kontsultak.hotelarenPrezioaBilatu(hotela)
+	 */
 	public static double hotelarenPrezioaAtera(String hotela) {
 		return Kontsultak.hotelarenPrezioaBilatu(hotela);
 	}
 
 	
 	//Leiho3EtxeDatuak
+	/**
+	 * Gela batean dauden datuak ateratzeko kontsultari deitzen duen metodoa.
+	 * @author talde3
+	 * @param ostatu_id
+	 * @return Kontsultak.oheGelaEtxeakDatuak(ostatu_id)
+	 */
 	public static ArrayList<gelaMota_ohe_ostatu> oheGelaDatuakMet(int ostatu_id) {
 		return Kontsultak.oheGelaEtxeakDatuak(ostatu_id);
 
 	}
 	
+	/**
+	 * Etxe batean dauden gela kantitatea ateratzeko kontsultari deitzen duen metodoa.
+	 * @author talde3
+	 * @param ostatu_id
+	 * @return Kontsultak.gelaKantMota(ostatu_id)
+	 */
 	public static ArrayList<GelaMotaEtxea> gelaKantMotaMet(int ostatu_id) {
 		return Kontsultak.gelaKantMota(ostatu_id);
 
@@ -111,11 +170,26 @@ public class MetodoakKontsultak {
 	
 	
 	//Leiho3HotelDatuak
+	/**
+	 * Ostatu batean dauden ohe datuak ateratzeko kontsultari deitzen duen metodoa.
+	 * @author talde3
+	 * @param ostatu_id
+	 * @return Kontsultak.oheGelaHotelaDatuak(ostatu_id)
+	 */
 	public static ArrayList<gelaMota_ohe_ostatu> oheGelaHotelaDatuakMet(int ostatu_id) {
 		return Kontsultak.oheGelaHotelaDatuak(ostatu_id);
 
 	}
 	
+	/**
+	 * Bi daten artean dauden gela libreak ateratzen duen metodoa.
+	 * @author talde3
+	 * @param hartutakoOstatua
+	 * @param dataSartze
+	 * @param dataIrtetze
+	 * @param gelaKod
+	 * @return gelaLibreak
+	 */
 	public static int gelaLibre(Ostatua hartutakoOstatua, Date dataSartze, Date dataIrtetze, int gelaKod) {
 		int gelaTot = Kontsultak.gelaLibreKant(hartutakoOstatua, gelaKod);
 		int gelaLibreak = 0, erreserbaKant = 0;
@@ -133,6 +207,12 @@ public class MetodoakKontsultak {
 	}
 
 	//Leiho4ZerbitzuGehigarriak
+	/**
+	 * Hartutako ostatuaren zerbituak ateratzen duen kontsultari deitzen duen metodoa.
+	 * @author talde3
+	 * @param hartutakoOstatua
+	 * @return Kontsultak.zerbitzuGehigarriakOstatuan(hartutakoOstatua)
+	 */
 	public static ArrayList<HartutakoOstatuarenZerbitzuak> zerbitzuakOstatuanMet(Ostatua hartutakoOstatua) {
 		return Kontsultak.zerbitzuGehigarriakOstatuan(hartutakoOstatua);
 	}
@@ -140,7 +220,6 @@ public class MetodoakKontsultak {
 	//Leiho5Login
 	/**
 	 * Sartutako pasahitza (zifratuta) ea datu basean dagoen ala ez.
-	 * 
 	 * @author talde3
 	 * @param pasahitza
 	 * @return bal
@@ -181,7 +260,6 @@ public class MetodoakKontsultak {
 	/**
 	 * Frogatu dni-a erregistratuta ez dagoela. Ez balegoke eta datuak hutzik ere
 	 * ez, bezeroen erregistroa egin datu basean.
-	 * 
 	 * @author talde3
 	 * @param pasahitza
 	 * @param nan
@@ -232,6 +310,12 @@ public class MetodoakKontsultak {
 
 	
 	//Leiho8KodePromozionalak
+	/**
+	 * Bezero zehatz batek zein promozio dituen bilatzen duen metodoa.
+	 * @author talde3
+	 * @param nan
+	 * @return Kontsultak.promozioakBilatu(nan)
+	 */
 	public static ArrayList<Promozioa> promozioakBilatuMet(String nan) {
 		nan = Metodoak.zifratuHitza(nan);
 		return Kontsultak.promozioakBilatu(nan);
@@ -239,22 +323,50 @@ public class MetodoakKontsultak {
 	}
 
 	//Leiho9Ordaindu
+	/**
+	 * Erreserba gordetzeko kontsultari deitzen duen metodoa.
+	 * @author talde3
+	 * @param erreserba
+	 * @param prezioTot
+	 */
 	public static void erreserbaGordeMet(Erreserba erreserba, double prezioTot) {
 		Kontsultak.erreserbaGorde(erreserba, prezioTot);
 	}
 
+	/**
+	 * Base legalak onartu dituela kontsultari deitzen duen metodoa.
+	 * @author talde3
+	 * @param erreserbaKod
+	 */
 	public static void baseLegalakIgoMet(int erreserbaKod) {
 		Kontsultak.baseLegalakIgo(erreserbaKod);
 	}
 	
+	/**
+	 * Erreserbak zenbatzen dituen kontsultari deitzen duen metodoa.
+	 * @author talde3
+	 * @return Kontsultak.erreserbakZenbatu()
+	 */
 	public static int erreserbakZenbatuMet() {
 		return Kontsultak.erreserbakZenbatu();
 	}
 
+	/**
+	 * Promozio bat erabili duela kontsultari deitzen duen metodoa.
+	 * @author talde3
+	 * @param promozioa
+	 */
 	public static void promozioaErabilitaMet(Promozioa promozioa) {
 		Kontsultak.promozioaErabilita(promozioa);
 	}
 
+	/**
+	 * Erreserba egin duela kontsultari deitzen duen metodoa.
+	 * @author talde3
+	 * @param erreserba
+	 * @param dataSartze
+	 * @param dataIrtetze
+	 */
 	public static void erresJaiEgunIgoMet(Erreserba erreserba, Date dataSartze, Date dataIrtetze) {
 		int erresHilabetea = -1, erresEguna = -1;
 		String denboraldia = "baxua";
@@ -281,6 +393,11 @@ public class MetodoakKontsultak {
 		}
 	}
 	
+	/**
+	 * Erreserba egin duela kontsultari deitzen duen metodoa.
+	 * @author talde3
+	 * @param gelaMotaErreserba
+	 */
 	public static void gelaMotaErreserbaIgoMet(ArrayList<GelaMotaErreserba> gelaMotaErreserba) {
 		for (GelaMotaErreserba gelaMotaErreserba2 : gelaMotaErreserba) {
 			Kontsultak.gelaMotaErreserbaIgo(gelaMotaErreserba2);
@@ -291,6 +408,13 @@ public class MetodoakKontsultak {
 	
 	//MetodoakKontsultak
 
+	/**
+	 * @author talde3
+	 * @param data
+	 * @param izena
+	 * @param kodea
+	 * @return Kontsultak.erreserbaBeteta(data, izena, kodea)
+	 */
 	public static boolean erreserbaBetetaMet(Date data, String izena, int kodea) {
 		return Kontsultak.erreserbaBeteta(data, izena, kodea);
 
