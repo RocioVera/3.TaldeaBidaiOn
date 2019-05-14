@@ -18,6 +18,12 @@ public class Metodoak {
 		return prezioTot;
 	}
 
+	/**
+	 * 
+	 * @author talde3
+	 * @param date
+	 * @return gehiEgunBat
+	 */
 	public static Date gehiEgunBat(Date date) {
 		Calendar gehiEgunBat;
 

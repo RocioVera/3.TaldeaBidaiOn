@@ -5,6 +5,9 @@ import java.awt.event.*;
 import java.util.*;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+
 import Kontrolatzailea.*;
 import javax.swing.*;
 
@@ -22,8 +25,10 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 	private JButton btn_next = new JButton("Hurrengoa"), btn_prev = new JButton("Atzera"),
 			restart = new JButton("\u2302");
 	private ArrayList<HartutakoOstatuarenZerbitzuak> zerbitzuArray = new ArrayList<HartutakoOstatuarenZerbitzuak>();
-	private JList zerbLista;
-	private DefaultListModel<String> modeloa = new DefaultListModel<String>();
+	private JTable table;
+	private DefaultTableModel modelo = new DefaultTableModel() {
+		public boolean isCellEditable(int row,int column){return false;}};
+	private String[] array = new String[1];
 
 	public Leiho4ZerbitzuGehigarriak(Ostatua hartutakoOstatua, double prezioTot, Date dataSartze, Date dataIrtetze,
 			int logelaTot, int pertsonaKop) {
@@ -172,9 +177,28 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		 */
 
 		zerbitzuArray = MetodoakKontsultak.zerbitzuakOstatuanMet(hartutakoOstatua);
+		
+		modelo.addColumn("Prezio (€/gaua):");
+
+		// tabla datuak
+		table = new JTable(modelo);
+		table.setShowVerticalLines(false);
+		table.setBorder(new LineBorder(new Color(0, 0, 0)));
+		table.setFont(new Font("Verdana", Font.PLAIN, 14));
+		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		table.getColumnModel().getColumn(0).setPreferredWidth(200);
+		table.getTableHeader().setResizingAllowed(false);
+		table.setRowHeight(32);
+		table.setBackground(Color.LIGHT_GRAY);
+		table.setBounds(24, 152, 544, 42);
+		table.getTableHeader().setFont(new Font("Verdana", Font.BOLD, 15));
+		table.getTableHeader().setReorderingAllowed(false);
+		getContentPane().add(table);
+
 		for (HartutakoOstatuarenZerbitzuak zerb : zerbitzuArray) {
 			if (zerb.getIzena().equals("wifi"))
-				modeloa.addElement("wifi");
+				array[1] = "wifi";
+				modelo.addRow(array);
 			if (zerb.getIzena().equals("igerilekua"))
 				modeloa.addElement("igerilekua");
 			if (zerb.getIzena().equals("spa"))
@@ -190,10 +214,10 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 			if (zerb.getIzena().equals("gimnasioa"))
 				modeloa.addElement("gimnasioa");
 		}
-		zerbLista = new JList<String>(modeloa);
-		zerbLista.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		//zerbLista.getSelectionModel().addSelectionInterval(index0, index1);
+		
 		zerbLista.setBounds(62, 299, 508, 179);
-
+		
 		getContentPane().add(zerbLista);
 
 	}
