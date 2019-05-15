@@ -18,8 +18,6 @@ public class Hotela extends Ostatua {
 		this.izarKop = izarKop;
 	}
 
-
-
 	@Override
 	public String toString() {
 		return super.toString() + "Hotela [izarKop=" + izarKop + "]";

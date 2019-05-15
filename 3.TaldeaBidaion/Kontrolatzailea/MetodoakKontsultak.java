@@ -12,10 +12,11 @@ import Eredua.*;
 import Ikuspegia.*;
 
 public class MetodoakKontsultak {
-	//Leiho2AukeratuOstatu
+	// Leiho2AukeratuOstatu
 
 	/**
 	 * Etxe baten prezioa ateratzeko kontsultari deitzen duen metodoa.
+	 * 
 	 * @author talde3
 	 * @param etxea
 	 * @return Kontsultak.etxearenPrezioaBilatu(etxea)
@@ -23,9 +24,11 @@ public class MetodoakKontsultak {
 	public static double etxearenPrezioaAtera(String etxea) {
 		return Kontsultak.etxearenPrezioaBilatu(etxea);
 	}
-	
+
 	/**
-	 * Bi daten artean dauden festiboak eta denboraldi altuan izatekotan plusa gehitzen duen metodoa.
+	 * Bi daten artean dauden festiboak eta denboraldi altuan izatekotan plusa
+	 * gehitzen duen metodoa.
+	 * 
 	 * @author talde3
 	 * @param dataSartze
 	 * @param dataIrtetze
@@ -45,6 +48,7 @@ public class MetodoakKontsultak {
 
 	/**
 	 * Herri guztiak ateratzen duen kontsultari deitzen duen metodoa
+	 * 
 	 * @author talde3
 	 * @return arrayHerria
 	 */
@@ -55,7 +59,9 @@ public class MetodoakKontsultak {
 	}
 
 	/**
-	 * Hartutako egunen artean egun guztietan libre dauden hotelak ateratzen duen metodoa.
+	 * Hartutako egunen artean egun guztietan libre dauden hotelak ateratzen duen
+	 * metodoa.
+	 * 
 	 * @author talde3
 	 * @param herria
 	 * @param dataSartze
@@ -83,7 +89,9 @@ public class MetodoakKontsultak {
 	}
 
 	/**
-	 * Hartutako egunen artean egun guztietan libre dauden apartamentuak ateratzen duen metodoa.
+	 * Hartutako egunen artean egun guztietan libre dauden apartamentuak ateratzen
+	 * duen metodoa.
+	 * 
 	 * @author talde3
 	 * @param herria
 	 * @param dataSartze
@@ -107,9 +115,11 @@ public class MetodoakKontsultak {
 		}
 		return arrayApartamentua2;
 	}
-	
+
 	/**
-	 * Hartutako egunen artean egun guztietan libre dauden etxeak ateratzen duen metodoa.
+	 * Hartutako egunen artean egun guztietan libre dauden etxeak ateratzen duen
+	 * metodoa.
+	 * 
 	 * @author talde3
 	 * @param herria
 	 * @param dataSartze
@@ -136,6 +146,7 @@ public class MetodoakKontsultak {
 
 	/**
 	 * Hotela baten prezioa ateratzeko kontsultari deitzen duen metodoa.
+	 * 
 	 * @author talde3
 	 * @param hotela
 	 * @return Kontsultak.hotelarenPrezioaBilatu(hotela)
@@ -144,10 +155,10 @@ public class MetodoakKontsultak {
 		return Kontsultak.hotelarenPrezioaBilatu(hotela);
 	}
 
-	
-	//Leiho3EtxeDatuak
+	// Leiho3EtxeDatuak
 	/**
 	 * Gela batean dauden datuak ateratzeko kontsultari deitzen duen metodoa.
+	 * 
 	 * @author talde3
 	 * @param ostatu_id
 	 * @return Kontsultak.oheGelaEtxeakDatuak(ostatu_id)
@@ -156,9 +167,11 @@ public class MetodoakKontsultak {
 		return Kontsultak.oheGelaEtxeakDatuak(ostatu_id);
 
 	}
-	
+
 	/**
-	 * Etxe batean dauden gela kantitatea ateratzeko kontsultari deitzen duen metodoa.
+	 * Etxe batean dauden gela kantitatea ateratzeko kontsultari deitzen duen
+	 * metodoa.
+	 * 
 	 * @author talde3
 	 * @param ostatu_id
 	 * @return Kontsultak.gelaKantMota(ostatu_id)
@@ -167,11 +180,11 @@ public class MetodoakKontsultak {
 		return Kontsultak.gelaKantMota(ostatu_id);
 
 	}
-	
-	
-	//Leiho3HotelDatuak
+
+	// Leiho3HotelDatuak
 	/**
 	 * Ostatu batean dauden ohe datuak ateratzeko kontsultari deitzen duen metodoa.
+	 * 
 	 * @author talde3
 	 * @param ostatu_id
 	 * @return Kontsultak.oheGelaHotelaDatuak(ostatu_id)
@@ -180,9 +193,10 @@ public class MetodoakKontsultak {
 		return Kontsultak.oheGelaHotelaDatuak(ostatu_id);
 
 	}
-	
+
 	/**
 	 * Bi daten artean dauden gela libreak ateratzen duen metodoa.
+	 * 
 	 * @author talde3
 	 * @param hartutakoOstatua
 	 * @param dataSartze
@@ -206,9 +220,11 @@ public class MetodoakKontsultak {
 
 	}
 
-	//Leiho4ZerbitzuGehigarriak
+	// Leiho4ZerbitzuGehigarriak
 	/**
-	 * Hartutako ostatuaren zerbituak ateratzen duen kontsultari deitzen duen metodoa.
+	 * Hartutako ostatuaren zerbituak ateratzen duen kontsultari deitzen duen
+	 * metodoa.
+	 * 
 	 * @author talde3
 	 * @param hartutakoOstatua
 	 * @return Kontsultak.zerbitzuGehigarriakOstatuan(hartutakoOstatua)
@@ -217,9 +233,10 @@ public class MetodoakKontsultak {
 		return Kontsultak.zerbitzuGehigarriakOstatuan(hartutakoOstatua);
 	}
 
-	//Leiho5Login
+	// Leiho5Login
 	/**
 	 * Sartutako pasahitza (zifratuta) ea datu basean dagoen ala ez.
+	 * 
 	 * @author talde3
 	 * @param pasahitza
 	 * @return bal
@@ -240,6 +257,7 @@ public class MetodoakKontsultak {
 
 	/**
 	 * Sartutako nan-a ea datu baaean dagoen ala ez.
+	 * 
 	 * @author talde3
 	 * @param nan
 	 * @return bal
@@ -256,10 +274,11 @@ public class MetodoakKontsultak {
 		return bal;
 	}
 
-	//Leiho6Erregistratu
+	// Leiho6Erregistratu
 	/**
 	 * Frogatu dni-a erregistratuta ez dagoela. Ez balegoke eta datuak hutzik ere
 	 * ez, bezeroen erregistroa egin datu basean.
+	 * 
 	 * @author talde3
 	 * @param pasahitza
 	 * @param nan
@@ -292,6 +311,7 @@ public class MetodoakKontsultak {
 
 	/**
 	 * Frogatu dni-a erregistratuta ez dagoela.
+	 * 
 	 * @author talde3
 	 * @param nan
 	 * @return balNan
@@ -308,10 +328,10 @@ public class MetodoakKontsultak {
 		return balNan;
 	}
 
-	
-	//Leiho8KodePromozionalak
+	// Leiho8KodePromozionalak
 	/**
 	 * Bezero zehatz batek zein promozio dituen bilatzen duen metodoa.
+	 * 
 	 * @author talde3
 	 * @param nan
 	 * @return Kontsultak.promozioakBilatu(nan)
@@ -322,9 +342,10 @@ public class MetodoakKontsultak {
 
 	}
 
-	//Leiho9Ordaindu
+	// Leiho9Ordaindu
 	/**
 	 * Erreserba gordetzeko kontsultari deitzen duen metodoa.
+	 * 
 	 * @author talde3
 	 * @param erreserba
 	 * @param prezioTot
@@ -335,15 +356,17 @@ public class MetodoakKontsultak {
 
 	/**
 	 * Base legalak onartu dituela kontsultari deitzen duen metodoa.
+	 * 
 	 * @author talde3
 	 * @param erreserbaKod
 	 */
 	public static void baseLegalakIgoMet(int erreserbaKod) {
 		Kontsultak.baseLegalakIgo(erreserbaKod);
 	}
-	
+
 	/**
 	 * Erreserbak zenbatzen dituen kontsultari deitzen duen metodoa.
+	 * 
 	 * @author talde3
 	 * @return Kontsultak.erreserbakZenbatu()
 	 */
@@ -353,6 +376,7 @@ public class MetodoakKontsultak {
 
 	/**
 	 * Promozio bat erabili duela kontsultari deitzen duen metodoa.
+	 * 
 	 * @author talde3
 	 * @param promozioa
 	 */
@@ -362,6 +386,7 @@ public class MetodoakKontsultak {
 
 	/**
 	 * Erreserba egin duela kontsultari deitzen duen metodoa.
+	 * 
 	 * @author talde3
 	 * @param erreserba
 	 * @param dataSartze
@@ -388,13 +413,14 @@ public class MetodoakKontsultak {
 			} else {
 				denboraldia = "baxua";
 			}
-			
-			Kontsultak.erresJaiEgunIgoMet(auxData,denboraldia );
+
+			Kontsultak.erresJaiEgunIgoMet(auxData, denboraldia);
 		}
 	}
-	
+
 	/**
 	 * Erreserba egin duela kontsultari deitzen duen metodoa.
+	 * 
 	 * @author talde3
 	 * @param gelaMotaErreserba
 	 */
@@ -402,11 +428,10 @@ public class MetodoakKontsultak {
 		for (GelaMotaErreserba gelaMotaErreserba2 : gelaMotaErreserba) {
 			Kontsultak.gelaMotaErreserbaIgo(gelaMotaErreserba2);
 		}
-		
 
 	}
-	
-	//MetodoakKontsultak
+
+	// MetodoakKontsultak
 
 	/**
 	 * @author talde3
@@ -419,14 +444,4 @@ public class MetodoakKontsultak {
 		return Kontsultak.erreserbaBeteta(data, izena, kodea);
 
 	}
-	
-	// NADA	
-	public static ArrayList<ZerbitzuGehigarriak> zerbGehiMet(Ostatua hartutakoOstatua) {
-		return Kontsultak.zerbGehi(hartutakoOstatua);
-
-	}
-
-
-	
-	
 }

@@ -1,9 +1,11 @@
 package Kontrolatzailea;
 
-public class Ostatua {
+public class Ostatua implements Comparable<Ostatua> {
 
 	protected String izena, herria, helbidea, ostatuMota;
-	protected int ostatuKod, postKod, gelaKop, erreserbaKop;
+	protected int ostatuKod, postKod, gelaKop, erreserbaKop, ordenZbk;
+	private static int zbkMota = 1;
+	private double prezioa;
 
 	public Ostatua(String izena, String herria, String helbidea, String ostatuMota, int ostatuKod, int postKod,
 			int gelaKop, int erreserbaKop) {
@@ -15,6 +17,7 @@ public class Ostatua {
 		this.postKod = postKod;
 		this.gelaKop = gelaKop;
 		this.erreserbaKop = erreserbaKop;
+		this.ordenZbk = erreserbaKop;
 	}
 
 	public int getOstatuKod() {
@@ -24,7 +27,7 @@ public class Ostatua {
 	public void setOstatuKod(int ostatuKod) {
 		this.ostatuKod = ostatuKod;
 	}
-	
+
 	public String getIzena() {
 		return izena;
 	}
@@ -81,10 +84,68 @@ public class Ostatua {
 		this.erreserbaKop = erreserbaKop;
 	}
 
+	public int getZbkMota() {
+		return zbkMota;
+	}
+
+	public void setZbkMota(int zbkMota) {
+		Ostatua.zbkMota = zbkMota;
+	}
+
+	public double getPrezioa() {
+		return prezioa;
+	}
+
+	public void setPrezioa(double prezioa) {
+		this.prezioa = prezioa;
+	}
+	
+
+	public int getOrdenZbk() {
+		return ordenZbk;
+	}
+
+	public void setOrdenZbk(int ordenZbk) {
+		this.ordenZbk = ordenZbk;
+	}
+
 	@Override
 	public String toString() {
 		return "Ostatua izena=" + izena + ", herria=" + herria + ", helbidea=" + helbidea + ", postKod=" + postKod
 				+ ", ostatuMota=" + ostatuMota + ", gelaKop=" + gelaKop + ", erreserbaKop=" + erreserbaKop + "]";
 	}
 
+	@Override
+	public int compareTo(Ostatua o) {
+		if (zbkMota == 1) {
+			if (ordenZbk > o.ordenZbk) {
+				return -1;
+			}
+			if (ordenZbk < o.ordenZbk) {
+				return 1;
+			}
+		} else if (zbkMota == 2) {
+			ordenZbk = this.izena.compareTo(o.izena);
+			if (ordenZbk > 0) {
+				return 1;
+			} else if (ordenZbk < 0) {
+				return -1;
+			}
+		} else if (zbkMota == 3) {
+			if (prezioa < o.prezioa) {
+				return -1;
+			}
+			if (prezioa > o.prezioa) {
+				return 1;
+			}
+		} else if (zbkMota == 4 && ostatuMota.equals("H")) {
+			if (ordenZbk > o.ordenZbk) {
+				return -1;
+			}
+			if (ordenZbk < o.ordenZbk) {
+				return 1;
+			}
+		}
+		return 0;
+	}
 }

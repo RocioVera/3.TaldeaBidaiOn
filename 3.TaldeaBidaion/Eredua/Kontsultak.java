@@ -13,6 +13,7 @@ public class Kontsultak {
 
 	/**
 	 * Etxe baten prezioa bilatzen duen kontsulta
+	 * 
 	 * @author talde3
 	 * @param izena
 	 * @return prezioa
@@ -39,6 +40,7 @@ public class Kontsultak {
 
 	/**
 	 * Jai egunak bilatzen duen kontsulta
+	 * 
 	 * @author talde3
 	 * @return arrayEgunak
 	 */
@@ -71,6 +73,7 @@ public class Kontsultak {
 
 	/**
 	 * Ostatuen herriak bilatzen duen kontsulta
+	 * 
 	 * @author talde3
 	 * @return arrayHerriak
 	 */
@@ -95,6 +98,7 @@ public class Kontsultak {
 
 	/**
 	 * Herri baten hotelak bilatzen duen kontsulta
+	 * 
 	 * @author talde3
 	 * @param herria
 	 * @return arrayHotelak
@@ -134,6 +138,7 @@ public class Kontsultak {
 
 	/**
 	 * Herri baten apartamentuak bilatzen duen kontsulta
+	 * 
 	 * @author talde3
 	 * @param herria
 	 * @return arrayApartamentua
@@ -176,6 +181,7 @@ public class Kontsultak {
 
 	/**
 	 * Herri baten etxeak bilatzen duen kontsulta
+	 * 
 	 * @author talde3
 	 * @param herria
 	 * @return arrayEtxeak
@@ -217,6 +223,7 @@ public class Kontsultak {
 
 	/**
 	 * Hotel baten prezioa bilatzen duen kontsulta
+	 * 
 	 * @author talde3
 	 * @param izena
 	 * @return prezioa
@@ -245,6 +252,7 @@ public class Kontsultak {
 	// Leiho3EtxeDatuak
 	/**
 	 * Etxe batean ohe motak bilatzen duen kontsulta
+	 * 
 	 * @author talde3
 	 * @param ostatu_id
 	 * @return gelaOheHotelaArray
@@ -296,6 +304,7 @@ public class Kontsultak {
 
 	/**
 	 * Etxe batean gela motak bilatzen duen kontsulta
+	 * 
 	 * @author talde3
 	 * @param ostatu_id
 	 * @return gelaMotaEtxeaArray
@@ -332,6 +341,7 @@ public class Kontsultak {
 	// Leiho3HotelDatuak
 	/**
 	 * Hotel batean ohe motak bilatzen duen kontsulta
+	 * 
 	 * @author talde3
 	 * @param ostatu_id
 	 * @return gelaOheHotelaArray
@@ -383,6 +393,7 @@ public class Kontsultak {
 
 	/**
 	 * Hotel batean gela libre motak bilatzen duen kontsulta
+	 * 
 	 * @author talde3
 	 * @param hartutakoOstatua
 	 * @param gelaKod
@@ -411,6 +422,7 @@ public class Kontsultak {
 
 	/**
 	 * Gela erreserba kantitatea bilatzen duen kontsulta
+	 * 
 	 * @author talde3
 	 * @param hartutakoOstatua
 	 * @param gelaKod
@@ -444,6 +456,7 @@ public class Kontsultak {
 	// Leiho4ZerbitzuGehigarriak
 	/**
 	 * Ostatu batean dauden zerbitzu gehigarriak bilatzen duen kontsulta
+	 * 
 	 * @author talde3
 	 * @param hartutakoOstatua
 	 * @return zerbitzuArray
@@ -483,6 +496,7 @@ public class Kontsultak {
 	// Leiho5Login
 	/**
 	 * Bezero taulako datuak hartu.
+	 * 
 	 * @author talde3
 	 * @return arrayBezeroak
 	 */
@@ -515,6 +529,7 @@ public class Kontsultak {
 	// Leiho6Erregistratu
 	/**
 	 * Bezero berriak erregistratu.
+	 * 
 	 * @author talde3
 	 * @param pasahitza
 	 * @param NAN
@@ -560,6 +575,7 @@ public class Kontsultak {
 	// Leiho8KodePromozionalak
 	/**
 	 * Bezero batek dituen promozioak bilatzen duen kontsulta
+	 * 
 	 * @author talde3
 	 * @param nan
 	 * @return arrayPromozioa
@@ -600,6 +616,7 @@ public class Kontsultak {
 	// Leiho9Ordaindu
 	/**
 	 * Erreserba gordetzen duen kontsulta
+	 * 
 	 * @author talde3
 	 * @param erreserba
 	 * @param prezioTot
@@ -629,6 +646,7 @@ public class Kontsultak {
 
 	/**
 	 * Erreserba totala zenbatzen duen kontsulta
+	 * 
 	 * @author talde3
 	 * @return zenbatErreserba
 	 */
@@ -653,6 +671,7 @@ public class Kontsultak {
 
 	/**
 	 * Base legalak onartu dituela gordetzen duen kontsulta
+	 * 
 	 * @author talde3
 	 * @param erreserbaKod
 	 */
@@ -685,6 +704,7 @@ public class Kontsultak {
 
 	/**
 	 * Erreserba erregistratzen duen kontsulta
+	 * 
 	 * @author talde3
 	 * @param data
 	 * @param denboraldia
@@ -717,6 +737,7 @@ public class Kontsultak {
 
 	/**
 	 * Jai egunen kodigoa ateratzen duen kontsulta
+	 * 
 	 * @author talde3
 	 * @param data
 	 * @param konexioa
@@ -759,6 +780,7 @@ public class Kontsultak {
 	// erresJaiEgunIgo
 	/**
 	 * Erreserba erregistratzen duen kontsulta
+	 * 
 	 * @author talde3
 	 * @param gelaMotaErreserba2
 	 */
@@ -784,6 +806,7 @@ public class Kontsultak {
 
 	/**
 	 * Promozioa erabilita dagoela erregistratzen duen kontsulta
+	 * 
 	 * @author talde3
 	 * @param promozioa
 	 */
@@ -804,6 +827,7 @@ public class Kontsultak {
 
 	/**
 	 * Zenbat errezerba dauden zenbatzen duen kontsulta
+	 * 
 	 * @author talde3
 	 * @param data
 	 * @param izena
@@ -844,30 +868,4 @@ public class Kontsultak {
 		return erantzuna;
 	}
 
-	// NADA
-	public static ArrayList<ZerbitzuGehigarriak> zerbGehi(Ostatua hartutakoOstatua) {
-		Statement st = null;
-		Connection konexioa = Konexioa.getConexion();
-		String izena = "";
-		int kod_zerbitzua = 0;
-		ArrayList<ZerbitzuGehigarriak> zerbitzuGehigarriArray = new ArrayList<ZerbitzuGehigarriak>();
-		ZerbitzuGehigarriak zerbGehi = null;
-		try {
-			st = konexioa.createStatement();
-			ResultSet rs = st.executeQuery(
-					"SELECT zg.* FROM ostatu o, zerbitzugehigarriak_ostatu zgo, zerbitzugehigarriak zg WHERE o.ostatu_id=zgo.ostatu_ostatu_id AND zgo.zerbitzuGehigarriak_kod_zerbitzuak=zg.kod_zerbitzuak AND o.ostatu_id="
-							+ hartutakoOstatua.getOstatuKod());
-
-			while (rs.next()) {
-				kod_zerbitzua = (rs.getInt("kod_zerbitzuak"));
-				izena = (rs.getString("izena"));
-				zerbGehi = new ZerbitzuGehigarriak(kod_zerbitzua, izena);
-				zerbitzuGehigarriArray.add(zerbGehi);
-			}
-
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-		return zerbitzuGehigarriArray;
-	}
 }

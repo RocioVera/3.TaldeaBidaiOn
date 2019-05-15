@@ -56,16 +56,19 @@ public class Metodoak {
 
 		for (Hotela h : arrayHotela) {
 			arrayOstatua.add(h);
+			h.setPrezioa(MetodoakKontsultak.hotelarenPrezioaAtera(h.getIzena()));
 		}
 
 		// etxeak gehitu
 		for (Etxea e : arrayEtxea) {
 			arrayOstatua.add(e);
+			e.setPrezioa(MetodoakKontsultak.etxearenPrezioaAtera(e.getIzena()));
 		}
 
 		// apartamentuak gehitu
 		for (Apartamentua a : arrayApartamentua) {
 			arrayOstatua.add(a);
+			a.setPrezioa(MetodoakKontsultak.etxearenPrezioaAtera(a.getIzena()));
 		}
 
 		return arrayOstatua;

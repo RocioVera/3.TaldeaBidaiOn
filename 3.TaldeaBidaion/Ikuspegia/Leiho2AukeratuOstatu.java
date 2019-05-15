@@ -24,23 +24,34 @@ public class Leiho2AukeratuOstatu extends JFrame {
 	private JMenuBar menuBar = new JMenuBar();
 
 	// ostatu mota
-	private JMenu mnOstatuMota = new JMenu("       Ostatu mota        ");
+	private JMenu mnOstatuMota = new JMenu("     Ostatu mota      ");
 	private JRadioButton chckbxmntmHotela = new JRadioButton("Hotela"),
 			chckbxmntmApartamentua = new JRadioButton("Apartamentua       "),
 			chckbxmntmEtxea = new JRadioButton("Etxea");
 	// ordenatu
-	private JMenu mnOrdenatu = new JMenu("        Ordenatu            ");
+	private JMenu mnOrdenatu = new JMenu("      Ordenatu          ");
 	private JRadioButton chckbxmntmPrezioa = new JRadioButton("Prezioa"),
 			chckbxmntmAlfabetoa = new JRadioButton("Alfabetoa"),
-			chckbxmntmErreserbaKopurua = new JRadioButton("Erreserba kopurua  "),
-			chckbxmntmIzar_5 = new JRadioButton("  5 Izar"), chckbxmntmIzar_1 = new JRadioButton("  4 Izar"),
-			chckbxmntmIzar_2 = new JRadioButton("  3 Izar"), chckbxmntmIzar_3 = new JRadioButton("  2 Izar"),
-			chckbxmntmIzar_4 = new JRadioButton("  1 Izar             ");
+			chckbxmntmErreserbaKopurua = new JRadioButton("Erreserba kopurua  ");
+	private JMenu mnIzarKop = new JMenu("     Izar Kopuru       ");
+	private JRadioButton chckbxmntmIzar_5 = new JRadioButton("   5 Izar"),
+			chckbxmntmIzar_4 = new JRadioButton("  >4 Izar"), chckbxmntmIzar_3 = new JRadioButton("  >3 Izar"),
+			chckbxmntmIzar_2 = new JRadioButton("  >2 Izar"),
+			chckbxmntmIzar_1 = new JRadioButton("  >1 Izar             ");
+
 	// zerbitzuak
 	private JMenu mnZerbitzuak = new JMenu("        Zerbitzuak            ");
-	private JRadioButton chckbxmntmParkina = new JRadioButton("Parkina            ");
+	private JRadioButton chckbxmntmParkina = new JRadioButton("Parkina            "),
+			chckbxmntmWifi = new JRadioButton("Wifi            "),
+			chckbxmntmIgerileku = new JRadioButton("Igerileku            "),
+			chckbxmntmSpa = new JRadioButton("Spa            "),
+			chckbxmntmAireGirotua = new JRadioButton("Aire Girotua            "),
+			chckbxmntmJatetxea = new JRadioButton("Jatetxea            "),
+			chckbxmntmTaberna = new JRadioButton("Taberna            "),
+			chckbxmntmGimnasioa = new JRadioButton("Gimnasioa            ");
+
 	// taldeak
-	private ButtonGroup zerbitzuakGroup, ostatuMotaGroup, ordenatuGroup;
+	private ButtonGroup zerbitzuakGroup, ostatuMotaGroup, ordenatuGroup, izarKopGroup;
 
 	private JDateChooser dchSartzeData = new JDateChooser(), dchIrtetzeData = new JDateChooser();
 	private JTextFieldDateEditor dataEzEditatu; // kentzeko eskuz sartu ahal izana
@@ -52,7 +63,10 @@ public class Leiho2AukeratuOstatu extends JFrame {
 	private JTable table;
 	private JScrollPane scrollPane;
 	private DefaultTableModel modelo = new DefaultTableModel() {
-		public boolean isCellEditable(int row,int column){return false;}};
+		public boolean isCellEditable(int row, int column) {
+			return false;
+		}
+	};
 
 	// bariableak
 	private ArrayList<Hotela> arrayHotela;
@@ -71,7 +85,8 @@ public class Leiho2AukeratuOstatu extends JFrame {
 			ostatuBerria = new String[3];
 
 	/**
-	 * Ostatuak eta egunak aukeratu ahal duzun panela sortu 
+	 * Ostatuak eta egunak aukeratu ahal duzun panela sortu
+	 * 
 	 * @author talde3
 	 */
 	public Leiho2AukeratuOstatu() {
@@ -138,7 +153,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		ostatuMotaGroup = new ButtonGroup();
 		ordenatuGroup = new ButtonGroup();
 		zerbitzuakGroup = new ButtonGroup();
-		ostatuMotaGroup.clearSelection();
+		izarKopGroup = new ButtonGroup();
 
 		this.setJMenuBar(menuBar);
 
@@ -155,12 +170,9 @@ public class Leiho2AukeratuOstatu extends JFrame {
 				btnBilatu.setVisible(true);
 				btn_next.setVisible(false);
 				datuakBerritu();
-				
-				chckbxmntmIzar_1.setEnabled(true);
-				chckbxmntmIzar_2.setEnabled(true);
-				chckbxmntmIzar_3.setEnabled(true);
-				chckbxmntmIzar_4.setEnabled(true);
-				chckbxmntmIzar_5.setEnabled(true);
+
+				mnIzarKop.setEnabled(true);
+
 			}
 		});
 		chckbxmntmHotela.setFont(new Font("Verdana", Font.PLAIN, 16));
@@ -173,12 +185,8 @@ public class Leiho2AukeratuOstatu extends JFrame {
 				btnBilatu.setVisible(true);
 				btn_next.setVisible(false);
 				datuakBerritu();
+				mnIzarKop.setEnabled(false);
 
-				chckbxmntmIzar_1.setEnabled(false);
-				chckbxmntmIzar_2.setEnabled(false);
-				chckbxmntmIzar_3.setEnabled(false);
-				chckbxmntmIzar_4.setEnabled(false);
-				chckbxmntmIzar_5.setEnabled(false);
 			}
 		});
 		chckbxmntmApartamentua.setFont(new Font("Verdana", Font.PLAIN, 16));
@@ -190,12 +198,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 				btnBilatu.setVisible(true);
 				btn_next.setVisible(false);
 				datuakBerritu();
-				
-				chckbxmntmIzar_1.setEnabled(false);
-				chckbxmntmIzar_2.setEnabled(false);
-				chckbxmntmIzar_3.setEnabled(false);
-				chckbxmntmIzar_4.setEnabled(false);
-				chckbxmntmIzar_5.setEnabled(false);
+				mnIzarKop.setEnabled(false);
 
 			}
 		});
@@ -211,6 +214,9 @@ public class Leiho2AukeratuOstatu extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ordenatuGroup.add(chckbxmntmPrezioa);
+				btnBilatu.setVisible(true);
+				btn_next.setVisible(false);
+				datuakBerritu();
 			}
 		});
 		chckbxmntmPrezioa.setFont(new Font("Verdana", Font.PLAIN, 16));
@@ -220,6 +226,9 @@ public class Leiho2AukeratuOstatu extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ordenatuGroup.add(chckbxmntmAlfabetoa);
+				btnBilatu.setVisible(true);
+				btn_next.setVisible(false);
+				datuakBerritu();
 			}
 		});
 		chckbxmntmAlfabetoa.setFont(new Font("Verdana", Font.PLAIN, 16));
@@ -229,68 +238,84 @@ public class Leiho2AukeratuOstatu extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ordenatuGroup.add(chckbxmntmErreserbaKopurua);
+				btnBilatu.setVisible(true);
+				btn_next.setVisible(false);
+				datuakBerritu();
 			}
 		});
 		chckbxmntmErreserbaKopurua.setFont(new Font("Verdana", Font.PLAIN, 16));
 		mnOrdenatu.add(chckbxmntmErreserbaKopurua);
 
+		// ordenatzeko modua
+		mnIzarKop.setFont(new Font("Verdana", Font.PLAIN, 16));
+		mnIzarKop.setEnabled(false);
+		menuBar.add(mnIzarKop);
 
 		// 1
 		chckbxmntmIzar_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ordenatuGroup.add(chckbxmntmIzar_1);
+				btnBilatu.setVisible(true);
+				btn_next.setVisible(false);
+				datuakBerritu();
 			}
 		});
-		chckbxmntmIzar_1.setFont(new Font("Verdana", Font.PLAIN, 16));
-		chckbxmntmIzar_1.setEnabled(false);
-		mnOrdenatu.add(chckbxmntmIzar_1);
-
-		// 2
-		chckbxmntmIzar_2.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ordenatuGroup.add(chckbxmntmIzar_2);
-			}
-		});
-		chckbxmntmIzar_2.setFont(new Font("Verdana", Font.PLAIN, 16));
-		chckbxmntmIzar_2.setEnabled(false);
-		mnOrdenatu.add(chckbxmntmIzar_2);
-
-		// 3
-		chckbxmntmIzar_3.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ordenatuGroup.add(chckbxmntmIzar_3);
-			}
-		});
-		chckbxmntmIzar_3.setFont(new Font("Verdana", Font.PLAIN, 16));
-		chckbxmntmIzar_3.setEnabled(false);
-		mnOrdenatu.add(chckbxmntmIzar_3);
-
-		// 4
-		chckbxmntmIzar_4.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ordenatuGroup.add(chckbxmntmIzar_4);
-			}
-		});
-		chckbxmntmIzar_4.setFont(new Font("Verdana", Font.PLAIN, 16));
-		chckbxmntmIzar_4.setEnabled(false);
-		mnOrdenatu.add(chckbxmntmIzar_4);
 
 		// 5
 		chckbxmntmIzar_5.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ordenatuGroup.add(chckbxmntmIzar_5);
+				btnBilatu.setVisible(true);
+				btn_next.setVisible(false);
+				datuakBerritu();
 			}
 		});
 		chckbxmntmIzar_5.setFont(new Font("Verdana", Font.PLAIN, 16));
-		chckbxmntmIzar_5.setEnabled(false);
-		mnOrdenatu.add(chckbxmntmIzar_5);
+		mnIzarKop.add(chckbxmntmIzar_5);
 
-		
+		// 4
+		chckbxmntmIzar_4.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ordenatuGroup.add(chckbxmntmIzar_4);
+				btnBilatu.setVisible(true);
+				btn_next.setVisible(false);
+				datuakBerritu();
+			}
+		});
+		chckbxmntmIzar_4.setFont(new Font("Verdana", Font.PLAIN, 16));
+		mnIzarKop.add(chckbxmntmIzar_4);
+
+		// 3
+		chckbxmntmIzar_3.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ordenatuGroup.add(chckbxmntmIzar_3);
+				btnBilatu.setVisible(true);
+				btn_next.setVisible(false);
+				datuakBerritu();
+			}
+		});
+		chckbxmntmIzar_3.setFont(new Font("Verdana", Font.PLAIN, 16));
+		mnIzarKop.add(chckbxmntmIzar_3);
+
+		// 2
+		chckbxmntmIzar_2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ordenatuGroup.add(chckbxmntmIzar_2);
+				btnBilatu.setVisible(true);
+				btn_next.setVisible(false);
+				datuakBerritu();
+			}
+		});
+		chckbxmntmIzar_2.setFont(new Font("Verdana", Font.PLAIN, 16));
+		mnIzarKop.add(chckbxmntmIzar_2);
+		chckbxmntmIzar_1.setFont(new Font("Verdana", Font.PLAIN, 16));
+		mnIzarKop.add(chckbxmntmIzar_1);
+
 		// zerbitzuak
 		mnZerbitzuak.setFont(new Font("Verdana", Font.PLAIN, 16));
 		mnZerbitzuak.setEnabled(false);
@@ -308,7 +333,98 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		});
 		chckbxmntmParkina.setFont(new Font("Verdana", Font.PLAIN, 16));
 		mnZerbitzuak.add(chckbxmntmParkina);
-		
+
+		chckbxmntmWifi.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				zerbitzuakGroup.add(chckbxmntmWifi);
+				btnBilatu.setVisible(true);
+				btn_next.setVisible(false);
+				datuakBerritu();
+
+			}
+		});
+		chckbxmntmParkina.setFont(new Font("Verdana", Font.PLAIN, 16));
+		mnZerbitzuak.add(chckbxmntmWifi);
+
+		chckbxmntmIgerileku.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				zerbitzuakGroup.add(chckbxmntmIgerileku);
+				btnBilatu.setVisible(true);
+				btn_next.setVisible(false);
+				datuakBerritu();
+
+			}
+		});
+		chckbxmntmParkina.setFont(new Font("Verdana", Font.PLAIN, 16));
+		mnZerbitzuak.add(chckbxmntmIgerileku);
+
+		chckbxmntmSpa.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				zerbitzuakGroup.add(chckbxmntmSpa);
+				btnBilatu.setVisible(true);
+				btn_next.setVisible(false);
+				datuakBerritu();
+
+			}
+		});
+		chckbxmntmParkina.setFont(new Font("Verdana", Font.PLAIN, 16));
+		mnZerbitzuak.add(chckbxmntmSpa);
+
+		chckbxmntmAireGirotua.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				zerbitzuakGroup.add(chckbxmntmAireGirotua);
+				btnBilatu.setVisible(true);
+				btn_next.setVisible(false);
+				datuakBerritu();
+
+			}
+		});
+		chckbxmntmParkina.setFont(new Font("Verdana", Font.PLAIN, 16));
+		mnZerbitzuak.add(chckbxmntmAireGirotua);
+
+		chckbxmntmJatetxea.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				zerbitzuakGroup.add(chckbxmntmJatetxea);
+				btnBilatu.setVisible(true);
+				btn_next.setVisible(false);
+				datuakBerritu();
+
+			}
+		});
+		chckbxmntmParkina.setFont(new Font("Verdana", Font.PLAIN, 16));
+		mnZerbitzuak.add(chckbxmntmJatetxea);
+
+		chckbxmntmTaberna.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				zerbitzuakGroup.add(chckbxmntmTaberna);
+				btnBilatu.setVisible(true);
+				btn_next.setVisible(false);
+				datuakBerritu();
+
+			}
+		});
+		chckbxmntmParkina.setFont(new Font("Verdana", Font.PLAIN, 16));
+		mnZerbitzuak.add(chckbxmntmTaberna);
+
+		chckbxmntmGimnasioa.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				zerbitzuakGroup.add(chckbxmntmGimnasioa);
+				btnBilatu.setVisible(true);
+				btn_next.setVisible(false);
+				datuakBerritu();
+
+			}
+		});
+		chckbxmntmParkina.setFont(new Font("Verdana", Font.PLAIN, 16));
+		mnZerbitzuak.add(chckbxmntmGimnasioa);
+
 		// Sartze data
 		lblSartzeData.setFont(new Font("Verdana", Font.PLAIN, 13));
 		lblSartzeData.setBounds(228, 26, 113, 30);
@@ -462,113 +578,127 @@ public class Leiho2AukeratuOstatu extends JFrame {
 			if (chckbxmntmApartamentua.isSelected()) {
 				for (Apartamentua u : arrayApartamentua) {
 					arrayOstatua.add(u);
+					u.setPrezioa(MetodoakKontsultak.etxearenPrezioaAtera(u.getIzena()));
 				}
 			}
 			if (chckbxmntmEtxea.isSelected()) {
 				for (Etxea a : arrayEtxea) {
 					arrayOstatua.add(a);
+					a.setPrezioa(MetodoakKontsultak.etxearenPrezioaAtera(a.getIzena()));
 				}
 
 			}
 			if (chckbxmntmHotela.isSelected()) {
 				for (Hotela h : arrayHotela) {
 					arrayOstatua.add(h);
+					h.setPrezioa(MetodoakKontsultak.hotelarenPrezioaAtera(h.getIzena()));
 				}
 			}
 
 		} else
 			arrayOstatua = Metodoak.ostatuakSortu(arrayHotela, arrayEtxea, arrayApartamentua);
 
-		/************************************************ ORDENA MAL */
 		// ordenatu filtroa
 		if (chckbxmntmErreserbaKopurua.isSelected()) {
-			ArrayList<Ostatua> arrayOstatuaAux = new ArrayList<Ostatua>();
-			for (int i = 0; i < arrayOstatua.size(); i++) {
-				for (int j = 0; j < arrayOstatua.size() - 1; j++) {
-					if (arrayOstatua.get(j).getErreserbaKop() < arrayOstatua.get(j + 1).getErreserbaKop()) {
-						arrayOstatuaAux.add(arrayOstatua.get(j));
-						// aldatu bakoitza
-						arrayOstatuaAux.get(j).setErreserbaKop(arrayOstatua.get(j).getErreserbaKop());
-						arrayOstatuaAux.get(j).setGelaKop(arrayOstatua.get(j).getGelaKop());
-						arrayOstatuaAux.get(j).setHelbidea(arrayOstatua.get(j).getHelbidea());
-						arrayOstatuaAux.get(j).setHerria(arrayOstatua.get(j).getHerria());
-						arrayOstatuaAux.get(j).setIzena(arrayOstatua.get(j).getIzena());
-						arrayOstatuaAux.get(j).setOstatuKod(arrayOstatua.get(j).getOstatuKod());
-						arrayOstatuaAux.get(j).setOstatuMota(arrayOstatua.get(j).getOstatuMota());
-						arrayOstatuaAux.get(j).setPostKod(arrayOstatua.get(j).getPostKod());
+			arrayOstatua.get(0).setZbkMota(1);
+		}
+		if (chckbxmntmAlfabetoa.isSelected()) {
+			arrayOstatua.get(0).setZbkMota(2);
+		}
+		if (chckbxmntmPrezioa.isSelected()) {
+			arrayOstatua.get(0).setZbkMota(3);
+		}
 
-						System.out.println(j + "" + arrayOstatuaAux.get(j));
-						arrayOstatua.get(j).setErreserbaKop(arrayOstatua.get(j + 1).getErreserbaKop());
-						arrayOstatua.get(j).setGelaKop(arrayOstatua.get(j + 1).getGelaKop());
-						arrayOstatua.get(j).setHelbidea(arrayOstatua.get(j + 1).getHelbidea());
-						arrayOstatua.get(j).setHerria(arrayOstatua.get(j + 1).getHerria());
-						arrayOstatua.get(j).setIzena(arrayOstatua.get(j + 1).getIzena());
-						arrayOstatua.get(j).setOstatuKod(arrayOstatua.get(j + 1).getOstatuKod());
-						arrayOstatua.get(j).setOstatuMota(arrayOstatua.get(j + 1).getOstatuMota());
-						arrayOstatua.get(j).setPostKod(arrayOstatua.get(j + 1).getPostKod());
+		// filtro izar kop
+		if (chckbxmntmIzar_1.isSelected() || chckbxmntmIzar_2.isSelected() || chckbxmntmIzar_3.isSelected()
+				|| chckbxmntmIzar_4.isSelected() || chckbxmntmIzar_5.isSelected()) {
+			arrayOstatua = new ArrayList<Ostatua>();
+			for (Hotela o : arrayHotela) {
+				if (chckbxmntmIzar_1.isSelected() && o.getIzarKop() >= 1) {
+					arrayOstatua.add(o);
+				}
+				if (chckbxmntmIzar_2.isSelected() && o.getIzarKop() >= 2) {
+					arrayOstatua.add(o);
+				}
 
-						arrayOstatua.get(j + 1).setErreserbaKop(arrayOstatuaAux.get(j).getErreserbaKop());
-						arrayOstatua.get(j + 1).setGelaKop(arrayOstatuaAux.get(j).getGelaKop());
-						arrayOstatua.get(j + 1).setHelbidea(arrayOstatuaAux.get(j).getHelbidea());
-						arrayOstatua.get(j + 1).setHerria(arrayOstatuaAux.get(j).getHerria());
-						arrayOstatua.get(j + 1).setIzena(arrayOstatuaAux.get(j).getIzena());
-						arrayOstatua.get(j + 1).setOstatuKod(arrayOstatuaAux.get(j).getOstatuKod());
-						arrayOstatua.get(j + 1).setOstatuMota(arrayOstatuaAux.get(j).getOstatuMota());
-						arrayOstatua.get(j + 1).setPostKod(arrayOstatuaAux.get(j).getPostKod());
+				if (chckbxmntmIzar_3.isSelected() && o.getIzarKop() >= 3) {
+					arrayOstatua.add(o);
+				}
 
-						// arrayOstatua.get(j +
-						// 1).setErreserbaKop(arrayOstatua.get(j).getErreserbaKop());
+				if (chckbxmntmIzar_4.isSelected() && o.getIzarKop() >= 4) {
+					arrayOstatua.add(o);
+				}
 
-						// arrayOstatua.get(j).setErreserbaKop(tmp);
+				if (chckbxmntmIzar_5.isSelected() && o.getIzarKop() == 5) {
+					arrayOstatua.add(o);
+				}
+			}
+		}
 
+		// filtro zerbitzuak
+		if (chckbxmntmParkina.isSelected() || chckbxmntmWifi.isSelected() || chckbxmntmIgerileku.isSelected()
+				|| chckbxmntmSpa.isSelected() || chckbxmntmAireGirotua.isSelected() || chckbxmntmJatetxea.isSelected()
+				|| chckbxmntmTaberna.isSelected() || chckbxmntmGimnasioa.isSelected()) {
+			ArrayList<Ostatua> arrayOstAux = arrayOstatua;
+			for (Ostatua o : arrayOstAux) {
+				ArrayList<HartutakoOstatuarenZerbitzuak> arrayZerb = MetodoakKontsultak.zerbitzuakOstatuanMet(o);
+				for (HartutakoOstatuarenZerbitzuak zb : arrayZerb) {
+					arrayOstatua = new ArrayList<Ostatua>();
+					if (chckbxmntmParkina.isSelected() && zb.getIzena().equals("aparkalekua")) {
+						arrayOstatua.add(o);
+					}
+
+					if (chckbxmntmWifi.isSelected() && zb.getIzena().equals("wifi")) {
+						arrayOstatua.add(o);
+					}
+
+					if (chckbxmntmIgerileku.isSelected() && zb.getIzena().equals("igerilekua")) {
+						arrayOstatua.add(o);
+					}
+
+					if (chckbxmntmSpa.isSelected() && zb.getIzena().equals("spa")) {
+						arrayOstatua.add(o);
+					}
+
+					if (chckbxmntmAireGirotua.isSelected() && zb.getIzena().equals("aire girotua")) {
+						arrayOstatua.add(o);
+					}
+
+					if (chckbxmntmJatetxea.isSelected() && zb.getIzena().equals("jatetxea")) {
+						arrayOstatua.add(o);
+					}
+
+					if (chckbxmntmTaberna.isSelected() && zb.getIzena().equals("taberna")) {
+						arrayOstatua.add(o);
+					}
+
+					if (chckbxmntmGimnasioa.isSelected() && zb.getIzena().equals("gimnasioa")) {
+						arrayOstatua.add(o);
 					}
 				}
 			}
 		}
-		if (chckbxmntmAlfabetoa.isSelected()) {
-			/*
-			 * for (Ostatua o : arrayOstatua) { Collections.sort(o.getIzena()); }
-			 */
-		}
-		if (chckbxmntmPrezioa.isSelected()) {
 
-		}
-		
-		if (chckbxmntmIzar_1.isSelected()) {
-
-		}
-		
-		if (chckbxmntmIzar_2.isSelected()) {
-
-		}
-		
-		if (chckbxmntmIzar_3.isSelected()) {
-
-		}
-		
-		if (chckbxmntmIzar_4.isSelected()) {
-
-		}
-		
-		if (chckbxmntmIzar_5.isSelected()) {
-
-		}
-
+		Collections.sort(arrayOstatua);
 		for (Ostatua o : arrayOstatua) {
 			ostatuIzen = o.getIzena();
 			if (o.getOstatuMota().equals("H")) {
 				ostatuMota = "Hotela";
 				prezioa = MetodoakKontsultak.hotelarenPrezioaAtera(ostatuIzen) + " €";
+
 			} else if (o.getOstatuMota().equals("E")) {
 				ostatuMota = "Etxea";
 				prezioa = MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen) + " €";
+				o.setPrezioa(MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen));
 			} else if (o.getOstatuMota().equals("A")) {
 				ostatuMota = "Apartamentua";
 				prezioa = MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen) + " €";
+				o.setPrezioa(MetodoakKontsultak.etxearenPrezioaAtera(ostatuIzen));
 			}
 			ostatuBerria[0] = ostatuIzen;
 			ostatuBerria[1] = ostatuMota;
 			ostatuBerria[2] = prezioa;
+
 			modelo.addRow(ostatuBerria);
 
 		}
