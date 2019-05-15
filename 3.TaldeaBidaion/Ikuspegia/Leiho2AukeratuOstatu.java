@@ -568,7 +568,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		// apartamentuak
 		arrayApartamentua = MetodoakKontsultak.apartamentuakAtera((String) cbHerria.getSelectedItem(), dataIrtetze,
 				dataIrtetze);
-		// etxeak
+		// etxeak 
 		arrayEtxea = MetodoakKontsultak.etxeakAtera((String) cbHerria.getSelectedItem(), dataIrtetze, dataIrtetze);
 
 		arrayOstatua = new ArrayList<Ostatua>();
