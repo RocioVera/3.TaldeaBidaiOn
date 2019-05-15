@@ -247,7 +247,6 @@ public class MetodoakKontsultak {
 		pasaEnkr = Metodoak.zifratuHitza(pasahitza);
 		ArrayList<Bezeroa> bezeroak = new ArrayList<Bezeroa>();
 		bezeroak = Kontsultak.bezeroDatuak();
-
 		for (Bezeroa bezeroak2 : bezeroak) {
 			if (pasaEnkr.equals(bezeroak2.getPasahitza()))
 				bal = true;
@@ -444,4 +443,17 @@ public class MetodoakKontsultak {
 		return Kontsultak.erreserbaBeteta(data, izena, kodea);
 
 	}
+	
+	/**
+	 * /**
+	 * Ostatuari + bat egin erreserbetan
+	 * @author talde3
+	 * @param hartutakoOstatua
+	 */
+	public static void ostatuErreserbaKopuruBerriaMet(Ostatua hartutakoOstatua) {
+		Kontsultak.ostatuErreserbaKopuruBerria(hartutakoOstatua);
+
+	}
+	
+	
 }

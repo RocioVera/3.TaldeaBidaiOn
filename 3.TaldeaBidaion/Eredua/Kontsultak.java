@@ -826,7 +826,7 @@ public class Kontsultak {
 	}
 
 	/**
-	 * Zenbat errezerba dauden zenbatzen duen kontsulta
+	 * Zenbat erreserba dauden zenbatzen duen kontsulta
 	 * 
 	 * @author talde3
 	 * @param data
@@ -866,6 +866,44 @@ public class Kontsultak {
 		if (gelaKopuru > erreserbaKop)
 			erantzuna = true;
 		return erantzuna;
+	}
+
+	/**
+	 * Ostatuari + bat egin erreserbetan
+	 * @author talde3
+	 * @param hartutakoOstatua
+	 */
+	public static void ostatuErreserbaKopuruBerria(Ostatua hartutakoOstatua) {
+		Statement st = null;
+		Connection konexioa = Konexioa.getConexion();
+		int erreserbaKop = 0;
+		boolean erantzuna = false;
+		ResultSet rs = null;
+
+		try {
+			st = konexioa.createStatement();
+			rs = st.executeQuery(
+					"SELECT erreserba_kopuru FROM ostatu WHERE ostatu_id=" + hartutakoOstatua.getOstatuKod());
+			while (rs.next()) {
+				erreserbaKop = (rs.getInt(1))+1;
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		System.out.println(erreserbaKop);
+		try {
+			PreparedStatement st2 = konexioa
+					.prepareStatement("UPDATE `ostatu` SET erreserba_kopuru=? WHERE ostatu_id=?");
+			st2.setInt(1, erreserbaKop);
+			st2.setInt(2, hartutakoOstatua.getOstatuKod());
+
+			st2.executeUpdate();
+			st2.close();
+			System.out.println("Aldatu da erreskopurua");
+		} catch (SQLException e) {
+			System.out.println("Ez da gehitu erreskopurua");
+		}
+
 	}
 
 }

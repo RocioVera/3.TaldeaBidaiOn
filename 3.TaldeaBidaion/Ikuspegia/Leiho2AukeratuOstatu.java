@@ -51,7 +51,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 			chckbxmntmGimnasioa = new JRadioButton("Gimnasioa            ");
 
 	// taldeak
-	private ButtonGroup zerbitzuakGroup, ostatuMotaGroup, ordenatuGroup, izarKopGroup;
+	private ButtonGroup /* zerbitzuakGroup, */ ostatuMotaGroup, ordenatuGroup, izarKopGroup;
 
 	private JDateChooser dchSartzeData = new JDateChooser(), dchIrtetzeData = new JDateChooser();
 	private JTextFieldDateEditor dataEzEditatu; // kentzeko eskuz sartu ahal izana
@@ -75,7 +75,6 @@ public class Leiho2AukeratuOstatu extends JFrame {
 	private ArrayList<Ostatua> arrayOstatua;
 
 	private Ostatua hartutakoOstatua;
-	private Apartamentua hartutakoApartamentua;
 
 	private String hotelString, ostatuIzen, ostatuMota, prezioa;
 	private int hartutakoLerroa;
@@ -152,7 +151,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		// group --> bakarrik bat
 		ostatuMotaGroup = new ButtonGroup();
 		ordenatuGroup = new ButtonGroup();
-		zerbitzuakGroup = new ButtonGroup();
+		// zerbitzuakGroup = new ButtonGroup();
 		izarKopGroup = new ButtonGroup();
 
 		this.setJMenuBar(menuBar);
@@ -324,7 +323,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		chckbxmntmParkina.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				zerbitzuakGroup.add(chckbxmntmParkina);
+				// zerbitzuakGroup.add(chckbxmntmParkina);
 				btnBilatu.setVisible(true);
 				btn_next.setVisible(false);
 				datuakBerritu();
@@ -337,92 +336,92 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		chckbxmntmWifi.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				zerbitzuakGroup.add(chckbxmntmWifi);
+				// zerbitzuakGroup.add(chckbxmntmWifi);
 				btnBilatu.setVisible(true);
 				btn_next.setVisible(false);
 				datuakBerritu();
 
 			}
 		});
-		chckbxmntmParkina.setFont(new Font("Verdana", Font.PLAIN, 16));
+		chckbxmntmWifi.setFont(new Font("Verdana", Font.PLAIN, 16));
 		mnZerbitzuak.add(chckbxmntmWifi);
 
 		chckbxmntmIgerileku.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				zerbitzuakGroup.add(chckbxmntmIgerileku);
+				// zerbitzuakGroup.add(chckbxmntmIgerileku);
 				btnBilatu.setVisible(true);
 				btn_next.setVisible(false);
 				datuakBerritu();
 
 			}
 		});
-		chckbxmntmParkina.setFont(new Font("Verdana", Font.PLAIN, 16));
+		chckbxmntmIgerileku.setFont(new Font("Verdana", Font.PLAIN, 16));
 		mnZerbitzuak.add(chckbxmntmIgerileku);
 
 		chckbxmntmSpa.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				zerbitzuakGroup.add(chckbxmntmSpa);
+				// zerbitzuakGroup.add(chckbxmntmSpa);
 				btnBilatu.setVisible(true);
 				btn_next.setVisible(false);
 				datuakBerritu();
 
 			}
 		});
-		chckbxmntmParkina.setFont(new Font("Verdana", Font.PLAIN, 16));
+		chckbxmntmSpa.setFont(new Font("Verdana", Font.PLAIN, 16));
 		mnZerbitzuak.add(chckbxmntmSpa);
 
 		chckbxmntmAireGirotua.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				zerbitzuakGroup.add(chckbxmntmAireGirotua);
+				// zerbitzuakGroup.add(chckbxmntmAireGirotua);
 				btnBilatu.setVisible(true);
 				btn_next.setVisible(false);
 				datuakBerritu();
 
 			}
 		});
-		chckbxmntmParkina.setFont(new Font("Verdana", Font.PLAIN, 16));
+		chckbxmntmAireGirotua.setFont(new Font("Verdana", Font.PLAIN, 16));
 		mnZerbitzuak.add(chckbxmntmAireGirotua);
 
 		chckbxmntmJatetxea.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				zerbitzuakGroup.add(chckbxmntmJatetxea);
+				// zerbitzuakGroup.add(chckbxmntmJatetxea);
 				btnBilatu.setVisible(true);
 				btn_next.setVisible(false);
 				datuakBerritu();
 
 			}
 		});
-		chckbxmntmParkina.setFont(new Font("Verdana", Font.PLAIN, 16));
+		chckbxmntmJatetxea.setFont(new Font("Verdana", Font.PLAIN, 16));
 		mnZerbitzuak.add(chckbxmntmJatetxea);
 
 		chckbxmntmTaberna.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				zerbitzuakGroup.add(chckbxmntmTaberna);
+				// zerbitzuakGroup.add(chckbxmntmTaberna);
 				btnBilatu.setVisible(true);
 				btn_next.setVisible(false);
 				datuakBerritu();
 
 			}
 		});
-		chckbxmntmParkina.setFont(new Font("Verdana", Font.PLAIN, 16));
+		chckbxmntmTaberna.setFont(new Font("Verdana", Font.PLAIN, 16));
 		mnZerbitzuak.add(chckbxmntmTaberna);
 
 		chckbxmntmGimnasioa.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				zerbitzuakGroup.add(chckbxmntmGimnasioa);
+				// zerbitzuakGroup.add(chckbxmntmGimnasioa);
 				btnBilatu.setVisible(true);
 				btn_next.setVisible(false);
 				datuakBerritu();
 
 			}
 		});
-		chckbxmntmParkina.setFont(new Font("Verdana", Font.PLAIN, 16));
+		chckbxmntmGimnasioa.setFont(new Font("Verdana", Font.PLAIN, 16));
 		mnZerbitzuak.add(chckbxmntmGimnasioa);
 
 		// Sartze data
@@ -568,7 +567,7 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		// apartamentuak
 		arrayApartamentua = MetodoakKontsultak.apartamentuakAtera((String) cbHerria.getSelectedItem(), dataIrtetze,
 				dataIrtetze);
-		// etxeak 
+		// etxeak
 		arrayEtxea = MetodoakKontsultak.etxeakAtera((String) cbHerria.getSelectedItem(), dataIrtetze, dataIrtetze);
 
 		arrayOstatua = new ArrayList<Ostatua>();
@@ -614,24 +613,20 @@ public class Leiho2AukeratuOstatu extends JFrame {
 				|| chckbxmntmIzar_4.isSelected() || chckbxmntmIzar_5.isSelected()) {
 			arrayOstatua = new ArrayList<Ostatua>();
 			for (Hotela o : arrayHotela) {
-				if (chckbxmntmIzar_1.isSelected() && o.getIzarKop() >= 1) {
+				if (chckbxmntmIzar_1.isSelected() && o.getIzarKop() >= 1)
 					arrayOstatua.add(o);
-				}
-				if (chckbxmntmIzar_2.isSelected() && o.getIzarKop() >= 2) {
-					arrayOstatua.add(o);
-				}
 
-				if (chckbxmntmIzar_3.isSelected() && o.getIzarKop() >= 3) {
+				if (chckbxmntmIzar_2.isSelected() && o.getIzarKop() >= 2)
 					arrayOstatua.add(o);
-				}
 
-				if (chckbxmntmIzar_4.isSelected() && o.getIzarKop() >= 4) {
+				if (chckbxmntmIzar_3.isSelected() && o.getIzarKop() >= 3)
 					arrayOstatua.add(o);
-				}
 
-				if (chckbxmntmIzar_5.isSelected() && o.getIzarKop() == 5) {
+				if (chckbxmntmIzar_4.isSelected() && o.getIzarKop() >= 4)
 					arrayOstatua.add(o);
-				}
+
+				if (chckbxmntmIzar_5.isSelected() && o.getIzarKop() == 5)
+					arrayOstatua.add(o);
 			}
 		}
 
@@ -644,37 +639,30 @@ public class Leiho2AukeratuOstatu extends JFrame {
 				ArrayList<HartutakoOstatuarenZerbitzuak> arrayZerb = MetodoakKontsultak.zerbitzuakOstatuanMet(o);
 				for (HartutakoOstatuarenZerbitzuak zb : arrayZerb) {
 					arrayOstatua = new ArrayList<Ostatua>();
-					if (chckbxmntmParkina.isSelected() && zb.getIzena().equals("aparkalekua")) {
+					if (chckbxmntmParkina.isSelected() && zb.getIzena().equals("aparkalekua"))
 						arrayOstatua.add(o);
-					}
 
-					if (chckbxmntmWifi.isSelected() && zb.getIzena().equals("wifi")) {
+					if (chckbxmntmWifi.isSelected() && zb.getIzena().equals("wifi"))
 						arrayOstatua.add(o);
-					}
 
-					if (chckbxmntmIgerileku.isSelected() && zb.getIzena().equals("igerilekua")) {
+					if (chckbxmntmIgerileku.isSelected() && zb.getIzena().equals("igerilekua"))
 						arrayOstatua.add(o);
-					}
 
-					if (chckbxmntmSpa.isSelected() && zb.getIzena().equals("spa")) {
+					if (chckbxmntmSpa.isSelected() && zb.getIzena().equals("spa"))
 						arrayOstatua.add(o);
-					}
 
-					if (chckbxmntmAireGirotua.isSelected() && zb.getIzena().equals("aire girotua")) {
+					if (chckbxmntmAireGirotua.isSelected() && zb.getIzena().equals("aire girotua"))
 						arrayOstatua.add(o);
-					}
 
-					if (chckbxmntmJatetxea.isSelected() && zb.getIzena().equals("jatetxea")) {
+					if (chckbxmntmJatetxea.isSelected() && zb.getIzena().equals("jatetxea"))
 						arrayOstatua.add(o);
-					}
 
-					if (chckbxmntmTaberna.isSelected() && zb.getIzena().equals("taberna")) {
+					if (chckbxmntmTaberna.isSelected() && zb.getIzena().equals("taberna"))
 						arrayOstatua.add(o);
-					}
 
-					if (chckbxmntmGimnasioa.isSelected() && zb.getIzena().equals("gimnasioa")) {
+					if (chckbxmntmGimnasioa.isSelected() && zb.getIzena().equals("gimnasioa"))
 						arrayOstatua.add(o);
-					}
+
 				}
 			}
 		}

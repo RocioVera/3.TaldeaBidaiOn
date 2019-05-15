@@ -48,20 +48,23 @@ public class Leiho9Ordaindu extends JFrame {
 				Metodoak.fitxIdatzi(hartutakoOstatua, sartzeData, irtetzeData, prezioTot2, erreserba); // billetea fitxategian
 																								// sartzen duen
 																								// metodoari deitu
-				//reserba
+				//erreserba igo
 				MetodoakKontsultak.erreserbaGordeMet(erreserba, prezioTot2);
-				//countreserbakod
-				//MetodoakKontsultak.erreserbakZenbatuMet();
-				//insert base legalak
+				//insert base legalak igo
 				MetodoakKontsultak.baseLegalakIgoMet(MetodoakKontsultak.erreserbakZenbatuMet());
-				
+				//erdiko taulan igo
 				MetodoakKontsultak.erresJaiEgunIgoMet(erreserba, sartzeData, irtetzeData);
 
+				// erreserbaKopuru berria
+				MetodoakKontsultak.ostatuErreserbaKopuruBerriaMet(hartutakoOstatua);
+				
 				if (hartutakoOstatua.getOstatuMota().equals("H"))
 					MetodoakKontsultak.gelaMotaErreserbaIgoMet(Leiho3HotelDatuak.gelaMotaErreserba);
 				
 				if (promHartu!=null)
 					MetodoakKontsultak.promozioaErabilitaMet(promHartu);
+				
+				
 				//aldatu azkeneko preziora
 				erreserba.setPrezioTotala(prezioTot2);
 				MetodoakLeihoAldaketa.hamargarrenLeihoa(hartutakoOstatua, sartzeData, irtetzeData, erreserba);
