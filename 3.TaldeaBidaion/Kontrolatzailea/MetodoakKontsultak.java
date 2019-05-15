@@ -417,6 +417,13 @@ public class MetodoakKontsultak {
 		}
 	}
 
+	public static void zerbiErregisIgoMet(ArrayList<HartutakoOstatuarenZerbitzuak> hartutakoZerbitzuArray) {
+		for (HartutakoOstatuarenZerbitzuak h : hartutakoZerbitzuArray) {
+			if (h.getHartuta()!=null && h.getHartuta().equals("Bai"))
+				Kontsultak.zerbiErregisIgo(h.getKodZerbitzua());
+		}
+	}
+
 	/**
 	 * Erreserba egin duela kontsultari deitzen duen metodoa.
 	 * 
@@ -443,10 +450,10 @@ public class MetodoakKontsultak {
 		return Kontsultak.erreserbaBeteta(data, izena, kodea);
 
 	}
-	
+
 	/**
-	 * /**
-	 * Ostatuari + bat egin erreserbetan
+	 * /** Ostatuari + bat egin erreserbetan
+	 * 
 	 * @author talde3
 	 * @param hartutakoOstatua
 	 */
@@ -454,6 +461,5 @@ public class MetodoakKontsultak {
 		Kontsultak.ostatuErreserbaKopuruBerria(hartutakoOstatua);
 
 	}
-	
-	
+
 }

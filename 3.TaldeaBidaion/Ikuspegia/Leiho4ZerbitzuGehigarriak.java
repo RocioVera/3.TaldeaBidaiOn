@@ -6,6 +6,8 @@ import java.util.*;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import Kontrolatzailea.*;
@@ -18,11 +20,7 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 			lblPentsioa = new JLabel("Pentsioa:"), lblZerbitzuak = new JLabel("Zerbitzu gehigarriak:");
 
 	private JComboBox cboxPentsioa = new JComboBox();
-	private JCheckBox chckbxGozaria = new JCheckBox("Gosaria"), chckbxWifi = new JCheckBox("Wifi"),
-			chckbxIgerilekua = new JCheckBox("Igerilekua"), chckbxSpa = new JCheckBox("Spa"),
-			chckbxParking = new JCheckBox("Parking"), chckbxAireGirotua = new JCheckBox("Aire girotua"),
-			chckbxJatetxea = new JCheckBox("Jatetxea"), chckbxTaberna = new JCheckBox("Taberna"),
-			chckbxGimnasioa = new JCheckBox("Gimnasioa");
+	private JCheckBox chckbxGosaria = new JCheckBox("Gosaria");
 
 	private JButton btn_next = new JButton("Hurrengoa"), btn_prev = new JButton("Atzera"),
 			restart = new JButton("\u2302");
@@ -36,8 +34,10 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 	private JScrollPane scrollPane;
 
 	// bariableak
-	private ArrayList<HartutakoOstatuarenZerbitzuak> zerbitzuArray = new ArrayList<HartutakoOstatuarenZerbitzuak>();
+	private ArrayList<HartutakoOstatuarenZerbitzuak> zerbitzuArray = new ArrayList<HartutakoOstatuarenZerbitzuak>(), hartutakoZerbitzuArray = new ArrayList<HartutakoOstatuarenZerbitzuak>();
 	private String[] array = new String[3];
+	private double prezioTot2;
+	private int i = 0;
 
 	/**
 	 * Zerbitzu gehigarri datuak agertzen den panela sortu
@@ -58,13 +58,15 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		this.setResizable(false); // neurketak ez aldatzeko
 		this.setSize(new Dimension(600, 600));
 		this.setTitle("Airour ostatu bilatzailea");
-
+		prezioTot2 = prezioTot;
 		// botoiak
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoOstatua, prezioTot, dataSartze, dataIrtetze, logelaTot,
-						pertsonaKop, cboxPentsioa.getSelectedItem() + "");
+		
+				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoOstatua, prezioTot2, dataSartze, dataIrtetze, logelaTot,
+						pertsonaKop, cboxPentsioa.getSelectedItem() + "", zerbitzuArray);
+				
 				dispose();
 			}
 		});
@@ -110,22 +112,8 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		lblIzena.setBounds(0, 13, 594, 32);
 		getContentPane().add(lblIzena);
 
-		lblPrezioa.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblPrezioa.setBounds(210, 72, 63, 14);
-		getContentPane().add(lblPrezioa);
-
-		txtPrezioa = new JTextField();
-		txtPrezioa.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtPrezioa.setText(prezioTot + " €");
-		txtPrezioa.setEditable(false);
-		txtPrezioa.setBounds(274, 70, 136, 20);
-		txtPrezioa.setColumns(10);
-		getContentPane().add(txtPrezioa);
-
 		lblLogelak.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblLogelak.setBounds(210, 114, 72, 25);
-		if (!hartutakoOstatua.getOstatuMota().equals("H"))
-			lblLogelak.setVisible(false);
 		getContentPane().add(lblLogelak);
 
 		txtLogelak = new JTextField();
@@ -134,8 +122,6 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		txtLogelak.setText(logelaTot + "");
 		txtLogelak.setBounds(285, 116, 32, 20);
 		txtLogelak.setColumns(10);
-		if (!hartutakoOstatua.getOstatuMota().equals("H"))
-			txtLogelak.setVisible(false);
 		getContentPane().add(txtLogelak);
 
 		lblPentsioa.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -153,55 +139,32 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		if (!hartutakoOstatua.getOstatuMota().equals("H"))
 			cboxPentsioa.setVisible(false);
 
-		chckbxGozaria.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		chckbxGozaria.setBounds(245, 212, 97, 23);
-		getContentPane().add(chckbxGozaria);
+		chckbxGosaria.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		chckbxGosaria.setBounds(245, 201, 97, 23);
+		chckbxGosaria.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int gauak = (int) ((dataIrtetze.getTime() - dataSartze.getTime()) / 86400000);
+				double gosariPrezioa = 3 * gauak;
+				if (chckbxGosaria.isSelected())
+					prezioTot2 = prezioTot2 + gosariPrezioa;
+				else
+					prezioTot2 = prezioTot2 - gosariPrezioa;
+				txtPrezioa.setText(prezioTot2 + " €");
+			}
+		});
+		getContentPane().add(chckbxGosaria);
 
 		lblZerbitzuak.setFont(new Font("Verdana", Font.BOLD, 16));
 		lblZerbitzuak.setBounds(51, 244, 230, 25);
 		getContentPane().add(lblZerbitzuak);
 
 		// gehigarriak
-		/*
-		 * chckbxWifi.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		 * chckbxWifi.setBounds(299, 359, 97, 23); chckbxWifi.setVisible(false);
-		 * getContentPane().add(chckbxWifi);
-		 * 
-		 * chckbxIgerilekua.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		 * chckbxIgerilekua.setBounds(367, 410, 97, 23);
-		 * chckbxIgerilekua.setVisible(false); getContentPane().add(chckbxIgerilekua);
-		 * 
-		 * chckbxSpa.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		 * chckbxSpa.setBounds(210, 410, 97, 23); chckbxSpa.setVisible(false);
-		 * getContentPane().add(chckbxSpa);
-		 * 
-		 * chckbxParking.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		 * chckbxParking.setBounds(111, 307, 97, 23); chckbxParking.setVisible(false);
-		 * getContentPane().add(chckbxParking);
-		 * 
-		 * chckbxAireGirotua.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		 * chckbxAireGirotua.setBounds(299, 307, 133, 23);
-		 * chckbxAireGirotua.setVisible(false); getContentPane().add(chckbxAireGirotua);
-		 * 
-		 * chckbxJatetxea.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		 * chckbxJatetxea.setBounds(468, 307, 97, 23); chckbxJatetxea.setVisible(false);
-		 * getContentPane().add(chckbxJatetxea);
-		 * 
-		 * chckbxTaberna.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		 * chckbxTaberna.setBounds(468, 359, 97, 23); chckbxTaberna.setVisible(false);
-		 * getContentPane().add(chckbxTaberna);
-		 * 
-		 * chckbxGimnasioa.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		 * chckbxGimnasioa.setBounds(111, 359, 97, 23);
-		 * chckbxGimnasioa.setVisible(false); getContentPane().add(chckbxGimnasioa);
-		 */
-
 		zerbitzuArray = MetodoakKontsultak.zerbitzuakOstatuanMet(hartutakoOstatua);
 
 		modelo.addColumn("Izena:");
 		modelo.addColumn("Prezio gehigarria:");
 		modelo.addColumn("Hartuta:");
-
 
 		// tabla datuak
 		table = new JTable(modelo);
@@ -213,7 +176,6 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		table.getColumnModel().getColumn(1).setPreferredWidth(150);
 		table.getColumnModel().getColumn(1).setPreferredWidth(150);
 
-
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.getTableHeader().setResizingAllowed(false);
 		table.setRowHeight(32);
@@ -223,38 +185,56 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		table.getTableHeader().setReorderingAllowed(false);
 		getContentPane().add(table);
 
+		table.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mousePressed(MouseEvent me) {
+				if (me.getClickCount() == 1) {
+					i = 1;
+					if (table.getValueAt(table.getSelectedRow(), 2).equals("Ez"))
+						i = 1;
+					else
+						i = 2;
+					System.out.println(zerbitzuArray.get(table.getSelectedRow()).getKodZerbitzua()+"aaa");
+					if (i == 1) {
+						table.setValueAt("Bai", table.getSelectedRow(), 2);
+						prezioTot2 = prezioTot2 + zerbitzuArray.get(table.getSelectedRow()).getPrezioa();
+						zerbitzuArray.get(table.getSelectedRow()).setHartuta("Bai");
+					}
+					if (i == 2) {
+						table.setValueAt("Ez", table.getSelectedRow(), 2);
+						prezioTot2 = prezioTot2 - zerbitzuArray.get(table.getSelectedRow()).getPrezioa();
+						zerbitzuArray.get(table.getSelectedRow()).setHartuta("Ez");
+					}
+					txtPrezioa.setText(prezioTot2 + " €");
+					System.out.println(i);
+				}
+			}
+		});
+
 		scrollPane = new JScrollPane(table);
 		scrollPane.setViewportBorder(null);
 		scrollPane.setBounds(20, 282, 562, 188);
+
 		getContentPane().add(scrollPane);
 
 		for (HartutakoOstatuarenZerbitzuak zerb : zerbitzuArray) {
-			/*
-			 * if (zerb.getIzena().equals("wifi")) array[1] = "wifi"; modelo.addRow(array);
-			 * if (zerb.getIzena().equals("igerilekua")) modelo.addRow("igerilekua"); if
-			 * (zerb.getIzena().equals("spa")) modelo.addElement("spa"); if
-			 * (zerb.getIzena().equals("aparkalekua")) modelo.addElement("aparkalekua"); if
-			 * (zerb.getIzena().equals("aire girotua")) modelo.addElement("aire girotua");
-			 * if (zerb.getIzena().equals("jatetxea")) modelo.addElement("jatetxea"); if
-			 * (zerb.getIzena().equals("taberna")) modelo.addElement("taberna"); if
-			 * (zerb.getIzena().equals("gimnasioa")) modelo.addElement("gimnasioa");
-			 */
-
 			array[0] = zerb.getIzena();
 			array[1] = zerb.getPrezioa() + " €";
-			array[2] = "Bai";
-
+			array[2] = "Ez";
 			modelo.addRow(array);
 		}
-
 		table.setModel(modelo);
 
-		// zerbLista.getSelectionModel().addSelectionInterval(index0, index1);
+		lblPrezioa.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblPrezioa.setBounds(210, 72, 63, 14);
+		getContentPane().add(lblPrezioa);
 
-		// zerbLista.setBounds(62, 299, 508, 179);
+		txtPrezioa = new JTextField();
+		txtPrezioa.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		txtPrezioa.setText(prezioTot2 + " €");
+		txtPrezioa.setEditable(false);
+		txtPrezioa.setBounds(274, 70, 136, 20);
+		txtPrezioa.setColumns(10);
+		getContentPane().add(txtPrezioa);
 
-		// getContentPane().add(zerbLista);
-
-		/******** hau ******/
 	}
 }

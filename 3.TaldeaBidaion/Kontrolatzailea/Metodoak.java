@@ -12,6 +12,7 @@ public class Metodoak {
 	// Leiho2AukeratuOstatu
 	/**
 	 * Hartutako egunen arteko eta prezio totalaren arteko biderkaketa
+	 * 
 	 * @author talde3
 	 * @param dataSartze
 	 * @param dataIrtetze
@@ -28,6 +29,7 @@ public class Metodoak {
 
 	/**
 	 * Data bati gehi egun bat egiteko metodoa
+	 * 
 	 * @author talde3
 	 * @param date
 	 * @return gehiEgunBat
@@ -44,11 +46,12 @@ public class Metodoak {
 
 	/**
 	 * Hotelak, etxeak, eta apartamentuak izanda ostatuak sortzeko metodoa
+	 * 
 	 * @author talde3
 	 * @param arrayHotela
 	 * @param arrayEtxea
 	 * @param arrayApartamentua
-	 * @return
+	 * @return arrayOstatua
 	 */
 	public static ArrayList<Ostatua> ostatuakSortu(ArrayList<Hotela> arrayHotela, ArrayList<Etxea> arrayEtxea,
 			ArrayList<Apartamentua> arrayApartamentua) {
@@ -75,11 +78,11 @@ public class Metodoak {
 
 	}
 
-	
-	//Leiho6Erregistratu
+	// Leiho6Erregistratu
 	/**
 	 * nan-aren zenbaki guztiak gehitzen ditu eta zati 23 egiten hondarra lortzen
 	 * du. Hondarra horrekin sartutako nan-aren letra bueltatzen du.
+	 * 
 	 * @author talde3
 	 * @param nan
 	 * @return nanLarria
@@ -96,6 +99,7 @@ public class Metodoak {
 
 	/**
 	 * Sartutako edozein hitz zifratu.
+	 * 
 	 * @author talde3
 	 * @param hitza
 	 * @return hashtext
@@ -116,39 +120,52 @@ public class Metodoak {
 		}
 	}
 
-	
-	//Leiho9Ordaindu
+	// Leiho9Ordaindu
 	/**
 	 * Datu guztiak fitxategi batean gordetzeko metodoa
+	 * 
 	 * @author talde3
 	 * @param hartutakoOstatua
 	 * @param sartzeData
 	 * @param irtetzeData
 	 * @param prezioTot
 	 * @param erreserba
+	 * @param hartutakoZerbitzuArray
 	 */
-	public static void fitxIdatzi(Ostatua hartutakoOstatua, Date sartzeData, Date irtetzeData, double prezioTot, Erreserba erreserba) {
+	public static void fitxIdatzi(Ostatua hartutakoOstatua, Date sartzeData, Date irtetzeData, double prezioTot,
+			Erreserba erreserba, ArrayList<HartutakoOstatuarenZerbitzuak> hartutakoZerbitzuArray) {
 		FileWriter fitx = null;
 		PrintWriter pw = null;
 		String ostatuIzena = hartutakoOstatua.getIzena();
+		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");  
+
 
 		try {
 			fitx = new FileWriter("eredua\\ErreserbaFitx", true);
 			pw = new PrintWriter(fitx);
 
 			pw.println("Prezioa: " + erreserba.getPrezioTotala() + " €" + "\nBezeroaren datuak:");
-			if (prezioTot<erreserba.getPrezioTotala())
+			if (prezioTot < erreserba.getPrezioTotala())
 				pw.println("Promozioa hartu duzunez ordaindutako prezioa " + prezioTot + " €-koa da");
 
-			if (erreserba.getPentsioMota()!=null)
+			if (erreserba.getPentsioMota() != null)
 				pw.println("Pentsio mota: " + erreserba.getPentsioMota() + "");
 
-			pw.println("     Nan: " + erreserba.getBezeroNan() + "\nIzena: \n     Hartutako ostatua: " + ostatuIzena + "\t");
+			pw.println("     Nan: " + erreserba.getBezeroNan() + "\nIzena: \n     Hartutako ostatua: " + ostatuIzena
+					+ "\t");
 			if (hartutakoOstatua.getOstatuMota().equals("H"))
-				pw.println("     Logela Totala: "+ erreserba.getErreserbaGelaKop());
-			pw.println("     Pertsona Kopurua: " + erreserba.getPertsonaKopuru() + "\t Irtetze data: " + irtetzeData);
+				pw.println("     Logela Totala: " + erreserba.getErreserbaGelaKop());
+			pw.println("     Pertsona Kopurua: " + erreserba.getPertsonaKopuru());
 
-			pw.println("     Sartze data: " + sartzeData + "\t Irtetze data: " + irtetzeData);
+			pw.println("     Sartze data: " + formato.format(sartzeData) + "\t Irtetze data: " + formato.format(irtetzeData));
+			
+			if (hartutakoZerbitzuArray != null) {
+				pw.println("Zerbitzu gehigarriak:");
+				for (HartutakoOstatuarenZerbitzuak h : hartutakoZerbitzuArray) {
+					if (h.getHartuta()!=null && h.getHartuta().equals("Bai"))
+						pw.println("     " + h.getIzena());
+				}
+			}
 			pw.println("");
 			pw.println(
 					"******************************************************************************************************************************************");
@@ -167,6 +184,7 @@ public class Metodoak {
 
 	/**
 	 * Zenbat diru sartzen duen jakiteko egiteko.
+	 * 
 	 * @author talde3
 	 * @param kont
 	 * @param sartutakoa
@@ -237,9 +255,10 @@ public class Metodoak {
 		}
 		return sartutakoa;
 	}
-	
+
 	/**
 	 * Jakiteko zenbat diru sartu duen gero bueltak emateko ala ez.
+	 * 
 	 * @author talde3
 	 * @param diruFalta
 	 * @param guztiraPrez
@@ -255,6 +274,7 @@ public class Metodoak {
 	/**
 	 * Arrayan sartzeko zenbat kantitate txanpon bakoitza eta bueltatu txanpona /
 	 * billete.
+	 * 
 	 * @author talde3
 	 * @param diruFalta
 	 * @return bueltakString
@@ -341,11 +361,11 @@ public class Metodoak {
 		}
 		return bueltakString;
 	}
-	
 
-	//MetodoakKontsultak
+	// MetodoakKontsultak
 	/**
 	 * Bi daten artean zenbat egun festibo dauden jakiteko metodoa.
+	 * 
 	 * @author talde3
 	 * @param dataSartze
 	 * @param dataIrtetze
@@ -366,6 +386,7 @@ public class Metodoak {
 
 	/**
 	 * Bi daten artean zenbat egun dauden denboraldi altuak jakiteko metodoa.
+	 * 
 	 * @author talde3
 	 * @param dataSartze
 	 * @param dataIrtetze
@@ -392,9 +413,5 @@ public class Metodoak {
 		}
 		return denboraldiAltuaKant;
 	}
-	
 
-
-	
-	
 }

@@ -21,18 +21,21 @@ public class Leiho3EtxeDatuak extends JFrame {
 	private ArrayList<gelaMota_ohe_ostatu> logelaOheTot = new ArrayList<gelaMota_ohe_ostatu>();
 	private ArrayList<GelaMotaEtxea> gelaTot = new ArrayList<GelaMotaEtxea>();
 
-	private JLabel lblIzena = new JLabel(""), lblPrezioa = new JLabel("Prezioa:"), lblBinaka = new JLabel("Bikoitza:"), lblSinplea = new JLabel("Sinplea:"),
-			lblUmeak = new JLabel("Umeak:"), lblOheKopuru = new JLabel("Ohe kopuru:"), lblKomunKop = new JLabel("Komun kopurua:"), lblSukaldeKopurua = new JLabel("Sukalde kopurua:"),
-			lblEgongelaKopurua = new JLabel("Egongela kopurua:"), lblGarajeKopurua = new JLabel("Garaje kopurua:"),
-			lblLogelaKopurua = new JLabel("Logela kopurua:");
-	private JTextField txtPrezioa, txtBinaka, txtSinplea, txtUmeak, txtKomunKop = new JTextField(), txtSukaldeKop = new JTextField(),
-			txtEgongelaKop = new JTextField(), txtGarajeKop = new JTextField(), txtLogelaKop = new JTextField();
+	private JLabel lblIzena = new JLabel(""), lblPrezioa = new JLabel("Prezioa:"), lblBinaka = new JLabel("Bikoitza:"),
+			lblSinplea = new JLabel("Sinplea:"), lblUmeak = new JLabel("Umeak:"),
+			lblOheKopuru = new JLabel("Ohe kopuru:"), lblKomunKop = new JLabel("Komun kopurua:"),
+			lblSukaldeKopurua = new JLabel("Sukalde kopurua:"), lblEgongelaKopurua = new JLabel("Egongela kopurua:"),
+			lblGarajeKopurua = new JLabel("Garaje kopurua:"), lblLogelaKopurua = new JLabel("Logela kopurua:");
+	private JTextField txtPrezioa, txtBinaka, txtSinplea, txtUmeak, txtKomunKop = new JTextField(),
+			txtSukaldeKop = new JTextField(), txtEgongelaKop = new JTextField(), txtGarajeKop = new JTextField(),
+			txtLogelaKop = new JTextField();
 
 	// bariableak
-	private int bikoitza, umeak, sinple, pertsonaKop;
-	
+	private int bikoitza, umeak, sinple, pertsonaKop, logelaTot;
+
 	/**
-	 * Etxeen edo apartamentuen datuak agertzen den panela sortu 
+	 * Etxeen edo apartamentuen datuak agertzen den panela sortu
+	 * 
 	 * @author talde3
 	 * @param hartutakoOstatua
 	 * @param prezioTot
@@ -52,7 +55,7 @@ public class Leiho3EtxeDatuak extends JFrame {
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MetodoakLeihoAldaketa.laugarrenLeihoa(hartutakoOstatua, prezioTot, dataSartze, dataIrtetze, 0,
+				MetodoakLeihoAldaketa.laugarrenLeihoa(hartutakoOstatua, prezioTot, dataSartze, dataIrtetze, logelaTot,
 						pertsonaKop);
 				dispose();
 			}
@@ -214,9 +217,10 @@ public class Leiho3EtxeDatuak extends JFrame {
 
 		gelaTot = MetodoakKontsultak.gelaKantMotaMet(hartutakoOstatua.getOstatuKod());
 		for (GelaMotaEtxea gme : gelaTot) {
-			if (gme.getGelaMota().equals("logela"))
-				txtLogelaKop.setText("" + gme.getKantitatea());
-			else if (gme.getGelaMota().equals("komuna"))
+			if (gme.getGelaMota().equals("logela")) {
+				logelaTot = gme.getKantitatea();
+				txtLogelaKop.setText("" + logelaTot);
+			} else if (gme.getGelaMota().equals("komuna"))
 				txtKomunKop.setText("" + gme.getKantitatea());
 			else if (gme.getGelaMota().equals("sukaldea"))
 				txtSukaldeKop.setText("" + gme.getKantitatea());

@@ -41,7 +41,7 @@ public class Leiho3HotelDatuak extends JFrame {
 	//bariableak
 	private String ohe_kopuru, sinplea, bikoitza, umeak, prezioa;
 	private double prezioTot = 0.00;
-	private int gelaLibreak, logelaKant, lehenengoAldia, logelaTot, pertsonaKop, sinpleKop, umeKop, bikoitzaKop;
+	private int gelaLibreak, logelaKant, logelaTot, pertsonaKop, sinpleKop, umeKop, bikoitzaKop;
 
 	/**
 	 * Hotelak datuak agertzen den panela sortu 
@@ -217,8 +217,6 @@ public class Leiho3HotelDatuak extends JFrame {
 
 		btnGehitu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				// precio no hace bien ********************
-				// if (lehenengoAldia == 0)
 				table.setValueAt(cblibreKant.getSelectedIndex(), table.getSelectedRow(), 4);
 
 				prezioTot = 0;
@@ -233,8 +231,6 @@ public class Leiho3HotelDatuak extends JFrame {
 					btn_next.setVisible(false);
 
 				txtPrezioa.setText(prezioTot + " €");
-
-				lehenengoAldia++;
 
 			}
 		});

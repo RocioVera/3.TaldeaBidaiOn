@@ -5,6 +5,7 @@ import javax.swing.*;
 
 import Kontrolatzailea.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class Leiho9Ordaindu extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -31,8 +32,9 @@ public class Leiho9Ordaindu extends JFrame {
 	 * @param irtetzeData
 	 * @param promHartu
 	 * @param erreserba
+	 * @param hartutakoZerbitzuArray 
 	 */
-	public Leiho9Ordaindu(Ostatua hartutakoOstatua, java.util.Date sartzeData, java.util.Date irtetzeData, Promozioa promHartu, Erreserba erreserba) {
+	public Leiho9Ordaindu(Ostatua hartutakoOstatua, java.util.Date sartzeData, java.util.Date irtetzeData, Promozioa promHartu, Erreserba erreserba, ArrayList<HartutakoOstatuarenZerbitzuak> hartutakoZerbitzuArray) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
@@ -45,7 +47,7 @@ public class Leiho9Ordaindu extends JFrame {
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Metodoak.fitxIdatzi(hartutakoOstatua, sartzeData, irtetzeData, prezioTot2, erreserba); // billetea fitxategian
+				Metodoak.fitxIdatzi(hartutakoOstatua, sartzeData, irtetzeData, prezioTot2, erreserba, hartutakoZerbitzuArray); // billetea fitxategian
 																								// sartzen duen
 																								// metodoari deitu
 				//erreserba igo
@@ -55,6 +57,10 @@ public class Leiho9Ordaindu extends JFrame {
 				//erdiko taulan igo
 				MetodoakKontsultak.erresJaiEgunIgoMet(erreserba, sartzeData, irtetzeData);
 
+				if (hartutakoZerbitzuArray!=null)
+					MetodoakKontsultak.zerbiErregisIgoMet(hartutakoZerbitzuArray);
+
+				
 				// erreserbaKopuru berria
 				MetodoakKontsultak.ostatuErreserbaKopuruBerriaMet(hartutakoOstatua);
 				
@@ -67,7 +73,7 @@ public class Leiho9Ordaindu extends JFrame {
 				
 				//aldatu azkeneko preziora
 				erreserba.setPrezioTotala(prezioTot2);
-				MetodoakLeihoAldaketa.hamargarrenLeihoa(hartutakoOstatua, sartzeData, irtetzeData, erreserba);
+				MetodoakLeihoAldaketa.hamargarrenLeihoa(hartutakoOstatua, sartzeData, irtetzeData, erreserba, hartutakoZerbitzuArray);
 				dispose();
 			}
 		});
@@ -81,7 +87,7 @@ public class Leiho9Ordaindu extends JFrame {
 		btn_prev.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoOstatua, erreserba.getPrezioTotala(), sartzeData, irtetzeData, erreserba.getErreserbaGelaKop(), erreserba.getPertsonaKopuru(), erreserba.getPentsioMota());
+				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoOstatua, erreserba.getPrezioTotala(), sartzeData, irtetzeData, erreserba.getErreserbaGelaKop(), erreserba.getPertsonaKopuru(), erreserba.getPentsioMota(), hartutakoZerbitzuArray);
 				dispose();
 			}
 		});

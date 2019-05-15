@@ -79,7 +79,7 @@ public class MetodoakLeihoAldaketaTest {
 		} catch (ParseException e) {
 			e.getMessage();
 		}
-		MetodoakLeihoAldaketa.bostgarrenLeihoa(ostatua, prezioTot, sartzeData, irtetzeData, logelaTot, pertsonaKop, pentsioMota);
+		MetodoakLeihoAldaketa.bostgarrenLeihoa(ostatua, prezioTot, sartzeData, irtetzeData, logelaTot, pertsonaKop, pentsioMota, null);
 	}
 	
 	@Test
@@ -91,7 +91,7 @@ public class MetodoakLeihoAldaketaTest {
 		} catch (ParseException e) {
 			e.getMessage();
 		}
-		MetodoakLeihoAldaketa.seigarrenLeihoa(ostatua, prezioTot, sartzeData, irtetzeData, logelaTot, pertsonaKop, pentsioMota);
+		MetodoakLeihoAldaketa.seigarrenLeihoa(ostatua, prezioTot, sartzeData, irtetzeData, logelaTot, pertsonaKop, pentsioMota, null);
 	}
 
 	@Test
@@ -103,7 +103,7 @@ public class MetodoakLeihoAldaketaTest {
 		} catch (ParseException e) {
 			e.getMessage();
 		}
-		MetodoakLeihoAldaketa.zazpigarrenLeihoa(ostatua, prezioTot, sartzeData, irtetzeData, nan, logelaTot, pertsonaKop, pentsioMota);
+		MetodoakLeihoAldaketa.zazpigarrenLeihoa(ostatua, prezioTot, sartzeData, irtetzeData, nan, logelaTot, pertsonaKop, pentsioMota, null);
 	}
 	
 	@Test
@@ -115,7 +115,7 @@ public class MetodoakLeihoAldaketaTest {
 		} catch (ParseException e) {
 			e.getMessage();
 		}
-		MetodoakLeihoAldaketa.zortzigarrenLeihoa(ostatua, prezioTot, sartzeData, irtetzeData, nan, logelaTot, pertsonaKop, pentsioMota);
+		MetodoakLeihoAldaketa.zortzigarrenLeihoa(ostatua, prezioTot, sartzeData, irtetzeData, nan, logelaTot, pertsonaKop, pentsioMota, null);
 	}
 	
 
@@ -128,7 +128,7 @@ public class MetodoakLeihoAldaketaTest {
 		} catch (ParseException e) {
 			e.getMessage();
 		}
-		MetodoakLeihoAldaketa.hamargarrenLeihoa(ostatua, sartzeData, irtetzeData, erreserba);
+		MetodoakLeihoAldaketa.hamargarrenLeihoa(ostatua, sartzeData, irtetzeData, erreserba, null);
 	}
 	
 	//Amaieran tiketa imprimatzen dagoen bitartean itxaron behar den denbora.

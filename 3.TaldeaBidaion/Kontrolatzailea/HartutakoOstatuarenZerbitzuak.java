@@ -2,7 +2,7 @@ package Kontrolatzailea;
 
 public class HartutakoOstatuarenZerbitzuak {
 
-	private String izena;
+	private String izena, hartuta;
 	private int kodZerbitzua;
 	private double prezioa;
 
@@ -12,6 +12,15 @@ public class HartutakoOstatuarenZerbitzuak {
 		this.prezioa = prezioa;
 	}
 
+	public String getHartuta() {
+		return hartuta;
+	}
+
+	public void setHartuta(String hartuta) {
+		this.hartuta = hartuta;
+	}
+
+	
 	public String getIzena() {
 		return izena;
 	}

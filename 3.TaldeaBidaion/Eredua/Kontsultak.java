@@ -735,6 +735,25 @@ public class Kontsultak {
 		jaiEgunKodIgo(data, konexioa);
 	}
 
+	public static void zerbiErregisIgo(int zerbitzuKod) {
+		Connection konexioa = Konexioa.getConexion();
+		try {
+			PreparedStatement st = konexioa.prepareStatement(
+					"INSERT INTO `zerbitzugehigarriak_erreserba`(`zerbitzuGehigarriak_kod_zerbitzuak`, `erreserba_erreserba_kod`) VALUES (?,?)");
+			st.setInt(1, zerbitzuKod);
+			st.setInt(2, erreserbakZenbatu());
+
+			st.executeUpdate();
+			st.close();
+			System.out.println("Gehitu da zerbitzuErreserba");
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			System.out.println("Ez da gehitu zerbitzuErreserba");
+		}
+}
+	
+	
 	/**
 	 * Jai egunen kodigoa ateratzen duen kontsulta
 	 * 
@@ -777,10 +796,8 @@ public class Kontsultak {
 		}
 	}
 
-	// erresJaiEgunIgo
 	/**
 	 * Erreserba erregistratzen duen kontsulta
-	 * 
 	 * @author talde3
 	 * @param gelaMotaErreserba2
 	 */
@@ -905,5 +922,7 @@ public class Kontsultak {
 		}
 
 	}
+
+
 
 }
