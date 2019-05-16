@@ -1,5 +1,9 @@
 package Kontrolatzailea;
-
+/**
+ * 
+ * @author Talde3
+ *
+ */
 public class Ostatua implements Comparable<Ostatua> {
 
 	protected String izena, herria, helbidea, ostatuMota;

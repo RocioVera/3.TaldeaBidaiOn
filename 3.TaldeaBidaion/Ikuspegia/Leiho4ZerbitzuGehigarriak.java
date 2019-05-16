@@ -133,9 +133,9 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		getContentPane().add(lblPentsioa);
 
 		cboxPentsioa.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		cboxPentsioa.addItem("Ez");
-		cboxPentsioa.addItem("erdia");
-		cboxPentsioa.addItem("osoa");
+		cboxPentsioa.addItem("Pentsio ez");
+		cboxPentsioa.addItem("Erdia");
+		cboxPentsioa.addItem("Osoa");
 		cboxPentsioa.setBounds(285, 162, 111, 20);
 		getContentPane().add(cboxPentsioa);
 		if (!hartutakoOstatua.getOstatuMota().equals("H"))
@@ -146,14 +146,14 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int gauak = (int) ((dataIrtetze.getTime() - dataSartze.getTime()) / 86400000);
 
-				if (cboxPentsioa.getSelectedItem().equals("Ez")) {
+				if (cboxPentsioa.getSelectedItem().equals("Pentsio ez")) {
 					prezioTot2 = prezioTot2 - pentsioPrez;
 					pentsioPrez = 0;
-				} else if (cboxPentsioa.getSelectedItem().equals("erdia")) {
+				} else if (cboxPentsioa.getSelectedItem().equals("Erdia")) {
 					prezioTot2 = prezioTot2 - pentsioPrez;
 					pentsioPrez = 5 * gauak;
 					prezioTot2 = prezioTot2 + pentsioPrez;
-				} else if (cboxPentsioa.getSelectedItem().equals("osoa")) {
+				} else if (cboxPentsioa.getSelectedItem().equals("Osoa")) {
 					prezioTot2 = prezioTot2 - pentsioPrez;
 					pentsioPrez = 10 * gauak;
 					prezioTot2 = prezioTot2 + pentsioPrez;

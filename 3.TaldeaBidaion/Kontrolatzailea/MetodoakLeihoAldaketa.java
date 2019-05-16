@@ -111,8 +111,8 @@ public class MetodoakLeihoAldaketa {
 	
 	/**
 	 * Leiho aldaketa7
-	 * @author talde3
-	 * @param hartutakoOstatua
+	 * @author talde3 
+	 * @param hartutakoOstatua aaaa
 	 * @param prezioTot
 	 * @param sartzeData
 	 * @param irtetzeData

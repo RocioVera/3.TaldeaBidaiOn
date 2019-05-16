@@ -34,7 +34,6 @@ public class Kontsultak {
 
 			while (rs.next()) {
 				izena = (rs.getString("izena"));
-
 				zerbitzuArray.add(izena);
 			}
 

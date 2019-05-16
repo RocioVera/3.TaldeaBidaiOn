@@ -170,6 +170,8 @@ public class Metodoak {
 			if (gosaria) {
 				pw.println("Gosaria hartu duzu.");
 			}
+			pw.println("Hartutako pentsioa: " + erreserba.getPentsioMota());
+
 			pw.println("");
 			pw.println(
 					"******************************************************************************************************************************************");

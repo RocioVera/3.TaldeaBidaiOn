@@ -22,12 +22,12 @@ public class Leiho10Ticket extends JFrame {
 	 * Ticket egiten duen panela sortu
 	 * 
 	 * @author talde3
-	 * @param hartutakoOstatua
-	 * @param sartzeData
-	 * @param irtetzeData
-	 * @param erreserba
-	 * @param hartutakoZerbitzuArray
-	 * @param gosaria
+	 * @param hartutakoOstatua Ostatua
+	 * @param sartzeData	Ostatua
+	 * @param irtetzeData	Ostatua
+	 * @param erreserba	Ostatua
+	 * @param hartutakoZerbitzuArray	Ostatua
+	 * @param gosaria	Ostatua
 	 */
 	public Leiho10Ticket(Ostatua hartutakoOstatua, Date sartzeData, Date irtetzeData, Erreserba erreserba,
 			ArrayList<HartutakoOstatuarenZerbitzuak> hartutakoZerbitzuArray, boolean gosaria) {
@@ -42,7 +42,7 @@ public class Leiho10Ticket extends JFrame {
 		// zerbitzuak gehitu
 		for (HartutakoOstatuarenZerbitzuak h : hartutakoZerbitzuArray) {
 			if (h.getHartuta() != null && h.getHartuta().equals("Bai"))
-				zerbStr += h.getIzena() + "\n     ";
+				zerbStr += "     " + h.getIzena() + "\n";
 		}
 		if (gosaria) {
 			gosariaStr = "Hartu duzu gosaria";
@@ -69,10 +69,11 @@ public class Leiho10Ticket extends JFrame {
 				+ "     Herria: " + hartutakoOstatua.getHerria() + "\n     Helbidea: " + hartutakoOstatua.getHelbidea()
 				+ "\n Logela Totala: " + erreserba.getErreserbaGelaKop() + "\n     Sartze data: "
 				+ formato.format(sartzeData) + "\n     Irtetze data: " + formato.format(irtetzeData)
-				+ "\nHartutako zerbitzuak\n" + zerbStr + gosariaStr);
+				+ "\nHartutako zerbitzuak:\n" + zerbStr + gosariaStr + "\nHartutako pentsio mota:\n     "
+				+ erreserba.getPentsioMota());
 		txtTiket.setEditable(false);
 		txtTiket.setBackground(Color.LIGHT_GRAY);
-		txtTiket.setBounds(12, 144, 560, 378);
+		txtTiket.setBounds(97, 144, 416, 394);
 		getContentPane().add(txtTiket);
 
 		btnTiketaImprimatu = new JButton("Erreserba imprimatu eta bukatu erosketa");

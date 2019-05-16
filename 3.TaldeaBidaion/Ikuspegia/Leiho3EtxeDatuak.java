@@ -37,7 +37,7 @@ public class Leiho3EtxeDatuak extends JFrame {
 	 * Etxeen edo apartamentuen datuak agertzen den panela sortu
 	 * 
 	 * @author talde3
-	 * @param hartutakoOstatua
+	 * @param hartutakoOstatua aaaaa
 	 * @param prezioTot
 	 * @param dataSartze
 	 * @param dataIrtetze
