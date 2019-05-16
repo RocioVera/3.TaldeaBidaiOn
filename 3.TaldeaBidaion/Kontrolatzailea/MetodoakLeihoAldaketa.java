@@ -84,10 +84,11 @@ public class MetodoakLeihoAldaketa {
 	 * @param pertsonaKop
 	 * @param pentsioMota
 	 * @param hartutakoZerbitzuArray 
+	 * @param gosaria 
 	 */
 	public static void bostgarrenLeihoa(Ostatua hartutakoOstatua, double prezioTot, Date sartzeData,
-			Date irtetzeData, int logelaTot,  int pertsonaKop, String pentsioMota, ArrayList<HartutakoOstatuarenZerbitzuak> hartutakoZerbitzuArray) {
-		Leiho5Login Leiho5 = new Leiho5Login(hartutakoOstatua, prezioTot, sartzeData, irtetzeData,logelaTot, pertsonaKop, pentsioMota, hartutakoZerbitzuArray);
+			Date irtetzeData, int logelaTot,  int pertsonaKop, String pentsioMota, ArrayList<HartutakoOstatuarenZerbitzuak> hartutakoZerbitzuArray, boolean gosaria) {
+		Leiho5Login Leiho5 = new Leiho5Login(hartutakoOstatua, prezioTot, sartzeData, irtetzeData,logelaTot, pertsonaKop, pentsioMota, hartutakoZerbitzuArray, gosaria);
 		Leiho5.setVisible(true);
 	}
 
@@ -103,8 +104,8 @@ public class MetodoakLeihoAldaketa {
 	 * @param pentsioMota
 	 */
 	public static void seigarrenLeihoa(Ostatua hartutakoOstatua, double prezioTot, Date sartzeData,
-			Date irtetzeData, int logelaTot,  int pertsonaKop, String pentsioMota, ArrayList<HartutakoOstatuarenZerbitzuak> hartutakoZerbitzuArray) {
-		Leiho6Erregistratu Leiho6 = new Leiho6Erregistratu(hartutakoOstatua, prezioTot, sartzeData, irtetzeData, logelaTot, pertsonaKop, pentsioMota, hartutakoZerbitzuArray);
+			Date irtetzeData, int logelaTot,  int pertsonaKop, String pentsioMota, ArrayList<HartutakoOstatuarenZerbitzuak> hartutakoZerbitzuArray, boolean gosaria) {
+		Leiho6Erregistratu Leiho6 = new Leiho6Erregistratu(hartutakoOstatua, prezioTot, sartzeData, irtetzeData, logelaTot, pertsonaKop, pentsioMota, hartutakoZerbitzuArray, gosaria);
 		Leiho6.setVisible(true);
 	}
 	
@@ -120,10 +121,11 @@ public class MetodoakLeihoAldaketa {
 	 * @param pertsonaKop
 	 * @param pentsioMota
 	 * @param hartutakoZerbitzuArray 
+	 * @param gosaria 
 	 */
 	public static void zazpigarrenLeihoa(Ostatua hartutakoOstatua, double prezioTot, Date sartzeData,
-			Date irtetzeData, String nan, int logelaTot, int pertsonaKop, String pentsioMota, ArrayList<HartutakoOstatuarenZerbitzuak> hartutakoZerbitzuArray) {
-		Leiho7BaseLegalak Leiho7 = new Leiho7BaseLegalak(prezioTot, hartutakoOstatua, sartzeData, irtetzeData, nan, logelaTot, pertsonaKop, pentsioMota, hartutakoZerbitzuArray);
+			Date irtetzeData, String nan, int logelaTot, int pertsonaKop, String pentsioMota, ArrayList<HartutakoOstatuarenZerbitzuak> hartutakoZerbitzuArray, boolean gosaria) {
+		Leiho7BaseLegalak Leiho7 = new Leiho7BaseLegalak(prezioTot, hartutakoOstatua, sartzeData, irtetzeData, nan, logelaTot, pertsonaKop, pentsioMota, hartutakoZerbitzuArray, gosaria);
 		Leiho7.setVisible(true);
 	}
 
@@ -139,12 +141,13 @@ public class MetodoakLeihoAldaketa {
 	 * @param pertsonaKop
 	 * @param pentsioMota
 	 * @param hartutakoZerbitzuArray 
+	 * @param gosaria 
 	 */
 	public static void zortzigarrenLeihoa(Ostatua hartutakoOstatua, double prezioTot, Date sartzeData,
-			Date irtetzeData, String nan, int gelaTot, int pertsonaKop, String pentsioMota, ArrayList<HartutakoOstatuarenZerbitzuak> hartutakoZerbitzuArray) {
+			Date irtetzeData, String nan, int gelaTot, int pertsonaKop, String pentsioMota, ArrayList<HartutakoOstatuarenZerbitzuak> hartutakoZerbitzuArray, boolean gosaria) {
 		Erreserba erreserba=new Erreserba(hartutakoOstatua.getOstatuKod(), nan, pertsonaKop, prezioTot, gelaTot, pentsioMota);
 		erreserba.setErreserbaKod(hartutakoOstatua.getOstatuKod()); //bestela 0 agertzen da
-		Leiho8KodePromozionalak Leiho8 = new Leiho8KodePromozionalak(hartutakoOstatua, sartzeData, irtetzeData, erreserba, hartutakoZerbitzuArray);
+		Leiho8KodePromozionalak Leiho8 = new Leiho8KodePromozionalak(hartutakoOstatua, sartzeData, irtetzeData, erreserba, hartutakoZerbitzuArray, gosaria);
 		Leiho8.setVisible(true);
 	}
 	
@@ -157,10 +160,11 @@ public class MetodoakLeihoAldaketa {
 	 * @param erreserba
 	 * @param promHartu
 	 * @param hartutakoZerbitzuArray 
+	 * @param gosaria 
 	 */
 	public static void bederatzigarrenLeihoa(Ostatua hartutakoOstatua, Date sartzeData,
-			Date irtetzeData,Erreserba erreserba, Promozioa promHartu, ArrayList<HartutakoOstatuarenZerbitzuak> hartutakoZerbitzuArray) {
-		Leiho9Ordaindu Leiho9 = new Leiho9Ordaindu(hartutakoOstatua, sartzeData, irtetzeData, promHartu, erreserba, hartutakoZerbitzuArray);
+			Date irtetzeData,Erreserba erreserba, Promozioa promHartu, ArrayList<HartutakoOstatuarenZerbitzuak> hartutakoZerbitzuArray, boolean gosaria) {
+		Leiho9Ordaindu Leiho9 = new Leiho9Ordaindu(hartutakoOstatua, sartzeData, irtetzeData, promHartu, erreserba, hartutakoZerbitzuArray, gosaria);
 		Leiho9.setVisible(true);
 	}
 	
@@ -172,9 +176,10 @@ public class MetodoakLeihoAldaketa {
 	 * @param irtetzeData
 	 * @param erreserba
 	 * @param hartutakoZerbitzuArray 
+	 * @param gosaria 
 	 */
-	public static void hamargarrenLeihoa(Ostatua hartutakoOstatua, Date sartzeData, Date irtetzeData, Erreserba erreserba, ArrayList<HartutakoOstatuarenZerbitzuak> hartutakoZerbitzuArray) {
-		Leiho10Ticket Leiho10 = new Leiho10Ticket(hartutakoOstatua, sartzeData, irtetzeData, erreserba, hartutakoZerbitzuArray);
+	public static void hamargarrenLeihoa(Ostatua hartutakoOstatua, Date sartzeData, Date irtetzeData, Erreserba erreserba, ArrayList<HartutakoOstatuarenZerbitzuak> hartutakoZerbitzuArray, boolean gosaria) {
+		Leiho10Ticket Leiho10 = new Leiho10Ticket(hartutakoOstatua, sartzeData, irtetzeData, erreserba, hartutakoZerbitzuArray, gosaria);
 		Leiho10.setVisible(true);
 	}
 

@@ -44,7 +44,7 @@ public class Leiho6Erregistratu extends JFrame {
 	 * @param hartutakoZerbitzuArray 
 	 */
 	public Leiho6Erregistratu(Ostatua hartutakoOstatua, double prezioTot, java.util.Date sartzeData,
-			java.util.Date irtetzeData, int logelaTot, int pertsonaKop, String pentsioMota, ArrayList<HartutakoOstatuarenZerbitzuak> hartutakoZerbitzuArray) {
+			java.util.Date irtetzeData, int logelaTot, int pertsonaKop, String pentsioMota, ArrayList<HartutakoOstatuarenZerbitzuak> hartutakoZerbitzuArray, boolean gosaria) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
@@ -56,7 +56,7 @@ public class Leiho6Erregistratu extends JFrame {
 		btn_prev.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoOstatua, prezioTot, sartzeData, irtetzeData, logelaTot, pertsonaKop, pentsioMota, hartutakoZerbitzuArray);
+				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoOstatua, prezioTot, sartzeData, irtetzeData, logelaTot, pertsonaKop, pentsioMota, hartutakoZerbitzuArray, gosaria);
 				dispose();
 			}
 		});
@@ -215,7 +215,7 @@ public class Leiho6Erregistratu extends JFrame {
 						txtJaioData.setEnabled(false);
 					} else {
 						MetodoakLeihoAldaketa.zazpigarrenLeihoa(hartutakoOstatua, prezioTot, sartzeData, irtetzeData,
-								nan, logelaTot, pertsonaKop, pentsioMota, hartutakoZerbitzuArray);
+								nan, logelaTot, pertsonaKop, pentsioMota, hartutakoZerbitzuArray, gosaria);
 						dispose();
 
 					}

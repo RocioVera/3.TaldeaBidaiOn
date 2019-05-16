@@ -33,8 +33,9 @@ public class Leiho9Ordaindu extends JFrame {
 	 * @param promHartu
 	 * @param erreserba
 	 * @param hartutakoZerbitzuArray 
+	 * @param gosaria 
 	 */
-	public Leiho9Ordaindu(Ostatua hartutakoOstatua, java.util.Date sartzeData, java.util.Date irtetzeData, Promozioa promHartu, Erreserba erreserba, ArrayList<HartutakoOstatuarenZerbitzuak> hartutakoZerbitzuArray) {
+	public Leiho9Ordaindu(Ostatua hartutakoOstatua, java.util.Date sartzeData, java.util.Date irtetzeData, Promozioa promHartu, Erreserba erreserba, ArrayList<HartutakoOstatuarenZerbitzuak> hartutakoZerbitzuArray, boolean gosaria) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
@@ -47,7 +48,7 @@ public class Leiho9Ordaindu extends JFrame {
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Metodoak.fitxIdatzi(hartutakoOstatua, sartzeData, irtetzeData, prezioTot2, erreserba, hartutakoZerbitzuArray); // billetea fitxategian
+				Metodoak.fitxIdatzi(hartutakoOstatua, sartzeData, irtetzeData, prezioTot2, erreserba, hartutakoZerbitzuArray, gosaria); // billetea fitxategian
 																								// sartzen duen
 																								// metodoari deitu
 				//erreserba igo
@@ -73,7 +74,7 @@ public class Leiho9Ordaindu extends JFrame {
 				
 				//aldatu azkeneko preziora
 				erreserba.setPrezioTotala(prezioTot2);
-				MetodoakLeihoAldaketa.hamargarrenLeihoa(hartutakoOstatua, sartzeData, irtetzeData, erreserba, hartutakoZerbitzuArray);
+				MetodoakLeihoAldaketa.hamargarrenLeihoa(hartutakoOstatua, sartzeData, irtetzeData, erreserba, hartutakoZerbitzuArray, gosaria);
 				dispose();
 			}
 		});
@@ -87,7 +88,7 @@ public class Leiho9Ordaindu extends JFrame {
 		btn_prev.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoOstatua, erreserba.getPrezioTotala(), sartzeData, irtetzeData, erreserba.getErreserbaGelaKop(), erreserba.getPertsonaKopuru(), erreserba.getPentsioMota(), hartutakoZerbitzuArray);
+				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoOstatua, erreserba.getPrezioTotala(), sartzeData, irtetzeData, erreserba.getErreserbaGelaKop(), erreserba.getPertsonaKopuru(), erreserba.getPentsioMota(), hartutakoZerbitzuArray, gosaria);
 				dispose();
 			}
 		});

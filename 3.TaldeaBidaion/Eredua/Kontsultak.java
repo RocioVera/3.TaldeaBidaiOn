@@ -10,6 +10,39 @@ import Kontrolatzailea.*;
 
 public class Kontsultak {
 	// Leiho2AukeratuOstatu
+	/**
+	 * Ostatu batean dauden zerbitzu gehigarriak bilatzen duen kontsulta
+	 * 
+	 * @author talde3
+	 * @param hartutakoOstatua
+	 * @return zerbitzuArray
+	 */
+	public static ArrayList<String> filtroZerbitzuGehigarri(Ostatua hartutakoOstatua) {
+		Statement st = null;
+		Connection konexioa = Konexioa.getConexion();
+
+		ArrayList<String> zerbitzuArray = new ArrayList<String>();
+
+		String izena;
+
+		try {
+			st = konexioa.createStatement();
+			ResultSet rs = st.executeQuery(
+					"SELECT zg.izena FROM zerbitzugehigarriak_ostatu zgo, zerbitzugehigarriak zg WHERE zgo.ostatu_ostatu_id ="
+							+ hartutakoOstatua.getOstatuKod()
+							+ " AND zg.kod_zerbitzuak=zgo.zerbitzuGehigarriak_kod_zerbitzuak");
+
+			while (rs.next()) {
+				izena = (rs.getString("izena"));
+
+				zerbitzuArray.add(izena);
+			}
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return zerbitzuArray;
+	}
 
 	/**
 	 * Etxe baten prezioa bilatzen duen kontsulta
@@ -751,9 +784,8 @@ public class Kontsultak {
 			System.out.println(e.getMessage());
 			System.out.println("Ez da gehitu zerbitzuErreserba");
 		}
-}
-	
-	
+	}
+
 	/**
 	 * Jai egunen kodigoa ateratzen duen kontsulta
 	 * 
@@ -798,6 +830,7 @@ public class Kontsultak {
 
 	/**
 	 * Erreserba erregistratzen duen kontsulta
+	 * 
 	 * @author talde3
 	 * @param gelaMotaErreserba2
 	 */
@@ -887,6 +920,7 @@ public class Kontsultak {
 
 	/**
 	 * Ostatuari + bat egin erreserbetan
+	 * 
 	 * @author talde3
 	 * @param hartutakoOstatua
 	 */
@@ -902,7 +936,7 @@ public class Kontsultak {
 			rs = st.executeQuery(
 					"SELECT erreserba_kopuru FROM ostatu WHERE ostatu_id=" + hartutakoOstatua.getOstatuKod());
 			while (rs.next()) {
-				erreserbaKop = (rs.getInt(1))+1;
+				erreserbaKop = (rs.getInt(1)) + 1;
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -922,7 +956,5 @@ public class Kontsultak {
 		}
 
 	}
-
-
 
 }

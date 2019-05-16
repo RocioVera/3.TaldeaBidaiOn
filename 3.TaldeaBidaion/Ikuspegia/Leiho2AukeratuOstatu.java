@@ -634,38 +634,87 @@ public class Leiho2AukeratuOstatu extends JFrame {
 		if (chckbxmntmParkina.isSelected() || chckbxmntmWifi.isSelected() || chckbxmntmIgerileku.isSelected()
 				|| chckbxmntmSpa.isSelected() || chckbxmntmAireGirotua.isSelected() || chckbxmntmJatetxea.isSelected()
 				|| chckbxmntmTaberna.isSelected() || chckbxmntmGimnasioa.isSelected()) {
-			ArrayList<Ostatua> arrayOstAux = arrayOstatua;
+			ArrayList<Ostatua> arrayOstAux = new ArrayList<Ostatua>();
+			for (Ostatua p : arrayOstatua) {
+				arrayOstAux.add(p);
+			}					
+		//	arrayOstatua = new ArrayList<Ostatua>();
+
 			for (Ostatua o : arrayOstAux) {
-				ArrayList<HartutakoOstatuarenZerbitzuak> arrayZerb = MetodoakKontsultak.zerbitzuakOstatuanMet(o);
-				for (HartutakoOstatuarenZerbitzuak zb : arrayZerb) {
-					arrayOstatua = new ArrayList<Ostatua>();
-					if (chckbxmntmParkina.isSelected() && zb.getIzena().equals("aparkalekua"))
-						arrayOstatua.add(o);
-
-					if (chckbxmntmWifi.isSelected() && zb.getIzena().equals("wifi"))
-						arrayOstatua.add(o);
-
-					if (chckbxmntmIgerileku.isSelected() && zb.getIzena().equals("igerilekua"))
-						arrayOstatua.add(o);
-
-					if (chckbxmntmSpa.isSelected() && zb.getIzena().equals("spa"))
-						arrayOstatua.add(o);
-
-					if (chckbxmntmAireGirotua.isSelected() && zb.getIzena().equals("aire girotua"))
-						arrayOstatua.add(o);
-
-					if (chckbxmntmJatetxea.isSelected() && zb.getIzena().equals("jatetxea"))
-						arrayOstatua.add(o);
-
-					if (chckbxmntmTaberna.isSelected() && zb.getIzena().equals("taberna"))
-						arrayOstatua.add(o);
-
-					if (chckbxmntmGimnasioa.isSelected() && zb.getIzena().equals("gimnasioa"))
-						arrayOstatua.add(o);
-
+				int a=0;
+				ArrayList<String> arrayZerb = MetodoakKontsultak.filtroZerbitzuGehigarriMet(o);
+				for (String zb : arrayZerb) {
+					if (chckbxmntmParkina.isSelected() && !zb.equals("aparkalekua") ) {
+						a++;
+						
+					}
+					if (chckbxmntmWifi.isSelected() && !zb.equals("wifi")) {
+						a++;
+					}
+					if (chckbxmntmIgerileku.isSelected() && !zb.equals("igerilekua")) {
+						a++;
+					}
+					if (chckbxmntmSpa.isSelected() && !zb.equals("spa")) {
+						a++;
+					}
+					if (chckbxmntmAireGirotua.isSelected() && !zb.equals("aire girotua")) {
+						a++;
+					}
+					if (chckbxmntmJatetxea.isSelected() && !zb.equals("jatetxea")) {
+						a++;
+					}
+					if (chckbxmntmTaberna.isSelected() && !zb.equals("taberna")) {
+						a++;
+						
+					}
+					if (chckbxmntmGimnasioa.isSelected() && !zb.equals("gimnasioa")) {
+						a++;
+						
+					}
+					if(a==0)
+					arrayOstatua.remove(o);
 				}
 			}
 		}
+		
+		/*			for (Ostatua o : arrayOstAux) {
+				ArrayList<String> arrayZerb = MetodoakKontsultak.filtroZerbitzuGehigarriMet(o);
+				for (String zb : arrayZerb) {
+					if (chckbxmntmParkina.isSelected() && zb.equals("aparkalekua") ) {
+						arrayOstatua.add(o);
+						break;
+					}
+					if (chckbxmntmWifi.isSelected() && zb.equals("wifi")) {
+						arrayOstatua.add(o);
+						break;
+					}
+					if (chckbxmntmIgerileku.isSelected() && zb.equals("igerilekua")) {
+						arrayOstatua.add(o);
+						break;
+					}
+					if (chckbxmntmSpa.isSelected() && zb.equals("spa")) {
+						arrayOstatua.add(o);
+						break;
+					}
+					if (chckbxmntmAireGirotua.isSelected() && zb.equals("aire girotua")) {
+						arrayOstatua.add(o);
+						break;
+					}
+					if (chckbxmntmJatetxea.isSelected() && zb.equals("jatetxea")) {
+						arrayOstatua.add(o);
+						break;
+					}
+					if (chckbxmntmTaberna.isSelected() && zb.equals("taberna")) {
+						arrayOstatua.add(o);
+						break;
+					}
+					if (chckbxmntmGimnasioa.isSelected() && zb.equals("gimnasioa")) {
+						arrayOstatua.add(o);
+						break;
+					}
+				}
+			}
+		}*/
 
 		Collections.sort(arrayOstatua);
 		for (Ostatua o : arrayOstatua) {

@@ -37,9 +37,10 @@ public class Leiho7BaseLegalak extends JFrame {
 	 * @param pertsonaKop
 	 * @param pentsioMota
 	 * @param hartutakoZerbitzuArray 
+	 * @param gosaria 
 	 */
 	public Leiho7BaseLegalak(double prezioTot, Ostatua hartutakoOstatua, java.util.Date sartzeData,
-			java.util.Date irtetzeData, String nan, int logelaTot, int pertsonaKop, String pentsioMota, ArrayList<HartutakoOstatuarenZerbitzuak> hartutakoZerbitzuArray) {
+			java.util.Date irtetzeData, String nan, int logelaTot, int pertsonaKop, String pentsioMota, ArrayList<HartutakoOstatuarenZerbitzuak> hartutakoZerbitzuArray, boolean gosaria) {
 		// panelaren propietateak
 		setIconImage(Toolkit.getDefaultToolkit().getImage(".\\Argazkiak\\logoa.png"));
 		getContentPane().setLayout(null);
@@ -51,7 +52,7 @@ public class Leiho7BaseLegalak extends JFrame {
 		btn_next.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MetodoakLeihoAldaketa.zortzigarrenLeihoa(hartutakoOstatua, prezioTot, sartzeData, irtetzeData, nan,
-						logelaTot, pertsonaKop, pentsioMota, hartutakoZerbitzuArray);
+						logelaTot, pertsonaKop, pentsioMota, hartutakoZerbitzuArray, gosaria);
 				dispose();
 
 			}
@@ -65,7 +66,7 @@ public class Leiho7BaseLegalak extends JFrame {
 		btn_prev.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoOstatua, prezioTot, sartzeData, irtetzeData, logelaTot, pertsonaKop, pentsioMota, hartutakoZerbitzuArray);
+				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoOstatua, prezioTot, sartzeData, irtetzeData, logelaTot, pertsonaKop, pentsioMota, hartutakoZerbitzuArray, gosaria);
 				dispose();
 			}
 		});

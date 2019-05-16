@@ -13,7 +13,17 @@ import Ikuspegia.*;
 
 public class MetodoakKontsultak {
 	// Leiho2AukeratuOstatu
-
+	/**
+	 * Hartutako ostatuaren zerbituak ateratzen duen kontsultari deitzen duen
+	 * metodoa.
+	 * 
+	 * @author talde3
+	 * @param hartutakoOstatua
+	 * @return Kontsultak.zerbitzuGehigarriakOstatuan(hartutakoOstatua)
+	 */
+	public static ArrayList<String> filtroZerbitzuGehigarriMet(Ostatua hartutakoOstatua) {
+		return Kontsultak.filtroZerbitzuGehigarri(hartutakoOstatua);
+	}
 	/**
 	 * Etxe baten prezioa ateratzeko kontsultari deitzen duen metodoa.
 	 * 
@@ -452,7 +462,7 @@ public class MetodoakKontsultak {
 	}
 
 	/**
-	 * /** Ostatuari + bat egin erreserbetan
+	 * Ostatuari + bat egin erreserbetan
 	 * 
 	 * @author talde3
 	 * @param hartutakoOstatua

@@ -131,9 +131,10 @@ public class Metodoak {
 	 * @param prezioTot
 	 * @param erreserba
 	 * @param hartutakoZerbitzuArray
+	 * @param gosaria 
 	 */
 	public static void fitxIdatzi(Ostatua hartutakoOstatua, Date sartzeData, Date irtetzeData, double prezioTot,
-			Erreserba erreserba, ArrayList<HartutakoOstatuarenZerbitzuak> hartutakoZerbitzuArray) {
+			Erreserba erreserba, ArrayList<HartutakoOstatuarenZerbitzuak> hartutakoZerbitzuArray, boolean gosaria) {
 		FileWriter fitx = null;
 		PrintWriter pw = null;
 		String ostatuIzena = hartutakoOstatua.getIzena();
@@ -165,6 +166,9 @@ public class Metodoak {
 					if (h.getHartuta()!=null && h.getHartuta().equals("Bai"))
 						pw.println("     " + h.getIzena());
 				}
+			}
+			if (gosaria) {
+				pw.println("Gosaria hartu duzu.");
 			}
 			pw.println("");
 			pw.println(

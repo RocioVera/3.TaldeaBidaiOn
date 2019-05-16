@@ -34,10 +34,12 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 	private JScrollPane scrollPane;
 
 	// bariableak
-	private ArrayList<HartutakoOstatuarenZerbitzuak> zerbitzuArray = new ArrayList<HartutakoOstatuarenZerbitzuak>(), hartutakoZerbitzuArray = new ArrayList<HartutakoOstatuarenZerbitzuak>();
+	private ArrayList<HartutakoOstatuarenZerbitzuak> zerbitzuArray = new ArrayList<HartutakoOstatuarenZerbitzuak>(),
+			hartutakoZerbitzuArray = new ArrayList<HartutakoOstatuarenZerbitzuak>();
 	private String[] array = new String[3];
 	private double prezioTot2;
-	private int i = 0;
+	private int i = 0, pentsioPrez = 0;
+	private boolean gosaria = false;
 
 	/**
 	 * Zerbitzu gehigarri datuak agertzen den panela sortu
@@ -63,10 +65,10 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		btn_next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-		
+
 				MetodoakLeihoAldaketa.bostgarrenLeihoa(hartutakoOstatua, prezioTot2, dataSartze, dataIrtetze, logelaTot,
-						pertsonaKop, cboxPentsioa.getSelectedItem() + "", zerbitzuArray);
-				
+						pertsonaKop, cboxPentsioa.getSelectedItem() + "", zerbitzuArray, gosaria);
+
 				dispose();
 			}
 		});
@@ -139,6 +141,28 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		if (!hartutakoOstatua.getOstatuMota().equals("H"))
 			cboxPentsioa.setVisible(false);
 
+		cboxPentsioa.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int gauak = (int) ((dataIrtetze.getTime() - dataSartze.getTime()) / 86400000);
+
+				if (cboxPentsioa.getSelectedItem().equals("Ez")) {
+					prezioTot2 = prezioTot2 - pentsioPrez;
+					pentsioPrez = 0;
+				} else if (cboxPentsioa.getSelectedItem().equals("erdia")) {
+					prezioTot2 = prezioTot2 - pentsioPrez;
+					pentsioPrez = 5 * gauak;
+					prezioTot2 = prezioTot2 + pentsioPrez;
+				} else if (cboxPentsioa.getSelectedItem().equals("osoa")) {
+					prezioTot2 = prezioTot2 - pentsioPrez;
+					pentsioPrez = 10 * gauak;
+					prezioTot2 = prezioTot2 + pentsioPrez;
+				}
+				txtPrezioa.setText(prezioTot2 + " €");
+
+			}
+		});
+
 		chckbxGosaria.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		chckbxGosaria.setBounds(245, 201, 97, 23);
 		chckbxGosaria.addActionListener(new ActionListener() {
@@ -146,10 +170,13 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int gauak = (int) ((dataIrtetze.getTime() - dataSartze.getTime()) / 86400000);
 				double gosariPrezioa = 3 * gauak;
-				if (chckbxGosaria.isSelected())
+				if (chckbxGosaria.isSelected()) {
 					prezioTot2 = prezioTot2 + gosariPrezioa;
-				else
+					gosaria = true;
+				} else {
+					gosaria = false;
 					prezioTot2 = prezioTot2 - gosariPrezioa;
+				}
 				txtPrezioa.setText(prezioTot2 + " €");
 			}
 		});
@@ -193,7 +220,7 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 						i = 1;
 					else
 						i = 2;
-					System.out.println(zerbitzuArray.get(table.getSelectedRow()).getKodZerbitzua()+"aaa");
+					System.out.println(zerbitzuArray.get(table.getSelectedRow()).getKodZerbitzua() + "aaa");
 					if (i == 1) {
 						table.setValueAt("Bai", table.getSelectedRow(), 2);
 						prezioTot2 = prezioTot2 + zerbitzuArray.get(table.getSelectedRow()).getPrezioa();
