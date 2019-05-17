@@ -133,7 +133,7 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 		getContentPane().add(lblPentsioa);
 
 		cboxPentsioa.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		cboxPentsioa.addItem("Pentsio ez");
+		cboxPentsioa.addItem("Pentsiorik ez");
 		cboxPentsioa.addItem("Erdia");
 		cboxPentsioa.addItem("Osoa");
 		cboxPentsioa.setBounds(285, 162, 111, 20);
@@ -146,7 +146,7 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int gauak = (int) ((dataIrtetze.getTime() - dataSartze.getTime()) / 86400000);
 
-				if (cboxPentsioa.getSelectedItem().equals("Pentsio ez")) {
+				if (cboxPentsioa.getSelectedItem().equals("Pentsiorik ez")) {
 					prezioTot2 = prezioTot2 - pentsioPrez;
 					pentsioPrez = 0;
 				} else if (cboxPentsioa.getSelectedItem().equals("Erdia")) {

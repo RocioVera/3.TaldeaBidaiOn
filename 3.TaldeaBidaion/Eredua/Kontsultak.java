@@ -940,7 +940,6 @@ public class Kontsultak {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		System.out.println(erreserbaKop);
 		try {
 			PreparedStatement st2 = konexioa
 					.prepareStatement("UPDATE `ostatu` SET erreserba_kopuru=? WHERE ostatu_id=?");
