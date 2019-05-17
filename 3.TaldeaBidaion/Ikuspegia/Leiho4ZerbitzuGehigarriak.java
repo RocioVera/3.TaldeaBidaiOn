@@ -220,7 +220,6 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 						i = 1;
 					else
 						i = 2;
-					System.out.println(zerbitzuArray.get(table.getSelectedRow()).getKodZerbitzua() + "aaa");
 					if (i == 1) {
 						table.setValueAt("Bai", table.getSelectedRow(), 2);
 						prezioTot2 = prezioTot2 + zerbitzuArray.get(table.getSelectedRow()).getPrezioa();
@@ -232,7 +231,25 @@ public class Leiho4ZerbitzuGehigarriak extends JFrame {
 						zerbitzuArray.get(table.getSelectedRow()).setHartuta("Ez");
 					}
 					txtPrezioa.setText(prezioTot2 + " €");
-					System.out.println(i);
+				} else {
+						i = 1;
+						if (table.getValueAt(table.getSelectedRow(), 2).equals("Ez"))
+							i = 1;
+						else
+							i = 2;
+						if (i == 1) {
+							table.setValueAt("Bai", table.getSelectedRow(), 2);
+							prezioTot2 = prezioTot2 + zerbitzuArray.get(table.getSelectedRow()).getPrezioa();
+							zerbitzuArray.get(table.getSelectedRow()).setHartuta("Bai");
+						}
+						if (i == 2) {
+							table.setValueAt("Ez", table.getSelectedRow(), 2);
+							prezioTot2 = prezioTot2 - zerbitzuArray.get(table.getSelectedRow()).getPrezioa();
+							zerbitzuArray.get(table.getSelectedRow()).setHartuta("Ez");
+						}
+						txtPrezioa.setText(prezioTot2 + " €");
+					
+
 				}
 			}
 		});
