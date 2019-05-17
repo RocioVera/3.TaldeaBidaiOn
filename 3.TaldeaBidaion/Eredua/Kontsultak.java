@@ -485,6 +485,7 @@ public class Kontsultak {
 		return kant;
 	}
 
+	
 	// Leiho4ZerbitzuGehigarriak
 	/**
 	 * Ostatu batean dauden zerbitzu gehigarriak bilatzen duen kontsulta
